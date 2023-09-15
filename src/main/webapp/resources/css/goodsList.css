@@ -5,19 +5,34 @@
 .bx-wrapper {
     height: 90%;
     box-shadow: none !important;
+    margin: 0 !important;
 }
 .bxslider {
     height: 100%;
+}
+.bx-pager.bx-default-pager {
+	position: static !important;
+	padding: 0 !important;
+}
+.bx-default-pager {
+	margin-top: 30px;
+    margin-bottom: 30px;
+    pading: 0 !important;
 }
 .container {
     height: 100%;
     width: 70%;
     margin: 0 auto;
+	margin-top: 60px;
+}
+.main-title {
+	background-color: white;
 }
 .main-container {
     height: 800px;
     display: flex;
-    align-items: center;
+/*     align-items: center; */
+    background-color: white;
 }
 .goods-name h2, h3, .goods-price h2, h3 {
     margin: 0;
@@ -36,7 +51,6 @@
     width: 23%;
     display: flex;
     justify-content: center;
-    /* margin: 10px; */
     transition: transform 0.5s ease;
 }
 .goods-item {

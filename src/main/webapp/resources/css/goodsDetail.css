@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.goods-d-container {
+    height: 100%;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 60px;
+    background-color: white;
+}
+.goods-d-main {
+	display: flex;
+}
+.goods-d-main-left {
+	width: 50%;
+	height: 100%;
+}
+.goods-d-main-right {
+	width: 50%;
+	height: 100%;
+}

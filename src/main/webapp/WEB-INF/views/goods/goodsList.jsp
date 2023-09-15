@@ -23,9 +23,10 @@
 </script>
 </head>
 <body>
+	<header>
+		<jsp:include page="../include/navHeader.jsp"></jsp:include>
+	</header>
 	<div class="container">
-		<header></header>
-		<hr />
 		<main>
 			<div class="main-title">
 				<h1>굿즈 페이지</h1>

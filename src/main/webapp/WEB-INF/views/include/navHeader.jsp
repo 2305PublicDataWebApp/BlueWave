@@ -83,7 +83,7 @@
 			height: 100%;
 		}
 		body {
-			background-image: url(./resources/images/background-img.jpg);
+			background-image: url(../../resources/images/background-img.jpg);
 			width: 100%;
 			height: 100%;
 		}
@@ -94,7 +94,7 @@
 				<!-- 헤더 왼쪽 -->
 				<div class="navbar-left">
 					<div class="nav-logo-img space">
-						<img src="./resources/images/logo-img.png" alt="로고이미지" />
+						<img src="../../resources/images/logo-img.png" alt="로고이미지" />
 					</div>
 					<div class="go-to-challenge space">
 						<a href="#">챌린지</a>
