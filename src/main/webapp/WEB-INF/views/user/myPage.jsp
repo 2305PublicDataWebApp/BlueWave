@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -11,6 +12,35 @@
         <link rel="stylesheet" href="../resources/css/font.css">
         <link rel="stylesheet" href="../resources/css/reset.css">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	    <script>
+// 		    $(document).ready(function() {
+// 				$(".bxslider").bxSlider({
+// 					minSlides: 1,
+// 				    maxSlides: 4,
+// 				    infiniteLoop: false
+// 				});
+// 			});
+	    </script>
+	    <style type="text/css">
+/* 	    	.bx-wrapper { */
+/* 			    box-shadow: none; */
+/* 			    border: none; */
+/*     			background: transparent; */
+/* 			} */
+			
+/* 			.bxslider > div { */
+/* 				display: flex; */
+/*     			justify-content: space-between; */
+/*     			flex-wrap: wrap; */
+/* 			} */
+			
+/* 			.bx-viewport { */
+/* 				height: 530px !important; */
+/* 			} */
+	    </style>
         <title>마이페이지</title>
     </head>
     <body>
@@ -35,9 +65,13 @@
                     </select>
 					
                     <!-- 챌린지 리스트 -->
-                    <div>
+<!--                     <div class="bxslider"> -->
+					<div>
                         <div>
-                        <c:forEach var="chal" items="${ cList }">
+                        <c:forEach var="chal" items="${ cList }" varStatus="status">
+<%--                         	<c:if test="${status.index % 4 == 0}"> --%>
+<!-- 					            <div class="chal-group"> -->
+<%-- 					        </c:if> --%>
                         	<div class="chal-list">
                                 <!-- 챌린지 기간 -->
                                 <c:if test="${ chal.chalEndDate ne null }">
@@ -82,9 +116,56 @@
                                     </div>
                                     <div>
                                         <!-- 진행률 -->
-                                        <div>
-                                            60%
-                                        </div>
+									    <c:set var="startDate" value="${ chal.chalStartDate }" />
+									    <c:set var="endDate" value="${ chal.chalEndDate }" />
+									    <c:set var="now" value="<%= new java.util.Date() %>" />
+									    
+									    <!-- 종료일이 존재하는 챌린지 -->
+										<c:if test="${ endDate ne null }">
+											<c:if test="${ fn:contains(chal.chalFinish, 'N') }">
+											    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
+											    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
+											
+											    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
+											    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
+											
+												<!-- 오늘 - 시작일 -->												
+												<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
+												<!-- 종료일 - 시작일 --> 
+												<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
+												<!-- 밀리초를 일 단위로 변환 -->
+												<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
+												<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
+												
+										        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
+										        
+												<c:choose>
+												    <c:when test="${progress <= 0}">
+												    	<div class="chal-progress-before">
+													        <em>대기 중..</em>												    	
+												    	</div>
+												    </c:when>
+												    <c:when test="${progress >= 100 }">
+												    	<div class="chal-progress-finish">
+													        <b><em>완료</em></b>
+												    	</div>
+												    </c:when>
+												    <c:otherwise>
+													    <div class="chal-progress-ing">
+													        <fmt:formatNumber value="${progress}" pattern="#.#" />%
+													    </div>
+												    </c:otherwise>
+												</c:choose>
+											</c:if>
+										</c:if>
+										
+										<!-- 무기한 챌린지 -->
+										<c:if test="${ endDate eq null }">
+											<div class="chal-progress-none">
+												<em>기한없음</em>
+											</div>
+										</c:if>
+
                                         <!-- 나의 인증 횟수 -->
                                         <div>
                                             17회
@@ -92,98 +173,10 @@
                                     </div>
                                 </div>
                             </div>
+<%-- 							<c:if test="${status.index % 4 == 3 or status.count == fn:length(cList)}"> --%>
+<!-- 					            </div> -->
+<%-- 					        </c:if>  	 --%>
                         </c:forEach>
-                        
-                        
-<!--                             <div class="chal-list"> -->
-<!--                                 챌린지 기간 -->
-<!--                                 <span class="chal-date">2023.09.15 ~ 2023.10.26</span> -->
-<!--                                 <div class="chal-main-info"> -->
-<!--                                     대표 이미지 -->
-<!--                                     <img src="../resources/images/background-img.jpg" alt="챌린지 대표 이미지" class="chal-main-img"> -->
-<!--                                     <div> -->
-<!--                                         챌린지 명 -->
-<!--                                         <div class="chal-title">쓰레기 줍기 챌린지</div> -->
-<!--                                         챌린지 방법 설명 -->
-<!--                                         <div>코드에서 주어진 스타일은 텍스트를 최대 높이 50px까지 표시합니다.</div> -->
-<!--                                     </div> -->
-<!--                                     챌린지 세부 정보 이동 버튼 -->
-<!--                                     <button class="chal-details-btn"> -->
-<!--                                         <span class="material-symbols-outlined">arrow_forward_ios</span> -->
-<!--                                     </button> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-sub-info"> -->
-<!--                                     <div> -->
-<!--                                         참여 인원 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/person.png" alt="참여 인원 수" width="20"> -->
-<!--                                             <span>&nbsp;42</span> -->
-<!--                                         </div> -->
-<!--                                         총 좋아요 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/heart.png" alt="총 좋아요 수" width="20"> -->
-<!--                                             <span>&nbsp;125</span> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                     <div> -->
-<!--                                         진행률 -->
-<!--                                         <div> -->
-<!--                                             60% -->
-<!--                                         </div> -->
-<!--                                         나의 인증 횟수 -->
-<!--                                         <div> -->
-<!--                                             17회 -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
-<!--                             <div class="chal-list"> -->
-<!--                                 챌린지 기간 -->
-<!--                                 <span class="chal-date">2023.09.15 ~ 2023.10.26</span> -->
-<!--                                 <div class="chal-main-info"> -->
-<!--                                     대표 이미지 -->
-<!--                                     <img src="" alt=""> -->
-<!--                                     <div id="img"></div> -->
-<!--                                     <div> -->
-<!--                                         챌린지 명 -->
-<!--                                         <div class="chal-title">대중교통 이용하기 챌린지</div> -->
-<!--                                         챌린지 방법 설명 -->
-<!--                                         <div>코드에서 주어진 스타일은 텍스트를 최대 높이 50px까지 표시합니다.</div> -->
-<!--                                     </div> -->
-<!--                                     챌린지 세부 정보 이동 버튼 -->
-<!--                                     <img src="" alt=""> -->
-<!--                                     <button class="chal-details-btn"> -->
-<!--                                         <span class="material-symbols-outlined"> -->
-<!--                                             arrow_forward_ios -->
-<!--                                             </span> -->
-<!--                                     </button> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-sub-info"> -->
-<!--                                     <div> -->
-<!--                                         참여 인원 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/person.png" alt="" width="20"> -->
-<!--                                             <span>&nbsp;42</span> -->
-<!--                                         </div> -->
-<!--                                         총 좋아요 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/heart.png" alt="" width="20"> -->
-<!--                                             <span>&nbsp;125</span> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                     <div> -->
-<!--                                         진행률 -->
-<!--                                         <div> -->
-<!--                                             60% -->
-<!--                                         </div> -->
-<!--                                         나의 인증 횟수 -->
-<!--                                         <div> -->
-<!--                                             17회 -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
                         </div>
                     </div>
                 </section>
@@ -265,9 +258,56 @@
                                     </div>
                                     <div>
                                         <!-- 진행률 -->
-                                        <div>
-                                            60%
-                                        </div>
+									    <c:set var="startDate" value="${ chal.chalStartDate }" />
+									    <c:set var="endDate" value="${ chal.chalEndDate }" />
+									    <c:set var="now" value="<%= new java.util.Date() %>" />
+									    
+									    <!-- 종료일이 존재하는 챌린지 -->
+										<c:if test="${ endDate ne null }">
+											<c:if test="${ fn:contains(chal.chalFinish, 'N') }">
+											    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
+											    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
+											
+											    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
+											    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
+											
+												<!-- 오늘 - 시작일 -->												
+												<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
+												<!-- 종료일 - 시작일 --> 
+												<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
+												<!-- 밀리초를 일 단위로 변환 -->
+												<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
+												<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
+												
+										        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
+										        
+												<c:choose>
+												    <c:when test="${progress <= 0}">
+												    	<div class="chal-progress-before">
+													        <em>대기 중..</em>												    	
+												    	</div>
+												    </c:when>
+												    <c:when test="${progress >= 100 }">
+												    	<div class="chal-progress-finish">
+													        <b><em>완료</em></b>
+												    	</div>
+												    </c:when>
+												    <c:otherwise>
+													    <div class="chal-progress-ing">
+													        <fmt:formatNumber value="${progress}" pattern="#.#" />%
+													    </div>
+												    </c:otherwise>
+												</c:choose>
+											</c:if>
+										</c:if>
+										
+										<!-- 무기한 챌린지 -->
+										<c:if test="${ endDate eq null }">
+											<div class="chal-progress-none">
+												<em>기한없음</em>
+											</div>
+										</c:if>
+										
                                         <!-- 나의 인증 횟수 -->
                                         <div>
                                             17회
@@ -276,101 +316,6 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        
-                        
-<!--                             <div class="chal-list"> -->
-<!--                                 <div> -->
-<!--                                     챌린지 기간 -->
-<!--                                     <span class="chal-date">2023.09.15 ~ 2023.10.26</span> -->
-<!--                                     <div> -->
-<!--                                         <a href="/challenge/update.do" class="edit-personal-chal">수정</a>&nbsp; -->
-<!--                                         <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal();">삭제</a> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-main-info"> -->
-<!--                                     대표 이미지 -->
-<!--                                     <img src="../resources/images/background-img.jpg" alt="챌린지 대표 이미지" class="chal-main-img"> -->
-<!--                                     <div> -->
-<!--                                         챌린지 명 -->
-<!--                                         <div class="chal-title"> -->
-<!--                                             <span class="material-symbols-outlined">lock</span> -->
-<!--                                             분리수거 챌린지 -->
-<!--                                         </div> -->
-<!--                                         챌린지 방법 설명 -->
-<!--                                         <div>코드에서 주어진 스타일은 텍스트를 최대 높이 50px까지 표시합니다.</div> -->
-<!--                                     </div> -->
-<!--                                     챌린지 세부 정보 이동 버튼 -->
-<!--                                     <button class="chal-details-btn"> -->
-<!--                                         <span class="material-symbols-outlined">arrow_forward_ios</span> -->
-<!--                                     </button> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-sub-info"> -->
-<!--                                     <div> -->
-<!--                                         총 좋아요 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/heart.png" alt="총 좋아요 수" width="20"> -->
-<!--                                             <span>&nbsp;125</span> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                     <div> -->
-<!--                                         진행률 -->
-<!--                                         <div> -->
-<!--                                             60% -->
-<!--                                         </div> -->
-<!--                                         나의 인증 횟수 -->
-<!--                                         <div> -->
-<!--                                             17회 -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-
-<!--                             <div class="chal-list"> -->
-<!--                                 <div> -->
-<!--                                     챌린지 기간 -->
-<!--                                     <span class="chal-date">2023.09.15 ~ 2023.10.26</span> -->
-<!--                                     <div> -->
-<!--                                         <a href="/challenge/update.do" class="edit-personal-chal">수정</a>&nbsp; -->
-<!--                                         <a href="" class="edit-personal-chal">삭제</a> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-main-info"> -->
-<!--                                     대표 이미지 -->
-<!--                                     <img src="" alt=""> -->
-<!--                                     <div id="img"></div> -->
-<!--                                     <div> -->
-<!--                                         챌린지 명 -->
-<!--                                         <div class="chal-title">텀블러 사용하기 챌린지</div> -->
-<!--                                         챌린지 방법 설명 -->
-<!--                                         <div>코드에서 주어진 스타일은 텍스트를 최대 높이 50px까지 표시합니다.</div> -->
-<!--                                     </div> -->
-<!--                                     챌린지 세부 정보 이동 버튼 -->
-<!--                                     <button class="chal-details-btn"> -->
-<!--                                         <span class="material-symbols-outlined"> -->
-<!--                                             arrow_forward_ios -->
-<!--                                             </span> -->
-<!--                                     </button> -->
-<!--                                 </div> -->
-<!--                                 <div class="chal-sub-info"> -->
-<!--                                     <div> -->
-<!--                                         총 좋아요 수 -->
-<!--                                         <div> -->
-<!--                                             <img src="../resources/images/challenge/heart.png" alt="" width="20"> -->
-<!--                                             <span>&nbsp;125</span> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                     <div> -->
-<!--                                         진행률 -->
-<!--                                         <div> -->
-<!--                                             60% -->
-<!--                                         </div> -->
-<!--                                         나의 인증 횟수 -->
-<!--                                         <div> -->
-<!--                                             17회 -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
                         </div>
                     </div>
                 </section>
