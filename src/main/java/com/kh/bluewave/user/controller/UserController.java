@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bluewave.challenge.domain.Challenge;
@@ -36,4 +37,41 @@ public class UserController {
 		
 		return mv;
 	}
+
+	
+	// 마이페이지 블루웨이브 챌린지 select option 전환
+	@RequestMapping(value="/user/uWaveChalInfoCheck.do", method=RequestMethod.GET)
+	public ModelAndView uWaveChalInfoCheck(@RequestParam("wavefinishOption") String wavefinishOption
+//									  , @RequestParam(value="userId", defaultValue = "testuser01") char userId
+									  , ModelAndView mv) {
+		try {			
+			List<Challenge> cList = cService.selectOptionsByFinish(wavefinishOption);
+			mv.addObject("cList", cList);
+			mv.addObject("wavefinishOption", wavefinishOption);
+			mv.setViewName("user/myPage");
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorMessage");
+		}
+		return mv;
+	}
+//	
+//	// 마이페이지 개인 챌린지 select option 전환
+//	@RequestMapping(value="/user/uPerChalInfoCheck.do", method=RequestMethod.GET)
+//	public ModelAndView uPerChalInfoCheck(@RequestParam("perfinishOption") String perfinishOption
+////									   , @RequestParam(value="userId", defaultValue = "testuser01") char userId
+//									   , ModelAndView mv) {
+//		try {			
+//			List<Challenge> cList = cService.selectOptionsByFinish(perfinishOption);
+//			mv.addObject("cList", cList);
+//			mv.addObject("perfinishOption", perfinishOption);
+//			mv.setViewName("user/myPage");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			mv.addObject("msg", e.getMessage());
+//			mv.setViewName("common/errorMessage");
+//		}
+//		return mv;
+//	}
 }

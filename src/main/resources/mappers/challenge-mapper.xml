@@ -45,4 +45,18 @@
 	<select id="selectAllById" resultMap="chalResultMap">
 		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId }
 	</select>
+	
+	<select id="selectOptionsByFinish" resultMap="chalResultMap">
+		SELECT * FROM CHAL_TBL
+		<if test="finishOption == 'all'">
+			WHERE CHAL_FINISH IN('Y', 'N') 
+		</if>
+		<if test="finishOption eq 'Y'.toString()">
+			WHERE CHAL_FINISH LIKE 'Y'
+		</if>
+		<if test="finishOption eq 'N'.toString()">
+			WHERE CHAL_FINISH LIKE 'N'
+		</if>
+		ORDER BY CHAL_CREATE_DATE DESC
+	</select>
 </mapper>

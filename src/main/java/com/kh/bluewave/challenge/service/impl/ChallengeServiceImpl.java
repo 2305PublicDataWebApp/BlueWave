@@ -54,4 +54,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectOptionsByFinish(String finishOption) {
+		List<Challenge> cList = cStore.selectOptionsByFinish(session, finishOption);
+		return cList;
+	}
+
 }

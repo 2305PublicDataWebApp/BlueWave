@@ -47,4 +47,11 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectAllById(String userId);
+
+	/**
+	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Service
+	 * @param finishOption
+	 * @return
+	 */
+	List<Challenge> selectOptionsByFinish(String finishOption);
 }

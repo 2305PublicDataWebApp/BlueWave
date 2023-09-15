@@ -47,4 +47,10 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectOptionsByFinish", finishOption);
+		return cList;
+	}
+
 }

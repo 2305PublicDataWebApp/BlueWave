@@ -56,4 +56,12 @@ public interface ChallengeStore {
 	 */
 	List<Challenge> selectAllById(SqlSession session, String userId);
 
+	/**
+	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Store
+	 * @param session
+	 * @param finishOption
+	 * @return
+	 */
+	List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption);
+
 }
