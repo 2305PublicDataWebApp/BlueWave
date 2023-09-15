@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.bx-viewport {
+    height: 100%;
+}
+.bx-wrapper {
+    height: 90%;
+    box-shadow: none !important;
+}
+.bxslider {
+    height: 100%;
+}
+.container {
+    height: 100%;
+    width: 70%;
+    margin: 0 auto;
+}
+.main-container {
+    height: 800px;
+    display: flex;
+    align-items: center;
+}
+.goods-name h2, h3, .goods-price h2, h3 {
+    margin: 0;
+}
+.goods-list-container {
+    margin: 0 auto;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+.goods-item-container {
+    height: 50%;
+    width: 23%;
+    display: flex;
+    justify-content: center;
+    /* margin: 10px; */
+    transition: transform 0.5s ease;
+}
+.goods-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.goods-thumbnail {
+    text-align: center;
+}
+.goods-price {
+    margin-top: 20px;
+}
+.goods-name {
+    margin-top: 10px;
+}
+.goods-buy-btn {
+    margin-top: 20px;
+    text-align: center;
+}
