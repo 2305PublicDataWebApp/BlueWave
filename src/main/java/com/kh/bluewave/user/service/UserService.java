@@ -24,5 +24,14 @@ public interface UserService {
 	 * @return
 	 */
 	int updateMember(User user);
+	
+	/**
+	 * 회원가입 Service
+	 * @param user
+	 * @return
+	 */
+	int insertUser(User user);
+
+	User selectOneById(User user);
 
 }

@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../resources/css/findId2.css">
+    <link rel="stylesheet" href="../resources/css/findId2.css">
     <title>findId2</title>
 </head>
 <body>
     <div class="container">
-        <img src="../../resources/images/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/로고.png" id="logo-img" alt="로고이미지">
         <div id="order">
             <span id="order-1">본인확인</span> > 
             <span id="order-2">아이디 조회</span>

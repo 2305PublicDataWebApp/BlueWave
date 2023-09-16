@@ -254,6 +254,5 @@
         highlightDate(2);  
         highlightDate(3);  
     </script>
-    </script>
 </body>
 </html>

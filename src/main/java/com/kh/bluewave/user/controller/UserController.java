@@ -1,6 +1,8 @@
 package com.kh.bluewave.user.controller;
 
 import java.io.File;
+
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bluewave.user.domain.User;
-import com.kh.bluewave.user.service.MailSendService;
 import com.kh.bluewave.user.service.UserService;
 
 @Controller
@@ -30,27 +31,43 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
-	@Autowired
-	private MailSendService mailService;
+//	@Autowired
+//	private MailSendService mailService;
 
-	// 마이페이지 페이지
-//	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
-//	public ModelAndView showMyPage(ModelAndView mv) {
-//
-//		String userId = "testuser01";
-//		try {			
-//			List<Challenge> cList = cService.selectAllById(userId);
-//			if(!cList.isEmpty()) {
-//				mv.addObject("cList", cList);
-//				mv.setViewName("user/myPage");
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//
-//		return mv;
-//	}
 	
+//	//이메일 인증
+//	@GetMapping("/user/mailCheck.do")
+//	@ResponseBody
+//	public String mailCheck(String email) {
+//		System.setProperty("https.protocols", "TLSv1.2,TLSv1.3");
+//		System.out.println("이메일 인증 요청이 들어옴!");
+//		System.out.println("이메일 인증 이메일 : " + email);
+//		return mailService.joinEmail(email);
+//	}
+	@RequestMapping(value="/user/findId1.do", method=RequestMethod.GET)
+	public ModelAndView showFindId1Form(ModelAndView mv) {
+		mv.setViewName("user/findId1");
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/findId2.do", method=RequestMethod.GET)
+	public ModelAndView showFindId2Form(ModelAndView mv) {
+		mv.setViewName("user/findId2");
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/findPw1.do", method=RequestMethod.GET)
+	public ModelAndView showFindPw1Form(ModelAndView mv) {
+		mv.setViewName("user/findPw1");
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/findPw2.do", method=RequestMethod.GET)
+	public ModelAndView showFindPw2Form(ModelAndView mv) {
+		mv.setViewName("user/findPw2");
+		return mv;
+	}
+
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
 	public ModelAndView showLoginForm(ModelAndView mv) {
 		mv.setViewName("user/login");
@@ -69,35 +86,44 @@ public class UserController {
 		return mv;
 	}
 	
-	//이메일 인증
-	@GetMapping("/mailCheck")
-	@ResponseBody
-	public String mailCheck(String email) {
-		System.out.println("이메일 인증 요청이 들어옴!");
-		System.out.println("이메일 인증 이메일 : " + email);
-		return mailService.joinEmail(email);
-	}
-
-	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
-	public ModelAndView userLoginCheck(
-			@ModelAttribute User user
-			, HttpSession session
-			, ModelAndView mv) {
+	@RequestMapping(value="/user/register.do", method=RequestMethod.POST)
+	public ModelAndView registerUser(@ModelAttribute User user, ModelAndView mv
+			) {
 		try {
-			User uOne = uService.checkUserLogin(user);
-			if(uOne != null) {
-				session.setAttribute("userId", uOne.getUserId());
-				mv.setViewName("redirect:/index.jsp"); 
+			int result = uService.insertUser(user);
+			if(result > 0) {
+				mv.setViewName("user/login");
 			}else {
-				mv.addObject("msg", "로그인이 완료되지 않았습니다.");
-				mv.addObject("error", "로그인 실패");
-				mv.addObject("url", "/user/login.kh");
+				mv.addObject("msg", "회원가입이 완료되지 않았습니다.");
+				mv.addObject("error", "회원가입 실패");
+				mv.addObject("url", "/user/register.do");
 				mv.setViewName("common/errorPage");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/user/login.kh");
+			mv.addObject("url", "/user/login.do");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
+	public ModelAndView userLoginCheck(ModelAndView mv, @ModelAttribute User user, HttpSession session) {
+		try {
+			User uOne = uService.checkUserLogin(user);
+			if(uOne != null) {
+				session.setAttribute("userId", uOne.getUserId());
+				mv.setViewName("redirect:/index.jsp");
+			}else {
+				mv.addObject("msg", "로그인이 완료되지 않았습니다.");
+				mv.addObject("error", "로그인 실패");
+				mv.addObject("url", "/index.jsp");
+				mv.setViewName("common/errorPage");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", "관리자에게 문의해주세요.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "/index.jsp");
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
@@ -115,6 +141,30 @@ public class UserController {
 		}
 		return mv;
 		
+	}
+	
+	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
+	public ModelAndView showMyPage(
+			@ModelAttribute User user,
+			ModelAndView mv) {
+		try {
+			User uOne = uService.selectOneById(user);
+			if(uOne != null) {
+				mv.addObject("user", uOne);
+				mv.setViewName("user/myPage");
+			}else {
+				mv.addObject("msg", "데이터 조회에 실패했습니다.");
+				mv.addObject("error", "데이터 조회 실패");
+				mv.addObject("url", "index.jsp");
+				mv.setViewName("common/errorPage");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", "관리자에게 문의해주세요.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "index.jsp");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)

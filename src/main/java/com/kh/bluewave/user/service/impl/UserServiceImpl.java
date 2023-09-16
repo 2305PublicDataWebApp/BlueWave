@@ -34,6 +34,18 @@ public class UserServiceImpl implements UserService{
 		int result = uStore.updateUser(session, user);
 		return result;
 	}
+
+	@Override
+	public int insertUser(User user) {
+		int result = uStore.insertUser(session, user);
+		return result;
+	}
+
+	@Override
+	public User selectOneById(User user) {
+		User uOne = uStore.selectOneById(session, user);
+		return uOne;
+	}
 	
 	
 

@@ -20,6 +20,10 @@
 		<result property="userDate"    			column="USER_DATE"/>
 	</resultMap>
 	
+	<insert id="insertUser">
+		INSERT INTO USER_TBL VALUES( #{userId }, #{userPw }, #{userNickName }, #{userName }, #{userPhone }, #{userAddr }, #{userEmail }, #{userProfileName }, #{userProfileRename }, #{userProfilePath }, #{userProfileLength }, #{userAd }, DEFAULT)
+	</insert>
+	
 	<delete id="deleteUser">
 		DELETE FROM USER_TBL WHERE USER_ID = #{userId }
 	</delete>
@@ -32,5 +36,8 @@
 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId } AND USER_PW = #{userPw }
 	</select>
 	
+	<select id="selectOneById" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_ID = #{userId }
+	</select>
 
 </mapper>

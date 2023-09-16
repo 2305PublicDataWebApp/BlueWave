@@ -30,4 +30,20 @@ public interface UserStore {
 	 */
 	int updateUser(SqlSession session, User user);
 
+	/**
+	 * 회원가입 Store
+	 * @param session
+	 * @param user
+	 * @return
+	 */
+	int insertUser(SqlSession session, User user);
+
+	/**
+	 * 아이디로 정보조회 Store
+	 * @param session
+	 * @param user
+	 * @return
+	 */
+	User selectOneById(SqlSession session, User user);
+
 }
