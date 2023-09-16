@@ -9,7 +9,7 @@
 			    height: 60px;
 			    display: flex;
 			    justify-content: space-around;
-			    background-color: #3881c5;
+			    background-color: #45A1D6;
 			    align-items: center;
 			    z-index: 1000;
 			}

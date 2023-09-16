@@ -25,4 +25,16 @@ public class ChallengeController {
 		mv.setViewName("challenge/challengeBoard");
 		return mv;
 	}
+	
+	@RequestMapping(value="/challenge/search.do", method=RequestMethod.GET)
+	public ModelAndView showChallengelSearch(ModelAndView mv) {
+		mv.setViewName("challenge/challengeSearch");
+		return mv;
+	}
+	
+	@RequestMapping(value="/challenge/write.do", method=RequestMethod.GET)
+	public ModelAndView showChallengeWrite(ModelAndView mv) {
+		mv.setViewName("challenge/challengeWrite");
+		return mv;
+	}
 }
