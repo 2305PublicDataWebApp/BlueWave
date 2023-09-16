@@ -1,8 +1,8 @@
 main {
     --background-color: rgb(176, 211, 241);
-    background-image: url('../../images/background-img.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
+    --background-image: url('../../images/background-img.jpg');
+    --background-size: cover;
+    --background-repeat: no-repeat; 
 }
 
     #main-container {

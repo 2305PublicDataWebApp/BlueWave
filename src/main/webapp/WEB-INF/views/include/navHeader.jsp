@@ -21,8 +21,9 @@
 			height: 60px;
 			display: flex;
 			justify-content: space-around;
-			background-color: #3881C5;
+			background-color: #45A1D6;
 			align-items: center;
+			z-index: 1000;
 		}
 		
 		a {
@@ -85,8 +86,10 @@
 		}
 		body {
 			background-image: url(../resources/images/background-img.jpg);
-			width: 100%;
-			height: 100%;
+			background-size: cover;
+			background-attachment: fixed; /* 이미지를 고정 배경으로 설정합니다. */
+		    background-repeat: no-repeat; /* 배경 이미지 반복을 비활성화합니다. */
+		    background-position: center center; /* 배경 이미지를 중앙에 정렬합니다. */
 		}
 	</style>
 	<body>
