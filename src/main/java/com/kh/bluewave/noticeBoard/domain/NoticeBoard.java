@@ -10,7 +10,7 @@ public class NoticeBoard {
 	private String noticeFileName;
 	private String noticeFileRename;
 	private String noticeFilePath;
-	private int noticeFileLength;
+	private long noticeFileLength;
 	private int noticeViewCount;
 	private Timestamp noticeCreateDate;
 	private Timestamp noticeUpdateDate;
@@ -58,10 +58,10 @@ public class NoticeBoard {
 	public void setNoticeFilePath(String noticeFilePath) {
 		this.noticeFilePath = noticeFilePath;
 	}
-	public int getNoticeFileLength() {
+	public long getNoticeFileLength() {
 		return noticeFileLength;
 	}
-	public void setNoticeFileLength(int noticeFileLength) {
+	public void setNoticeFileLength(long noticeFileLength) {
 		this.noticeFileLength = noticeFileLength;
 	}
 	public int getNoticeViewCount() {

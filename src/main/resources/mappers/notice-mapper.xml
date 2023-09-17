@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="NoticeMapper">
+  		<resultMap type="notice" id="noticeResultMap">
+		<id property="noticeNo" 				column="NOTICE_NO" />
+		<result property="noticeTitle" 			column="NOTICE_TITLE" />
+		<result property="noticeContent" 		column="NOTICE_CONTENT" />
+		<result property="noticeWriter" 		column="NOTICE_WRITER" />
+		<result property="noticeFileName" 		column="NOTICE_FILE_NAME" />
+		<result property="noticeFileRename" 	column="NOTICE_FILE_RENAME" />
+		<result property="noticeFilePath" 		column="NOTICE_FILE_PATH" />
+		<result property="noticeFileLength" 	column="NOTICE_FILE_LENGTH" />
+		<result property="noticeViewCount" 		column="NOTICE_VIEW_COUNT" />
+		<result property="noticeCreateDate" 	column="NOTICE_CREATE_DATE" />
+		<result property="noticeUpdateDate" 	column="NOTICE_UPDATE_DATE" />
+	</resultMap>
+	
+  	<insert id="insertNoticeBoard">
+  		INSERT INTO NOTICE_BOARD_TBL VALUES(SEQ_NOTICE_NO.NEXTVAL , #{noticeTitle }, #{noticeContent },'admin'
+  									, null, null, null, 0, 0, DEFAULT, DEFAULT)
+  	</insert>
+  	
+  	<select id="selectNoticeBoard" resultMap="noticeResultMap">
+  		SELECT * FROM NOTICE_BOARD_TBL ORDER BY NOTICE_NO DESC
+  	</select>
+  </mapper>

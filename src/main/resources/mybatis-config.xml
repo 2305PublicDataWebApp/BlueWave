@@ -6,12 +6,10 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-<!-- 	<typeAliases>
-		<typeAlias type="com.kh.bluewave.challenge.domain.Challenge" alias="Challenge"/>
-		<typeAlias type="com.kh.bluewave.user.domain.User" alias="User"/>
+	<typeAliases>
+		<typeAlias type="com.kh.bluewave.noticeBoard.domain.NoticeBoard" alias="notice"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mappers/challenge-mapper.xml"/>
-		<mapper resource="mappers/user-mapper.xml"/>
-	</mappers> -->
+		<mapper resource="mappers/notice-mapper.xml"/>
+	</mappers>
 </configuration>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -65,12 +67,18 @@
 	                <th>작성일</th>
 	                <th>조회수</th>
 	            </tr>
+	            <c:forEach var="notice" items="${nList }" varStatus="i" />
 	            <tr>
-	                <td>1</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
+	                <td>${i.count }</td>
+	                <c:url var="detailUrl" value="/notice/noticeDetail.do">
+	                	<c:param name="noticeNo" value="${notice.noticeNo }" />
+	                </c:url>
+	                <td>${notice.noticeTitle }</td>
+	                <td>${notice.noticeWriter }</td>
+	                <td>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }" />
+					</td>
+	                <td>${notice.noticeViewCount }</td>
 	            </tr>
 	            <tr>
 	                <td>2</td>

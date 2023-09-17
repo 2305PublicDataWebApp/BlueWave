@@ -49,7 +49,7 @@
 			height: 30px;
 			text-align: center;
 		}
-		#writeBtn {
+		.writeBtn {
 			 background-color: #3881C5;
 	         color: #F3F3F3;
 	         width: 100px;
@@ -67,7 +67,7 @@
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="notice-board">
-			<form class="notice-form" action="noticeWrite.do" method="POST" enctype="multipart/form-data">
+			<form class="notice-form" action="insertNotice.do" method="POST" enctype="multipart/form-data">
 				<div class="notice-board-table">
 					<table class="notice-write-table">
 						<thead>
@@ -79,16 +79,16 @@
 						<tbody>
 							<tr>
 								<td colspan="2">
-									<input type="hidden" id="notice-content" name="noticeContent">
-									<div class="editor" id="editor">
-									</div>
+<!-- 								<input type="hidden" id="notice-content" name="noticeContent"> -->
+									<textarea class="editor" id="editor" name="noticeContent">
+									</textarea>
 								</td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="2">
-									<button id="writeBtn" >공지 올리기</button>
+									<button class="writeBtn" >공지 올리기</button>
 								</td>
 							</tr>
 						</tfoot>
