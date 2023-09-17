@@ -20,6 +20,8 @@
 		<result property="chalCreateDate"    column="CHAL_CREATE_DATE"/>
 		<result property="chalUpdateDate"    column="CHAL_UPDATE_DATE"/>
 		<result property="chalUserId"    	 column="CHAL_USER_ID"/>
+		<result property="likeCount" 		 column="LIKE_CNT" />
+		<result property="pplCount" 		 column="PEOPLE_CNT" />
 	</resultMap>
 	
 	<insert id="insertChal">
@@ -28,6 +30,12 @@
 	
 	<update id="updateChal">
 		UPDATE CHAL_TBL SET CHAL_CONTENT = #{ chalContent }, CHAL_PUBLIC = #{ chalPublic }, CHAL_FILE_NAME = #{ chalFileName }, CHAL_FILE_RENAME = #{ chalFileRename }, CHAL_FILE_PATH = #{ chalFilePath }, CHAL_FILE_LENGTH = #{ chalFileLength }, CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_NO = #{ chalNo } 
+	</update>
+	
+	<update id="updateFinish">
+		<![CDATA[
+			UPDATE CHAL_TBL SET CHAL_FINISH = 'Y', CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_END_DATE < SYSDATE		
+		]]>
 	</update>
 	
 	<delete id="deleteChal">
@@ -44,6 +52,48 @@
 	
 	<select id="selectAllById" resultMap="chalResultMap">
 		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId }
+	</select>
+	
+	<select id="selectAllUserWave" resultMap="chalResultMap">
+		SELECT DISTINCT A.* 
+		  FROM CHAL_TBL A 
+		  JOIN CHAL_BOARD_TBL B 
+		    ON B.C_BOARD_WRITER = #{ userId }
+		 WHERE A.CHAL_USER_ID = 'admin' 
+		   AND A.CHAL_NO = B.CHAL_NO
+	</select>
+	
+	<select id="selectLikeById" resultMap="chalResultMap">
+		SELECT A.*
+			 , (SELECT COUNT(*) 
+			 	  FROM CHAL_LIKE_TBL 
+			 	 WHERE C_BOARD_NO IN (SELECT B.C_BOARD_NO 
+			 	 						FROM CHAL_BOARD_TBL B 
+			 	 					   WHERE B.CHAL_NO = A.CHAL_NO)) LIKE_CNT
+		 FROM CHAL_TBL A
+		WHERE CHAL_USER_ID = #{ userId }
+	</select>
+	
+	<select id="selectLikeByAllUserWave" resultMap="chalResultMap">
+		SELECT DISTINCT A.*
+			 , SUM(CASE WHEN C.C_BOARD_NO IS NOT NULL THEN 1 ELSE 0 END) OVER(PARTITION BY A.CHAL_NO) AS LIKE_CNT
+		  FROM CHAL_TBL A 
+		     , CHAL_BOARD_TBL B 
+  		     , CHAL_LIKE_TBL C
+		 WHERE A.CHAL_USER_ID = 'admin' 
+		   AND A.CHAL_NO = B.CHAL_NO
+		   AND B.C_BOARD_WRITER = #{ userId }
+           AND B.C_BOARD_NO = C.C_BOARD_NO (+)
+	</select>
+	
+	<select id="selectPeopleByAllUserWave" resultMap="chalResultMap">
+		SELECT A.CHAL_NO
+		     , COUNT(DISTINCT B.C_BOARD_WRITER) AS PEOPLE_CNT
+		  FROM CHAL_TBL A
+		  	 , CHAL_BOARD_TBL B
+		 WHERE A.CHAL_USER_ID = 'admin' 
+		   AND A.CHAL_NO = B.CHAL_NO
+      GROUP BY A.CHAL_NO
 	</select>
 	
 	<select id="selectOptionsByFinish" resultMap="chalResultMap">

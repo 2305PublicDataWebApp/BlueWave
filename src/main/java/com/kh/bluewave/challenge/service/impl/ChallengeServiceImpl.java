@@ -31,6 +31,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	public int updateFinish() {
+		int result = cStore.updateFinish(session);
+		return result;
+	}
+
+	@Override
 	public int deleteChal(int chalNo) {
 		int result = cStore.deleteChal(session, chalNo);
 		return result;
@@ -51,6 +57,30 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public List<Challenge> selectAllById(String userId) {
 		List<Challenge> cList = cStore.selectAllById(session, userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectAllUserWave(String userId) {
+		List<Challenge> cList = cStore.selectAllUserWave(session, userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectLikeById(String userId) {
+		List<Challenge> cList = cStore.selectLikeById(session, userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectLikeByAllUserWave(String userId) {
+		List<Challenge> cList = cStore.selectLikeByAllUserWave(session, userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectPeopleByAllUserWave(String userId) {
+		List<Challenge> cList = cStore.selectPeopleByAllUserWave(session, userId);
 		return cList;
 	}
 

@@ -40,12 +40,7 @@ public class ChallengeController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String sysdate = now.toLocalDate().format(formatter);
 		
-		// 종료일 최소 날짜 제한
-		LocalDateTime tomorrow = now.plusDays(1);
-		String nextDate = tomorrow.toLocalDate().format(formatter);
-      
         mv.addObject("sysdate", sysdate); // 오늘
-        mv.addObject("nextDate", nextDate); // 내일
 		mv.setViewName("/challenge/createChal");
 		return mv;
 	}

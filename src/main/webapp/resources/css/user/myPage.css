@@ -12,9 +12,8 @@ main {
         background-color: #f8f8f8;
         margin: 0 auto;
         padding: 0;
-        padding-top: 20px;
+        padding-top: 120px;
     }
-
 
         /* 챌린지 전환 탭 */
         #my-nav {
@@ -42,7 +41,7 @@ main {
             background-color: #fff; /* 활성 탭 배경색 설정 */
             color: rgb(45, 55, 71); /* 활성 탭 텍스트 색상 설정 */
         }
-
+        
         .chal-section {
             width: 70%;
             margin: 0 auto;
@@ -60,16 +59,17 @@ main {
                 cursor: pointer;
             }
 
-            .chal-section > div > div:first-child {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap; /* 챌린지 리스트를 한 줄에 2개씩 나열하도록 설정 */
-            }
+/*             .chal-section > div > div:first-child { */
+/*                 display: flex; */
+/*                 justify-content: space-between; */
+/*                 flex-wrap: wrap; 챌린지 리스트를 한 줄에 2개씩 나열하도록 설정 */
+/*             } */
 
             .chal-list {
                 width: 48.5%;
                 height: 44.4%;
                 margin-left: 2px;
+                margin-right: 2px;
                 margin-bottom: 30px;
                 padding: 30px 25px;
                 border: 2px solid lightgray;
@@ -87,17 +87,26 @@ main {
                     font-size: 0.85em;
                 }
                 
+                #personal-slider .chal-list .chal-date {
+                	display: flex;
+                	align-items: flex-end;
+                }
+                
                 /* 수정 삭제 */
                 .edit-personal-chal {
                     text-decoration: none;
-                    color: #31BFEC;
+                    color: #60B0E1;
                     font-size: 0.85em;
+                    position: relative;
+    				z-index: 1;
                 }
 
                 .edit-personal-chal:hover {
                     text-decoration: underline;
-                    color: #31BFEC;
+                    color: #60B0E1;
                     font-size: 0.85em;
+                    position: relative;
+    				z-index: 1;
                 }
 
             .chal-main-info {
@@ -112,7 +121,6 @@ main {
                     height: 110px;
                     margin: 15px;
                     margin-left: 0;
-                    background-color: gray;
                 }
 
                 .chal-main-info > div {
@@ -231,7 +239,7 @@ main {
         .like-image-container {
             position: relative;
             display: inline-block;
-            margin: 15px;
+            margin: 10px;
         }
 
             .like-img {
@@ -255,6 +263,16 @@ main {
                 opacity: 1; /* 마우스 오버 시 텍스트 표시 */
             }
             
-            .like-image-container:hover .like-img {
-                filter: brightness(55%);
-            }
+			.like-image-container:hover .like-img {
+			    filter: brightness(55%);
+			}
+            
+		/* 리스트 목록이 없을 때 */
+		.list-none {
+			height: 500px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: #AFD3E2;
+		    font-size: 1.5em;
+		}

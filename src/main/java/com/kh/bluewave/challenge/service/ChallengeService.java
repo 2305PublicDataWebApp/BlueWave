@@ -21,6 +21,12 @@ public interface ChallengeService {
 	int updateChal(Challenge challenge);
 
 	/**
+	 * 모든 회원의 챌린지 완료 여부 체크 Service
+	 * @return
+	 */
+	int updateFinish();
+
+	/**
 	 * 챌린지 삭제 Service
 	 * @param chalNo
 	 * @return
@@ -47,6 +53,34 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectAllById(String userId);
+
+	/**
+	 * 관리자 챌린지 중 회원이 참여한 챌린지 리스트 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectAllUserWave(String userId);
+
+	/**
+	 * 회원이 참여한 챌린지 리스트의 개별 총 좋아요 수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectLikeById(String userId);
+
+	/**
+	 * 관리자 챌린지 중 회원이 참여한 챌린지 리스트의 개별 총 좋아요 수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectLikeByAllUserWave(String userId);
+
+	/**
+	 * 관리자 챌린지 중 회원이 참여한 챌린지 리스트의 개별 총 참여 인원 수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectPeopleByAllUserWave(String userId);
 
 	/**
 	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Service

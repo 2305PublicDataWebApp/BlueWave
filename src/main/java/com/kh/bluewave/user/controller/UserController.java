@@ -26,13 +26,31 @@ public class UserController {
 		
 		String userId = "testuser01";
 		try {			
-			List<Challenge> cList = cService.selectAllById(userId);
-			if(!cList.isEmpty()) {
-				mv.addObject("cList", cList);
+			// 완료 여부 체크
+			int result = cService.updateFinish(); 
+			System.out.println(result);
+			if(result > 0) {
+				// 관리자 챌린지 중 회원이 참여한 챌린지
+				List<Challenge> cWaveList = cService.selectAllUserWave(userId);
+				List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
+				List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
+				
+				 // 회원이 생성한 챌린지
+				List<Challenge> cPersonalList = cService.selectAllById(userId);
+				List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
+				
+				
+				mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList);
+				mv.addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList);
 				mv.setViewName("user/myPage");
+			} else {
+				mv.addObject("msg", "완료 여부 체크");
+				mv.setViewName("common/errorMessage");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorMessage");
 		}
 		
 		return mv;

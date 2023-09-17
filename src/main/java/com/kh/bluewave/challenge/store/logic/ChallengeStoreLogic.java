@@ -19,7 +19,13 @@ public class ChallengeStoreLogic implements ChallengeStore{
 
 	@Override
 	public int updateChal(SqlSession session, Challenge challenge) {
-		int result = session.insert("ChalMapper.updateChal", challenge);
+		int result = session.update("ChalMapper.updateChal", challenge);
+		return result;
+	}
+
+	@Override
+	public int updateFinish(SqlSession session) {
+		int result = session.update("ChalMapper.updateFinish");
 		return result;
 	}
 
@@ -44,6 +50,30 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	@Override
 	public List<Challenge> selectAllById(SqlSession session, String userId) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectAllById", userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectAllUserWave(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectAllUserWave", userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectLikeById(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectLikeById", userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectLikeByAllUserWave(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectLikeByAllUserWave", userId);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectPeopleByAllUserWave(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectPeopleByAllUserWave", userId);
 		return cList;
 	}
 

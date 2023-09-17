@@ -18,6 +18,8 @@ public class Challenge {
 	private Timestamp chalCreateDate;
 	private Timestamp chalUpdateDate;
 	private String chalUserId;
+	private int likeCount; // 총 좋아요 수
+	private int pplCount; // 총 참여 인원 수
 	
 	public Challenge() {}
 	
@@ -123,7 +125,19 @@ public class Challenge {
 	public void setChalUserId(String chalUserId) {
 		this.chalUserId = chalUserId;
 	}
-	
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public int getPplCount() {
+		return pplCount;
+	}
+	public void setPplCount(int pplCount) {
+		this.pplCount = pplCount;
+	}
+
 	@Override
 	public String toString() {
 		return "챌린지 [번호=" + chalNo + ", 명=" + chalTitle + ", 내용=" + chalContent
@@ -131,6 +145,6 @@ public class Challenge {
 				+ chalFilePath + ", 파일크기=" + chalFileLength + ", 시작일=" + chalStartDate
 				+ ", 종료일=" + chalEndDate + ", 공개여부=" + chalPublic + ", 완료여부=" + chalFinish
 				+ ", 생성일=" + chalCreateDate + ", 수정일=" + chalUpdateDate + ", 작성회원="
-				+ chalUserId + "]";
+				+ chalUserId + ", 총좋아요수=" + likeCount + ", 참여인원수" + pplCount + "]";
 	}
 }

@@ -21,7 +21,7 @@
                     <!-- 시작일, 종료일 -->
                     <section id="set-chal-date">
                         <input type="date" name="chalStartDate" id="chal-start-date" min="${ sysdate }" required> ~ 
-                        <input type="date" name="endDate" id="chal-end-date" min="${ nextDate }">
+                        <input type="date" name="endDate" id="chal-end-date">
                     </section>
                     <!-- 챌린지 공개여부, 챌린지 명, 챌린지 방법 설명, 파일 첨부 -->
                     <section id="set-chal-info">
@@ -47,6 +47,52 @@
         </main>
         <footer></footer>
 		
+		<!-- 종료일 최소일 지정 -->
+		<script>
+		    $(document).ready(function() {
+		        // 오늘 날짜를 가져와서 하루를 더합니다.
+		        var tomorrow = new Date();
+		        tomorrow.setDate(tomorrow.getDate() + 1);
+		
+		        // 오늘보다 하루 다음 날을 문자열로 변환하여 최소값으로 설정합니다.
+		        var tomorrowString = tomorrow.toISOString().split('T')[0];
+		        $("#chal-end-date").attr("min", tomorrowString);
+		
+		        $("#chal-start-date").on("change", function() {
+		            var startDate = $(this).val();
+		            var endDate = $("#chal-end-date").val();
+		
+		            // 시작일 변경 시 종료일의 최소값 업데이트
+		            var nextDate = new Date(startDate);
+		            nextDate.setDate(nextDate.getDate() + 1);
+		            var nextDateString = nextDate.toISOString().split('T')[0];
+		            $("#chal-end-date").attr("min", nextDateString);
+		
+		            // 종료일이 시작일 이전이면 종료일 초기화
+		            if (endDate < startDate) {
+		                $("#chal-end-date").val("");
+		            }
+		        });
+		
+		        $("#chal-end-date").on("change", function() {
+		            var startDate = $("#chal-start-date").val();
+		            var endDate = $(this).val();
+		
+		            // 종료일을 선택한 후에 시작일을 선택한 경우 시작일 변경
+		            if (endDate !== "" && endDate < startDate) {
+		                $("#chal-start-date").val(endDate);
+		                $("#chal-start-date").trigger("change"); // 시작일 변경 이벤트 트리거
+		            }
+		        });
+		
+		        // 페이지 로드 시 최소값 설정
+		        $("#chal-start-date").trigger("change");
+		    });
+		</script>
+
+
+
+
 		<!-- 챌린지 명 중복 체크 -->
 		<script>
 		$(document).ready(function() {
