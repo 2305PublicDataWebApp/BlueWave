@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>굿즈 페이지</title>
-<link rel="stylesheet" href="/resources/css/goodsList.css">
+<link rel="stylesheet" href="/resources/css/goods/goodsList.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
 <script
@@ -42,7 +42,6 @@
 			</div>
 			<div class="main-container">
 				<div class="bxslider">
-					<!-- <div class="goods-list-container"> -->
 					<c:forEach var="goods" items="${gList }" varStatus="status">
 						<c:if test="${ status.index % 8 == 0}">
 							<div class="goods-item-container">
@@ -64,11 +63,10 @@
 						<c:if
 							test="${ status.index % 8 == 7 or status.count == gList.size() }">
 							</div>
-						</c:if>
+						</c:if>	
 					</c:forEach>
-<!-- 				</div> -->
-			</div>
-	</div>
+				</div>
+		</div>
 	</main>
 	<footer></footer>
 	</div>

@@ -5,23 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>굿즈 상세 페이지</title>
-<link rel="stylesheet" href="/resources/css/goodsDetail.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
+<link rel="stylesheet" href="/resources/css/goods/goodsDetail.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-<script>
-	$(document).ready(function() {
-		$(".bxslider").bxSlider({
-			infiniteLoop : false,
-			hideControlOnEnd : true,
-			slideWidth : 0,
-			adaptiveHeight : true
-		});
-	});
-</script>
 </head>
 <body>
 	<header>
@@ -66,11 +54,9 @@
 					</div>
 				</div>
 				<div class="goods-d-main-right">
-					<div class="bxslider">
-						<div class="goods-image-container">
-							<div class="goods-image">
-								<img src="../resources/images/logo.png" alt="여기에 이미지">
-							</div>
+					<div class="goods-image-container">
+						<div class="goods-image">
+							<img src="../resources/images/logo.png" alt="여기에 이미지">
 						</div>
 					</div>
 				</div>
