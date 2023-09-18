@@ -49,14 +49,14 @@
     <body>
     	<jsp:include page="../include/navHeader.jsp"></jsp:include>
         <div class="admin-table-container">
-            <select class="admin-select" onchange="">
-                <option value="notice">공지 리스트</option>
-                <option value="user">회원 리스트</option>
-                <option value="chall">챌린지 리스트</option>
-                <option value="tip">팁공유 리스트</option>
-                <option value="goods">굿즈 리스트</option>
-                <option value="report">신고글 리스트</option>
-            </select>
+	            <select id="admin-select" onchange="selectOption();">
+	                <option value="notice">공지 리스트</option>
+	                <option value="user">회원 리스트</option>
+	                <option value="chall">챌린지 리스트</option>
+	                <option value="tip">팁공유 리스트</option>
+	                <option value="goods">굿즈 리스트</option>
+	                <option value="report">신고글 리스트</option>
+	            </select>
             <table class="admin-table">
 	            <tr>
 	                <th>번호</th>
@@ -119,5 +119,13 @@
 	             [페이징 처리]
 	        </div>
         </div>
+        <script>
+        	function selectOption() {
+        		const opt = document.getElementById("admin-select");
+        		const optVal = opt.options[opt.selectedIndex].value;
+        		
+        		location.href="/admin/board.do?optVal="+optVal;
+        	}
+        </script>
     </body>
 </html>

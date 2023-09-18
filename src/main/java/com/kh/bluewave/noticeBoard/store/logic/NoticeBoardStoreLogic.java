@@ -40,4 +40,16 @@ public class NoticeBoardStoreLogic implements NoticeBoardStore{
 		return nOne;
 	}
 
+	@Override
+	public int updateNotice(SqlSession session, NoticeBoard noticeBoard) {
+		int result = session.update("NoticeMapper.updateNotice", noticeBoard);
+		return result;
+	}
+
+	@Override
+	public int updateViewCount(SqlSession session, NoticeBoard nOne) {
+		int result = session.update("NoticeMapper.updateViewCount", nOne);
+		return result;
+	}
+
 }

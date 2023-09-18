@@ -33,4 +33,18 @@ public interface NoticeBoardService {
 	 */
 	NoticeBoard selectOneNoticeNo(int noticeNo);
 
+	/**
+	 * 공지 게시글 수정
+	 * @param noticeBoard
+	 * @return
+	 */
+	int updateNotice(NoticeBoard noticeBoard);
+
+	/**
+	 * 공지 조회수 증가
+	 * @param noticeNo
+	 * @return
+	 */
+	int updateViewCount(NoticeBoard nOne);
+
 }

@@ -32,7 +32,7 @@ public class NoticeBoardController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/noticeBoard.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notice/board.do", method=RequestMethod.GET)
 	public ModelAndView showNoticeBoard(ModelAndView mv
 			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 		try {			
@@ -58,7 +58,7 @@ public class NoticeBoardController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notice/write.do", method=RequestMethod.GET)
 	public ModelAndView goNoticeWrite(ModelAndView mv) {
 		mv.setViewName("notice/noticeWrite");
 		
@@ -72,20 +72,66 @@ public class NoticeBoardController {
 	 * @param request 
 	 * @return 
 	 */
-	@RequestMapping(value="/insertNotice.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/insert.do", method=RequestMethod.POST)
 	public ModelAndView registerNoticeBoard(ModelAndView mv
 			, @ModelAttribute NoticeBoard noticeBoard
 			, @RequestParam("noticeTitle") String noticeTitle
 			, @RequestParam("noticeContent") String noticeContent ){
-		noticeBoard.setNoticeTitle(noticeTitle);
-		noticeBoard.setNoticeContent(noticeContent);
-		int result = nService.insertNoticeBoard(noticeBoard);
-		if(result > 0) {
-			mv.setViewName("redirect:/noticeBoard.do");
-		}else {
-			mv.addObject("error", "등록 실패");
-			mv.setViewName("notice/noticeBoard");
+		try {			
+			noticeBoard.setNoticeTitle(noticeTitle);
+			noticeBoard.setNoticeContent(noticeContent);
+			int result = nService.insertNoticeBoard(noticeBoard);
+			if(result > 0) {
+				mv.setViewName("redirect:/notice/board.do");
+			}else {
+				mv.addObject("error", "등록 실패");
+				mv.setViewName("notice/noticeBoard");
+			}
+		} catch (Exception e) {
+			e.getMessage();
 		}
+		return mv;
+	}
+	
+	/**
+	 * 공지글 수정페이지로 이동
+	 * @param mv
+	 * @param noticeNo
+	 * @return
+	 */
+	@RequestMapping(value="/notice/modify.do", method=RequestMethod.GET)
+	public ModelAndView showModifyNotice(ModelAndView mv
+			, @RequestParam int noticeNo) {
+		try {			
+			NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
+			mv.addObject("notice", nOne);
+			mv.setViewName("notice/noticeModify");
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/notice/update.do", method=RequestMethod.POST)
+	public ModelAndView updateNotice(ModelAndView mv
+			, @RequestParam int noticeNo
+			, @RequestParam String noticeTitle
+			, @RequestParam String noticeContent
+			, @ModelAttribute NoticeBoard noticeBoard) {
+		try {			
+			noticeBoard.setNoticeNo(noticeNo);
+			noticeBoard.setNoticeTitle(noticeTitle);
+			noticeBoard.setNoticeContent(noticeContent);
+			int result = nService.updateNotice(noticeBoard);
+			if(result > 0) {
+				mv.setViewName("redirect:/notice/detail.do?noticeNo="+noticeNo);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		
 		return mv;
 	}
 	
@@ -94,17 +140,26 @@ public class NoticeBoardController {
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/noticeDetail.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
 	public ModelAndView goNoticeDetail(ModelAndView mv
 			, @RequestParam int noticeNo) {
-		NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
-		mv.addObject("noticeDetail", nOne);
-		mv.setViewName("notice/noticeDetail");
+		try {			
+			NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
+			int result = nService.updateViewCount(nOne);
+			if(result > 0) {				
+				mv.addObject("notice", nOne);
+				mv.setViewName("notice/noticeDetail");
+			}else {
+				mv.addObject("error","상세페이지로 이동 실패");
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		}
 		
 		return mv;
 	}
 
-	//json 어떤식으로 사용되는지
+	
 	@RequestMapping(value="/ajax/image.do")
 	public ModelAndView image(MultipartHttpServletRequest request) throws Exception{
 		// ckeditor는 이미지 업로드 후 이미지 표시하기 위해 uploaded 와 url을 json 형식으로 받아야 함
@@ -148,7 +203,7 @@ public class NoticeBoardController {
 //			long noticeFileLength = uploadFile.getSize();
 			
 			mv.addObject("uploaded", true); // 업로드 완료
-			mv.addObject("url", noticeFilePath); // 업로드 파일의 경로
+			mv.addObject("url", savePath); // 업로드 파일의 경로
 //			mv.addObject("noticeFileName", noticeFileName);
 //			mv.addObject("noticeFileRename", noticeFileRename);
 //			mv.addObject("noticeFileLength", noticeFileLength);

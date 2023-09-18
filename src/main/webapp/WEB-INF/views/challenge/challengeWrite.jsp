@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<header></header>
-		<jsp:include page="/WEB-INF/views/include/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/include/navHeader.jsp" />
 		<main>
 			<div id="container">
 				<div class="main">

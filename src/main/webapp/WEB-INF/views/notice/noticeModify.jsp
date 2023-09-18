@@ -4,27 +4,30 @@
 	<html>
 	<head>
 	<meta charset="UTF-8">
-	<title>공지 게시글 작성</title>
+	<title>공지 게시글 수정</title>
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<link rel="stylesheet" href="/resources/css/notice/noticeWrite.css">
+	<link rel="stylesheet" href="/resources/css/notice/noticeModify.css">
 	</head>
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="notice-board">
-			<form class="notice-form" action="/notice/insert.do" method="POST" enctype="multipart/form-data">
+			<form class="notice-form" action="/notice/update.do" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="noticeNo" value="${notice.noticeNo }" />
 				<div class="notice-board-table">
 					<table class="notice-write-table">
 						<thead>
 							<tr>							
 								<td>제목</td>
-								<td><input type="text" id="notice-title" name="noticeTitle" size="80"></td>
+								<td>
+									<input type="text" id="notice-title" name="noticeTitle" size="80" value="${notice.noticeTitle }">
+								</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td colspan="2">
-<!-- 								<input type="hidden" id="notice-content" name="noticeContent"> -->
 									<textarea class="editor" id="editor" name="noticeContent">
+									${notice.noticeContent }
 									</textarea>
 								</td>
 							</tr>
@@ -32,7 +35,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="2">
-									<button class="writeBtn" >공지 올리기</button>
+									<button class="updateBtn" >수정하기</button>
 								</td>
 							</tr>
 						</tfoot>
