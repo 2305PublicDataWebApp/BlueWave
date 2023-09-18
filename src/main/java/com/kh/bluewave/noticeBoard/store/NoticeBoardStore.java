@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 public interface NoticeBoardStore {
 
@@ -21,6 +22,21 @@ public interface NoticeBoardStore {
 	 * @param session
 	 * @return
 	 */
-	List<NoticeBoard> selectNoticeBoard(SqlSession session);
+	List<NoticeBoard> selectNoticeBoard(SqlSession session, PageInfo pInfo);
+
+	/**
+	 * 공지 게시물 전체 갯수
+	 * @param session
+	 * @return
+	 */
+	int getListCount(SqlSession session);
+
+	/**
+	 * 공지 게시글 상세조회
+	 * @param session
+	 * @param noticeNo
+	 * @return
+	 */
+	NoticeBoard selectOneNoticeNo(SqlSession session, int noticeNo);
 
 }

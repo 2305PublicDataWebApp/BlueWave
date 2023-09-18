@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
 
 @Controller
@@ -32,11 +33,15 @@ public class NoticeBoardController {
 	 * @return
 	 */
 	@RequestMapping(value="/noticeBoard.do", method=RequestMethod.GET)
-	public ModelAndView showNoticeBoard(ModelAndView mv) {
+	public ModelAndView showNoticeBoard(ModelAndView mv
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 		try {			
-			List<NoticeBoard> nList = nService.selectNoticeBoard();
+			int totalCount = nService.getListCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<NoticeBoard> nList = nService.selectNoticeBoard(pInfo);
 			if(nList.size() > 0) {				
 				mv.addObject("nList", nList);
+				mv.addObject("pInfo", pInfo);
 				mv.setViewName("notice/noticeBoard");
 			}else {
 				mv.addObject("error", "리스트 조회 실패");
@@ -48,6 +53,11 @@ public class NoticeBoardController {
 		return mv;
 	}
 	
+	/**
+	 * 공지글 작성페이지로 이동
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="/noticeWrite.do", method=RequestMethod.GET)
 	public ModelAndView goNoticeWrite(ModelAndView mv) {
 		mv.setViewName("notice/noticeWrite");
@@ -71,7 +81,7 @@ public class NoticeBoardController {
 		noticeBoard.setNoticeContent(noticeContent);
 		int result = nService.insertNoticeBoard(noticeBoard);
 		if(result > 0) {
-			mv.setViewName("redirect:notice/noticeBoard");
+			mv.setViewName("redirect:/noticeBoard.do");
 		}else {
 			mv.addObject("error", "등록 실패");
 			mv.setViewName("notice/noticeBoard");
@@ -79,8 +89,16 @@ public class NoticeBoardController {
 		return mv;
 	}
 	
+	/**
+	 * 공지글 상세페이지로 이동
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping(value="/noticeDetail.do", method=RequestMethod.GET)
-	public ModelAndView goNoticeDetail(ModelAndView mv) {
+	public ModelAndView goNoticeDetail(ModelAndView mv
+			, @RequestParam int noticeNo) {
+		NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
+		mv.addObject("noticeDetail", nOne);
 		mv.setViewName("notice/noticeDetail");
 		
 		return mv;
@@ -140,5 +158,28 @@ public class NoticeBoardController {
 		}
 		
 	    return mv;
+	}
+	
+	public PageInfo getPageInfo(int currentPage, int totalCount) {
+		PageInfo pi = null;
+		int recordCountPerPage = 10;
+		int naviCountPerPage = 5;
+		int naviTotalCount;
+		int startNavi;
+		int endNavi;
+		
+		// double : 자동형변환, int : 강제형변환
+		naviTotalCount = (int)((double)totalCount/recordCountPerPage+0.9);
+		// Math.ceil((double)totalCount/recordCountPerPage+0.9)
+		// currentPage값이 1~5일때 startNavi가 1로 고정되도록 구해주는 식
+		startNavi = ((int)((double)currentPage/naviCountPerPage+0.9)-1)*naviCountPerPage + 1;
+		endNavi = startNavi + naviCountPerPage - 1;
+		// endNavi는 startNavi에 무조건 naviCountPerPage값을 더하므로
+		// 실제 최대값보다 커질 수 있음
+		if(endNavi > naviTotalCount) {
+			endNavi = naviTotalCount;
+		}
+		pi = new PageInfo(currentPage, recordCountPerPage, naviCountPerPage, startNavi, endNavi, totalCount, naviTotalCount);
+		return pi;
 	}
 }

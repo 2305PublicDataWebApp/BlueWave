@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
 import com.kh.bluewave.noticeBoard.store.NoticeBoardStore;
 
@@ -25,9 +26,21 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	}
 
 	@Override
-	public List<NoticeBoard> selectNoticeBoard() {
-		List<NoticeBoard> nList = nStore.selectNoticeBoard(session);
+	public List<NoticeBoard> selectNoticeBoard(PageInfo pInfo) {
+		List<NoticeBoard> nList = nStore.selectNoticeBoard(session, pInfo);
 		return nList;
+	}
+
+	@Override
+	public int getListCount() {
+		int result = nStore.getListCount(session);
+		return result;
+	}
+
+	@Override
+	public NoticeBoard selectOneNoticeNo(int noticeNo) {
+		NoticeBoard nOne = nStore.selectOneNoticeNo(session, noticeNo);
+		return nOne;
 	}
 
 }

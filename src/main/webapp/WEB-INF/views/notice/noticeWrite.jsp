@@ -105,10 +105,12 @@
 				ckfinder: {
 					uploadUrl : '/ajax/image.do'
 				}
+
 			})
 			.catch(error => {
 				console.error(error);
 			});
+			
 		</script>
 	</body>
 </html>
