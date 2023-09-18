@@ -10,10 +10,12 @@
 		<typeAlias type="com.kh.bluewave.challenge.domain.Challenge" alias="Challenge"/>
 		<typeAlias type="com.kh.bluewave.user.domain.User" alias="User"/>
 		<typeAlias type="com.kh.bluewave.goods.domain.Goods" alias="Goods"/>
+		<typeAlias type="com.kh.bluewave.challenge.domain.CBoard" alias="CBoard"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/challenge-mapper.xml"/>
 		<mapper resource="mappers/user-mapper.xml"/>
 		<mapper resource="mappers/goods-mapper.xml"/>
+		<mapper resource="mappers/c-board-mapper.xml" />
 	</mappers>
 </configuration>
