@@ -9,7 +9,7 @@
     <style>
     	.admin-table-container {
     		width: 800px;
-    		height: 800px;
+    		--height: 800px;
     		margin: 0 auto;
     		margin-top: 200px;
     	}
@@ -49,13 +49,13 @@
     <body>
     	<jsp:include page="../include/navHeader.jsp"></jsp:include>
         <div class="admin-table-container">
-            <select class="admin-select">
-                <option>공지 리스트</option>
-                <option>회원 리스트</option>
-                <option>챌린지 리스트</option>
-                <option>팁공유 리스트</option>
-                <option>굿즈 리스트</option>
-                <option>신고글 리스트</option>
+            <select class="admin-select" onchange="">
+                <option value="notice">공지 리스트</option>
+                <option value="user">회원 리스트</option>
+                <option value="chall">챌린지 리스트</option>
+                <option value="tip">팁공유 리스트</option>
+                <option value="goods">굿즈 리스트</option>
+                <option value="report">신고글 리스트</option>
             </select>
             <table class="admin-table">
 	            <tr>

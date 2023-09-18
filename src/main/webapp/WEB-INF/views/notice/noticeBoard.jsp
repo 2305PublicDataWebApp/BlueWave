@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -11,7 +13,7 @@
 			width: 70%;
 			height: 100vh;
 			margin: 0 auto;
-			background-color: #EEF1F4;
+			background-color: #F8F8F8;
 		}
 		.notice-subject {
 			padding-top: 150px;
@@ -52,6 +54,10 @@
  			background-color: white;
  			border-radius: 3px;
  		}
+ 		.notice-paging a
+ 		, .notice-table a{
+ 			color: black;
+ 		}
     </style>
     <body>
     	<jsp:include page="../include/navHeader.jsp"></jsp:include>
@@ -65,58 +71,42 @@
 	                <th>작성일</th>
 	                <th>조회수</th>
 	            </tr>
+	            <c:forEach var="notice" items="${nList }" varStatus="i">
 	            <tr>
-	                <td>1</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
+	                <td>${i.count }</td>
+	                <c:url var="detailUrl" value="/noticeDetail.do">
+	                	<c:param name="noticeNo" value="${notice.noticeNo }" />
+	                </c:url>
+	                <td>
+	                	<a href="${detailUrl}">${notice.noticeTitle }</a>
+	                </td>
+	                <td>${notice.noticeWriter }</td>
+	                <td>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }" />
+					</td>
+	                <td>${notice.noticeViewCount }</td>
 	            </tr>
-	            <tr>
-	                <td>2</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
-	            <tr>
-	                <td>3</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
-	            <tr>
-	                <td>4</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
-	            <tr>
-	                <td>5</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
-	            <tr>
-	                <td>6</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
-	            <tr>
-	                <td>7</td>
-	                <td>제목제목</td>
-	                <td>admin</td>
-	                <td>2023-09-11</td>
-	                <td>524</td>
-	            </tr>
+	            </c:forEach>
             </table>
 	        <div class="notice-paging">
-	             [페이징 처리]
+				<c:url var="pageUrl" value="/noticeBoard.do">
+                	<c:param name="page" value="${pInfo.startNavi -1 }"></c:param>
+                </c:url>
+                <c:if test="${pInfo.startNavi != 1 }">
+                	<a href="${pageUrl }">[이전]</a>
+                </c:if>	        	
+	             <c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
+					<c:url var="pageUrl" value="/noticeBoard.do">
+						<c:param name="page" value="${p }"></c:param>
+					</c:url>
+					<a href="${pageUrl }">${p }</a>&nbsp;
+				</c:forEach>
+					<c:url var="pageUrl" value="/noticeBoard.do">
+                <c:param name="page" value="${pInfo.startNavi +1 }"></c:param>
+                </c:url>
+                <c:if test="${pInfo.endNavi != pInfo.naviTotalCount}">
+                	<a href="${pageUrl }">[다음]</a>
+                </c:if>	
 	        </div>
         </div>
     </body>

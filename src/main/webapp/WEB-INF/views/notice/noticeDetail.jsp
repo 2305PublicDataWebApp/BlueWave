@@ -17,7 +17,7 @@
 		width: 70%;
     	--height: 300px;
 		margin: 0 auto;
-		padding-top: 200px;
+		padding-top: 100px;
 	}
 	tr:last-child td{
 		height: 60px;
@@ -40,9 +40,9 @@
 	}
 	td>div {
 		width: 100%;
-		height: 500px;
+		height: auto;
 		border: 1px solid #ccc;
-		border-radius: 10px;
+		border-radius: 5px;
 		background-color: white;
 	}
 	.notice-table button {
@@ -58,6 +58,11 @@
          text-align: center;
          font-weight: bolder;
 	}
+	#detail-img img {
+		width: 90%;
+		padding: 10px;
+	}
+	
 	</style>
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
@@ -65,11 +70,11 @@
 			<table class="notice-table">
 				<tr>
 					<td>제목</td>
-					<td colspan="2">wpahrwpahrwpahr</td>
+					<td colspan="2">${noticeDetail.noticeTitle }</td>
 				</tr>
 				<tr>
 					<td colspan="3">
-						<div></div>
+						<div id="detail-img">${noticeDetail.noticeContent }</div>
 					</td>
 				</tr>
 				<tr>
