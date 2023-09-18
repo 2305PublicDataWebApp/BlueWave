@@ -7,11 +7,9 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-<!-- 		<typeAlias type="com.kh.bluewave.challenge.domain.Challenge" alias="Challenge"/> -->
-<!-- 		<typeAlias type="com.kh.bluewave.user.domain.User" alias="User"/> -->
+		<typeAlias type="com.kh.bluewave.goods.domain.Goods" alias="Goods"/>
 	</typeAliases>
 	<mappers>
-<!-- 		<mapper resource="mappers/challenge-mapper.xml"/>
-		<mapper resource="mappers/user-mapper.xml"/> -->
+		<mapper resource="mappers/goods-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -17,7 +17,8 @@
 		$(".bxslider").bxSlider({
 			infiniteLoop : false,
 			hideControlOnEnd : true,
-			slideWidth : 0
+			slideWidth : 0,
+			adaptiveHeight : true
 		});
 	});
 </script>
@@ -34,20 +35,25 @@
 			<div class="goods-d-main">
 				<div class="goods-d-main-left">
 					<div class="goods-name">
-						<h2>여기가 굿즈이름</h2>
+						<h2>${goods.productName }</h2>
 					</div>
-					<div class="goods-point">
-						<h3>여기가 굿즈 설명</h3>
+					<div class="goods-content">
+						<h3>${goods.productContent }</h3>
 					</div>
 					<div class="goods-buy-container">
 						<div class="goods-buy-name">
-							<h4>굿즈이름</h4>
+							<h4>${goods.productName }</h4>
 						</div>
 						<div class="goods-buy-point">
-							<h4>굿즈가격</h4>
+							<h4>${goods.productPoint }</h4>
 						</div>
-						<div class="goods-buy-howmany">
-							<div>굿즈갯수</div>
+						<div class="goods-buy-howmany-container">
+							<div class="goods-buy-howmany">
+								<div>굿즈갯수</div>
+							</div>
+							<div class="goods-buy-howmany">
+								<input type="number">
+							</div>
 						</div>
 						<div class="goods-result-container">
 							<div class="goods-total-point">
@@ -60,16 +66,17 @@
 					</div>
 				</div>
 				<div class="goods-d-main-right">
-					<div class="goods-image-container">
-						<div class="goods-image">
-							<h1>여기에 이미지</h1>
+					<div class="bxslider">
+						<div class="goods-image-container">
+							<div class="goods-image">
+								<img src="../resources/images/logo.png" alt="여기에 이미지">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-	<footer>
-	</footer>
+	<footer> </footer>
 </body>
 </html>
