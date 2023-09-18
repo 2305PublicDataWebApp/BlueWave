@@ -78,11 +78,27 @@ main {
         }
 
             /* 등록 버튼 */
-            #set-btn > input[type="submit"] {
+            /* 목록으로 (이전 페이지로) */
+            #set-btn > div > input:first-child {
+                background-color: transparent;
+                color: #3881c5;
+                width: 115px;
+				height: 40px;
+                margin: 0px;
+                border: 2px solid #3881c5;
+                border-radius: 8px;
+                font-size: 0.9em;
+                cursor:pointer;
+                text-align: center;
+                margin-right: 5px;
+            }
+            
+            /* 수정 */
+            #set-btn > div > input:last-child {
                 background-color: #3881c5;
                 color: #F3F3F3;
-                width: 142px;
-                height: 45px;
+                width: 115px;
+				height: 40px;
                 margin: 0px;
                 border: none;
                 border-radius: 8px;

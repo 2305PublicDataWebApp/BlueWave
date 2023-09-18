@@ -22,6 +22,7 @@
 		<result property="chalUserId"    	 column="CHAL_USER_ID"/>
 		<result property="likeCount" 		 column="LIKE_CNT" />
 		<result property="pplCount" 		 column="PEOPLE_CNT" />
+		<result property="postCount" 		 column="POST_CNT" />
 	</resultMap>
 	
 	<insert id="insertChal">
@@ -51,7 +52,7 @@
 	</select>
 	
 	<select id="selectAllById" resultMap="chalResultMap">
-		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId }
+		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId } ORDER BY CHAL_END_DATE
 	</select>
 	
 	<select id="selectAllUserWave" resultMap="chalResultMap">
@@ -61,6 +62,7 @@
 		    ON B.C_BOARD_WRITER = #{ userId }
 		 WHERE A.CHAL_USER_ID = 'admin' 
 		   AND A.CHAL_NO = B.CHAL_NO
+	  ORDER BY CHAL_END_DATE
 	</select>
 	
 	<select id="selectLikeById" resultMap="chalResultMap">
@@ -69,7 +71,7 @@
 			 	  FROM CHAL_LIKE_TBL 
 			 	 WHERE C_BOARD_NO IN (SELECT B.C_BOARD_NO 
 			 	 						FROM CHAL_BOARD_TBL B 
-			 	 					   WHERE B.CHAL_NO = A.CHAL_NO)) LIKE_CNT
+			 	 					   WHERE B.CHAL_NO = A.CHAL_NO)) AS LIKE_CNT
 		 FROM CHAL_TBL A
 		WHERE CHAL_USER_ID = #{ userId }
 	</select>
@@ -96,15 +98,25 @@
       GROUP BY A.CHAL_NO
 	</select>
 	
+	<select id="selectPostsById" resultMap="chalResultMap">
+		SELECT A.CHAL_NO
+		     , COUNT(B.C_BOARD_WRITER) AS POST_CNT
+		  FROM CHAL_TBL A
+		  	 , CHAL_BOARD_TBL B
+		 WHERE B.C_BOARD_WRITER = #{ userId } 
+		   AND A.CHAL_NO = B.CHAL_NO
+      GROUP BY A.CHAL_NO
+	</select>
+	
 	<select id="selectOptionsByFinish" resultMap="chalResultMap">
 		SELECT * FROM CHAL_TBL
-		<if test="finishOption == 'all'">
+		<if test="wavefinishOption == 'all'">
 			WHERE CHAL_FINISH IN('Y', 'N') 
 		</if>
-		<if test="finishOption eq 'Y'.toString()">
+		<if test="wavefinishOption eq 'Y'.toString()">
 			WHERE CHAL_FINISH LIKE 'Y'
 		</if>
-		<if test="finishOption eq 'N'.toString()">
+		<if test="wavefinishOption eq 'N'.toString()">
 			WHERE CHAL_FINISH LIKE 'N'
 		</if>
 		ORDER BY CHAL_CREATE_DATE DESC

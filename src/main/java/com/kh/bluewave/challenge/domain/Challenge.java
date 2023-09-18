@@ -20,6 +20,7 @@ public class Challenge {
 	private String chalUserId;
 	private int likeCount; // 총 좋아요 수
 	private int pplCount; // 총 참여 인원 수
+	private int postCount; // 인증 게시물 수
 	
 	public Challenge() {}
 	
@@ -137,6 +138,12 @@ public class Challenge {
 	public void setPplCount(int pplCount) {
 		this.pplCount = pplCount;
 	}
+	public int getPostCount() {
+		return postCount;
+	}
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
+	}
 
 	@Override
 	public String toString() {
@@ -145,6 +152,7 @@ public class Challenge {
 				+ chalFilePath + ", 파일크기=" + chalFileLength + ", 시작일=" + chalStartDate
 				+ ", 종료일=" + chalEndDate + ", 공개여부=" + chalPublic + ", 완료여부=" + chalFinish
 				+ ", 생성일=" + chalCreateDate + ", 수정일=" + chalUpdateDate + ", 작성회원="
-				+ chalUserId + ", 총좋아요수=" + likeCount + ", 참여인원수" + pplCount + "]";
+				+ chalUserId + ", 총좋아요수=" + likeCount + ", 참여인원수" + pplCount
+				+ ", 인증게시물수=" + postCount + "]";
 	}
 }

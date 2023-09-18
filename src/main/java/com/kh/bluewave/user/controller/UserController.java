@@ -39,9 +39,12 @@ public class UserController {
 				List<Challenge> cPersonalList = cService.selectAllById(userId);
 				List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
 				
+				// 자신의 챌린지 별 인증 게시물 수
+				List<Challenge> cPostCntList = cService.selectPostsById(userId);
 				
 				mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList);
 				mv.addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList);
+				mv.addObject("cPostCntList", cPostCntList);
 				mv.setViewName("user/myPage");
 			} else {
 				mv.addObject("msg", "완료 여부 체크");

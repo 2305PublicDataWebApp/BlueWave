@@ -54,6 +54,7 @@
  				display: flex; 
      			justify-content: space-between; 
      			flex-wrap: wrap; 
+     			height: 100%;
  			} 
 			
  			.like-group { 
@@ -136,15 +137,15 @@
                 <!-- 블루웨이브 챌린지 -->
                 <section id="bluewave-chal" class="chal-section">
                     <!-- 챌린지 리스트 -->
-                    <c:if test="${ !empty cWaveList }">
 	                    <!-- 챌린지 진행도 선택 -->
-	<!--                     <select name="wavefinishOption" class="select-show-chal" onchange="getWaveChalSelOption(this.value);"> -->
-	                    <select name="wavefinishOption" class="select-show-chal">
-	                        <option value="all" <c:if test="${ wavefinishOption eq 'all' }">selected</c:if>>전체</option>
-	                        <option value="N" <c:if test="${ wavefinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option>
-	                        <option value="Y" <c:if test="${ wavefinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option>
-	                    </select>
+<!-- 	                    <select name="wavefinishOption" class="select-show-chal" onchange="getWaveChalSelOption(this.value);"> -->
+<!--  	                    <select name="wavefinishOption" class="select-show-chal"> --> 
+<%-- 	                        <option value="all" <c:if test="${ wavefinishOption eq 'all' }">selected</c:if>>전체</option> --%>
+<%-- 	                        <option value="N" <c:if test="${ wavefinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option> --%>
+<%-- 	                        <option value="Y" <c:if test="${ wavefinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option> --%>
+<!-- 	                    </select> -->
 						
+                    <c:if test="${ !empty cWaveList }">
 	                    <div id="bluewave-slider">
 	                        <c:forEach var="chal" items="${ cWaveList }" varStatus="status">
 	                        	<c:if test="${status.index % 4 == 0}">
@@ -185,7 +186,6 @@
 	                                        <div>
 	                                            <img src="../resources/images/challenge/person.png" alt="참여 인원 수" width="20">
 	                                            <span>&nbsp;
-	                                            	42
 	                                            	<c:forEach var="people" items="${ cWPplList }" varStatus="pplStatus">
 	                                            		<c:if test="${ chal.chalNo eq people.chalNo }">
 	                                            			${ people.pplCount }
@@ -259,7 +259,11 @@
 	
 	                                        <!-- 나의 인증 횟수 -->
 	                                        <div>
-	                                            17회
+	                                            <c:forEach var="post" items="${ cPostCntList }" varStatus="postStatus">
+                                            		<c:if test="${ chal.chalNo eq post.chalNo }">
+                                            			${ post.postCount }회
+                                            		</c:if>
+                                            	</c:forEach>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -278,17 +282,17 @@
                 <section id="personal-chal" class="chal-section" style="display: none;" >
                     <!-- 챌린지 리스트 -->
                     <c:if test="${ !empty cPersonalList }">
-	                    <select name="chalPublic" class="select-show-chal" style="width: 100px;">
-	                        <option value="Y">공개</option>
-	                        <option value="N">비공개</option>
-	                    </select>
+<!-- 	                    <select name="chalPublic" class="select-show-chal" style="width: 100px;"> -->
+<!-- 	                        <option value="Y">공개</option> -->
+<!-- 	                        <option value="N">비공개</option> -->
+<!-- 	                    </select> -->
 	                    
-	<!--                     <select name="perfinishOption" class="select-show-chal" onchange="getPerChalSelOption(this.value);"> -->
-	                    <select name="perfinishOption" class="select-show-chal">
-	                        <option value="all" <c:if test="${ perfinishOption eq 'all' }">selected</c:if>>전체</option>
-	                        <option value="N" <c:if test="${ perfinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option>
-	                        <option value="Y" <c:if test="${ perfinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option>
-	                    </select>
+<!-- 	                    <select name="perfinishOption" class="select-show-chal" onchange="getPerChalSelOption(this.value);"> -->
+<!-- 	                    <select name="perfinishOption" class="select-show-chal"> -->
+<%-- 	                        <option value="all" <c:if test="${ perfinishOption eq 'all' }">selected</c:if>>전체</option> --%>
+<%-- 	                        <option value="N" <c:if test="${ perfinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option> --%>
+<%-- 	                        <option value="Y" <c:if test="${ perfinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option> --%>
+<!-- 	                    </select> -->
 	                    
 	                    <div id="personal-slider">
 	                        <c:forEach var="chal" items="${ cPersonalList }" varStatus="status">
@@ -412,7 +416,21 @@
 												
 		                                        <!-- 나의 인증 횟수 -->
 		                                        <div>
-		                                            17회
+		                                        	<c:set var="loop_flag" value="true" />
+		                                            <c:forEach var="post" items="${ cPostCntList }" varStatus="postStatus">
+	                                            		<c:if test="${ loop_flag }">
+		                                            		<c:choose>
+		                                            			<c:when test="${ chal.chalNo eq post.chalNo }">
+		                                            				${ post.postCount }회
+		                                            				<c:set var="loop_flag" value="false" />
+		                                            			</c:when>
+		                                            			<c:otherwise>
+		                                            				0회
+		                                            				<c:set var="loop_flag" value="false" />
+		                                            			</c:otherwise>
+		                                            		</c:choose>
+	                                            		</c:if>
+	                                            	</c:forEach>
 		                                        </div>
 		                                    </div>
 		                                </div>
@@ -491,14 +509,14 @@
                 }
             }
         </script>
-        <script>
-         	function getWaveChalSelOption(option, userId) {
-         		location.href="/user/uWaveChalInfoCheck.do?wavefinishOption=" + option + "&userId=" + "testuser01";
-        	} 
+<!--         <script> -->
+<!--          	function getWaveChalSelOption(option, userId) { -->
+<!--          		location.href="/user/uWaveChalInfoCheck.do?wavefinishOption=" + option + "&userId=" + "testuser01"; -->
+<!--         	}  -->
         	
-         	function getPerChalSelOption(option, userId) {
-         		location.href="/user/uPerChalInfoCheck.do?perfinishOption=" + option + "&userId=" + "testuser01";
-         	}
-		</script>
+<!--          	function getPerChalSelOption(option, userId) { -->
+<!--          		location.href="/user/uPerChalInfoCheck.do?perfinishOption=" + option + "&userId=" + "testuser01"; -->
+<!--          	} -->
+<!-- 		</script> -->
     </body>
 </html>

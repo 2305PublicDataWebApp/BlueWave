@@ -83,6 +83,13 @@ public interface ChallengeService {
 	List<Challenge> selectPeopleByAllUserWave(String userId);
 
 	/**
+	 * 개별 챌린지 별 해당 회원의 인증 게시물 수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectPostsById(String userId);
+
+	/**
 	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Service
 	 * @param finishOption
 	 * @return

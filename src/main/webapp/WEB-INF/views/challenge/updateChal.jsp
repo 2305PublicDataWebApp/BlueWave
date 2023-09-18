@@ -54,11 +54,20 @@
                     <!-- 수정 버튼 -->
                     <section id="set-btn">
                         <input type="file" name="uploadFile" id="chal-file-name">
-                        <input type="submit" value="수정">
+                        <div>
+	                        <input type="button" value="목록으로" onclick="goBack();">
+	                        <input type="submit" value="수정">
+                        </div>
                     </section>
                 </form>
             </section>
         </main>
         <footer></footer>
+        
+        <script>
+	        function goBack() {
+	            window.history.back();
+	        }
+        </script>
     </body>
 </html>
