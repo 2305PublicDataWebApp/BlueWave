@@ -26,5 +26,12 @@ public class CBoardStoreLogic implements CBoardStore{
 		return cList;
 	}
 	
+	// 좋아요 한 게시물 list
+	@Override
+	public List<CBoard> selectAllLikePostsById(SqlSession session, String userId) {
+		List<CBoard> cList = session.selectList("CBoardMapper.selectAllLikePostsById", userId);
+		return cList;
+	}
+
 	
 }

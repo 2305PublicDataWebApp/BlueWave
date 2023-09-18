@@ -1,5 +1,8 @@
 package com.kh.bluewave.user.service;
 
+import java.util.List;
+
+import com.kh.bluewave.user.domain.Sub;
 //import com.kh.bluewave.user.controller.Goods;
 import com.kh.bluewave.user.domain.User;
 
@@ -88,5 +91,20 @@ public interface UserService {
 	 * @return
 	 */
 //	List<Goods> getGoodsListByUserId(String userId);
+	
+
+	/**
+	 * 회원의 팔로잉 목록 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Sub> selectAllFollowingListById(String userId);
+
+	/**
+	 * 회원의 팔로워 목록 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Sub> selectAllFollowersListById(String userId);
 
 }

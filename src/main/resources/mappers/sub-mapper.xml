@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubMapper">
+
+	<resultMap type="Sub" id="subResultMap">
+		<id		property="subTarget" column="SUB_TARGET"/>
+		<result property="subUser"   column="SUB_USER"/>
+		<result property="subDate"   column="SUB_DATE"/>
+	</resultMap>
+	
+	<select id="selectFollowingCntById" resultType="_int">
+		SELECT COUNT(*) FROM SUB_TBL WHERE SUB_USER = #{ userId }
+	</select>
+	
+	<select id="selectFollowersCntById" resultType="_int">
+		SELECT COUNT(*) FROM SUB_TBL WHERE SUB_TARGET = #{ userId }
+	</select>
+</mapper>

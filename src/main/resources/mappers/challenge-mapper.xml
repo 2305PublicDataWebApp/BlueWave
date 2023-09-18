@@ -52,7 +52,7 @@
 	</select>
 	
 	<select id="selectAllById" resultMap="chalResultMap">
-		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId } ORDER BY CHAL_END_DATE
+		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = #{ userId }
 	</select>
 	
 	<select id="selectAllUserWave" resultMap="chalResultMap">
@@ -62,7 +62,6 @@
 		    ON B.C_BOARD_WRITER = #{ userId }
 		 WHERE A.CHAL_USER_ID = 'admin' 
 		   AND A.CHAL_NO = B.CHAL_NO
-	  ORDER BY CHAL_END_DATE
 	</select>
 	
 	<select id="selectLikeById" resultMap="chalResultMap">

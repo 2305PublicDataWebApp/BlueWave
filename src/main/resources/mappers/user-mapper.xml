@@ -86,4 +86,20 @@
 <!-- 	    WHERE U.USER_ID = #{userId} -->
 <!-- 	</select> -->
 
+	
+	<select id="selectAllFollowingListById" resultMap="userResultMap">
+		SELECT *
+		  FROM USER_TBL
+		 WHERE USER_ID IN (SELECT SUB_TARGET
+		                     FROM SUB_TBL
+		                    WHERE SUB_USER = #{ userId })
+	</select>
+	
+	<select id="selectAllFollowersListById" resultMap="userResultMap">
+   		SELECT *
+		  FROM USER_TBL
+		 WHERE USER_ID IN (SELECT SUB_USER
+		                     FROM SUB_TBL
+		                    WHERE SUB_TARGET = #{ userId })
+	</select>
 </mapper>

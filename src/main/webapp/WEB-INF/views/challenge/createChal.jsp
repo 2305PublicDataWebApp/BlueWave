@@ -40,7 +40,10 @@
                     <!-- 등록 버튼 -->
                     <section id="set-btn">
                         <input type="file" name="uploadFile" id="chal-file-name">
-                        <input type="submit" value="등록">
+                        <div>
+	                        <input type="button" value="목록으로" onclick="goBack();">
+	                        <input type="submit" value="등록">
+                        </div>
                     </section>
                 </form>
             </section>

@@ -20,9 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.CLike;
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.challenge.service.CBoardService;
+import com.kh.bluewave.challenge.service.CLikeService;
 import com.kh.bluewave.challenge.service.ChallengeService;
+import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
+import com.kh.bluewave.user.service.SubService;
 import com.kh.bluewave.user.service.UserService;
 
 @Controller
@@ -30,7 +36,13 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	@Autowired
+	private SubService sService;
+	@Autowired
 	private ChallengeService cService;
+	@Autowired
+	private CBoardService cBService;
+	@Autowired
+	private CLikeService cLService;
 
 	@RequestMapping(value="/user/findId1.do", method=RequestMethod.GET)
 	public ModelAndView showFindId1Form(ModelAndView mv) {
@@ -77,6 +89,81 @@ public class UserController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
+		public ModelAndView showMyPage(
+				@ModelAttribute User user,
+				ModelAndView mv
+				) {
+			try {
+				
+				User uOne = uService.selectOneById(user);
+				if(uOne != null) {
+					// 상단
+	//				int postCount = uService.getPostCountByUserId(user.getUserId());
+	//				int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+	//				int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
+	//				int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
+	////				List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
+	//				mv.addObject("totalPoint", totalPoint);
+	////	            mv.addObject("postCount", postCount);
+	//	            mv.addObject("totalBlueChalCount", totalBlueChalCount);
+	//	            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
+	//	            mv.addObject("goodsList", goodsList);
+					mv.addObject("user", uOne);
+	//				mv.setViewName("user/myPage_Bae");
+					
+					
+					// 하단
+					// 완료 여부 체크
+					String userId = user.getUserId();
+					int result = cService.updateFinish(); 
+					if(result > 0) {
+						// 관리자 챌린지 중 회원이 참여한 챌린지
+						List<Challenge> cWaveList = cService.selectAllUserWave(userId);
+						List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
+						List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
+						
+						 // 회원이 생성한 챌린지
+						List<Challenge> cPersonalList = cService.selectAllById(userId);
+						List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
+						
+						// 자신의 챌린지 별 인증 게시물 수
+						List<Challenge> cPostCntList = cService.selectPostsById(userId);
+						
+						// 회원이 좋아요를 한 게시물 리스트
+						List<CBoard> cBLikePostList = cBService.selectAllLikePostsById(userId);
+						List<CLike> cBLikeCntList = cLService.selectAllLikeCnt();// 총 좋아요 수
+						
+						// 구독
+						int followingCnt = sService.selectFollowingCntById(userId); 	// 팔로잉 수
+						int followersCnt = sService.selectFollowersCntById(userId); 	// 팔로워 수
+						List<Sub> followingList = uService.selectAllFollowingListById(userId); // 팔로잉 목록 
+						List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
+						
+						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
+						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList)
+						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
+						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
+						  .setViewName("user/myPage");
+					} else {
+						mv.addObject("msg", "완료 여부 체크");
+						mv.setViewName("common/errorMessage");
+					}
+				}else {
+					mv.addObject("msg", "데이터 조회에 실패했습니다.");
+					mv.addObject("error", "데이터 조회 실패");
+					mv.addObject("url", "index.jsp");
+					mv.setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				mv.addObject("msg", "관리자에게 문의해주세요.");
+				mv.addObject("error", e.getMessage());
+				mv.addObject("url", "index.jsp");
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+
 	@RequestMapping(value="/user/findId1.do", method=RequestMethod.POST)
 	public ModelAndView userFindId(ModelAndView mv
 			, @RequestParam(value="confirmType") String confirmType
@@ -185,112 +272,6 @@ public class UserController {
 		return mv;
 		
 	}
-	
-	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
-	public ModelAndView showMyPage(
-			@ModelAttribute User user,
-			ModelAndView mv
-			) {
-		try {
-			
-			User uOne = uService.selectOneById(user);
-			if(uOne != null) {
-				// 상단
-//				int postCount = uService.getPostCountByUserId(user.getUserId());
-//				int totalPoint = uService.getTotalPointByUserId(user.getUserId());
-//				int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
-//				int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
-////				List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-//				mv.addObject("totalPoint", totalPoint);
-////	            mv.addObject("postCount", postCount);
-//	            mv.addObject("totalBlueChalCount", totalBlueChalCount);
-//	            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
-//	            mv.addObject("goodsList", goodsList);
-				mv.addObject("user", uOne);
-//				mv.setViewName("user/myPage_Bae");
-				
-				
-				// 하단
-				// 완료 여부 체크
-				String userId = user.getUserId();
-				int result = cService.updateFinish(); 
-				if(result > 0) {
-					// 관리자 챌린지 중 회원이 참여한 챌린지
-					List<Challenge> cWaveList = cService.selectAllUserWave(userId);
-					List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
-					List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
-					
-					 // 회원이 생성한 챌린지
-					List<Challenge> cPersonalList = cService.selectAllById(userId);
-					List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
-					
-					// 자신의 챌린지 별 인증 게시물 수
-					List<Challenge> cPostCntList = cService.selectPostsById(userId);
-					
-					// 회원이 좋아요를 한 게시물 리스트
-					List<Challenge> cLikePostList = cService.selectAllLikePostsById(userId); // >>>>>>>>>>>>> 매퍼 추가해야함! C BOARD TBL에서 SERVICE를 돌려야할것같음
-					
-					mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList);
-					mv.addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList);
-					mv.addObject("cPostCntList", cPostCntList).addObject("cLikePostList", cLikePostList);
-					mv.setViewName("user/myPage");
-				} else {
-					mv.addObject("msg", "완료 여부 체크");
-					mv.setViewName("common/errorMessage");
-				}
-			}else {
-				mv.addObject("msg", "데이터 조회에 실패했습니다.");
-				mv.addObject("error", "데이터 조회 실패");
-				mv.addObject("url", "index.jsp");
-				mv.setViewName("common/errorPage");
-			}
-		} catch (Exception e) {
-			mv.addObject("msg", "관리자에게 문의해주세요.");
-			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "index.jsp");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
-	}
-	
-//	// 마이페이지 페이지
-//	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
-//	public ModelAndView showMyPage(ModelAndView mv) {
-//		
-//		String userId = "testuser01";
-//		try {			
-//			// 완료 여부 체크
-//			int result = cService.updateFinish(); 
-//			System.out.println(result);
-//			if(result > 0) {
-//				// 관리자 챌린지 중 회원이 참여한 챌린지
-//				List<Challenge> cWaveList = cService.selectAllUserWave(userId);
-//				List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
-//				List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
-//				
-//				 // 회원이 생성한 챌린지
-//				List<Challenge> cPersonalList = cService.selectAllById(userId);
-//				List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
-//				
-//				// 자신의 챌린지 별 인증 게시물 수
-//				List<Challenge> cPostCntList = cService.selectPostsById(userId);
-//				
-//				mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList);
-//				mv.addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList);
-//				mv.addObject("cPostCntList", cPostCntList);
-//				mv.setViewName("user/myPage");
-//			} else {
-//				mv.addObject("msg", "완료 여부 체크");
-//				mv.setViewName("common/errorMessage");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			mv.addObject("msg", e.getMessage());
-//			mv.setViewName("common/errorMessage");
-//		}
-//		
-//		return mv;
-//	}
 
 	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)
 	public ModelAndView deleteUser(

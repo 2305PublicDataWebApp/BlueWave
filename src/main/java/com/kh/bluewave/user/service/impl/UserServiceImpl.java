@@ -1,9 +1,12 @@
 package com.kh.bluewave.user.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.service.UserService;
 import com.kh.bluewave.user.store.UserStore;
@@ -89,4 +92,16 @@ public class UserServiceImpl implements UserService{
 //		return goodsList;
 //	}
 	
+
+	@Override
+	public List<Sub> selectAllFollowingListById(String userId) {
+		List<Sub> sList = uStore.selectAllFollowingListById(session, userId);
+		return sList;
+	}
+
+	@Override
+	public List<Sub> selectAllFollowersListById(String userId) {
+		List<Sub> sList = uStore.selectAllFollowersListById(session, userId);
+		return sList;
+	}
 }
