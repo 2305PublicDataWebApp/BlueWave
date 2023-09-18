@@ -1,0 +1,108 @@
+main {
+    --background-color: rgb(176, 211, 241);
+    --background-image: url('../../images/background-img.jpg');
+    --background-size: cover;
+    --background-repeat: no-repeat; 
+}
+
+    #main-container {
+        width: 70%;
+        height: 100vh;
+        --background-color: #fff;
+        background-color: #f8f8f8;
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        /* 시작일 종료일 */
+        #set-chal-date {
+            padding-bottom: 10px;
+            text-align: right;
+        }
+
+            #set-chal-date > input[type="date"] {
+                padding: 10px;
+                border: 2px solid #bbb;
+                border-radius: 8px;
+            }
+
+            /* 공개여부, 챌린지 명 */
+            #set-chal-info > div {
+                display: flex;
+                padding-bottom: 10px;
+            }
+
+                /* 공개여부 */
+                #chal-public {
+                    width: 150px;
+                    height: 48px;
+                    padding: 5px 10px;
+                    margin-right: 10px;
+                    border: 2px solid #bbb;
+                    border-radius: 8px;
+                }
+
+                    /* 챌린지 명 */
+                    #chal-title {
+                        width: 502px;
+                        padding: 15px;
+                        border: 2px solid #bbb;
+                        border-radius: 8px;
+                    }
+
+                    #warning-text {
+                        margin-top: 5px;
+                        font-size: 0.8em;
+                        color: red;
+                    }
+            
+            /* 챌린지 내용 */
+            #chal-content {
+                resize: none;
+                width: 662px;
+                padding: 15px;
+                border: 2px solid #bbb;
+                border-radius: 10px;
+            }    
+            
+        /* 파일 첨부, 등록 버튼 */
+        #set-btn {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+            /* 등록 버튼 */
+            /* 목록으로 (이전 페이지로) */
+            #set-btn > div > input:first-child {
+                background-color: transparent;
+                color: #3881c5;
+                width: 115px;
+				height: 40px;
+                margin: 0px;
+                border: 2px solid #3881c5;
+                border-radius: 8px;
+                font-size: 0.9em;
+                cursor:pointer;
+                text-align: center;
+                margin-right: 5px;
+            }
+            
+            /* 수정 */
+            #set-btn > div > input:last-child {
+                background-color: #3881c5;
+                color: #F3F3F3;
+                width: 115px;
+				height: 40px;
+                margin: 0px;
+                border: none;
+                border-radius: 8px;
+                font-size: 0.9em;
+                cursor:pointer;
+                text-align: center;
+            }

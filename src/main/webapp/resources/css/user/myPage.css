@@ -1,0 +1,278 @@
+main {
+    --background-color: rgb(176, 211, 241);
+    --background-image: url('../../images/background-img.jpg');
+    --background-size: cover;
+    --background-repeat: no-repeat; 
+}
+
+    #main-container {
+        width: 70%;
+        height: 100vh;
+        --background-color: #fff;
+        background-color: #f8f8f8;
+        margin: 0 auto;
+        padding: 0;
+        padding-top: 120px;
+    }
+
+        /* 챌린지 전환 탭 */
+        #my-nav {
+            width: 55%;
+            border: 2px solid lightgray;
+            border-radius: 10px;
+            margin: 0 auto;
+            padding: 2px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #my-nav > div {
+            width: 100%;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            --color: #fff;
+            --background-color: rgb(45, 55, 71);
+            cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+            transition: background-color 0.3s ease; /* 배경색 변화를 부드럽게 만듦 */
+        }
+
+        #my-nav > div.active {
+            background-color: #fff; /* 활성 탭 배경색 설정 */
+            color: rgb(45, 55, 71); /* 활성 탭 텍스트 색상 설정 */
+        }
+        
+        .chal-section {
+            width: 70%;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+            .select-show-chal {
+                width: 200px;
+                height: 40px;
+                margin-bottom: 20px;
+                padding: 5px 10px;
+                background-color: transparent;
+                border: 2px solid #bbb;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+/*             .chal-section > div > div:first-child { */
+/*                 display: flex; */
+/*                 justify-content: space-between; */
+/*                 flex-wrap: wrap; 챌린지 리스트를 한 줄에 2개씩 나열하도록 설정 */
+/*             } */
+
+            .chal-list {
+                width: 48.5%;
+                height: 44.4%;
+                margin-left: 2px;
+                margin-right: 2px;
+                margin-bottom: 30px;
+                padding: 30px 25px;
+                border: 2px solid lightgray;
+                border-radius: 10px;
+            }
+
+                .chal-list > div {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                /* 챌린지 기간 */
+                .chal-date {
+                    color: #bbb;
+                    font-size: 0.85em;
+                }
+                
+                #personal-slider .chal-list .chal-date {
+                	display: flex;
+                	align-items: flex-end;
+                }
+                
+                /* 수정 삭제 */
+                .edit-personal-chal {
+                    text-decoration: none;
+                    color: #60B0E1;
+                    font-size: 0.85em;
+                    position: relative;
+    				z-index: 1;
+                }
+
+                .edit-personal-chal:hover {
+                    text-decoration: underline;
+                    color: #60B0E1;
+                    font-size: 0.85em;
+                    position: relative;
+    				z-index: 1;
+                }
+
+            .chal-main-info {
+                display: flex;
+                align-items: center;
+                height: 140px;
+            }
+
+                /* 대표 이미지 */
+                .chal-main-img {
+                    width: 110px;
+                    height: 110px;
+                    margin: 15px;
+                    margin-left: 0;
+                }
+
+                .chal-main-info > div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                
+                    /* 챌린지 명 */
+                    .chal-title {
+                        --margin-top: 30px;
+                        font-size: 1.2em;
+                        font-weight: bold;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    /* 비공개 잠금 아이콘 */
+                    .chal-title > span {
+                        margin-right: 5px;
+                    }
+
+                    /* 챌린지 방법 설명 */
+                    .chal-main-info > div > div:last-child {
+                        margin-top: 5px;
+                        width: 280px;
+                        font-size: 0.9em;
+                        max-height: 50px;
+                        height: auto; /* 고정 높이를 auto로 변경 */
+                        white-space: normal; /* 줄바꿈 활성화 */
+                    }
+
+                /* 세부 정보 이동 버튼 */
+                .chal-details-btn {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 100%;
+                    border: 2px solid lightgray;
+                    background-color: transparent;
+                    color: #bbb;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: auto;
+                    cursor: pointer;
+                }
+
+            .chal-sub-info {
+                display: flex;
+                justify-content: space-between;
+            }
+
+                /* 이미지 - 설명 중앙 정렬 */
+                .chal-sub-info div {
+                    display: flex;
+                    align-items: center;
+                }
+
+                /* 참여 인원 수 */
+                .chal-sub-info > div:first-child > div:first-child {
+                    margin-right: 20px;
+                    font-size: 0.9em;
+                }
+
+                /* 총 좋아요 수 */
+                .chal-sub-info > div:first-child > div:last-child {
+                    font-size: 0.9em;
+                }
+
+                /* 진행률 */
+                .chal-sub-info > div:last-child > div:first-child {
+                    margin-right: 5px;
+                    padding: 5px 20px;
+                    font-size: 0.8em;
+                    border-radius: 8px;
+                }
+                
+                .chal-progress-before {
+                	background-color: transparent;
+                	border: 2px solid #bbb;
+                	color: gray;
+                }
+                
+                .chal-progress-finish {
+                	background-color: #ccc;
+                	border: 2px solid #bbb;
+                	color: gray;
+                }
+                
+                .chal-progress-ing {
+                	background-color: #afd3e2;
+                	border: 2px solid #afd3e2;
+                }
+                
+                .chal-progress-none {
+                	background-color: transparent;
+                	border: 2px solid #ddd;
+                	color: #bbb;
+                }
+
+                /* 나의 인증 횟수 */
+                .chal-sub-info > div:last-child > div:last-child {
+                    margin-left: 5px;
+                    padding: 5px 20px;
+                    color: #fff;
+                    font-size: 0.8em;
+                    background-color: #0AA1DD;
+                    border: 2px solid #0AA1DD;
+                    border-radius: 8px;
+                }
+
+        #like-chal {
+            text-align: center;
+        }
+
+        .like-image-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+
+            .like-img {
+                border-radius: 10%;
+                transition: filter 0.3s;
+            }
+
+            .image-text {
+                position: absolute;
+                bottom: 45%;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0; /* 초기에 텍스트 숨김 */
+                transition: opacity 0.3s;
+                color: white;
+                display: flex;
+                align-items: center;
+            }
+
+            .like-image-container:hover .image-text {
+                opacity: 1; /* 마우스 오버 시 텍스트 표시 */
+            }
+            
+			.like-image-container:hover .like-img {
+			    filter: brightness(55%);
+			}
+            
+		/* 리스트 목록이 없을 때 */
+		.list-none {
+			height: 500px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    color: #AFD3E2;
+		    font-size: 1.5em;
+		}
