@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="UserMapper">
 
+<mapper namespace="UserMapper">
 	<resultMap type="User" id="userResultMap">
 		<id		property="userId"  			 	column="USER_ID"/>
 		<result property="userPw"  		 		column="USER_PW"/>
@@ -21,4 +20,70 @@
 		<result property="userDate"    			column="USER_DATE"/>
 	</resultMap>
 	
+	<insert id="insertUser">
+		INSERT INTO USER_TBL VALUES( #{userId }, #{userPw }, #{userNickName }, #{userName }, #{userPhone }, #{userAddr }, #{userEmail }, #{userProfileName }, #{userProfileRename }, #{userProfilePath }, #{userProfileLength }, #{userAd }, DEFAULT)
+	</insert>
+	
+	<delete id="deleteUser">
+		DELETE FROM USER_TBL WHERE USER_ID = #{userId }
+	</delete>
+	
+	<update id="updateUser">
+		UPDATE USER_TBL SET USER_PW = #{userPw }, USER_NICKNAME = #{userNickName }, USER_PHONE = #{userPhone }, USER_ADDR = #{userAddr }, USER_EMAIL = #{userEmail }, USER_PROFILE_NAME = #{userProfileName }, USER_PROFILE_RENAME = #{userProfileRename }, USER_PROFILE_PATH = #{userProfilePath }, USER_PROFILE_LENGTH = #{userProfileLength }, USER_AD = #{userAd } 
+	</update>
+	
+	<select id="checkUserLogin" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_ID = #{userId } AND USER_PW = #{userPw }
+	</select>
+	
+	<select id="selectOneById" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_ID = #{userId }
+	</select>
+	
+	<select id="findUserByEmail" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_EMAIL = #{userEmail }
+	</select>
+	
+	<select id="findUserByPhone" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_PHONE = #{userPhone }
+	</select>
+	
+	<select id="getPostCountByUserId" resultType="int" >
+		SELECT COUNT(*)
+		FROM CHAL_BOARD_TBL CB
+		LEFT JOIN USER_TBL U ON CB.C_BOARD_WRITER = U.USER_ID
+		WHERE U.USER_ID = #{userId };
+	</select>
+	
+<!-- 	<select id="getTotalPointByUserId" resultType="int"> -->
+<!-- 		SELECT p.USER_TOTAL_POINT -->
+<!-- 		FROM POINT_TBL p -->
+<!-- 		INNER JOIN USER_TBL u ON p.USER_ID = u.USER_ID -->
+<!-- 		WHERE u.USER_ID = #{userId }; -->
+<!-- 	</select> -->
+	
+	<select id="getTotalBlueChalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CHAL_TBL c
+		INNER JOIN USER_TBL u ON c.CHAR_USER_ID = u.USER_ID
+		WHERE u.USER_ID = #{userId }
+		  AND c.CHAL_PUBLIC = 'Y';
+	</select>
+	
+<!-- 	<select id="getTotalPersonalChalCount" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM CHAL_TBL c -->
+<!-- 		INNER JOIN USER_TBL u ON c.CHAR_USER_ID = u.USER_ID -->
+<!-- 		WHERE u.USER_ID = #{userId } -->
+<!-- 		  AND c.CHAL_PUBLIC = 'N'; -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="getGoodsListByUserId" resultType="Goods"> -->
+<!-- 	    SELECT * -->
+<!-- 	    FROM USER_TBL U -->
+<!-- 	    JOIN POINT_TBL P ON U.USER_ID = P.USER_ID -->
+<!-- 	    JOIN GOODS_TBL G ON P.PRODUCT_NO = G.PRODUCT_NO -->
+<!-- 	    WHERE U.USER_ID = #{userId} -->
+<!-- 	</select> -->
+
 </mapper>
