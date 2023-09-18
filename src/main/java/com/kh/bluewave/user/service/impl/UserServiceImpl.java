@@ -1,10 +1,14 @@
 package com.kh.bluewave.user.service.impl;
 
+import java.util.List;
+
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.bluewave.user.domain.User;
+//import com.kh.bluewave.user.service.Goods;
 import com.kh.bluewave.user.service.UserService;
 import com.kh.bluewave.user.store.UserStore;
 
@@ -46,6 +50,48 @@ public class UserServiceImpl implements UserService{
 		User uOne = uStore.selectOneById(session, user);
 		return uOne;
 	}
+
+	@Override
+	public int getPostCountByUserId(String userId) {
+		int postCount = uStore.getPostCountByUserId(session, userId);
+		return postCount;
+	}
+
+	@Override
+	public int getTotalPointByUserId(String userId) {
+		int totalPoint = uStore.getTotalPointByUserId(session, userId);
+		return totalPoint;
+	}
+
+	@Override
+	public int getTotalBlueChalCount(String userId) {
+		int totalBlueChalCount = uStore.getTotalBlueChalCount(session, userId);
+		return totalBlueChalCount;
+	}
+
+	@Override
+	public int getTotalPersonalChalCount(String userId) {
+		int totalPersonalChalCount = uStore.getTotalPersonalChalCount(session, userId);
+		return totalPersonalChalCount;
+	}
+
+	@Override
+	public User findUserByEmail(String email) {
+		User uOne = uStore.findUserByEmail(session, email);
+		return uOne;
+	}
+
+	@Override
+	public User findUserByPhone(String phone) {
+		User uOne = uStore.findUserByPhone(session, phone);
+		return uOne;
+	}
+
+//	@Override
+//	public List<Goods> getGoodsListByUserId(String userId) {
+//		List<Goods> goodsList = uStore.getGoodsListByUserId(session, userId);
+//		return goodsList;
+//	}
 	
 	
 

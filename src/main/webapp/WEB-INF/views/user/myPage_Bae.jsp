@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../resources/css/myPage.css">
-    <link rel="stylesheet" href="../../resources/css/calendar.css">
+    <link rel="stylesheet" href="../resources/css/user/myPage_Bae.css">
+    <link rel="stylesheet" href="../resources/css/user/calendar.css">
     <title>myPage</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -23,12 +24,16 @@
         <div class="mini-container">
             <div id="mypage-header">
                 <div id="profile-div">
-                    <img src="../../resources/images/프로필이미지.png" alt="">
+                    <img src="${ user.userProfilePath}" alt="">
                 </div>
-                <img id="modify-icon" src="../../resources/images/설정아이콘.png" alt="">
+                <c:if test="${sessionScope.userId eq user.userId }">
+                <a href="/user/modify.do?userId=${sessionScope.userId }">
+				    <img src="../resources/images/user/설정아이콘.png" alt="설정 아이콘">
+				</a>
+                </c:if>
                 <div id="userInfo-div">
                     <div>
-                        <div id="nickname">바소잔</div>
+                        <div id="nickname">${user.userNickName }</div>
                     </div>
                     <div>
                         <div>
@@ -38,26 +43,27 @@
                 </div>
                 <div id="uiInfo-div">
                     <div class="ui-item">
-                        <img class="ui-icon" src="../../resources/images/공식(달성,진행)아이콘.png" alt="">
-                        <span class="ui-text">15/30</span>
+                        <img class="ui-icon" src="../resources/images/user/공식(달성,진행)아이콘.png" alt="">
+                        <span class="ui-text">15/${totalBlueChalCount }</span>
                     </div>
                     <div class="ui-item">
-                        <img class="ui-icon" src="../../resources/images/개인(달성,진행)아이콘.png" alt="">
-                        <span class="ui-text">3/5</span>
+                        <img class="ui-icon" src="../resources/images/user/개인(달성,진행)아이콘.png" alt="">
+                        <span class="ui-text">3/${totalPersonalChalCount }</span>
                     </div>
                     <div class="ui-item">
-                        <img class="ui-icon" src="../../resources/images/게시물아이콘.png" alt="">
-                        <span class="ui-text">43개</span>
+                        <img class="ui-icon" src="../resources/images/user/게시물아이콘.png" alt="">
+                        <span class="ui-text">${postCount }개</span>
                     </div>
                     <div class="ui-item">
-                        <img class="ui-icon" src="../../resources/images/포인트아이콘.png" alt="">
-                        <span class="ui-text">1234p</span>
+                        <img class="ui-icon" src="../resources/images/user/포인트아이콘.png" alt="">
+                        <span class="ui-text">${totalPoint }p</span>
                     </div>
                 </div>                         
             </div>
+            <c:if test="${sessionScope.userId eq user.userId }">
             <img id="dot" src="../../resources/images/dot.png" onclick="toggleReportDiv()" alt="">
             <div id="report-div" style="display: none;">
-                <div id="report-img-div"><img id="report-img" src="../../resources/images/경고아이콘.png" alt=""></div>
+                <div id="report-img-div"><img id="report-img" src="../resources/images/user/경고아이콘.png" alt=""></div>
                 <div id="report-text">신고하기</div>
             </div> 
             <div id="chal">
@@ -92,59 +98,62 @@
                 <div class="slider-container">
                     <div class="slider1">
                         <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름1</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름2</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름3</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름4</div>
-                            </div>
-                        </div>
-                        <!-- 추가 이미지 -->
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름5</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름6</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름7</div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../../resources/images/배경.jpg" alt="">
-                            <div class="goods-name-overlay">
-                                <div class="goods-name">굿즈 이름8</div>
-                            </div>
-                        </div>
+                        <c:forEach var="goods" items="${goodsList }" >
+	                        <div class="slide">
+	                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
+	                            <div class="goods-name-overlay">
+	                                <div class="goods-name">${goods.productName }</div>
+	                            </div>
+	                        </div>
+                        </c:forEach>
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름2</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름3</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름4</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         추가 이미지 -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름5</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름6</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름7</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <div class="slide"> -->
+<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
+<!--                             <div class="goods-name-overlay"> -->
+<!--                                 <div class="goods-name">굿즈 이름8</div> -->
+<!--                             </div> -->
+<!--                         </div> -->
                         <!-- 추가 이미지 끝 -->
                     </div>
                 </div>                
             </div>
+            </c:if>
         </div>
     </div>
     <script>

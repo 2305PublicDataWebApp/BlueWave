@@ -14,7 +14,7 @@ public class User {
 	private String userProfileRename;
 	private String userProfilePath;
 	private long userProfileLength;
-	private char userAd;
+	private String userAd;
 	private Date userDate;
 
 	public String getUserId() {
@@ -83,10 +83,10 @@ public class User {
 	public void setUserProfileLength(long userProfileLength) {
 		this.userProfileLength = userProfileLength;
 	}
-	public char getUserAd() {
+	public String getUserAd() {
 		return userAd;
 	}
-	public void setUserAd(char userAd) {
+	public void setUserAd(String userAd) {
 		this.userAd = userAd;
 	}
 	public Date getUserDate() {

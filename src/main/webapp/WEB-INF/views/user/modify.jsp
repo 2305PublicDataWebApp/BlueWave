@@ -13,19 +13,18 @@
     <div class="container">
         <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
         <h1>BLUE WAVE</h1>
-        <form action="/user/register.do" method="POST" enctype="multipart/form-data">
+        <form action="/user/modify.do" method="POST" enctype="multipart/form-data">
             <div id="img-div">
                 <label for="profile-image"></label>
                 <div class="profile-image-container">
-                    <img src="../../resources/images/user/프로필이미지.png" id="profile-image-preview" alt="프로필 이미지">
+                    <img src="${user.userProfilePath }" id="profile-image-preview" alt="프로필 이미지">
                     <input type="file" id="profile-image" name="uploadFile" >
                     <label for="profile-image" class="upload-icon"><img src="../resources/images/user/카메라아이콘.png" id="camera" class="upload-icon" alt=""></label>
                 </div>
             </div>
             <div id="form-top-group">
                 <div class="form-top-group">
-                    <input type="text" id="user-id" name="userId" placeholder="아이디" required>
-                    <input type="button" class="check-btn" id="id-check-btn" value="중복체크">
+                    <input type="text" id="user-id" name="userId" placeholder="아이디" value="${user.userId }" readonly>
                 </div>
                 <div class="form-top-group">
                     <input type="password" id="user-pw" name="userPw" placeholder="비밀번호" required>
@@ -37,35 +36,35 @@
                 </div>
             </div>
             <div id="form-group">
-                <input type="text" id="user-nickname" name="userNickName" placeholder="닉네임" required>
+                <input type="text" id="user-nickname" name="userNickName" placeholder="닉네임" value="${user.userNickName }" required>
                 <input type="button" class="check-btn" id="nickname-check-btn" value="중복체크">
             </div>
             <div id="form-bottom-group">
                 <div class="form-bottom-group">
-                    <input type="text" id="user-name" name="userName" placeholder="이름" required>
+                    <input type="text" id="user-name" name="userName" placeholder="이름" value="${user.userName }" readonly>
                 	<div class="error-message" id="name-error"></div>
                 </div>
                 <div class="form-bottom-group">
-                    <input type="text" id="user-phone" name="userPhone" placeholder="전화번호" required>
+                    <input type="text" id="user-phone" name="userPhone" placeholder="전화번호" value="${user.userPhone }" required>
                 	<div class="error-message" id="phone-error"></div>
                 </div>
                 <div class="form-bottom-group" id="post-div">
-			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" required>
+			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" value="${user.userAddr }" required>
 			        <input type="button" id="post-btn" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">
 			    </div>
 			    <div class="form-bottom-group" id="email-div">
-			        <input type="text" id="user-email" name="userEmail" placeholder="이메일" required>
+			        <input type="text" id="user-email" name="userEmail" placeholder="이메일" value="${user.userEmail }" required>
 			        <input type="button" class="check-btn" id="get-num-btn" value="인증번호">
 			        <input type="text" id="email-check" placeholder="인증번호 6자리">
 			        <input type="button" class="check-btn" id="email-check-btn" value="확인">
 			    </div>
             </div>
             <div id="ad">
-				<input type="checkbox" id="user-ad" name="userAd" value="Y">
+				<input type="checkbox" id="user-ad" name="userAd" value="${user.userAd }">
 				<label for="userAd" style="color: rgb(92, 92, 92);">광고 메일 수신 여부</label>
             </div>
             <div class="button-group">
-                <button type="submit" id="signup-button"  onclick="setUserAdValue()">회원가입</button>
+                <button type="submit" id="signup-button"  onclick="setUserAdValue()">수정하기</button>
                 <button type="button" id="cancel-button">취소</button>
             </div>
             

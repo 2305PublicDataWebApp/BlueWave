@@ -22,7 +22,7 @@
 
 /* 전체 페이지 스타일 */
 body {
-    background-image: url('../../images/배경.jpg');
+    background-image: url('../../images/user/배경.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -106,63 +106,8 @@ input[type="password"]:focus {
     box-shadow: 0 0 5px rgba(133, 206, 255, 0.5); /* 포커스시 그림자 효과 추가 */
 }
 
-#user-email {
-    position:relative;
-}
-
-/* 인증번호 받기 버튼 스타일 */
-#getNoBtn {
-    background-color: #dbdbdb;
-    color: #fff;
-    border: none;
-    padding: 5px 0;
-    border-radius: 25px;
-    font-size: 13px;
-    cursor: pointer;
-    width: 80px;
-    font-family: 'SUITE-Regular';
-    font-size: 13px;
-    position: absolute;
-    bottom: 175px;
-    right: 750px;
-}
-
-#getNoBtn:hover {
-    background-color: #e3e3e3;
-}
-
-#getNoBtn:active {
-    background-color: #c7c7c7;
-}
-
-/* 인증번호 확인 버튼 스타일 */
-#ConfirmBtn {
-    background-color: #dbdbdb;
-    color: #fff;
-    border: none;
-    padding: 5px 0;
-    border-radius: 25px;
-    font-size: 13px;
-    cursor: pointer;
-    width: 40px;
-    font-family: 'SUITE-Regular';
-    font-size: 13px;
-    position: absolute;
-    bottom: 115px;
-    right: 750px;
-}
-
-#ConfirmBtn:hover {
-    background-color: #e3e3e3;
-}
-
-#ConfirmBtn:active {
-    background-color: #c7c7c7;
-}
-
-
-/* 다음 버튼 스타일 */
-#next-button {
+/* 로그인 버튼 스타일 */
+.login-button {
     background-color: #4cbafa;
     color: #fff;
     border: none;
@@ -178,7 +123,7 @@ input[type="password"]:focus {
 }
 
 /* 버튼 호버(마우스 오버) 스타일 */
-#next-button:hover {
+.login-button:hover {
     opacity: 0.8;
 }
 
