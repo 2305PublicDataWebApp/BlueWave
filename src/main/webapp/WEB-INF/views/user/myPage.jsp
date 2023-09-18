@@ -135,6 +135,7 @@
 <!--         <header></header> -->
         <main>
             <section id="main-container">
+			<div class="mini-container">
 	            <div id="mypage-header">
 	                <div id="profile-div">
 	                    <img src="${ user.userProfilePath}" alt="">
@@ -267,6 +268,7 @@
 	                </div>                
 	            </div>
 	            </c:if>
+	        </div>
             
             
                 <section id="my-nav">
@@ -612,7 +614,8 @@
             	</section>
             </section>
         </main>
-        <footer></footer>
+<!--         <footer></footer> -->
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 
     <script>
         // // 프로그레스 바 엘리먼트 선택

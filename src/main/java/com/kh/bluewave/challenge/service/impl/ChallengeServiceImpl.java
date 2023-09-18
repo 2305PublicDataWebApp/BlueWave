@@ -91,6 +91,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	public List<Challenge> selectAllLikePostsById(String userId) {
+		List<Challenge> cList = cStore.selectAllLikePostsById(session, userId);
+		return cList;
+	}
+
+	@Override
 	public List<Challenge> selectOptionsByFinish(String finishOption) {
 		List<Challenge> cList = cStore.selectOptionsByFinish(session, finishOption);
 		return cList;

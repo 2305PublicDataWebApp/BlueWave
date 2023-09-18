@@ -7,11 +7,11 @@ main {
 
     #main-container {
         width: 70%;
-        height: 100vh;
+        --height: 100vh;
         --background-color: #fff;
         background-color: #f8f8f8;
         margin: 0 auto;
-        padding: 0;
+        padding: 80px 0;
         padding-top: 120px;
     }
 

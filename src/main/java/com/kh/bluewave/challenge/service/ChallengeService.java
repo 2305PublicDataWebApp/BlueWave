@@ -90,6 +90,13 @@ public interface ChallengeService {
 	List<Challenge> selectPostsById(String userId);
 
 	/**
+	 * 회원이 좋아요를 한 게시물 리스트 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectAllLikePostsById(String userId);
+
+	/**
 	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Service
 	 * @param finishOption
 	 * @return

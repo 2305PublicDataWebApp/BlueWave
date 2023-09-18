@@ -227,9 +227,12 @@ public class UserController {
 					// 자신의 챌린지 별 인증 게시물 수
 					List<Challenge> cPostCntList = cService.selectPostsById(userId);
 					
+					// 회원이 좋아요를 한 게시물 리스트
+					List<Challenge> cLikePostList = cService.selectAllLikePostsById(userId); // >>>>>>>>>>>>> 매퍼 추가해야함! C BOARD TBL에서 SERVICE를 돌려야할것같음
+					
 					mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList);
 					mv.addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList);
-					mv.addObject("cPostCntList", cPostCntList);
+					mv.addObject("cPostCntList", cPostCntList).addObject("cLikePostList", cLikePostList);
 					mv.setViewName("user/myPage");
 				} else {
 					mv.addObject("msg", "완료 여부 체크");
