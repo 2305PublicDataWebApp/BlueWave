@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.goods.domain.PageInfo;
 import com.kh.bluewave.goods.service.GoodsService;
+import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
 
 @Controller
 public class GoodsController {
@@ -41,6 +43,43 @@ public class GoodsController {
 			ModelAndView mv) {
 		List<Goods> gList = gService.selectGoodsList();
 		mv.addObject("gList", gList).setViewName("goods/goodsList");
+		return mv;
+	}
+	
+	/**
+	 * 굿즈 작성페이지로 이동
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value="/goods/write.do", method=RequestMethod.GET)
+	public ModelAndView showWriteForm(ModelAndView mv) {
+		mv.setViewName("goods/goodsWrite");
+		
+		return mv;
+	}
+	
+	/**
+	 * 굿즈 등록
+	 * @param mv
+	 * @param noticeBoard
+	 * @param request 
+	 * @param request 
+	 * @return 
+	 */
+	@RequestMapping(value="/goods/insert.do", method=RequestMethod.POST)
+	public ModelAndView insertGoods(ModelAndView mv
+			, @ModelAttribute Goods goods
+			, @RequestParam("productName") String productName
+			, @RequestParam("productContent") String productContent ){
+		goods.setProductName(productName);
+		goods.setProductContent(productContent);
+		int result = gService.insertGoods(goods);
+		if(result > 0) {
+			mv.setViewName("redirect:/goods/write.do");
+		}else {
+			mv.addObject("error", "등록 실패");
+			mv.setViewName("/goods/write.do");
+		}
 		return mv;
 	}
 	

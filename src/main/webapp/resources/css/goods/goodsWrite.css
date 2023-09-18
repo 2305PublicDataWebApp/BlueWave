@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+.goods-write-table {
+	width: 100%;
+}
+
+.goods-write-table #goods-title {
+	width: auto;
+}
+
+.goods-write-table thead tr {
+	line-height: 30px;
+    text-align: left;
+    display: flex;
+}
+
+.goods-write-table tbody tr {
+	display: flex;
+    flex-direction: column;
+}
+
+.ck-editor__editable_inline {
+	min-height: 400px;
+}
+
+.goods-board {
+	width: 70%;
+	height: 100vh;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+}
+
+.goods-form {
+	width: 70%;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 100px;
+}
+
+.goods-board-table {
+	padding: 10px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.goods-write-table tr:first-child input {
+	height: 30px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.goods-write-table tr:first-child td:first-child {
+/* 	width: 60px; */
+/* 	height: 30px; */
+	text-align: center;
+}
+textarea {
+	width: 90%;
+    height: 300px;
+}
+.writeBtn {
+	background-color: #3881C5;
+	color: #F3F3F3;
+	width: 100px;
+	height: 40px;
+	margin-top: 10px;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.9em;
+	cursor: pointer;
+	float: right;
+	font-weight: bolder;
+}
