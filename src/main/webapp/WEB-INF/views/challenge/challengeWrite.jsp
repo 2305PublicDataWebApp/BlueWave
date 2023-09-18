@@ -28,7 +28,7 @@
 						</div>
 					</section>
 					<section class="chal-content-section">
-						<form action="/challenge/write.do" method="post">
+						<form action="/challenge/write.do" method="post" enctype="multipart/form-data">
 							<div class="chal-board-title-box">
 								<label for="chal-board-title" class="chal-label">
 									제목
@@ -42,7 +42,7 @@
 								<textarea id="chal-board-content" rows="0" cols="0" class="input-tag" name="cBoardContent"></textarea>								
 							</div>
 							<div class="chal-board-file-box">
-								<input type="file" name=""  class="input-tag">
+								<input type="file" name="uploadFile" class="input-tag">
 								<div class="btn-box">
 									<input type="reset" value="취소하기" id="reset-btn">
 									<input type="submit" value="작성하기" class="btn">							

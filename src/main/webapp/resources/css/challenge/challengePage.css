@@ -1,9 +1,4 @@
 @charset "UTF-8";
-a {
-	/* a 태그 디자인 */
-	color: black;
-	text-decoration: none;
-}
 body{
     background-image: url(/resources/images/background-img.jpg);
     width: 100%;
@@ -18,7 +13,11 @@ body{
     margin:0 auto;
     margin-top: 60px;
 }
-
+#container a {
+	/* a 태그 디자인 */
+	color: black;
+	text-decoration: none;
+}
 #up-section {
              /* 블루웨이브 챌린지 섹션 */
 width: 100%;
@@ -43,7 +42,7 @@ line-height: 1.8;
 /* background-color: antiquewhite; */
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .chal-content ul li{

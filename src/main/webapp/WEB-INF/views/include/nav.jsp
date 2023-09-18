@@ -13,7 +13,7 @@
 			    align-items: center;
 			    z-index: 1000;
 			}
-			a {
+			.navbar a {
 			    text-decoration: none;
 			    color: white;
 			}
