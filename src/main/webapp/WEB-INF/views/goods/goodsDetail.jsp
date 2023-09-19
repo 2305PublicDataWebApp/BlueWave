@@ -56,7 +56,7 @@
 				<div class="goods-d-main-right">
 					<div class="goods-image-container">
 						<div class="goods-image">
-							<img src="../resources/images/logo.png" alt="여기에 이미지">
+							<img src="${goods.productImagePath }" alt="여기에 이미지">
 						</div>
 					</div>
 				</div>

@@ -8,15 +8,15 @@ public class Goods {
 	private String productThumbnail;
 	private String productThumbnailRename;
 	private String productThumbnailPath;
-	private int productThumbnailLength;
+	private long productThumbnailLength;
 	private String productImage;
 	private String productImageRename;
 	private String productImagePath;
-	private int productImageLength;
+	private long productImageLength;
 	private int productCount;
 	
 	public Goods() {}
-
+	
 	public int getProductNo() {
 		return productNo;
 	}
@@ -73,11 +73,11 @@ public class Goods {
 		this.productThumbnailPath = productThumbnailPath;
 	}
 
-	public int getProductThumbnailLength() {
+	public long getProductThumbnailLength() {
 		return productThumbnailLength;
 	}
 
-	public void setProductThumbnailLength(int productThumbnailLength) {
+	public void setProductThumbnailLength(long productThumbnailLength) {
 		this.productThumbnailLength = productThumbnailLength;
 	}
 
@@ -105,11 +105,11 @@ public class Goods {
 		this.productImagePath = productImagePath;
 	}
 
-	public int getProductImageLength() {
+	public long getProductImageLength() {
 		return productImageLength;
 	}
 
-	public void setProductImageLength(int productImageLength) {
+	public void setProductImageLength(long productImageLength) {
 		this.productImageLength = productImageLength;
 	}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.bluewave.goods.domain.Goods;
-import com.kh.bluewave.goods.domain.PageInfo;
 
 public interface GoodsStore {
 
@@ -31,5 +30,13 @@ public interface GoodsStore {
 	 * @return
 	 */
 	Goods selectGoodsByNo(SqlSession session, int productNo);
+
+	/**
+	 * 굿즈 등록
+	 * @param session
+	 * @param goods
+	 * @return
+	 */
+	int insertGoods(SqlSession session, Goods goods);
 
 }

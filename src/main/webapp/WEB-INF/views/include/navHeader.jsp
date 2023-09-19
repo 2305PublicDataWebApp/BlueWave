@@ -123,10 +123,10 @@
 				<!-- 헤더 오른쪽 -->
 				<div class="navbar-right">
 					<div class="login-btn">
-						<a href="#">login</a>
+						<a href="/user/login.do">login</a>
 					</div>
 					<div class="register-btn space">
-						<button onclick="location.href='#'">sign up</button>
+						<button onclick="location.href='/user/register.do'">sign up</button>
 					</div>
 				</div>
 			</nav>

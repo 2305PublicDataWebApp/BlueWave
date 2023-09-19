@@ -67,6 +67,10 @@
     width: 100%;
     height: 50%;
 }
+.goods-thumbnail img {
+	width: 100%;
+	height: 100%
+}
 .goods-price {
     margin-top: 20px;
 }

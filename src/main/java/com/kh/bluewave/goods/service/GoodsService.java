@@ -3,7 +3,6 @@ package com.kh.bluewave.goods.service;
 import java.util.List;
 
 import com.kh.bluewave.goods.domain.Goods;
-import com.kh.bluewave.goods.domain.PageInfo;
 
 public interface GoodsService {
 
@@ -21,11 +20,18 @@ public interface GoodsService {
 	List<Goods> selectGoodsList();
 
 	/**
-	 * 게시글 상세 조회
+	 * 굿즈 상세 조회
 	 * @param productNo
 	 * @return
 	 */
 	Goods selectGoodsByNo(int productNo);
+
+	/**
+	 * 굿즈 등록
+	 * @param goods
+	 * @return
+	 */
+	int insertGoods(Goods goods);
 
 
 }

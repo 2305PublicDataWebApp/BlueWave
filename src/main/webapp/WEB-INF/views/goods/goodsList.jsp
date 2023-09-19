@@ -46,27 +46,26 @@
 						<c:if test="${ status.index % 8 == 0}">
 							<div class="goods-item-container">
 						</c:if>
-						<div class="goods-item">
-							<div class="goods-thumbnail">
-								<img src="../resources/images/background-img.jpg" alt="여기는 이미지" />
-							</div>
-							<div class="goods-price">
-								<h3>${goods.productPoint }</h3>
-							</div>
-							<div class="goods-name">
-								<h2>${goods.productName }</h2>
-							</div>
-							<div class="goods-buy-btn">
-								<button class="buy-btn" onclick="location.href='/goods/detail.do?productNo=${goods.productNo }'">구매하기</button>
-							</div>
-						</div>
-						<c:if
-							test="${ status.index % 8 == 7 or status.count == gList.size() }">
+								<div class="goods-item">
+									<div class="goods-thumbnail">
+										<img src="${goods.productThumbnailPath }" alt="여기는 이미지" />
+									</div>
+									<div class="goods-price">
+										<h3>${goods.productPoint }</h3>
+									</div>
+									<div class="goods-name">
+										<h2>${goods.productName }</h2>
+									</div>
+									<div class="goods-buy-btn">
+										<button class="buy-btn" onclick="location.href='/goods/detail.do?productNo=${goods.productNo }'">구매하기</button>
+									</div>
+								</div>
+						<c:if test="${ status.index % 8 == 7 or status.count == gList.size() }">
 							</div>
 						</c:if>	
 					</c:forEach>
 				</div>
-		</div>
+			</div>
 	</main>
 	<footer></footer>
 	</div>

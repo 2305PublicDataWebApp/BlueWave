@@ -19,6 +19,10 @@
 		<result property="productCount" column="PRODUCT_COUNT"/>
 	</resultMap>
 	
+	<insert id="insertGoods">
+		INSERT INTO GOODS_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName}, #{productPoint }, #{productContent }, #{productThumbnail }, #{productThumbnailRename}, #{productThumbnailPath }, #{productThumbnailLength }, #{productImage }, #{productImageRename}, #{productImagePath }, #{productImageLength }, #{productCount })
+	</insert>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM GOODS_TBL
 	</select>

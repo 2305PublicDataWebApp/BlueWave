@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.goods.domain.Goods;
-import com.kh.bluewave.goods.domain.PageInfo;
 import com.kh.bluewave.goods.store.GoodsStore;
 
 @Repository
@@ -29,6 +28,12 @@ public class GoodsStoreLogic implements GoodsStore {
 	public Goods selectGoodsByNo(SqlSession session, int productNo) {
 		Goods goodsOne = session.selectOne("GoodsMapper.selectGoodsByNo", productNo);
 		return goodsOne;
+	}
+
+	@Override
+	public int insertGoods(SqlSession session, Goods goods) {
+		int result = session.insert("GoodsMapper.insertGoods", goods);
+		return result;
 	}
 
 }
