@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+/* 전체 슬라이더 배경 색상 */
+.bx-wrapper { 
+    box-shadow: none; 
+    border: none; 
+	background: transparent; 
+} 
+
+/* 좋아요 게시물 영역 중앙 정렬 */
+#like-chal > .bx-wrapper {
+	display: flex;
+	justify-content: center;
+}
+	
+	/* 블루웨이브, 개인 챌린지, 좋아요 게시물 탭 영역 설정 */
+	#bluewave-chal .bx-viewport
+	, #personal-chal .bx-viewport
+	, #like-chal .bx-viewport {
+		height: 530px !important;
+	}
+
+	#like-chal .bx-viewport {
+		width: 52% !important;
+	}
+	
+		/* 가로로 슬라이드 */
+		#bluewave-slider, #personal-slider {
+			display: flex;
+		}
+
+			/* 챌린지 컨텐츠 배치 형식 */
+			.chal-group { 
+				display: flex; 
+				justify-content: space-between; 
+				flex-wrap: wrap; 
+				height: 100%;
+			} 
+			
+			/* 좋아요 게시물 배치 형식 */
+			.like-group { 
+				display: flex; 
+				--justify-content: space-between; 
+				flex-wrap: wrap; 
+			} 
+
+		/* 슬라이드 이전 다음 버튼 디자인 */
+		.bx-controls-direction {
+			opacity: 30%;
+		}
+			
+		.bx-prev {
+		    background: url("../../images/prev-arrow.png") no-repeat !important;
+		    left: -30px !important;
+		}
+		
+		.bx-next {
+		    background: url("../../images/next-arrow.png") no-repeat !important;
+		    right: -45px !important;
+		}
+		
+		/* 좋아요 이전 다음 버튼 위치 */
+		#like-chal .bx-wrapper .bx-pager {
+		    position: absolute;
+		    bottom: -45px;
+		    left: 50%;
+		    transform: translateX(-50%);
+		}
+		
+		#like-chal > .bx-wrapper > div:last-child > .bx-controls-direction > .bx-prev {
+			left: 135px !important;
+		}
+		
+		#like-chal > .bx-wrapper > div:last-child > .bx-controls-direction > .bx-next {
+			right: 145px !important;
+		}
+			
+		/* 페이징 버튼 색상 */
+		.bx-wrapper .bx-pager.bx-default-pager a {
+			background-color: #AFD3E2;
+		}
+		
+		.bx-wrapper .bx-pager.bx-default-pager a:hover {
+			background-color: #79DAE8;
+		}
+		
+		.bx-wrapper .bx-pager.bx-default-pager a.active {
+			background-color: #19A7CE;
+		}

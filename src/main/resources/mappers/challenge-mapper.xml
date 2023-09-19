@@ -111,21 +111,11 @@
       GROUP BY A.CHAL_NO
 	</select>
 	
-	<select id="selectOptionsByFinish" resultMap="chalResultMap">
-		SELECT * FROM CHAL_TBL
-		<if test="wavefinishOption == 'all'">
-			WHERE CHAL_FINISH IN('Y', 'N') 
-		</if>
-		<if test="wavefinishOption eq 'Y'.toString()">
-			WHERE CHAL_FINISH LIKE 'Y'
-		</if>
-		<if test="wavefinishOption eq 'N'.toString()">
-			WHERE CHAL_FINISH LIKE 'N'
-		</if>
-		ORDER BY CHAL_CREATE_DATE DESC
-	</select>
-	
 	<select id="selectAllChallenges" resultMap="chalResultMap">
 		SELECT * FROM CHAL_TBL WHERE CHAL_PUBLIC = 'Y'
+	</select>
+	
+	<select id="findInsertChalNo" resultType="_int">
+		SELECT CHAL_NO FROM CHAL_TBL WHERE CHAL_USER_ID = #{ chalUserId } AND CHAL_TITLE = #{ chalTitle }
 	</select>
 </mapper>

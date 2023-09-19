@@ -62,7 +62,7 @@ public class ChallengeController {
 			}
 			
 			// 로그인 여부 확인
-			if(challenge.getChalUserId() != null) {
+			if(!challenge.getChalUserId().equals("")) {
 				// 챌린지 명 중복 여부 확인
 				Challenge cOne = cService.selectOneByTitle(challenge.getChalTitle());
 				if(cOne == null) {
@@ -78,16 +78,14 @@ public class ChallengeController {
 						challenge.setChalFileRename(fileRename);
 						challenge.setChalFilePath(savePath);
 						challenge.setChalFileLength(fileLength);
-					} else {
-						mv.addObject("msg", "파일 등록 실패").addObject("url", "/challenge/page.do");
-						mv.setViewName("common/serviceFailed");
-					}
+					} 
 					challenge.setChalStartDate(chalStartDate);
 					challenge.setChalEndDate(chalEndDate);
 					
 					int result = cService.insertChal(challenge);
 					if(result > 0) {
-						mv.setViewName("/challenge/page.do");				
+						int chalNo = cService.findInsertChalNo(challenge);
+						mv.setViewName("redirect:/challenge/info.do?chalNo=" + chalNo);				
 					} else {
 						mv.addObject("msg", "챌린지 생성 오류").addObject("url", "/challenge/page.do");
 						mv.setViewName("common/serviceFailed");
@@ -97,12 +95,12 @@ public class ChallengeController {
 					mv.setViewName("common/serviceFailed");
 				}
 			} else {
-				mv.addObject("msg", "로그인 필요").addObject("url", "/user/login.do");
+				mv.addObject("msg", "로그인이 필요합니다.").addObject("url", "/user/login.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "챌린지 생성 실패").addObject("url", "/challenge/page.do");
+			mv.addObject("msg", "챌린지 생성 오류").addObject("url", "/challenge/page.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -119,7 +117,6 @@ public class ChallengeController {
 	// 챌린지 수정 페이지
 	@RequestMapping(value="/challenge/update.do", method=RequestMethod.GET)
 	public ModelAndView showUpdateChalForm(int chalNo
-										 , String chalUserId
 										 , String userId
 										 , ModelAndView mv) {
 		try {
@@ -128,12 +125,12 @@ public class ChallengeController {
 				mv.addObject("chal", cOne);
 				mv.setViewName("/challenge/updateChal");
 			} else {
-				mv.addObject("msg", "수정할 챌린지 데이터 불러오기").addObject("url", "/user/myPage.do?userId=" + userId);
+				mv.addObject("msg", "수정할 챌린지 데이터 불러오기 실패").addObject("url", "/user/myPage.do?userId=" + userId);
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "수정 페이지 로딩 실패").addObject("url", "/challenge/info.do?chalNo=" + chalNo);
+			mv.addObject("msg", "수정 페이지 로딩 오류").addObject("url", "/user/myPage.do?userId=" + userId);
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -149,8 +146,8 @@ public class ChallengeController {
 								   , ModelAndView mv) {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
-			if(userId != null) {
-				if(challenge.getChalUserId() == userId) {
+			if(!userId.equals("")) {
+				if(challenge.getChalUserId().equals(userId)) {
 					if(!uploadFile.getOriginalFilename().equals("")) {
 						String fileRename = challenge.getChalFileRename();
 						if(fileRename != null) {
@@ -167,30 +164,27 @@ public class ChallengeController {
 						challenge.setChalFileRename(chalFileRename);
 						challenge.setChalFilePath(chalFilePath);
 						challenge.setChalFileLength(chalFileLength);
-					} else {
-						mv.addObject("msg", "파일 수정 실패").addObject("url", "/user/myPage.do?userId=" + userId);
-						mv.setViewName("common/serviceFailed");
-					}
+					} 
 					
 					int result = cService.updateChal(challenge);
 					
 					if(result > 0) {
-						mv.setViewName("/user/myPage");		
+						mv.setViewName("redirect:/challenge/info.do?chalNo=" + challenge.getChalNo());			
 					} else {
 						mv.addObject("msg", "챌린지 수정 실패").addObject("url", "/user/myPage.do?userId=" + userId);
 						mv.setViewName("common/serviceFailed");
 					}
 				} else {
-					mv.addObject("msg", "작성자만 챌린지 수정 가능").addObject("url", "/user/login.do");
+					mv.addObject("msg", "작성자만 챌린지 수정이 가능합니다.").addObject("url", "/user/login.do");
 					mv.setViewName("common/serviceFailed");
 				}
 			} else {
-				mv.addObject("msg", "로그인 필요").addObject("url", "/user/login.do");
+				mv.addObject("msg", "로그인이 필요합니다.").addObject("url", "/user/login.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "수정 페이지 로딩 실패").addObject("url", "/user/myPage.do?userId=" + userId);
+			mv.addObject("msg", "챌린지 수정 오류").addObject("url", "/user/myPage.do?userId=" + userId);
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -205,28 +199,28 @@ public class ChallengeController {
 								, ModelAndView mv) {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
-			if(userId != null) {
-				if(chalUserId == userId) {
+			if(!userId.equals("")) {
+				if(chalUserId.equals(userId)) {
 					Challenge challenge = cService.selectOneByNo(chalNo);
 					int result = cService.deleteChal(chalNo);
 					if(result > 0) {
 						this.deleteFile(request, challenge.getChalFileRename());
-						mv.setViewName("/user/myPage");
+						mv.setViewName("redirect:/user/myPage.do?userId=" + userId);
 					} else {
 						mv.addObject("msg", "챌린지 삭제 실패").addObject("url", "/user/myPage.do?userId=" + userId);
 						mv.setViewName("common/serviceFailed");
 					}
 				} else {
-					mv.addObject("msg", "작성자만 챌린지 삭제 가능").addObject("url", "/user/login.do");
+					mv.addObject("msg", "작성자만 챌린지 삭제가 가능합니다.").addObject("url", "/user/login.do");
 					mv.setViewName("common/serviceFailed");
 				}
 			} else {
-				mv.addObject("msg", "로그인 필요").addObject("url", "/user/login.do");
+				mv.addObject("msg", "로그인이 필요합니다.").addObject("url", "/user/login.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "챌린지 삭제 실패").addObject("url", "/user/myPage.do?userId=" + userId);
+			mv.addObject("msg", "챌린지 삭제 오류").addObject("url", "/user/myPage.do?userId=" + userId);
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;

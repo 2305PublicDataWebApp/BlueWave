@@ -111,14 +111,19 @@ public interface ChallengeStore {
 	 */
 	List<Challenge> selectPostsById(SqlSession session, String userId);
 
-	/**
-	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Store
+	/** 
+	 * 모든 챌린지 조회 Store
 	 * @param session
-	 * @param finishOption
 	 * @return
 	 */
-	List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption);
-
 	List<Challenge> selectAllChallenges(SqlSession session);
+
+	/**
+	 * 회원이 방금 생성한 챌린지의 챌린지 번호 조회 Store
+	 * @param session
+	 * @param challenge
+	 * @return
+	 */
+	int findInsertChalNo(SqlSession session, Challenge challenge);
 
 }

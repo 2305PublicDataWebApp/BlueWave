@@ -8,11 +8,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../resources/css/user/myPage.css">
-        <link rel="stylesheet" href="../resources/css/user/myPage_Bae.css">
-        <link rel="stylesheet" href="../resources/css/user/calendar.css">
-        <link rel="stylesheet" href="../resources/css/font.css">
-        <link rel="stylesheet" href="../resources/css/reset.css">        
+        <link rel="stylesheet" href="/resources/css/user/myPage.css">
+        <link rel="stylesheet" href="/resources/css/user/myPage_Bae.css">
+        <link rel="stylesheet" href="/resources/css/user/calendar.css">
+        <link rel="stylesheet" href="/resources/css/font.css">
+        <link rel="stylesheet" href="/resources/css/reset.css">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -32,6 +32,8 @@
 				var likeSlider = $("#like-slider").bxSlider({
 				    touchEnabled : (navigator.maxTouchPoints > 0)
 				});
+				
+				$(".slider").bxSlider();
 			    
 			    $("#bluewave-tab").click(function() {
 			    	bluewaveSlider.reloadSlider();
@@ -46,90 +48,8 @@
 			    });
 			});
 	    </script>
-	    <script>
-		    $(document).ready(function(){
-		    	$(".slider").bxSlider();
-		    });
-	    </script>
 	    <!-- 챌린지 슬라이더 css -->
-	    <style type="text/css">
- 	    	.bx-wrapper { 
- 			    box-shadow: none; 
- 			    border: none; 
-     			background: transparent; 
- 			} 
-			
- 			.chal-group { 
- 				display: flex; 
-     			justify-content: space-between; 
-     			flex-wrap: wrap; 
-     			height: 100%;
- 			} 
-			
- 			.like-group { 
- 				display: flex; 
-     			--justify-content: space-between; 
-     			flex-wrap: wrap; 
- 			} 
-			
- 			.bx-viewport {
- 				height: 530px !important;
- 			}
- 			
- 			#like-chal > .bx-wrapper {
- 				display: flex;
-    			justify-content: center;
- 			}
- 			
- 			#like-chal .bx-viewport {
- 				width: 52% !important;
- 			}
- 			
- 			#bluewave-slider, #personal-slider {
- 				display: flex;
- 			}
- 			
- 			.bx-controls-direction {
- 				opacity: 30%;
- 			}
- 			
-            .bx-prev {
-			    background: url("../resources/images/prev-arrow.png") no-repeat !important;
-			    left: -30px !important;
-			}
-			
-			.bx-next {
-			    background: url("../resources/images/next-arrow.png") no-repeat !important;
-			    right: -45px !important;
-			}
- 			
- 			.bx-wrapper .bx-pager.bx-default-pager a {
- 				background-color: #AFD3E2;
- 			}
- 			
- 			.bx-wrapper .bx-pager.bx-default-pager a:hover {
- 				background-color: #79DAE8;
- 			}
- 			
- 			.bx-wrapper .bx-pager.bx-default-pager a.active {
- 				background-color: #19A7CE;
- 			}
- 			
- 			#like-chal .bx-wrapper .bx-pager {
-			    position: absolute;
-			    bottom: -45px;
-			    left: 50%;
-			    transform: translateX(-50%);
-			}
-			
-			#like-chal > .bx-wrapper > div:last-child > .bx-controls-direction > .bx-prev {
-				left: 135px !important;
-			}
-			
-			#like-chal > .bx-wrapper > div:last-child > .bx-controls-direction > .bx-next {
-				right: 145px !important;
-			}
-	    </style>
+        <link rel="stylesheet" href="/resources/css/user/myPageChalSlider.css"> 
         <title>마이페이지</title>
     </head>
     <body>
@@ -349,15 +269,6 @@
                 
                 <!-- 블루웨이브 챌린지 -->
                 <section id="bluewave-chal" class="chal-section">
-                    <!-- 챌린지 리스트 -->
-	                    <!-- 챌린지 진행도 선택 -->
-<!-- 	                    <select name="wavefinishOption" class="select-show-chal" onchange="getWaveChalSelOption(this.value);"> -->
-<!--  	                    <select name="wavefinishOption" class="select-show-chal"> --> 
-<%-- 	                        <option value="all" <c:if test="${ wavefinishOption eq 'all' }">selected</c:if>>전체</option> --%>
-<%-- 	                        <option value="N" <c:if test="${ wavefinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option> --%>
-<%-- 	                        <option value="Y" <c:if test="${ wavefinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option> --%>
-<!-- 	                    </select> -->
-						
                     <c:if test="${ !empty cWaveList }">
 	                    <div id="bluewave-slider">
 	                        <c:forEach var="chal" items="${ cWaveList }" varStatus="status">
@@ -389,7 +300,7 @@
 	                                    	</c:if>
 	                                    </div>
 	                                    <!-- 챌린지 세부 정보 이동 버튼 -->
-	                                    <button class="chal-details-btn">
+	                                    <button class="chal-details-btn" onclick="showChalInfo('${ chal.chalNo }');">
 	                                        <span class="material-symbols-outlined">arrow_forward_ios</span>
 	                                    </button>
 	                                </div>
@@ -496,18 +407,6 @@
                 <section id="personal-chal" class="chal-section" style="display: none;" >
                     <!-- 챌린지 리스트 -->
                     <c:if test="${ !empty cPersonalList }">
-<!-- 	                    <select name="chalPublic" class="select-show-chal" style="width: 100px;"> -->
-<!-- 	                        <option value="Y">공개</option> -->
-<!-- 	                        <option value="N">비공개</option> -->
-<!-- 	                    </select> -->
-	                    
-<!-- 	                    <select name="perfinishOption" class="select-show-chal" onchange="getPerChalSelOption(this.value);"> -->
-<!-- 	                    <select name="perfinishOption" class="select-show-chal"> -->
-<%-- 	                        <option value="all" <c:if test="${ perfinishOption eq 'all' }">selected</c:if>>전체</option> --%>
-<%-- 	                        <option value="N" <c:if test="${ perfinishOption eq 'N' }">selected</c:if>>진행 중인 챌린지</option> --%>
-<%-- 	                        <option value="Y" <c:if test="${ perfinishOption eq 'Y' }">selected</c:if>>완료된 챌린지</option> --%>
-<!-- 	                    </select> -->
-	                    
 	                    <div id="personal-slider">
 	                    	<c:if test="${sessionScope.userId ne user.userId }">
 	                    		<c:set var="personalList" value="${ cOtherPersonalList }" />
@@ -530,10 +429,12 @@
 			                                </c:if>
 			                                <c:if test="${sessionScope.userId eq user.userId }">
 			                                    <div>
-			<!--                                     	근데 수정 링크 post로 받아야하지않나... -->
+<!-- 			                                    	<form action="/challenge/update.do" method="post" name="chalUpdateForm"> -->
+<%-- 													    <input type="hidden" name="chalNo" value="${chal.chalNo}"> --%>
+<%-- 													    <input type="hidden" name="userId" value="${sessionScope.userId}"> --%>
+<!-- 													</form> -->
 			                                    	<c:url var="updateUrl" value="/challenge/update.do">
 			                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
-			                                    		<c:param name="chalUserId" value="${ chal.chalUserId }"></c:param>
 			                                    		<c:param name="userId" value="${ sessionScope.userId }"></c:param>
 			                                    	</c:url>
 			                                    	<c:url var="deleteUrl" value="/challenge/delete.do">
@@ -541,6 +442,7 @@
 			                                    		<c:param name="chalUserId" value="${ chal.chalUserId }"></c:param>
 			                                    		<c:param name="userId" value="${ sessionScope.userId }"></c:param>
 			                                    	</c:url>
+<!-- 			                                        <a href="javascript:void(0)" class="edit-personal-chal" onclick="submitChalUpdateForm();">수정</a>&nbsp; -->
 			                                        <a href="${ updateUrl }" class="edit-personal-chal">수정</a>&nbsp;
 			                                        <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal('${ deleteUrl }');">삭제</a>
 			                                    </div>
@@ -570,7 +472,7 @@
 		                                    	</c:if>
 		                                    </div>
 		                                    <!-- 챌린지 세부 정보 이동 버튼 -->
-		                                    <button class="chal-details-btn">
+		                                    <button class="chal-details-btn" onclick="showChalInfo('${ chal.chalNo }');">
 		                                        <span class="material-symbols-outlined">arrow_forward_ios</span>
 		                                    </button>
 		                                </div>
@@ -681,6 +583,7 @@
 						            <div class="like-group">
 						        </c:if>
 				                    <div class="like-image-container">
+				                    <!-- 좋아요 모달창 추가하기 -->
 				                        <a href="#">
 				                            <img src="../resources/cuploadFiles/${ likePost.cBoardFileRename }" alt="좋아요 게시물" class="like-img" width="140px" height="160px">
 				                            <div class="image-text">
@@ -853,20 +756,21 @@
             showTab('bluewave-tab');
         </script>
         <script>
+        	function showChalInfo(chalNo) {
+				location.href = "/challenge/info.do?chalNo=" + chalNo;
+			}
+        </script>
+        <script>
+			function submitChalUpdateForm() {
+			    document.chalUpdateForm.submit();
+			}
+		</script>
+        <script>
             function deleteMyChal(deleteUrl) {
-                if(confirm("삭제한 챌린지 정보는 복구되지 않습니다. 정말 삭제하시겠습니까?")){
+                if(confirm("삭제한 챌린지 정보는 복구되지 않습니다(인증 게시물 포함). 정말 삭제하시겠습니까?")){
                 	location.href = deleteUrl;
                 }
             }
         </script>
-<!--         <script> -->
-<!--          	function getWaveChalSelOption(option, userId) { -->
-<!--          		location.href="/user/uWaveChalInfoCheck.do?wavefinishOption=" + option + "&userId=" + "testuser01"; -->
-<!--         	}  -->
-        	
-<!--          	function getPerChalSelOption(option, userId) { -->
-<!--          		location.href="/user/uPerChalInfoCheck.do?perfinishOption=" + option + "&userId=" + "testuser01"; -->
-<!--          	} -->
-<!-- 		</script> -->
     </body>
 </html>

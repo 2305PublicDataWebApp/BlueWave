@@ -4,7 +4,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>footer</title>
 	</head>
 	<style>
 		* {
@@ -23,7 +23,7 @@
 		.footer {
 			width: 100%;
 			height: 250px;
-			background-color: #45A1D6;
+			background-color: #afd3e2;
 		}
 		.footer-wrap {
 			margin: 0 auto;
@@ -60,7 +60,7 @@
 		<div class="footer">
 			<div class="footer-wrap">
 				<div class="div1 float-test">
-					<img src="./resources/images/water.png" />
+					<img src="../resources/images/water.png" />
 				</div>
 				<div class="div2 float-test">
 					<h3>ABOUT</h3>

@@ -97,11 +97,15 @@ public interface ChallengeService {
 	List<Challenge> selectPostsById(String userId);
 
 	/**
-	 * 챌린지 완료 여부에 따른 챌린지 리스트 조회 Service
-	 * @param finishOption
+	 * 모든 챌린지 조회 Service
 	 * @return
 	 */
-	List<Challenge> selectOptionsByFinish(String finishOption);
-
 	List<Challenge> selectListByChal();
+
+	/**
+	 * 회원이 방금 생성한 챌린지의 챌린지 번호 조회 Service 
+	 * @param challenge
+	 * @return
+	 */
+	int findInsertChalNo(Challenge challenge);
 }

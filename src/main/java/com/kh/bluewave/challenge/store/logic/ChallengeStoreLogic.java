@@ -88,17 +88,17 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		List<Challenge> cList = session.selectList("ChalMapper.selectPostsById", userId);
 		return cList;
 	}
-	
-	@Override
-	public List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption) {
-		List<Challenge> cList = session.selectList("ChalMapper.selectOptionsByFinish", finishOption);
-		return cList;
-	}
 
 	@Override
 	public List<Challenge> selectAllChallenges(SqlSession session) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectAllChallenges");
 		return cList;
+	}
+
+	@Override
+	public int findInsertChalNo(SqlSession session, Challenge challenge) {
+		int result = session.selectOne("ChalMapper.findInsertChalNo", challenge);
+		return result;
 	}
 
 }
