@@ -522,17 +522,19 @@
 			                                <c:if test="${ chal.chalEndDate eq null }">
 				                                <span class="chal-date">${ chal.chalStartDate }</span>                                
 			                                </c:if>
-		                                    <div>
-		<!--                                     	근데 수정 링크 post로 받아야하지않나... -->
-		                                    	<c:url var="updateUrl" value="/challenge/update.do">
-		                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
-		                                    	</c:url>
-		                                    	<c:url var="deleteUrl" value="/challenge/delete.do">
-		                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
-		                                    	</c:url>
-		                                        <a href="${ updateUrl }" class="edit-personal-chal">수정</a>&nbsp;
-		                                        <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal('${ deleteUrl }');">삭제</a>
-		                                    </div>
+			                                <c:if test="${sessionScope.userId eq user.userId }">
+			                                    <div>
+			<!--                                     	근데 수정 링크 post로 받아야하지않나... -->
+			                                    	<c:url var="updateUrl" value="/challenge/update.do">
+			                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+			                                    	</c:url>
+			                                    	<c:url var="deleteUrl" value="/challenge/delete.do">
+			                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+			                                    	</c:url>
+			                                        <a href="${ updateUrl }" class="edit-personal-chal">수정</a>&nbsp;
+			                                        <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal('${ deleteUrl }');">삭제</a>
+			                                    </div>
+			                                </c:if>
 		                                </div>
 		                                <div class="chal-main-info">
 		                                    <!-- 대표 이미지 -->
