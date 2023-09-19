@@ -43,4 +43,16 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 		return nOne;
 	}
 
+	@Override
+	public int updateNotice(NoticeBoard noticeBoard) {
+		int result = nStore.updateNotice(session, noticeBoard);
+		return result;
+	}
+
+	@Override
+	public int updateViewCount(NoticeBoard nOne) {
+		int result = nStore.updateViewCount(session, nOne);
+		return result;
+	}
+
 }

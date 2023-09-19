@@ -7,58 +7,8 @@
 	<head>
         <meta charset="UTF-8">
         <title>공지 게시판 리스트</title>
+        <link rel="stylesheet" href="/resources/css/notice/noticeBoard.css">
     </head>
-    <style>
-		.notice-container {
-			width: 70%;
-			height: 100vh;
-			margin: 0 auto;
-			background-color: #F8F8F8;
-		}
-		.notice-subject {
-			padding-top: 150px;
-		    width: 70%;
-		    margin: 0 auto;
-		}
-        .notice-table{
-            width: 70%;
-            margin: 0 auto;
-            --padding-top: 200px;
-        }
-        .notice-table td:last-child 
-        , .notice-table td:nth-last-child(2)
-        , .notice-table td:nth-last-child(3)
-        , .notice-table td:first-child {
-            width: 90px;
-            height: 30px;
-            text-align: center;
-            
-        }
-        .notice-table th:last-child 
-        , .notice-table th:nth-last-child(2)
-        , .notice-table th:nth-last-child(3)
-        , .notice-table th:first-child
-        , .notice-paging {
-        	text-align: center;
-        }
-        .notice-table th {
-        	height: 40px;
-        	border-radius: 3px;
-        	border-top: 1px solid #ccc;
-        	border-bottom: 2px solid #3881C5;
-        	background-color: white;
-        }
- 		.notice-table td {
- 			height: 40px;
- 			border-bottom: 1px solid #ccc;
- 			background-color: white;
- 			border-radius: 3px;
- 		}
- 		.notice-paging a
- 		, .notice-table a{
- 			color: black;
- 		}
-    </style>
     <body>
     	<jsp:include page="../include/navHeader.jsp"></jsp:include>
         <div class="notice-container">
@@ -74,7 +24,7 @@
 	            <c:forEach var="notice" items="${nList }" varStatus="i">
 	            <tr>
 	                <td>${i.count }</td>
-	                <c:url var="detailUrl" value="/noticeDetail.do">
+	                <c:url var="detailUrl" value="/notice/detail.do">
 	                	<c:param name="noticeNo" value="${notice.noticeNo }" />
 	                </c:url>
 	                <td>
@@ -89,19 +39,19 @@
 	            </c:forEach>
             </table>
 	        <div class="notice-paging">
-				<c:url var="pageUrl" value="/noticeBoard.do">
+				<c:url var="pageUrl" value="/notice/board.do">
                 	<c:param name="page" value="${pInfo.startNavi -1 }"></c:param>
                 </c:url>
                 <c:if test="${pInfo.startNavi != 1 }">
                 	<a href="${pageUrl }">[이전]</a>
                 </c:if>	        	
 	             <c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
-					<c:url var="pageUrl" value="/noticeBoard.do">
+					<c:url var="pageUrl" value="/notice/board.do">
 						<c:param name="page" value="${p }"></c:param>
 					</c:url>
 					<a href="${pageUrl }">${p }</a>&nbsp;
 				</c:forEach>
-					<c:url var="pageUrl" value="/noticeBoard.do">
+					<c:url var="pageUrl" value="/notice/board.do">
                 <c:param name="page" value="${pInfo.startNavi +1 }"></c:param>
                 </c:url>
                 <c:if test="${pInfo.endNavi != pInfo.naviTotalCount}">

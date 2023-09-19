@@ -39,4 +39,20 @@ public interface NoticeBoardStore {
 	 */
 	NoticeBoard selectOneNoticeNo(SqlSession session, int noticeNo);
 
+	/**
+	 * 공지 게시글 수정
+	 * @param session
+	 * @param noticeBoard
+	 * @return
+	 */
+	int updateNotice(SqlSession session, NoticeBoard noticeBoard);
+
+	/**
+	 * 공지 조회수 증가
+	 * @param session
+	 * @param noticeNo
+	 * @return
+	 */
+	int updateViewCount(SqlSession session, NoticeBoard nOne);
+
 }
