@@ -7,13 +7,39 @@ main {
 
     #main-container {
         width: 70%;
-        height: 100vh;
+        --height: 100vh;
         --background-color: #fff;
         background-color: #f8f8f8;
         margin: 0 auto;
-        padding: 0;
+        padding: 80px 0;
         padding-top: 120px;
     }
+    
+    	/* 구독 */
+    	.sub {
+    		cursor: pointer;
+    		color: black !important;
+    	}
+    		
+    		.modal-body > div {
+    			display: flex;
+    			align-items: center;
+   			    padding: 10px 20px;
+    			border-bottom: 1px solid #ddd;
+    			cursor: pointer;
+    		}
+    	
+    		.sub-div {
+    			float:left;
+    		}
+    		
+    		/* 프로필 이미지 */
+    		.sub-profile-img {
+   			    width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				margin-right: 20px;
+    		}
 
         /* 챌린지 전환 탭 */
         #my-nav {

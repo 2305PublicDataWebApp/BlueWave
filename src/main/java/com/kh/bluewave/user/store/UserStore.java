@@ -1,7 +1,10 @@
 package com.kh.bluewave.user.store;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 
 public interface UserStore {
@@ -102,4 +105,20 @@ public interface UserStore {
 	 */
 //	List<Goods> getGoodsListByUserId(SqlSession session, String userId);
 
+
+	/**
+	 * 회원의 팔로잉 목록 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<Sub> selectAllFollowingListById(SqlSession session, String userId);
+
+	/**
+	 * 회원의 팔로워 목록 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<Sub> selectAllFollowersListById(SqlSession session, String userId);
 }

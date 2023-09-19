@@ -1,8 +1,11 @@
 package com.kh.bluewave.user.store.logic;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.store.UserStore;
 
@@ -81,6 +84,16 @@ public class UserStoreLogic implements UserStore{
 //		return goodsList;
 //	}
 	
-	
 
+	@Override
+	public List<Sub> selectAllFollowingListById(SqlSession session, String userId) {
+		List<Sub> sList = session.selectList("UserMapper.selectAllFollowingListById", userId);
+		return sList;
+	}
+
+	@Override
+	public List<Sub> selectAllFollowersListById(SqlSession session, String userId) {
+		List<Sub> sList = session.selectList("UserMapper.selectAllFollowersListById", userId);
+		return sList;
+	}
 }

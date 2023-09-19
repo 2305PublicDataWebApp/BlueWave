@@ -32,5 +32,12 @@ public class CBoardServiceImpl implements CBoardService{
 		List<CBoard> cList = cStore.selectCBoardByNo(session, chalNo);
 		return cList;
 	}
+	
+	// 좋아요 한 게시물 list
+	@Override
+	public List<CBoard> selectAllLikePostsById(String userId) {
+		List<CBoard> cList = cStore.selectAllLikePostsById(session, userId);
+		return cList;
+	}
 
 }

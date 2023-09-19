@@ -24,4 +24,12 @@ public interface CBoardStore {
 	 */
 	List<CBoard> selectCBoardByNo(SqlSession session, int chalNo);
 
+	/**
+	 * 회원이 좋아요를 한 게시물 리스트 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<CBoard> selectAllLikePostsById(SqlSession session, String userId);
+
 }

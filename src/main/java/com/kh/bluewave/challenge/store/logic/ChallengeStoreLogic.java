@@ -82,7 +82,7 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		List<Challenge> cList = session.selectList("ChalMapper.selectPostsById", userId);
 		return cList;
 	}
-
+	
 	@Override
 	public List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectOptionsByFinish", finishOption);
