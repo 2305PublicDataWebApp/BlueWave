@@ -37,18 +37,18 @@
                     </div>
                     <div>
                         <div>
-                            <span>팔로워23 | 팔로잉43</span>
+                            <span>팔로워${followerCount } | 팔로잉${followingCount }</span>
                         </div>                                
                     </div>
                 </div>
                 <div id="uiInfo-div">
                     <div class="ui-item">
                         <img class="ui-icon" src="../resources/images/user/공식(달성,진행)아이콘.png" alt="">
-                        <span class="ui-text">15/${totalBlueChalCount }</span>
+                        <span class="ui-text">${totalBlueChalCount } / ${totalBlueChalCount }</span>
                     </div>
                     <div class="ui-item">
                         <img class="ui-icon" src="../resources/images/user/개인(달성,진행)아이콘.png" alt="">
-                        <span class="ui-text">3/${totalPersonalChalCount }</span>
+                        <span class="ui-text">${finishtotalPersonalChalCount } / ${totalPersonalChalCount }</span>
                     </div>
                     <div class="ui-item">
                         <img class="ui-icon" src="../resources/images/user/게시물아이콘.png" alt="">
@@ -93,14 +93,14 @@
                     <hr>
                 </div>
             </div>
-            <div id="list-count">굿즈 목록 | 5개</div>
+            <div id="list-count">굿즈 목록 | {goodsList.size() }개</div>
             <div id="goods-img-div">
                 <div class="slider-container">
                     <div class="slider1">
                         <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
                         <c:forEach var="goods" items="${goodsList }" >
 	                        <div class="slide">
-	                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
+	                            <img src="../../resources/images/${goods.productRename}" alt=""> 
 	                            <div class="goods-name-overlay">
 	                                <div class="goods-name">${goods.productName }</div>
 	                            </div>

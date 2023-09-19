@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 
@@ -103,8 +104,47 @@ public interface UserStore {
 	 * @param userId
 	 * @return
 	 */
-//	List<Goods> getGoodsListByUserId(SqlSession session, String userId);
+	List<Goods> getGoodsListByUserId(SqlSession session, String userId);
 
+	/**
+	 * 회원 블루웨이브챌린지 달성 갯수 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	int getFinishTotalBlueChalCount(SqlSession session, String userId);
+
+	/**
+	 * 회원 개인챌린지 달성 갯수 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	int getFinishTotalPersonalChalCount(SqlSession session, String userId);
+
+	/**
+	 * 이메일 중복체크 Store
+	 * @param session
+	 * @param userEmail
+	 * @return
+	 */
+	int emailCheck(SqlSession session, String userEmail);
+
+	/**
+	 * 닉네임 중복체크 Store
+	 * @param session
+	 * @param userNickName
+	 * @return
+	 */
+	int nickNameCheck(SqlSession session, String userNickName);
+
+	/**
+	 * 아이디 중복체크 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	int idCheck(SqlSession session, String userId);
 
 	/**
 	 * 회원의 팔로잉 목록 조회 Store

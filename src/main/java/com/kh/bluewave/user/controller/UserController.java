@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +27,7 @@ import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.service.CBoardService;
 import com.kh.bluewave.challenge.service.CLikeService;
 import com.kh.bluewave.challenge.service.ChallengeService;
+import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.service.SubService;
@@ -99,18 +101,21 @@ public class UserController {
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
-	//				int postCount = uService.getPostCountByUserId(user.getUserId());
-	//				int totalPoint = uService.getTotalPointByUserId(user.getUserId());
-	//				int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
-	//				int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
-	////				List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-	//				mv.addObject("totalPoint", totalPoint);
-	////	            mv.addObject("postCount", postCount);
-	//	            mv.addObject("totalBlueChalCount", totalBlueChalCount);
-	//	            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
-	//	            mv.addObject("goodsList", goodsList);
+					int postCount = uService.getPostCountByUserId(user.getUserId());
+					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
+					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
+					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
+					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
+					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
+					mv.addObject("totalPoint", totalPoint);
+		            mv.addObject("postCount", postCount);
+		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
+		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
+		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
+		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
+		            mv.addObject("goodsList", goodsList);
 					mv.addObject("user", uOne);
-	//				mv.setViewName("user/myPage_Bae");
 					
 					
 					// 하단
@@ -272,8 +277,7 @@ public class UserController {
 		return mv;
 		
 	}
-
-	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)
+	
 	public ModelAndView deleteUser(
 			@RequestParam("userId") String userId
 			, ModelAndView mv
@@ -368,6 +372,39 @@ public class UserController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String checkEmail(@RequestParam("userEmail") String userEmail) {
+	    int result = uService.emailCheck(userEmail);
+	    if (result > 0) {
+	        return "alreadyTaken";
+	    } else {
+	        return "available";
+	    }
+	}
+	
+	@RequestMapping(value = "/user/nickNameCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String checkNickName(@RequestParam("userNickName") String userNickName) {
+	    int result = uService.nickNameCheck(userNickName);
+	    if (result > 0) {
+	        return "alreadyTaken";
+	    } else {
+	        return "available";
+	    }
+	}
+	
+	@RequestMapping(value = "/user/idCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String checkId(@RequestParam("userId") String userId) {
+	    int result = uService.idCheck(userId);
+	    if (result > 0) {
+	        return "alreadyTaken";
+	    } else {
+	        return "available";
+	    }
 	}
 	
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws Exception, IOException {

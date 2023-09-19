@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.service.UserService;
@@ -52,26 +53,26 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int getPostCountByUserId(String userId) {
-		int postCount = uStore.getPostCountByUserId(session, userId);
-		return postCount;
+		int result = uStore.getPostCountByUserId(session, userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalPointByUserId(String userId) {
-		int totalPoint = uStore.getTotalPointByUserId(session, userId);
-		return totalPoint;
+		int result = uStore.getTotalPointByUserId(session, userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalBlueChalCount(String userId) {
-		int totalBlueChalCount = uStore.getTotalBlueChalCount(session, userId);
-		return totalBlueChalCount;
+		int result = uStore.getTotalBlueChalCount(session, userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalPersonalChalCount(String userId) {
-		int totalPersonalChalCount = uStore.getTotalPersonalChalCount(session, userId);
-		return totalPersonalChalCount;
+		int result = uStore.getTotalPersonalChalCount(session, userId);
+		return result;
 	}
 
 	@Override
@@ -85,14 +86,42 @@ public class UserServiceImpl implements UserService{
 		User uOne = uStore.findUserByPhone(session, phone);
 		return uOne;
 	}
-	
-	
-//	@Override
-//	public List<Goods> getGoodsListByUserId(String userId) {
-//		List<Goods> goodsList = uStore.getGoodsListByUserId(session, userId);
-//		return goodsList;
-//	}
-	
+
+	@Override
+	public List<Goods> getGoodsListByUserId(String userId) {
+		List<Goods> goodsList = uStore.getGoodsListByUserId(session, userId);
+		return goodsList;
+	}
+
+	@Override
+	public int getFinishTotalBlueChalCount(String userId) {
+		int result = uStore.getFinishTotalBlueChalCount(session, userId);
+		return result;
+	}
+
+	@Override
+	public int getFinishTotalPersonalChalCount(String userId) {
+		int result = uStore.getFinishTotalPersonalChalCount(session, userId);
+		return result;
+	}
+
+	@Override
+	public int emailCheck(String userEmail) {
+		int result = uStore.emailCheck(session, userEmail);
+		return result;
+	}
+
+	@Override
+	public int nickNameCheck(String userNickName) {
+		int result = uStore.nickNameCheck(session, userNickName);
+		return result;
+	}
+
+	@Override
+	public int idCheck(String userId) {
+		int result = uStore.idCheck(session, userId);
+		return result;
+	}
 
 	@Override
 	public List<Sub> selectAllFollowingListById(String userId) {

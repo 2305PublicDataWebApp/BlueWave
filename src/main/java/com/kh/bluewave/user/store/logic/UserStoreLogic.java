@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.store.UserStore;
@@ -44,26 +45,26 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int getPostCountByUserId(SqlSession session, String userId) {
-		int postCount = session.selectOne("UserMapper.getPostCountByUserId", userId);
-		return postCount;
+		int result = session.selectOne("UserMapper.getPostCountByUserId", userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalPointByUserId(SqlSession session, String userId) {
-		int totalPoint = session.selectOne("UserMapper.getTotalPointByUserId", userId);
-		return totalPoint;
+		int result = session.selectOne("UserMapper.getTotalPointByUserId", userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalBlueChalCount(SqlSession session, String userId) {
-		int totalBlueChalCount = session.selectOne("UserMapper.getTotalBlueChalCount", userId);
-		return totalBlueChalCount;
+		int result = session.selectOne("UserMapper.getTotalBlueChalCount", userId);
+		return result;
 	}
 
 	@Override
 	public int getTotalPersonalChalCount(SqlSession session, String userId) {
-		int totalPersonalChalCount = session.selectOne("UserMapper.getTotalPersonalChalCount", userId);
-		return totalPersonalChalCount;
+		int result = session.selectOne("UserMapper.getTotalPersonalChalCount", userId);
+		return result;
 	}
 
 	@Override
@@ -78,11 +79,41 @@ public class UserStoreLogic implements UserStore{
 		return uOne;
 	}
 
-//	@Override
-//	public List<Goods> getGoodsListByUserId(SqlSession session, String userId) {
-//		List<Goods> goodsList = session.selectList("UserMapper.getGoodsListByUserId", userId);
-//		return goodsList;
-//	}
+	@Override
+	public List<Goods> getGoodsListByUserId(SqlSession session, String userId) {
+		List<Goods> goodsList = session.selectList("UserMapper.getGoodsListByUserId", userId);
+		return goodsList;
+	}
+
+	@Override
+	public int getFinishTotalBlueChalCount(SqlSession session, String userId) {
+		int result = session.selectOne("UserMapper.getFinishTotalBlueChalCount", userId);
+		return result;
+	}
+
+	@Override
+	public int getFinishTotalPersonalChalCount(SqlSession session, String userId) {
+		int result = session.selectOne("UserMapper.getFinishTotalPersonalChalCount", userId);
+		return result;
+	}
+
+	@Override
+	public int emailCheck(SqlSession session, String userEmail) {
+		int result = session.selectOne("UserMapper.emailCheck", userEmail);
+		return result;
+	}
+
+	@Override
+	public int nickNameCheck(SqlSession session, String userNickName) {
+		int result = session.selectOne("UserMapper.nickNameCheck", userNickName);
+		return result;
+	}
+
+	@Override
+	public int idCheck(SqlSession session, String userId) {
+		int result = session.selectOne("UserMapper.idCheck", userId);
+		return result;
+	}
 	
 
 	@Override
