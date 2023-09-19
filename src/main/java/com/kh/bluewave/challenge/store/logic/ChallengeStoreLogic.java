@@ -89,4 +89,10 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectAllChallenges(SqlSession session) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectAllChallenges");
+		return cList;
+	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,152 +18,66 @@
 		<header>
 
         </header>
-        <jsp:include page="/WEB-INF/views/include/nav.jsp" />
+        <jsp:include page="/WEB-INF/views/include/navHeader.jsp" />
         <main>
             <div id="container">
                 <section id="up-section">
-                    <div class="chal-category-title">
-                        <h2>블루웨이브 챌린지</h2>
-                    </div>
+                	<div class="chal-title-search-box">
+	                    <div class="chal-category-title">
+	                        <h2>블루웨이브 챌린지</h2>
+	                    </div>
+	                    
+	                    <div class="chal-search-box">
+	                    	<form action="/challenge/search.do" method="get">
+	                    		<select>
+	                    			<option value="all">전체</option>
+	                    			<option value="writer">작성자</option>
+	                    			<option value="title">제목</option>
+	                    			<option value="content">내용</option>
+	                    		</select>
+		                    	<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요.">
+		                    	<input type="submit" value="검색">
+	                    	</form>
+	                    </div>
+                	</div>
 
                     <div class="chal-list">
                         <div class="scroll-container">
                             <div class="chal-content">
                                 <ul>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div class="btn">
-                                                    <button>참여하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div class="btn">
-                                                    <button>참여하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div class="btn">
-                                                    <button>참여하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div class="btn">
-                                                    <button>참여하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div class="btn">
-                                                    <button>참여하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                	
+                                	<c:forEach var="chalList" items="${cList}">
+                                		<c:if test="${chalList.chalUserId eq 'admin'}">
+		                                    <li>
+		                                        <div>
+		                                            <a href="#">
+		                                                ${chalList.chalTitle }
+		                                                <div>
+		                                                	<img src="../resources/chaluploadFiles/${chalList.chalFileRename}" alt="챌린지 게시물 사진" class="chal-img">
+		                                                </div>
+		                                            </a>
+		                                            <div class="chal-text-box">
+		                                                ${chalList.chalContent }
+		                                            </div>
+		                                            <div class="chal-list-bottom">
+		                                                <div>
+		                                                    <div  class="user-icon-box">
+		                                                        <div class="chal-user-icon"></div>
+		                                                        <span>&nbsp;158</span>
+		                                                    </div>
+		                                                    <div class="like-icon-box">
+		                                                        <div class="chal-like-icon"></div>
+		                                                        <span>&nbsp;158</span>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="btn">
+		                                                    <button>참여하기</button>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </li>
+                                		</c:if>
+                                	</c:forEach>
                                 </ul>
                             </div>
                         </div>
@@ -170,8 +85,10 @@
                 </section>
 
                 <section id="down-section">
-                    <div class="chal-category-title">
-                        <h2>개인 챌린지</h2>
+                    <div class="chal-title-write-box">
+	                    <div class="chal-category-title">
+	                        <h2>개인 챌린지</h2>
+	                    </div>
                         <div id="new-chal-btn" class="btn">
                             <button onclick="showCBoardWrite()">챌린지 생성</button>
                         </div>
@@ -182,129 +99,39 @@
                         <div class="scroll-container">
                             <div class="chal-content">
                                 <ul>
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <a href="#">
-                                                챌린지1
-                                                <div class="chal-img"></div>
-                                            </a>
-                                            <div class="chal-text-box">
-                                                안녕하세요 여기는 챌린지에 대한 정보가 요약되어 있는 창 입니다.
-                                            </div>
-                                            <div class="chal-list-bottom">
-                                                <div>
-                                                    <div  class="user-icon-box">
-                                                        <div class="chal-user-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                    <div class="like-icon-box">
-                                                        <div class="chal-like-icon"></div>
-                                                        <span>&nbsp;158</span>
-                                                    </div>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                
+                                	<c:forEach var="chalList" items="${cList}">
+                                		<c:if test="${chalList.chalUserId ne 'admin'}">
+		                                    <li>
+		                                        <div>
+		                                            <a href="#">
+		                                                ${chalList.chalTitle }
+		                                                <div>
+		                                                	<img src="/resources/chaluploadFiles/${chalList.chalFileRename}" alt="챌린지 게시물 사진" class="chal-img">
+		                                                </div>
+		                                            </a>
+		                                            <div class="chal-text-box">
+		                                                ${chalList.chalContent }
+		                                            </div>
+		                                            <div class="chal-list-bottom">
+		                                                <div>
+		                                                    <div  class="user-icon-box">
+		                                                        <div class="chal-user-icon"></div>
+		                                                        <span>&nbsp;158</span>
+		                                                    </div>
+		                                                    <div class="like-icon-box">
+		                                                        <div class="chal-like-icon"></div>
+		                                                        <span>&nbsp;158</span>
+		                                                    </div>
+		                                                </div>
+		                                                <div class="btn">
+		                                                    <button>참여하기</button>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </li>
+                                		</c:if>
+                                	</c:forEach>
                                 </ul>
                             </div>
                         </div>

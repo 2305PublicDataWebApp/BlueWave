@@ -32,17 +32,27 @@ width: 100%;
 height: 50%;
 margin-top: 20px;
 margin-bottom : 20px;
-/* background-color: chocolate; */
+}
+.chal-title-search-box, .chal-title-write-box {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    margin-bottom: 15px;
 }
 .chal-category-title{
     /* 해당 챌린지 명 */
-width: 100%;
-height: 40px;
-line-height: 1.8;
-/* background-color: antiquewhite; */
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+	width: 60%;
+	padding-left: 30px;
+}
+. .chal-title-write-box{
+	width: 100%;
+}
+.chal-category-title>h2, .chal-title-write-box>h2{
+	margin: 0;
+}
+.chal-search-box{
+	padding-right: 30px;
 }
 
 .chal-content ul li{
@@ -96,13 +106,17 @@ white-space: nowrap;
     background-color: #0077ff; 
 }
 
+.chal-list{
+	padding-bottom: 20px;
+}
+
 .chal-img{
     /* 이미지 설정 */
     width: 260px;
     height: 165px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background-image: url(./images/river2.PNG);
+/*     background-image: url(./images/river2.PNG); */
     background-size: 100% 100%;
 }
 
@@ -157,5 +171,6 @@ white-space: nowrap;
     font-weight: bolder;
 }
 #new-chal-btn{
+	padding-right: 30px;
     padding-bottom: 5px;
 }

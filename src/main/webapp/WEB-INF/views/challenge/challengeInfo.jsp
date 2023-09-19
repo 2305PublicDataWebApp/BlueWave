@@ -21,7 +21,7 @@
 	</head>
 <body>
 	<!-- 인클루드 자리 -->
-	<jsp:include page="/WEB-INF/views/include/nav.jsp" />
+	<jsp:include page="/WEB-INF/views/include/navHeader.jsp" />
 	<main>
 		<div id="container">
 			<section id="up-section">
@@ -57,7 +57,7 @@
 								
 				<c:forEach var="cBoard" items="${cList }">
 						<div class="like-image-container" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							<img src="/resources/images/flower2.PNG" alt="" class="like-img"
+							<img src="/resources/images/${cBoard.cBoardFileName}" alt="챌린지 게시물 사진" class="like-img"
 								width="180px" height="200px">
 							<div class="image-text">
 								<span class="material-symbols-outlined" style="font-size: 1.1em;">
@@ -98,7 +98,7 @@
 														<img alt="프로필 사진" src="/resources/images/flower1.PNG">
 													</div>
 													<div class="user-nickname-box">
-														<h1>올빼미</h1>
+														<h1>${cBoard.cBoardWriter}</h1>
 													</div>
 													<div class="user-subscribe-box">
 														<button>구독하기</button>

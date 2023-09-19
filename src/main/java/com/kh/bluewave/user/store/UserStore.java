@@ -93,7 +93,7 @@ public interface UserStore {
 	 * @return
 	 */
 	User findUserByPhone(SqlSession session, String phone);
-
+	
 	/**
 	 * 회원 교환굿즈 목록 조회 Store
 	 * @param session
