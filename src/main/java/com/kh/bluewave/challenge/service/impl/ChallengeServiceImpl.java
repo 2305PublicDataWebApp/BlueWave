@@ -96,4 +96,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectListByChal() {
+		List<Challenge> cList = cStore.selectAllChallenges(session);
+		return cList;
+	}
+
 }

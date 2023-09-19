@@ -21,7 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.service.CBoardService;
+import com.kh.bluewave.challenge.service.ChallengeService;
+import com.kh.bluewave.user.domain.User;
+import com.kh.bluewave.user.service.UserService;
 
 @Controller
 public class CBoardController {
@@ -29,23 +33,38 @@ public class CBoardController {
 	@Autowired
 	private CBoardService cService;
 	
-	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
-	public ModelAndView showChallengePage(
-			ModelAndView mv
-			, HttpSession session
-			
-			) {
-		try {
-			// 로그인 유효성 체크
-			// String cBoradWriter = (String)session.getAttribute("userId");
-			String userId = "testuser01";
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mv.setViewName("challenge/challengePage");
-		return mv;
-	}
+	
+//	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
+//	public ModelAndView showChallengePage(
+//			ModelAndView mv
+//			, HttpSession session
+//			) {
+//		try {
+//			// 로그인 유효성 체크
+//			String userId = (String)session.getAttribute("userId");
+////			String userId = "testuser01";
+////			User uOne = uService.selectOneById(userId);
+//			if(userId != null) {
+//				// 성공
+//				System.out.println("성공");
+//				// 챌린지 테이블에서 select
+////				List<Challenge> chalList = chalService.selectListByChal();
+//				
+//			} else {
+//				// 실패
+//				System.out.println("실패");
+//				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
+//				mv.addObject("url", "redirect:/user/login.do");
+//				mv.setViewName("common/serviceFailed");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			mv.addObject("msg", e.getMessage());
+//			mv.setViewName("common/errorMessage");
+//		}
+//		mv.setViewName("challenge/challengePage");
+//		return mv;
+//	}
 	
 	@RequestMapping(value="/challenge/info.do", method=RequestMethod.GET)
 	public ModelAndView showChallengeInfo(
@@ -65,10 +84,14 @@ public class CBoardController {
 			} else {
 				// 실패
 				System.out.println("실패");
-				mv.setViewName("common/errorPage");
+				mv.addObject("msg", "조회 실패");
+				mv.addObject("url", "common/errorMessage");
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/serviceFailed");
 		}
 		mv.setViewName("challenge/challengeInfo");
 		return mv;

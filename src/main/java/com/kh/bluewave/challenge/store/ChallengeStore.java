@@ -111,4 +111,6 @@ public interface ChallengeStore {
 	 */
 	List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption);
 
+	List<Challenge> selectAllChallenges(SqlSession session);
+
 }

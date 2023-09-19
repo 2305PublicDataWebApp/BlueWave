@@ -82,6 +82,7 @@ public interface UserService {
 	 */
 	int getTotalPersonalChalCount(String userId);
 	
+	
 	/**
 	 * 회원 교환굿즈 목록 조회 Service
 	 * @param userId

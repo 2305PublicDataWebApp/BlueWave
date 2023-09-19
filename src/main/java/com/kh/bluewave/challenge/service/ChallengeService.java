@@ -95,4 +95,6 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectOptionsByFinish(String finishOption);
+
+	List<Challenge> selectListByChal();
 }

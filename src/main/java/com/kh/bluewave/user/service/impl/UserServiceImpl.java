@@ -82,7 +82,8 @@ public class UserServiceImpl implements UserService{
 		User uOne = uStore.findUserByPhone(session, phone);
 		return uOne;
 	}
-
+	
+	
 //	@Override
 //	public List<Goods> getGoodsListByUserId(String userId) {
 //		List<Goods> goodsList = uStore.getGoodsListByUserId(session, userId);

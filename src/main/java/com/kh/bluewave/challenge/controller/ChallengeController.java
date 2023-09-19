@@ -7,9 +7,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -230,4 +232,48 @@ public class ChallengeController {
 		}
 	}
 	
+	
+	// 챌린지 페이지
+	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
+	public ModelAndView showChallengePage(
+			ModelAndView mv
+			, HttpSession session
+			) {
+		try {
+			// 로그인 유효성 체크
+//			String userId = (String)session.getAttribute("userId");
+			String userId = "testuser01";
+			if(userId != null) {
+				// 성공
+				System.out.println("성공");
+				
+				// 챌린지 테이블에서 select
+				List<Challenge> cList = cService.selectListByChal();
+				if(cList.size() > 0 || !cList.isEmpty()) {
+					// 성공
+					mv.addObject("cList", cList);
+					mv.setViewName("challenge/challengPage");
+				} else {
+					// 실패
+					mv.addObject("msg", "리스트를 조회하는데 실패하였습니다.");
+					mv.addObject("url", "redirect:/index.jsp");
+					mv.setViewName("common/serviceFailed");
+				}
+				
+			} 
+//			else {
+//				// 실패
+//				System.out.println("실패");
+//				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
+//				mv.addObject("url", "redirect:/user/login.do");
+//				mv.setViewName("common/serviceFailed");
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage());
+			mv.setViewName("common/errorMessage");
+		}
+		mv.setViewName("challenge/challengePage");
+		return mv;
+	}
 }
