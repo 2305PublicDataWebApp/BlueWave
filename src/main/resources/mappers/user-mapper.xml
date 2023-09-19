@@ -48,42 +48,71 @@
 		SELECT * FROM USER_TBL WHERE USER_PHONE = #{userPhone }
 	</select>
 	
-	<select id="getPostCountByUserId" resultType="int" >
+	<select id="getPostCountByUserId" resultType="_int" >
 		SELECT COUNT(*)
 		FROM CHAL_BOARD_TBL CB
 		LEFT JOIN USER_TBL U ON CB.C_BOARD_WRITER = U.USER_ID
-		WHERE U.USER_ID = #{userId };
+		WHERE U.USER_ID = #{userId }
 	</select>
 	
-<!-- 	<select id="getTotalPointByUserId" resultType="int"> -->
-<!-- 		SELECT p.USER_TOTAL_POINT -->
-<!-- 		FROM POINT_TBL p -->
-<!-- 		INNER JOIN USER_TBL u ON p.USER_ID = u.USER_ID -->
-<!-- 		WHERE u.USER_ID = #{userId }; -->
-<!-- 	</select> -->
-	
-	<select id="getTotalBlueChalCount" resultType="int">
-		SELECT COUNT(*)
-		FROM CHAL_TBL c
-		INNER JOIN USER_TBL u ON c.CHAR_USER_ID = u.USER_ID
-		WHERE u.USER_ID = #{userId }
-		  AND c.CHAL_PUBLIC = 'Y';
+	<select id="getTotalPointByUserId" resultType="_int">
+		SELECT USER_TOTAL_POINT
+		FROM POINT_TBL 
+		WHERE USER_ID = #{userId }
 	</select>
 	
-<!-- 	<select id="getTotalPersonalChalCount" resultType="int"> -->
-<!-- 		SELECT COUNT(*) -->
-<!-- 		FROM CHAL_TBL c -->
-<!-- 		INNER JOIN USER_TBL u ON c.CHAR_USER_ID = u.USER_ID -->
-<!-- 		WHERE u.USER_ID = #{userId } -->
-<!-- 		  AND c.CHAL_PUBLIC = 'N'; -->
-<!-- 	</select> -->
+	<select id="getTotalBlueChalCount" resultType="_int">
+		SELECT DISTINCT COUNT(*)
+		FROM CHAL_BOARD_TBL CB
+		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID = 'admin'
+		AND C.CHAL_BOARD_WRITER = #{userId }
+	</select>
 	
-<!-- 	<select id="getGoodsListByUserId" resultType="Goods"> -->
-<!-- 	    SELECT * -->
-<!-- 	    FROM USER_TBL U -->
-<!-- 	    JOIN POINT_TBL P ON U.USER_ID = P.USER_ID -->
-<!-- 	    JOIN GOODS_TBL G ON P.PRODUCT_NO = G.PRODUCT_NO -->
-<!-- 	    WHERE U.USER_ID = #{userId} -->
-<!-- 	</select> -->
-
+	<select id="getTotalPersonalChalCount" resultType="_int">
+		SELECT DISTINCT COUNT(*)
+        FROM CHAL_BOARD_TBL CB
+        INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
+        WHERE C.CHAL_USER_ID != 'admin'
+        AND C.CHAL_BOARD_WRITER = #{userId }
+	</select>
+	
+	<select id="getFinishTotalBlueChalCount" resultType="_int" >
+		SELECT DISTINCT COUNT(*)
+		FROM CHAL_BOARD_TBL CB
+		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID = 'admin'
+        AND C.CHAL_FINISH = 'Y'
+        AND C.CHAL_BOARD_WRITER = #{userId }
+	</select>
+	
+	<select id="getFinishTotalPersonalChalCount" resultType="_int" >
+		SELECT DISTINCT COUNT(*)
+        FROM CHAL_BOARD_TBL CB
+        INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
+        WHERE C.CHAL_USER_ID != 'admin'
+        AND C.CHAL_FINISH = 'Y'
+        AND C.CHAL_BOARD_WRITER = #{userId }
+	</select>
+	
+	<select id="getGoodsListByUserId" resultType="Goods">
+	    SELECT *
+	    FROM USER_TBL U
+	    JOIN POINT_TBL P ON U.USER_ID = P.USER_ID
+	    JOIN GOODS_TBL G ON P.PRODUCT_NO = G.PRODUCT_NO
+	    WHERE U.USER_ID = #{userId }
+	</select>
+	
+	<select id="emailCheck" resultType="_int">
+		SELECT COUNT(*) FROM USER_TBL WHERE USER_EMAIL = #{userEmail }
+	</select>
+	
+	<select id="nickNameCheck" resultType="_int">
+		SELECT COUNT(*) FROM USER_TBL WHERE USER_NICKNAME = #{userNickName }
+	</select>
+	
+	<select id="idCheck" resultType="_int">
+		SELECT COUNT(*) FROM USER_TBL WHERE USER_ID = #{userId }
+	</select>
+	
 </mapper>

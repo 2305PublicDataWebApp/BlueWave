@@ -1,5 +1,8 @@
 package com.kh.bluewave.user.service;
 
+import java.util.List;
+
+import com.kh.bluewave.goods.domain.Goods;
 //import com.kh.bluewave.user.controller.Goods;
 import com.kh.bluewave.user.domain.User;
 
@@ -87,6 +90,55 @@ public interface UserService {
 	 * @param userId
 	 * @return
 	 */
-//	List<Goods> getGoodsListByUserId(String userId);
+	List<Goods> getGoodsListByUserId(String userId);
+
+	/**
+	 * 회원 블루웨이브챌린지 달성 갯수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	int getFinishTotalBlueChalCount(String userId);
+
+	/**
+	 * 회원 개인챌린지 달성 갯수 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	int getFinishTotalPersonalChalCount(String userId);
+
+	/**
+	 * 팔로잉조회 Service
+	 * @param userId
+	 * @return
+	 */
+	int getFollowingCount(String userId);
+	
+	/**
+	 * 팔로워 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	int getFollowerCount(String userId);
+
+	/**
+	 * 이메일 중복체크 Service
+	 * @param userEmail
+	 * @return
+	 */
+	int emailCheck(String userEmail);
+
+	/**
+	 * 닉네임 중복체크 Service
+	 * @param userNickName
+	 * @return
+	 */
+	int nickNameCheck(String userNickName);
+
+	/**
+	 * 아이디 중복체크 Service
+	 * @param userId
+	 * @return
+	 */
+	int idCheck(String userId);
 
 }
