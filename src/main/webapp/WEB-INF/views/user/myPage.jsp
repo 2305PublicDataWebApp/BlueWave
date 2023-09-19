@@ -177,10 +177,10 @@
 											</c:url>
 											<div onclick="showUserPage('${userPageUrl}');">
 												<div class="sub-div">
-													<c:if test="${ user.userProfileName ne null}">
-														<img src="${ user.userProfilePath}" alt="팔로잉 프로필 이미지" class="sub-profile-img">
+													<c:if test="${ following.userProfileName ne null}">
+														<img src="${ following.userProfilePath}" alt="팔로잉 프로필 이미지" class="sub-profile-img">
 													</c:if>
-													<c:if test="${ user.userProfileName eq null}">
+													<c:if test="${ following.userProfileName eq null}">
 														<img src="../../resources/images/user/프로필이미지.png" alt="기본 프로필 이미지" class="sub-profile-img">
 													</c:if>
 												</div>
@@ -208,10 +208,10 @@
 											</c:url>
 											<div onclick="showUserPage('${userPageUrl}');">
 												<div class="sub-div">
-													<c:if test="${ user.userProfileName ne null}">
-														<img src="${ user.userProfilePath}" alt="팔로워 프로필 이미지" class="sub-profile-img">
+													<c:if test="${ followers.userProfileName ne null}">
+														<img src="${ followers.userProfilePath}" alt="팔로워 프로필 이미지" class="sub-profile-img">
 													</c:if>
-													<c:if test="${ user.userProfileName eq null}">
+													<c:if test="${ followers.userProfileName eq null}">
 														<img src="../../resources/images/user/프로필이미지.png" alt="기본 프로필 이미지" class="sub-profile-img">
 													</c:if>
 												</div>
@@ -509,7 +509,13 @@
 <!-- 	                    </select> -->
 	                    
 	                    <div id="personal-slider">
-	                        <c:forEach var="chal" items="${ cPersonalList }" varStatus="status">
+	                    	<c:if test="${sessionScope.userId ne user.userId }">
+	                    		<c:set var="personalList" value="${ cOtherPersonalList }" />
+	                        </c:if>
+	                        <c:if test="${sessionScope.userId eq user.userId }">
+	                        	<c:set var="personalList" value="${ cPersonalList }" />
+	                        </c:if>
+                        	<c:forEach var="chal" items="${ personalList }" varStatus="status">
 	                        	<c:if test="${status.index % 4 == 0}">
 						            <div class="chal-group">
 						        </c:if>
@@ -527,9 +533,13 @@
 			<!--                                     	근데 수정 링크 post로 받아야하지않나... -->
 			                                    	<c:url var="updateUrl" value="/challenge/update.do">
 			                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+			                                    		<c:param name="chalUserId" value="${ chal.chalUserId }"></c:param>
+			                                    		<c:param name="userId" value="${ sessionScope.userId }"></c:param>
 			                                    	</c:url>
 			                                    	<c:url var="deleteUrl" value="/challenge/delete.do">
 			                                    		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+			                                    		<c:param name="chalUserId" value="${ chal.chalUserId }"></c:param>
+			                                    		<c:param name="userId" value="${ sessionScope.userId }"></c:param>
 			                                    	</c:url>
 			                                        <a href="${ updateUrl }" class="edit-personal-chal">수정</a>&nbsp;
 			                                        <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal('${ deleteUrl }');">삭제</a>

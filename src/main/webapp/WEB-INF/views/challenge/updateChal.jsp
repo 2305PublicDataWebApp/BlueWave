@@ -18,6 +18,7 @@
         <main>
             <section id="main-container">
                 <form action="/challenge/update.do" method="post" enctype="multipart/form-data">
+                	<input type="hidden" name="userId" value="${ sessionScope.userId }">
                 	<input type="hidden" name="chalNo" value="${ chal.chalNo }">
                 	<input type="hidden" name="chalFileName" value="${ chal.chalFileName }">
 					<input type="hidden" name="chalFileRename" value="${ chal.chalFileRename }">

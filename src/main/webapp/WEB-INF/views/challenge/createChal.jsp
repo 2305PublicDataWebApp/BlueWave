@@ -18,6 +18,7 @@
         <main>
             <section id="main-container">
                 <form action="" method="post" enctype="multipart/form-data">
+                	<input type="hidden" name="chalUserId" value="${ sessionScope.userId }">
                     <!-- 시작일, 종료일 -->
                     <section id="set-chal-date">
                         <input type="date" name="chalStartDate" id="chal-start-date" min="${ sysdate }" required> ~ 

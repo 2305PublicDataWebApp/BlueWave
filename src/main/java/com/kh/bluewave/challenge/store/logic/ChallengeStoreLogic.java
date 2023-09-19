@@ -54,6 +54,12 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	}
 
 	@Override
+	public List<Challenge> selectOtherAllById(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectOtherAllById", userId);
+		return cList;
+	}
+
+	@Override
 	public List<Challenge> selectAllUserWave(SqlSession session, String userId) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectAllUserWave", userId);
 		return cList;

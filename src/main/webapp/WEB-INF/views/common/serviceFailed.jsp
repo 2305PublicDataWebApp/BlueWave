@@ -4,13 +4,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>${ msg } 실패</title>
+		<title>실패</title>
 	</head>
 	<body>
+		<h1>실패</h1>
 		<script>
-			const result = '${ msg }';
-			const url = '${ url }';
-			alert(result + "에 실패했습니다.");
+			const result = '${msg}';
+			const url = '${url}';
+			alert(result);
 			location.href = url;
 		</script>
 	</body>

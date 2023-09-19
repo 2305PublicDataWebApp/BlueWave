@@ -55,6 +55,13 @@ public interface ChallengeService {
 	List<Challenge> selectAllById(String userId);
 
 	/**
+	 * 회원 아이디로 공개된 개인 챌린지 리스트 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectOtherAllById(String userId);
+
+	/**
 	 * 관리자 챌린지 중 회원이 참여한 챌린지 리스트 조회 Service
 	 * @param userId
 	 * @return

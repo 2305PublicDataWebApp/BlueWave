@@ -64,6 +64,14 @@ public interface ChallengeStore {
 	List<Challenge> selectAllById(SqlSession session, String userId);
 
 	/**
+	 * 회원 아이디로 공개된 개인 챌린지 리스트 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> selectOtherAllById(SqlSession session, String userId);
+
+	/**
 	 * 관리자 챌린지 중 회원이 참여한 챌린지 리스트 조회 Store
 	 * @param session
 	 * @param userId

@@ -101,20 +101,20 @@ public class UserController {
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
-					int postCount = uService.getPostCountByUserId(user.getUserId());
-					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
-					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
-					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
-					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
-					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
-					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-					mv.addObject("totalPoint", totalPoint);
-		            mv.addObject("postCount", postCount);
-		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
-		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
-		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
-		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
-		            mv.addObject("goodsList", goodsList);
+//					int postCount = uService.getPostCountByUserId(user.getUserId());
+//					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+//					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
+//					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
+//					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
+//					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
+//					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
+//					mv.addObject("totalPoint", totalPoint);
+//		            mv.addObject("postCount", postCount);
+//		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
+//		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
+//		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
+//		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
+//		            mv.addObject("goodsList", goodsList);
 					mv.addObject("user", uOne);
 					
 					
@@ -131,6 +131,7 @@ public class UserController {
 						 // 회원이 생성한 챌린지
 						List<Challenge> cPersonalList = cService.selectAllById(userId);
 						List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
+						List<Challenge> cOtherPersonalList = cService.selectOtherAllById(userId);// 타 회원의 공개 챌린지
 						
 						// 자신의 챌린지 별 인증 게시물 수
 						List<Challenge> cPostCntList = cService.selectPostsById(userId);
@@ -146,13 +147,13 @@ public class UserController {
 						List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
 						
 						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
-						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList)
+						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList)
 						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
 						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
 						  .setViewName("user/myPage");
 					} else {
 						mv.addObject("msg", "완료 여부 체크");
-						mv.setViewName("common/errorMessage");
+						mv.setViewName("common/serviceFailed");
 					}
 				}else {
 					mv.addObject("msg", "데이터 조회에 실패했습니다.");
@@ -464,7 +465,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.setViewName("common/errorMessage");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
@@ -482,7 +483,7 @@ public class UserController {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //			mv.addObject("msg", e.getMessage());
-//			mv.setViewName("common/errorMessage");
+//			mv.setViewName("common/serviceFailed");
 //		}
 //		return mv;
 //	}

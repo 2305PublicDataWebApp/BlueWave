@@ -61,6 +61,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	public List<Challenge> selectOtherAllById(String userId) {
+		List<Challenge> cList = cStore.selectOtherAllById(session, userId);
+		return cList;
+	}
+
+	@Override
 	public List<Challenge> selectAllUserWave(String userId) {
 		List<Challenge> cList = cStore.selectAllUserWave(session, userId);
 		return cList;
