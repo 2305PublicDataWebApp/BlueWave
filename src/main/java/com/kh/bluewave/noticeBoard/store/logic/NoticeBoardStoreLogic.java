@@ -52,4 +52,10 @@ public class NoticeBoardStoreLogic implements NoticeBoardStore{
 		return result;
 	}
 
+	@Override
+	public int deleteNotice(SqlSession session, int noticeNo) {
+		int result = session.delete("NoticeMapper.deleteNotice", noticeNo);
+		return result;
+	}
+
 }

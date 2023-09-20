@@ -146,8 +146,9 @@ public class ChallengeController {
 								   , ModelAndView mv) {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
+			String chalUserId = challenge.getChalUserId();
 			if(!userId.equals("")) {
-				if(challenge.getChalUserId().equals(userId)) {
+				if(chalUserId.equals(userId) || userId.equals("admin")) {
 					if(!uploadFile.getOriginalFilename().equals("")) {
 						String fileRename = challenge.getChalFileRename();
 						if(fileRename != null) {
@@ -200,7 +201,7 @@ public class ChallengeController {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
 			if(!userId.equals("")) {
-				if(chalUserId.equals(userId)) {
+				if(chalUserId.equals(userId) || chalUserId.equals("admin")) {
 					Challenge challenge = cService.selectOneByNo(chalNo);
 					int result = cService.deleteChal(chalNo);
 					if(result > 0) {

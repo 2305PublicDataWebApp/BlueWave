@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 public interface ChallengeService {
 
@@ -116,4 +117,17 @@ public interface ChallengeService {
 	 * @return
 	 */
 	int findInsertChalNo(Challenge challenge);
+
+	/**
+	 * 챌린지명 전체 갯수
+	 * @return
+	 */
+	int getListCount();
+
+	/**
+	 * 챌린지명 전체 리스트 조회
+	 * @param pInfo
+	 * @return
+	 */
+	List<Challenge> selectChallList(PageInfo pInfo);
 }

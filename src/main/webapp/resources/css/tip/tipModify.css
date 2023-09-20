@@ -1,44 +1,44 @@
 @charset "UTF-8";
 
-.notice-write-table {
+.tip-write-table {
 	width: 100%;
 }
-.notice-write-table #notice-title{
+.tip-write-table #tip-title{
 	width: auto;
 }
-.notice-write-table thead tr{
+.tip-write-table thead tr{
 	line-height: 30px;
 }
-.notice-write-table tbody tr{
+.tip-write-table tbody tr{
 	line-height: auto;
 }	
 .ck-editor__editable_inline {
 		min-height: 400px;
 }
-.notice-board {
+.tip-board {
 	width: 70%;
 	min-height: 100vh; 
 	height: 100%;
 	margin: 0 auto;
 	background-color: #F8F8F8;
 }
-.notice-form {
+.tip-form {
 	width: 70%;
 	height: 100%;
 	margin: 0 auto;
 	padding-top: 100px;
 }
-.notice-board-table {
+.tip-board-table {
 	padding: 10px;
     background-color: white;
     border-radius: 10px;
 }
-.notice-write-table tr:first-child input {
+.tip-write-table tr:first-child input {
 	height: 30px;
 	border: 1px solid #ccc;
 		border-radius: 5px;
 }
-.notice-write-table tr:first-child td:first-child {
+.tip-write-table tr:first-child td:first-child {
 	width: 60px;
 	height: 30px;
 	text-align: center;

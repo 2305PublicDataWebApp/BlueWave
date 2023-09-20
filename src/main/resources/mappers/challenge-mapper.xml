@@ -147,4 +147,12 @@
 			ORDER BY CHAL_END_DATE ASC
 		]]>
 	</select>
+	
+	<select id="getListCount" resultType="_int">
+  		SELECT COUNT(*) FROM CHAL_TBL
+  	</select>
+  	
+  	<select id="selectChallList" resultMap="chalResultMap">
+  		SELECT * FROM CHAL_TBL ORDER BY CHAL_NO DESC
+  	</select>
 </mapper>

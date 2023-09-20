@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.service.ChallengeService;
 import com.kh.bluewave.challenge.store.ChallengeStore;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -112,6 +113,18 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public List<Challenge> searchChalByKeyword(Map<String, String> searchMap) {
 		List<Challenge> cList = cStore.selectChalByKeyword(session, searchMap);
+		return cList;
+	}
+
+	@Override
+	public int getListCount() {
+		int result = cStore.getListCount(session);
+		return result;
+	}
+
+	@Override
+	public List<Challenge> selectChallList(PageInfo pInfo) {
+		List<Challenge> cList = cStore.selectChallList(session, pInfo);
 		return cList;
 	}
 

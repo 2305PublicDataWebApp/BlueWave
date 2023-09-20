@@ -7,7 +7,7 @@
 		<title>실패</title>
 	</head>
 	<body>
-		<h1>${ msg }</h1>
+		<h1>${msg }</h1>
 		<script>
 			const result = '${msg}';
 			const url = '${url}';

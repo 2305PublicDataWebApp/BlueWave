@@ -55,4 +55,12 @@ public interface NoticeBoardStore {
 	 */
 	int updateViewCount(SqlSession session, NoticeBoard nOne);
 
+	/**
+	 * 공지 게시물 삭제
+	 * @param session
+	 * @param noticeNo
+	 * @return
+	 */
+	int deleteNotice(SqlSession session, int noticeNo);
+
 }

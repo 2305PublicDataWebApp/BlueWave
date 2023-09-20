@@ -47,4 +47,11 @@ public interface NoticeBoardService {
 	 */
 	int updateViewCount(NoticeBoard nOne);
 
+	/**
+	 * 공지 게시물 삭제
+	 * @param noticeNo
+	 * @return
+	 */
+	int deleteNotice(int noticeNo);
+
 }

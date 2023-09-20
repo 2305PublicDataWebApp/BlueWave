@@ -136,7 +136,12 @@
 							<a href="/user/logout.do">logout</a>
 						</div>
 						<div class="register-btn space">
-							<button onclick="location.href='/user/myPage.do?userId=${sessionScope.userId}'">myPage</button>
+							<c:if test="${sessionScope.userId ne 'admin' }">
+								<button onclick="location.href='/user/myPage.do?userId=${sessionScope.userId}'">myPage</button>
+							</c:if>
+							<c:if test="${sessionScope.userId eq 'admin' }">
+								<button onclick="location.href='/admin/main.do'">관리자페이지</button>
+							</c:if>
 						</div>
 					</c:if>
 				</div>
