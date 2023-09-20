@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
@@ -134,4 +136,22 @@ public class UserServiceImpl implements UserService{
 		List<Sub> sList = uStore.selectAllFollowersListById(session, userId);
 		return sList;
 	}
+
+	@Override
+	public List<Challenge> getTodayCList(String userId) {
+		List<Challenge> todayCList = uStore.getTodayCList(session, userId);
+		return todayCList;
+	}
+
+	@Override
+	public List<CBoard> getCalDateList(String userId) {
+		List<CBoard> calDateList = uStore.getCalDateList(session, userId);
+		return calDateList;
+	}
+
+//	@Override
+//	public int followUser(String userId) {
+//		int result = uStore.followUser(session, userId);
+//		return result;
+//	}
 }

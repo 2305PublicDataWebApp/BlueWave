@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
@@ -161,4 +163,28 @@ public interface UserStore {
 	 * @return
 	 */
 	List<Sub> selectAllFollowersListById(SqlSession session, String userId);
+
+	/**
+	 * 오늘의 챌린지 리스트 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> getTodayCList(SqlSession session, String userId);
+
+	/**
+	 * 블루웨이브 캘린더 데이트 리스트 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	List<CBoard> getCalDateList(SqlSession session, String userId);
+
+//	/**
+//	 * 팔로우 Store
+//	 * @param session
+//	 * @param userId
+//	 * @return
+//	 */
+//	int followUser(SqlSession session, String userId);
 }

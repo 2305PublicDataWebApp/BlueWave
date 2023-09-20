@@ -17,4 +17,8 @@
 	<select id="selectFollowersCntById" resultType="_int">
 		SELECT COUNT(*) FROM SUB_TBL WHERE SUB_TARGET = #{ userId }
 	</select>
+	
+<!-- 	<insert id="followUser"> -->
+<!-- 		INSERT INTO SUB_TBL VALUES () -->
+<!-- 	</insert> -->
 </mapper>

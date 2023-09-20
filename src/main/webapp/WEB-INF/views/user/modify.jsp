@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,10 @@
         <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
         <h1>BLUE WAVE</h1>
         <form action="/user/modify.do" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="userProfileName" value="${user.userProfileName }">
+		<input type="hidden" name="userProfileRename" value="${user.userProfileRename }">
+		<input type="hidden" name="userProfilePath" value="${user.userProfilePath }">
+		<input type="hidden" name="userProfileLength" value="${user.userProfileLength }">
             <div id="img-div">
                 <label for="profile-image"></label>
                 <div class="profile-image-container">
@@ -60,7 +65,8 @@
 			    </div>
             </div>
             <div id="ad">
-				<input type="checkbox" id="user-ad" name="userAd" value="${user.userAd }">
+            
+            	<input type="checkbox" id="user-ad" name="userAd" <c:if test="${user.userAd eq 'Y' }">checked</c:if>>
 				<label for="userAd" style="color: rgb(92, 92, 92);">광고 메일 수신 여부</label>
             </div>
             <div class="button-group">

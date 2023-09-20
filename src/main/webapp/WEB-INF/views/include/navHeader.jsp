@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 	<head>
 		<meta charset="UTF-8">
@@ -122,12 +123,22 @@
 				</div>
 				<!-- 헤더 오른쪽 -->
 				<div class="navbar-right">
-					<div class="login-btn">
-						<a href="#">login</a>
-					</div>
-					<div class="register-btn space">
-						<button onclick="location.href='#'">sign up</button>
-					</div>
+					<c:if test="${sessionScope.userId eq null}">
+						<div class="login-btn">
+							<a href="/user/login.do">login</a>
+						</div>
+						<div class="register-btn space">
+							<button onclick="location.href='/user/register.do'">sign up</button>
+						</div>
+					</c:if>
+					<c:if test="${sessionScope.userId ne null}">
+						<div class="login-btn">
+							<a href="/user/logout.do">logout</a>
+						</div>
+						<div class="register-btn space">
+							<button onclick="location.href='/user/myPage.do?memberId=${sessionScope.userId}'">myPage</button>
+						</div>
+					</c:if>
 				</div>
 			</nav>
 		</div>

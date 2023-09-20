@@ -93,7 +93,7 @@
                     <hr>
                 </div>
             </div>
-            <div id="list-count">굿즈 목록 | {goodsList.size() }개</div>
+            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
             <div id="goods-img-div">
                 <div class="slider-container">
                     <div class="slider1">

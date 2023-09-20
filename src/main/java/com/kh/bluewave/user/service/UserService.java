@@ -2,6 +2,8 @@ package com.kh.bluewave.user.service;
 
 import java.util.List;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
@@ -143,4 +145,25 @@ public interface UserService {
 	 * @return
 	 */
 	int idCheck(String userId);
+
+	/**
+	 * 오늘의 챌린지 리스트 Service
+	 * @param userId
+	 * @return
+	 */
+	List<Challenge> getTodayCList(String userId);
+
+	/**
+	 * 블루웨이브 캘린더 데이트 리스트 Service
+	 * @param userId
+	 * @return
+	 */
+	List<CBoard> getCalDateList(String userId);
+
+//	/**
+//	 * 팔로우 Service
+//	 * @param userId
+//	 * @return
+//	 */
+//	int followUser(String userId);
 }

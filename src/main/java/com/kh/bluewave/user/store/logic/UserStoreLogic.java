@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
@@ -45,25 +47,25 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int getPostCountByUserId(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getPostCountByUserId", userId);
+		int result = session.selectOne("CBoardMapper.getPostCountByUserId", userId);
 		return result;
 	}
 
 	@Override
 	public int getTotalPointByUserId(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getTotalPointByUserId", userId);
+		int result = session.selectOne("PointMapper.getTotalPointByUserId", userId);
 		return result;
 	}
 
 	@Override
 	public int getTotalBlueChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getTotalBlueChalCount", userId);
+		int result = session.selectOne("CBoardMapper.getTotalBlueChalCount", userId);
 		return result;
 	}
 
 	@Override
 	public int getTotalPersonalChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getTotalPersonalChalCount", userId);
+		int result = session.selectOne("CBoardMapper.getTotalPersonalChalCount", userId);
 		return result;
 	}
 
@@ -81,19 +83,19 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public List<Goods> getGoodsListByUserId(SqlSession session, String userId) {
-		List<Goods> goodsList = session.selectList("UserMapper.getGoodsListByUserId", userId);
+		List<Goods> goodsList = session.selectList("GoodsMapper.getGoodsListByUserId", userId);
 		return goodsList;
 	}
 
 	@Override
 	public int getFinishTotalBlueChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getFinishTotalBlueChalCount", userId);
+		int result = session.selectOne("CBoardMapper.getFinishTotalBlueChalCount", userId);
 		return result;
 	}
 
 	@Override
 	public int getFinishTotalPersonalChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("UserMapper.getFinishTotalPersonalChalCount", userId);
+		int result = session.selectOne("CBoardMapper.getFinishTotalPersonalChalCount", userId);
 		return result;
 	}
 
@@ -126,5 +128,23 @@ public class UserStoreLogic implements UserStore{
 	public List<Sub> selectAllFollowersListById(SqlSession session, String userId) {
 		List<Sub> sList = session.selectList("UserMapper.selectAllFollowersListById", userId);
 		return sList;
+	}
+
+	@Override
+	public List<Challenge> getTodayCList(SqlSession session, String userId) {
+		List<Challenge> todayCList = session.selectList("ChalMapper.getTodayCList", userId);
+		return todayCList;
+	}
+
+	@Override
+	public List<CBoard> getCalDateList(SqlSession session, String userId) {
+		List<CBoard> calDateList = session.selectList("CBoardMapper.getCalDateList", userId);
+		return calDateList;
+	}
+
+	@Override
+	public int followUser(SqlSession session, String userId) {
+		int result = session.insert("SubMapper.followUser", userId);
+		return result;
 	}
 }
