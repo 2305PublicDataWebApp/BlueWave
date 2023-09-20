@@ -19,13 +19,27 @@ public class CBoardServiceImpl implements CBoardService{
 	@Autowired
 	private CBoardStore cStore;
 	
-	// 챌린지 게시물 작성 ServiceImpl
+	// 챌린지 게시물 작성 
 	@Override
 	public int writeCBoard(CBoard cBoard) {
 		int result = cStore.insertCBoard(session, cBoard);
 		return result;
 	}
 	
+	// 챌린지 게시물 수정
+	@Override
+	public int modifyCBoard(CBoard cBoard) {
+		int result = cStore.updateCBoard(session, cBoard);
+		return result;
+	}
+
+	// 챌린지 게시물 삭제
+	@Override
+	public int removeCBoard(Integer cBoardNo) {
+		int result = cStore.deleteCBoard(session, cBoardNo);
+		return result;
+	}
+
 	// 챌린지 게시물 list
 	@Override
 	public List<CBoard> findCBoardByNo(int chalNo) {
@@ -39,5 +53,13 @@ public class CBoardServiceImpl implements CBoardService{
 		List<CBoard> cList = cStore.selectAllLikePostsById(session, userId);
 		return cList;
 	}
+	
+	// cBoardNo에 해당하는 챌린지 게시물 select
+	@Override
+	public CBoard selectOneByCBoardNo(int cBoardNo) {
+		CBoard cBOne = cStore.selectOneByCBoardNo(session, cBoardNo);
+		return cBOne;
+	}
+
 
 }

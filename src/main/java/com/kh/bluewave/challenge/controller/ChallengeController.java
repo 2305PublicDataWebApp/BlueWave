@@ -268,16 +268,15 @@ public class ChallengeController {
 	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
 	public ModelAndView showChallengePage(
 			ModelAndView mv
+//			, String userId
 			, HttpSession session
 			) {
 		try {
 			// 로그인 유효성 체크
-//			String userId = (String)session.getAttribute("userId");
-			String userId = "testuser01";
+			String userId = (String)session.getAttribute("userId");
+			System.out.println(userId);
 			if(userId != null) {
 				// 성공
-				System.out.println("성공");
-				
 				// 챌린지 테이블에서 select
 				List<Challenge> cList = cService.selectListByChal();
 				if(cList.size() > 0 || !cList.isEmpty()) {
@@ -291,20 +290,17 @@ public class ChallengeController {
 					mv.setViewName("common/serviceFailed");
 				}
 				
-			} 
-//			else {
-//				// 실패
-//				System.out.println("실패");
-//				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
-//				mv.addObject("url", "redirect:/user/login.do");
-//				mv.setViewName("common/serviceFailed");
-//			}
+			} else {
+				// 실패
+				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
+				mv.addObject("url", "/user/login.do");
+				mv.setViewName("common/serviceFailed");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("common/serviceFailed");
 		}
-		mv.setViewName("challenge/challengePage");
 		return mv;
 	}
 }

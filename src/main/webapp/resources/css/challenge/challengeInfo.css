@@ -9,6 +9,10 @@
     background-color: white;
     padding: 50px;
 }
+a {
+	text-decoration: none;
+	color: black;
+}
 
 #up-section {
     width: 83%;
@@ -67,8 +71,13 @@
     display: flex;
     /* align-items: center; */
 }
-#report-box a {
+#report-box a{
+	text-decoration: none;
     margin-left: 4px;
+    color: black;
+}
+.update-delete-box a {
+	text-decoration: none;
     color: black;
 }
 #report-box img {

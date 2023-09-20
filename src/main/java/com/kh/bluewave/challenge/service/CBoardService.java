@@ -15,6 +15,20 @@ public interface CBoardService {
 	int writeCBoard(CBoard cBoard);
 	
 	/**
+	 * 챌린지 게시물 수정 Service
+	 * @param cBoard
+	 * @return int
+	 */
+	int modifyCBoard(CBoard cBoard);
+	
+	/**
+	 * 챌린지 게시물 삭제 Service
+	 * @param cBoardNo
+	 * @return
+	 */
+	int removeCBoard(Integer cBoardNo);
+
+	/**
 	 * 챌린지 게시물 list로 가져오는 Service
 	 * @param chalNo
 	 * @return List<CBoard>
@@ -24,8 +38,15 @@ public interface CBoardService {
 	/**
 	 * 회원이 좋아요를 한 게시물 리스트 조회 Service
 	 * @param userId
-	 * @return
+	 * @return List<CBoard>
 	 */
 	List<CBoard> selectAllLikePostsById(String userId);
+	
+	/**
+	 * cBoardNo에 해당하는 챌린지 게시물 select Service
+	 * @param cBoardNo
+	 * @return CBoard
+	 */
+	CBoard selectOneByCBoardNo(int cBoardNo);
 
 }

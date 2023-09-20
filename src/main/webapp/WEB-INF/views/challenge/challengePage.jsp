@@ -96,7 +96,7 @@
 	                        <h2>개인 챌린지</h2>
 	                    </div>
                         <div id="new-chal-btn" class="btn">
-                            <button onclick="showCBoardWrite()">챌린지 생성</button>
+                            <button onclick="showChallengeWrite();">챌린지 생성</button>
                         </div>
                     </div>
 
@@ -135,7 +135,14 @@
 		                                                    </div>
 		                                                </div>
 		                                                <div class="btn">
-		                                                    <button>가져가기</button>
+		                                                	<c:if test="${sessionScope.userId eq chalList.chalUserId}">
+		                                                		<a href="/challenge/write.do?chalNo=${chalList.chalNo }">
+		                                                			<button>작성하기</button>
+		                                                		</a>
+		                                                	</c:if>
+		                                                    <c:if test="${sessionScope.userId ne chalList.chalUserId}">
+		                                                		<button>가져가기</button>
+		                                                	</c:if>
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -163,7 +170,7 @@
             });
         });
         
-        function showCBoardWrite() {
+        function showChallengeWrite() {
         	const url = "/challenge/create.do";
         	location.href = url;
         	
