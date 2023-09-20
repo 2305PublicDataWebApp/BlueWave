@@ -1,6 +1,7 @@
 package com.kh.bluewave.challenge.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.bluewave.challenge.domain.Challenge;
 
@@ -95,6 +96,14 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectOptionsByFinish(String finishOption);
-
+	
+	
 	List<Challenge> selectListByChal();
+	
+	/**
+	 * 챌린지 검색된 데이터 조회 Service
+	 * @param searchMap
+	 * @return List<String, String>
+	 */
+	List<Challenge> searchChalByKeyword(Map<String, String> searchMap);
 }

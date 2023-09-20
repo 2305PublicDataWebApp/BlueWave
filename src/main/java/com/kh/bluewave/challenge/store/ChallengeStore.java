@@ -1,6 +1,7 @@
 package com.kh.bluewave.challenge.store;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -112,5 +113,7 @@ public interface ChallengeStore {
 	List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption);
 
 	List<Challenge> selectAllChallenges(SqlSession session);
+
+	List<Challenge> selectChalByKeyword(SqlSession session, Map<String, String> searchMap);
 
 }

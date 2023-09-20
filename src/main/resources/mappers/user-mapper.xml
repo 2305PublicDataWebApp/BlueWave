@@ -131,4 +131,7 @@
 		SELECT COUNT(*) FROM USER_TBL WHERE USER_ID = #{userId }
 	</select>
 	
+	<select id="selectOneByChalNo" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_ID = #{userId}
+	</select>
 </mapper>

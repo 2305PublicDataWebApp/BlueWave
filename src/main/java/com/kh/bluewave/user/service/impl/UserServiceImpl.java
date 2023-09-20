@@ -134,4 +134,10 @@ public class UserServiceImpl implements UserService{
 		List<Sub> sList = uStore.selectAllFollowersListById(session, userId);
 		return sList;
 	}
+
+	@Override
+	public User selectOneByChalNo(String chalWriter) {
+		User uOne = uStore.selectOneByChalNo(session, chalWriter);
+		return uOne;
+	}
 }

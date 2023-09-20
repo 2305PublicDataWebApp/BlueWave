@@ -143,4 +143,11 @@ public interface UserService {
 	 * @return
 	 */
 	int idCheck(String userId);
+	
+	/**
+	 * chalNo로 찾은 작성자 아이디 조회 Service
+	 * @param chalWriter
+	 * @return
+	 */
+	User selectOneByChalNo(String chalWriter);
 }

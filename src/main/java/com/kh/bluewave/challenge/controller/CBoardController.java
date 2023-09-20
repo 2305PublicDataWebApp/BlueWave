@@ -33,6 +33,11 @@ public class CBoardController {
 	@Autowired
 	private CBoardService cService;
 	
+	@Autowired
+	private ChallengeService chalService;
+	
+	@Autowired
+	private UserService uService;
 	
 //	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
 //	public ModelAndView showChallengePage(
@@ -70,16 +75,33 @@ public class CBoardController {
 	public ModelAndView showChallengeInfo(
 			ModelAndView mv
 			, HttpSession session
-//			, @RequestParam("chalNo") Integer chalNo
+			, @RequestParam("chalNo") Integer chalNo
 			) {
 		try {
 			
 			// 챌린지 명 안에 세부정보 select
-			int chalNo = 20;
+//			int chalNo = 20;
+			
+			// chalNo에 해당하는 챌린지의 세부정보
+			Challenge cOne = chalService.selectOneByNo(chalNo);
+			
+			// chalNo에 해당하는 작성자 Id
+			String chalWriter = cOne.getChalUserId();
+			
+			// 위에서 찾은 작성자 Id로 User 테이블에 같은 userId 찾기
+			User uOne = uService.selectOneByChalNo(chalWriter);
+			
+			// chalNo에 해당하는 게시물 전부 select
 			List<CBoard> cList = cService.findCBoardByNo(chalNo);
+			
+			// chalNo에 해당하는 게시물의 갯수 select
+//			int chalLikeCount = cService.
+			
 			if(cList.size() > 0 || !cList.isEmpty()) {
 				// 성공
 				mv.addObject("cList", cList);
+				mv.addObject("cOne", cOne);
+				mv.addObject("uOne", uOne);
 				mv.setViewName("challenge/challengeInfo");
 			} else {
 				// 실패
@@ -104,8 +126,34 @@ public class CBoardController {
 	}
 	
 	@RequestMapping(value="/challenge/search.do", method=RequestMethod.GET)
-	public ModelAndView showChallengelSearch(ModelAndView mv) {
-		mv.setViewName("challenge/challengeSearch");
+	public ModelAndView showChallengelSearch(
+			@RequestParam("searchCondition") String searchCondition
+			, @RequestParam("searchKeyword") String searchKeyword
+			, ModelAndView mv
+			) {
+		try {
+			Map<String, String> searchMap = new HashMap<String, String>();
+			searchMap.put("searchCondition", searchCondition);
+			searchMap.put("searchKeyword", searchKeyword);
+			
+			List<Challenge> searchChalList = chalService.searchChalByKeyword(searchMap);
+			if(!searchChalList.isEmpty()) {
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchKeyword", searchKeyword);
+				mv.addObject("sList", searchChalList);
+				mv.setViewName("challenge/challengeSearch");
+			} else {
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchKeyword", searchKeyword);
+				mv.addObject("sList", searchChalList);
+				mv.setViewName("challenge/challengeSearch");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "검색에 실패하였습니다. (관리자에게 문의 바람)");
+			mv.addObject("url", "/challenge/page.do");
+			mv.setViewName("common/serviceFailed");
+		}
 		return mv;
 	}
 	

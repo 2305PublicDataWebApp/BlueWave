@@ -1,6 +1,7 @@
 package com.kh.bluewave.challenge.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -92,6 +93,12 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	@Override
 	public List<Challenge> selectAllChallenges(SqlSession session) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectAllChallenges");
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> selectChalByKeyword(SqlSession session, Map<String, String> searchMap) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectChalByKeyword", searchMap);
 		return cList;
 	}
 

@@ -27,23 +27,22 @@
 			<section id="up-section">
 
 				<div id="chal-img-box">
-					<img src="/resources/images/river1.PNG" alt="챌린지 사진">
+					<img src="/resources/chaluploadFiles/${cOne.chalFileRename}" alt="챌린지 사진">
 				</div>
 
 				<div id="chal-title-box">
 					<div id="chal-title">
-						<strong> 챌린지1 </strong>
+						<strong> ${cOne.chalTitle } </strong>
 					</div>
 					<div id="chal-info-box">
-						<p>챌린지 어쩌구 요약 통신판매 중개자로서 통신판매의 당사자가 아니며 상품의 예약, 이용 및 환불 등과 관련한
-							의무와 책임은 각 판매자에게 있습니다.</p>
+						<p>${cOne.chalContent }</p>
 					</div>
 				</div>
 
 
 				<div id="btn-report-box">
 					<div id="btn-box" class="btn-design">
-						<button>가져가기</button>
+						<button>참여하기</button>
 					</div>
 					<div id="report-box" class="btn-design">
 						<img src="/resources/images/report-icon.png" alt="신고 아이콘"> <a
@@ -55,8 +54,9 @@
 
 			<section id="down-section" class="chal-section">
 								
-				<c:forEach var="cBoard" items="${cList }">
-						<div class="like-image-container" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<c:forEach var="cBoard" items="${cList }" varStatus="i">
+					<c:set var="post" value="${cBoard.cBoardFileRename }"></c:set>
+						<div class="like-image-container" data-bs-toggle="modal" data-bs-target="#chalBoardModal${i.count }">
 							<img src="/resources/images/${cBoard.cBoardFileName}" alt="챌린지 게시물 사진" class="like-img"
 								width="180px" height="200px">
 							<div class="image-text">
@@ -64,26 +64,17 @@
 									favorite </span> &nbsp;128
 							</div>
 						</div>
-<!-- 					<button data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
-<!-- 						<div class="like-image-container"> -->
-<!-- 							<img src="/resources/images/flower2.PNG" alt="" class="like-img" -->
-<!-- 								width="180px" height="200px"> -->
-<!-- 							<div class="image-text"> -->
-<!-- 								<span class="material-symbols-outlined" style="font-size: 1.1em;"> -->
-<!-- 									favorite </span> &nbsp;128 -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</button> -->
-				</c:forEach>
-				
-			
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
+						
+						<!-- Modal -->
+				<div class="modal fade" id="chalBoardModal${i.count }" tabindex="-1"
+					aria-labelledby="chalBoardModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">개인 챌린지 / 쓰레기 줍기 챌린지</h5>
+								<h5 class="modal-title" id="chalBoardModalLabel">
+									<c:if test="${cOne.chalUserId eq 'admin' }">블루웨이브 챌린지</c:if>
+									<c:if test="${cOne.chalUserId ne 'admin' }">개인 챌린지</c:if>
+								</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -93,21 +84,40 @@
 									<div class="main-modal">
 										<section id="top-section">
 											<div id="user-info">
-												<div class="user-info-box">
-													<div class="user-img-box">
-														<img alt="프로필 사진" src="/resources/images/flower1.PNG">
+												<c:if test="${cOne.chalUserId ne 'admin' }">
+													<div class="user-info-box">
+														<div class="user-img-box">
+															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }">
+														</div>
+														<div class="user-nickname-box">
+															<h1>${uOne.userNickName}</h1>
+														</div>
+														<div class="user-subscribe-box">
+															<button>구독하기</button>
+														</div>
 													</div>
-													<div class="user-nickname-box">
-														<h1>${cBoard.cBoardWriter}</h1>
-													</div>
-													<div class="user-subscribe-box">
-														<button>구독하기</button>
-													</div>
-												</div>
 												<div class="report-board-box">
 													<img src="/resources/images/report-icon.png" alt="신고 아이콘">
 													<a href="#">신고하기</a>
 												</div>
+												</c:if>
+												<c:if test="${cOne.chalUserId eq 'admin' }">
+													<div class="user-info-box">
+<!-- 														<div class="user-img-box"> -->
+<%-- 															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%>
+<!-- 														</div> -->
+														<div class="user-nickname-box">
+															<h1>관리자</h1>
+														</div>
+<!-- 														<div class="user-subscribe-box"> -->
+<!-- 															<button>구독하기</button> -->
+<!-- 														</div> -->
+													</div>
+													<div class="report-board-box">
+<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> -->
+<!-- 														<a href="#">신고하기</a> -->
+													</div>
+												</c:if>
 											</div>
 										</section>
 										<div id="chal-info">
@@ -116,15 +126,15 @@
 										<section id="mid-section">
 											<div class="top-box">
 												<div class="chal-board-title-box">
-													<h2>하루에 1번씩 쓰레기 줍기></h2>
+													<h2>${cBoard.cBoardTitle }</h2>
 												</div>
 												<div class="chal-board-tag-box">
 													<a href="#">수정하기</a> <a href="#">삭제하기</a>
 												</div>
 											</div>
 											<div class="mid-box">
-												<img alt="챌린지 게시물 업로드 사진" src="/resources/images/river2.PNG">
-												<p>길 가에 버려진 쓰레기 주워서 쓰레기통에 버렸음</p>
+												<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${cBoard.cBoardFileRename }">
+												<p>${cBoard.cBoardContent}</p>
 											</div>
 											<div class="bottom-box">
 												<div class="calendar-box">
@@ -154,6 +164,10 @@
 						</div>
 					</div>
 				</div>
+				</c:forEach>
+				
+			
+				
 
 			</section>
 		</div>

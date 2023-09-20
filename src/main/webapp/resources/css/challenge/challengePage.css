@@ -45,7 +45,7 @@ margin-bottom : 20px;
 	width: 60%;
 	padding-left: 30px;
 }
-. .chal-title-write-box{
+.chal-title-write-box{
 	width: 100%;
 }
 .chal-category-title>h2, .chal-title-write-box>h2{
@@ -53,6 +53,24 @@ margin-bottom : 20px;
 }
 .chal-search-box{
 	padding-right: 30px;
+}
+#searchBtn{
+	float:right;
+}
+#searchBtn>button{
+	background-color: #3881C5;
+    color: #F3F3F3;
+    width: 60px;
+    height: 20px;
+    /* margin: 10px; */
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bolder;
+    margin: 1px;
+    margin-left: 3px;
 }
 
 .chal-content ul li{
@@ -116,7 +134,6 @@ white-space: nowrap;
     height: 165px;
     margin-top: 5px;
     margin-bottom: 5px;
-/*     background-image: url(./images/river2.PNG); */
     background-size: 100% 100%;
 }
 
@@ -148,7 +165,7 @@ white-space: nowrap;
 .chal-user-icon{
     width: 20px;
     height: 20px;
-    background-image: url(./images/person.png);
+/*     background-image: url(./images/person.png); */
     background-size: 100% 100%;
 }
 .chal-like-icon{

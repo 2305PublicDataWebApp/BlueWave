@@ -1,6 +1,7 @@
 package com.kh.bluewave.challenge.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public List<Challenge> selectListByChal() {
 		List<Challenge> cList = cStore.selectAllChallenges(session);
+		return cList;
+	}
+
+	@Override
+	public List<Challenge> searchChalByKeyword(Map<String, String> searchMap) {
+		List<Challenge> cList = cStore.selectChalByKeyword(session, searchMap);
 		return cList;
 	}
 

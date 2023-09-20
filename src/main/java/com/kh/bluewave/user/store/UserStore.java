@@ -161,4 +161,12 @@ public interface UserStore {
 	 * @return
 	 */
 	List<Sub> selectAllFollowersListById(SqlSession session, String userId);
+	
+	/**
+	 * chalNo로 찾은 작성자 아이디 조회 Service
+	 * @param session
+	 * @param chalWriter
+	 * @return
+	 */
+	User selectOneByChalNo(SqlSession session, String chalWriter);
 }

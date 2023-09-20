@@ -29,14 +29,16 @@
 	                    
 	                    <div class="chal-search-box">
 	                    	<form action="/challenge/search.do" method="get">
-	                    		<select>
+	                    		<select name="searchCondition">
 	                    			<option value="all">전체</option>
 	                    			<option value="writer">작성자</option>
 	                    			<option value="title">제목</option>
 	                    			<option value="content">내용</option>
 	                    		</select>
 		                    	<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요.">
-		                    	<input type="submit" value="검색">
+		                    	<div id="searchBtn">
+									<button>검색</button>
+		                    	</div>
 	                    	</form>
 	                    </div>
                 	</div>
@@ -50,9 +52,9 @@
                                 		<c:if test="${chalList.chalUserId eq 'admin'}">
 		                                    <li>
 		                                        <div>
-		                                            <a href="#">
+		                                            <a href="/challenge/info.do?chalNo=${chalList.chalNo }">
 		                                                ${chalList.chalTitle }
-		                                                <div>
+		                                                <div style="height: 175px;">
 		                                                	<img src="../resources/chaluploadFiles/${chalList.chalFileRename}" alt="챌린지 게시물 사진" class="chal-img">
 		                                                </div>
 		                                            </a>
@@ -62,11 +64,15 @@
 		                                            <div class="chal-list-bottom">
 		                                                <div>
 		                                                    <div  class="user-icon-box">
-		                                                        <div class="chal-user-icon"></div>
+		                                                        <div class="chal-user-icon">
+		                                                        	<img src="/resources/images/challenge/board-icon3.png" alt="게시물 아이콘">
+		                                                        </div>
 		                                                        <span>&nbsp;158</span>
 		                                                    </div>
 		                                                    <div class="like-icon-box">
-		                                                        <div class="chal-like-icon"></div>
+		                                                        <div class="chal-like-icon">
+		                                                        	<img src="/resources/images/challenge/heart.png" alt="좋아요 아이콘">
+		                                                        </div>
 		                                                        <span>&nbsp;158</span>
 		                                                    </div>
 		                                                </div>
@@ -104,9 +110,9 @@
                                 		<c:if test="${chalList.chalUserId ne 'admin'}">
 		                                    <li>
 		                                        <div>
-		                                            <a href="#">
+		                                            <a href="/challenge/info.do?chalNo=${chalList.chalNo }">
 		                                                ${chalList.chalTitle }
-		                                                <div>
+		                                                <div style="height: 175px;">
 		                                                	<img src="/resources/chaluploadFiles/${chalList.chalFileRename}" alt="챌린지 게시물 사진" class="chal-img">
 		                                                </div>
 		                                            </a>
@@ -116,16 +122,20 @@
 		                                            <div class="chal-list-bottom">
 		                                                <div>
 		                                                    <div  class="user-icon-box">
-		                                                        <div class="chal-user-icon"></div>
+		                                                        <div class="chal-user-icon">
+		                                                        	<img src="/resources/images/challenge/board-icon3.png" alt="좋아요 하트">
+		                                                        </div>
 		                                                        <span>&nbsp;158</span>
 		                                                    </div>
 		                                                    <div class="like-icon-box">
-		                                                        <div class="chal-like-icon"></div>
+		                                                        <div class="chal-like-icon">
+		                                                        	<img src="/resources/images/challenge/heart.png" alt="좋아요 하트">
+		                                                        </div>
 		                                                        <span>&nbsp;158</span>
 		                                                    </div>
 		                                                </div>
 		                                                <div class="btn">
-		                                                    <button>참여하기</button>
+		                                                    <button>가져가기</button>
 		                                                </div>
 		                                            </div>
 		                                        </div>

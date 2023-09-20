@@ -35,10 +35,14 @@ body{
 /* 	width: 100%; */
 }
 .user-info-box {
-	width: 40%;
+	width: 50%;
 	display: flex;
 	align-items: center;
     justify-content: space-between;
+}
+.user-nickname-box {
+	width: 40%;
+    text-align: center;
 }
 .user-img-box img {
 	width: 80px;

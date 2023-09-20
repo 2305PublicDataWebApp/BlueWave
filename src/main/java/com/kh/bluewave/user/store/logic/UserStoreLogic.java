@@ -127,4 +127,10 @@ public class UserStoreLogic implements UserStore{
 		List<Sub> sList = session.selectList("UserMapper.selectAllFollowersListById", userId);
 		return sList;
 	}
+
+	@Override
+	public User selectOneByChalNo(SqlSession session, String chalWriter) {
+		User uOne = session.selectOne("UserMapper.selectOneByChalNo", chalWriter);
+		return uOne;
+	}
 }
