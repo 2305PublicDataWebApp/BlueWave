@@ -50,7 +50,7 @@
 			.create(document.querySelector('#editor'),{
 				language: 'ko',
 				ckfinder: {
-					uploadUrl : '/ajax/image.do'
+					uploadUrl : '/notice/image.do'
 				}
 
 			})

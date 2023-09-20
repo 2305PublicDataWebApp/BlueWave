@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 public interface ChallengeStore {
 
@@ -128,4 +129,19 @@ public interface ChallengeStore {
 	 * @return
 	 */
 	int findInsertChalNo(SqlSession session, Challenge challenge);
+
+	/**
+	 * 챌린지명 전체 갯수
+	 * @param session
+	 * @return
+	 */
+	int getListCount(SqlSession session);
+
+	/**
+	 * 챌린지명 전체 리스트 조회
+	 * @param session
+	 * @param pInfo
+	 * @return
+	 */
+	List<Challenge> selectChallList(SqlSession session, PageInfo pInfo);
 }

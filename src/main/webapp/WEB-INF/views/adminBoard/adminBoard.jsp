@@ -13,7 +13,7 @@
     	.admin-table-container {
     		width: 800px;
     		margin: 0 auto;
-    		margin-top: 100px;
+    		margin-top: 200px;
     	}
         .admin-table{
             width: 800px;
@@ -62,7 +62,6 @@
 		        <option value="chall">챌린지 리스트</option>
 		        <option value="tip">팁공유 리스트</option>
 		        <option value="goods">굿즈 리스트</option>
-		        <option value="report">신고글 리스트</option>
 		    </select>
             <div id="admin-hidden-table">
 	            <table id="admin-table" class="admin-table">
@@ -72,7 +71,6 @@
 		                <th>제목</th>
 		                <th>작성자</th>
 		                <th>작성일</th>
-		                <th>조회수</th>
 		                <th>관리자 권한</th>
 		            </tr>
 				</c:if>
@@ -100,7 +98,6 @@
 		                </td>
 		                <td>${request.noticeWriter }</td>
 		                <td>${request.noticeCreateDate }</td>
-		                <td>${request.noticeViewCount }</td>
 		                <td>
 		                	<a href="/notice/modify.do?noticeNo=${request.noticeNo }">수정</a>
 		                	<a onclick="noticeDelete()">삭제</a>
@@ -114,7 +111,9 @@
 		                <c:url var="detailUrl" value="/user/myPage.do">
 	                		<c:param name="userId" value="${request.userId }" />
 	                	</c:url>
-		                <td>${request.userId }</td>
+		                <td>
+		                	<a href="${detailUrl}">${request.userId }</a>
+		                </td>
 		                <td>${request.userNickName }</td>
 		                <td>${request.userName }</td>
 		                <td>${request.userPhone }</td>
@@ -126,41 +125,52 @@
 		                </td>
 		            </tr>
 		            </c:forEach>
-					<!-- 챌린지 리스트 해야함-->
-		            <c:forEach var="request" items="${uList }" varStatus="i">
+					<!-- 챌린지명 리스트-->
+		            <c:forEach var="request" items="${cList }">
 		            <tr>
-		                <td>${i.count }</td>
-		                <c:url var="detailUrl" value="/user/myPage.do">
-	                		<c:param name="userId" value="${request.userId }" />
+		                <td>${request.chalNo }</td>
+		                <c:url var="detailUrl" value="/challenge/info.do">
+	                		<c:param name="chalNo" value="${request.chalNo }" />
 	                	</c:url>
-		                <td>${request.userId }</td>
-		                <td>${request.userNickName }</td>
-		                <td>${request.userName }</td>
-		                <td>${request.userPhone }</td>
-		                <td>${request.userAddr }</td>
-		                <td>${request.userEmail }</td>
 		                <td>
-		                	<a href="/user/modify.do?userId=${request.userId }">수정</a>
-		                	<a onclick="userDelete()">삭제</a>
+		                <a href="${detailUrl}">${request.chalTitle }</a>
+		                </td>
+		                <td>${request.chalUserId }</td>
+		                <td>${request.chalCreateDate }</td>
+		                <td>
+		                	<c:url var="chalUpdateUrl" value="/challenge/update.do">
+	                			<c:param name="chalNo" value="${request.chalNo }" />
+	                			<c:param name="userId" value="admin" />
+	                		</c:url>
+		                	<a href="${chalUpdateUrl }">수정</a>
+		                	<c:url var="chalDeleteUrl" value="/challenge/delete.do">
+	                			<c:param name="chalNo" value="${request.chalNo }" />
+	                			<c:param name="chalUserId" value="${request.chalUserId }" />
+	                			<c:param name="userId" value="admin" />
+	                		</c:url>
+		                	<a href="${chalDeleteUrl }">삭제</a>
 		                </td>
 		            </tr>
 		            </c:forEach>
 	            </table>
 		        <div class="admin-paging">
 		             <c:url var="pageUrl" value="/admin/board.do">
-                		<c:param name="page" value="${pInfo.startNavi -1 }"></c:param>
+                		<c:param name="page" value="${pInfo.startNavi -1 }" />
+                		<c:param name="selectedValue" value="${optVal }" />
 	                </c:url>
 	                <c:if test="${pInfo.startNavi != 1 }">
 	                	<a href="${pageUrl }">[이전]</a>
 	                </c:if>	        	
 		             <c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
 						<c:url var="pageUrl" value="/admin/board.do">
-							<c:param name="page" value="${p }"></c:param>
+							<c:param name="page" value="${p }" />
+							<c:param name="selectedValue" value="${optVal }" />
 						</c:url>
 						<a href="${pageUrl }">${p }</a>&nbsp;
 					</c:forEach>
 						<c:url var="pageUrl" value="/admin/board.do">
-	                <c:param name="page" value="${pInfo.startNavi +1 }"></c:param>
+	                <c:param name="page" value="${pInfo.startNavi +1 }" />
+	                <c:param name="selectedValue" value="${optVal }" />
 	                </c:url>
 	                <c:if test="${pInfo.endNavi != pInfo.naviTotalCount}">
 	                	<a href="${pageUrl }">[다음]</a>

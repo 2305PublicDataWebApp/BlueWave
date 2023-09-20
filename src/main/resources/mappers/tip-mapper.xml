@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="TipMapper">
+  		<resultMap type="tip" id="tipResultMap">
+		<id property="tipNo" 				column="TIP_NO" />
+		<result property="tipTitle" 			column="TIP_TITLE" />
+		<result property="tipContent" 		column="TIP_CONTENT" />
+		<result property="tipWriter" 		column="TIP_WRITER" />
+		<result property="tipViewCount" 		column="TIP_VIEW_COUNT" />
+		<result property="tipCreateDate" 	column="TIP_CREATE_DATE" />
+		<result property="tipUpdateDate" 	column="TIP_UPDATE_DATE" />
+	</resultMap>
+	
+  	<insert id="insertTipBoard">
+  		INSERT INTO TIP_BOARD_TBL VALUES(SEQ_TIP_NO.NEXTVAL , #{tipTitle }, #{tipContent }, #{tipWriter }
+  									, DEFAULT, DEFAULT, DEFAULT)
+  	</insert>
+  	
+  	<update id="updateTip">
+  		UPDATE TIP_BOARD_TBL SET TIP_TITLE = #{tipTitle }, TIP_CONTENT = #{tipContent }
+  							WHERE TIP_NO = #{tipNo } 
+  	</update>
+  	
+  	<update id="updateViewCount">
+  		UPDATE TIP_BOARD_TBL SET TIP_VIEW_COUNT = #{tipViewCount } +1 WHERE TIP_NO = #{tipNo }
+  	</update>
+  	
+  	<delete id="deleteTip">
+  		DELETE FROM TIP_BOARD_TBL WHERE TIP_NO = #{tipNo }
+  	</delete>
+  	
+  	<select id="selectTipBoard" resultMap="tipResultMap">
+  		SELECT * FROM TIP_BOARD_TBL ORDER BY TIP_NO DESC
+  	</select>
+  	
+  	<select id="selectListCount" resultType="_int">
+  		SELECT COUNT(*) FROM TIP_BOARD_TBL
+  	</select>
+  	
+  	<select id="selectOneTipNo" resultMap="tipResultMap">
+  		SELECT * FROM TIP_BOARD_TBL WHERE TIP_NO = #{tipNo }
+  	</select>
+  	
+  </mapper>

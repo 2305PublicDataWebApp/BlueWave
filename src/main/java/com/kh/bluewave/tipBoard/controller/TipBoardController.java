@@ -1,11 +1,8 @@
-package com.kh.bluewave.noticeBoard.controller;
+package com.kh.bluewave.tipBoard.controller;
 
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,34 +15,35 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
-import com.kh.bluewave.noticeBoard.domain.PageInfo;
-import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
+import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.tipBoard.domain.TipBoard;
+import com.kh.bluewave.tipBoard.service.TipBoardService;
+
 
 @Controller
-public class NoticeBoardController {
+public class TipBoardController {
 	
 	@Autowired
-	private NoticeBoardService nService;
+	private TipBoardService tService;
 	@Autowired
     private MappingJackson2JsonView jsonView;
 
 	/**
-	 * 공지 리스트 조회
+	 * 팁공유 리스트 조회
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/notice/board.do", method=RequestMethod.GET)
-	public ModelAndView showNoticeBoard(ModelAndView mv
+	@RequestMapping(value="/tip/board.do", method=RequestMethod.GET)
+	public ModelAndView showTipBoard(ModelAndView mv
 			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 		try {		
-			int totalCount = nService.getListCount();
+			int totalCount = tService.getListCount();
 			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-			List<NoticeBoard> nList = nService.selectNoticeBoard(pInfo);
-			if(nList.size() > 0) {				
-				mv.addObject("nList", nList);
+			List<TipBoard> tList = tService.selectTipBoard(pInfo);
+			if(tList.size() > 0) {				
+				mv.addObject("tList", tList);
 				mv.addObject("pInfo", pInfo);
-				mv.setViewName("notice/noticeBoard");
+				mv.setViewName("tip/tipBoard");
 			}else {
 				mv.addObject("msg", "리스트 조회 실패");
 				mv.addObject("url","/home.do");
@@ -62,94 +60,96 @@ public class NoticeBoardController {
 	}
 	
 	/**
-	 * 공지글 작성페이지로 이동
+	 * 팁공유글 작성페이지로 이동
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/notice/write.do", method=RequestMethod.GET)
-	public ModelAndView goNoticeWrite(ModelAndView mv) {
+	@RequestMapping(value="/tip/write.do", method=RequestMethod.GET)
+	public ModelAndView goTipWrite(ModelAndView mv) {
 		
-		mv.setViewName("notice/noticeWrite");
+		mv.setViewName("tip/tipWrite");
 		return mv;
 	}
 	/**
-	 * 공지 게시글 등록
+	 * 팁공유 게시글 등록
 	 * @param mv
-	 * @param noticeBoard
+	 * @param tipBoard
 	 * @param request 
 	 * @param request 
 	 * @return 
 	 */
-	@RequestMapping(value="/notice/insert.do", method=RequestMethod.POST)
-	public ModelAndView registerNoticeBoard(ModelAndView mv
-			, @ModelAttribute NoticeBoard noticeBoard
-			, @RequestParam("noticeTitle") String noticeTitle
-			, @RequestParam("noticeContent") String noticeContent ){
+	@RequestMapping(value="/tip/insert.do", method=RequestMethod.POST)
+	public ModelAndView registerTipBoard(ModelAndView mv
+			, @ModelAttribute TipBoard tipBoard
+			, @RequestParam("tipWriter") String tipWriter
+			, @RequestParam("tipTitle") String tipTitle
+			, @RequestParam("tipContent") String tipContent ){
 		try {			
-			noticeBoard.setNoticeTitle(noticeTitle);
-			noticeBoard.setNoticeContent(noticeContent);
-			int result = nService.insertNoticeBoard(noticeBoard);
+			tipBoard.setTipWriter(tipWriter);
+			tipBoard.setTipTitle(tipTitle);
+			tipBoard.setTipContent(tipContent);
+			int result = tService.insertTipBoard(tipBoard);
 			if(result > 0) {
-				mv.setViewName("redirect:/notice/board.do");
+				mv.setViewName("redirect:/tip/board.do");
 			}else {
-				mv.addObject("msg", "공지글 등록 실패");
-				mv.addObject("url","/notice/board.do");
+				mv.addObject("msg", "팁공유글 등록 실패");
+				mv.addObject("url","/tip/board.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.addObject("url","/notice/board.do");
+			mv.addObject("url","/tip/board.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
 	
 	/**
-	 * 공지글 수정페이지로 이동
+	 * 팁공유글 수정페이지로 이동
 	 * @param mv
-	 * @param noticeNo
+	 * @param TipNo
 	 * @return
 	 */
-	@RequestMapping(value="/notice/modify.do", method=RequestMethod.GET)
-	public ModelAndView showModifyNotice(ModelAndView mv
-			, @RequestParam int noticeNo) {
+	@RequestMapping(value="/tip/modify.do", method=RequestMethod.GET)
+	public ModelAndView showModifyTip(ModelAndView mv
+			, @RequestParam int tipNo) {
 		try {			
-			NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
-			mv.addObject("notice", nOne);
-			mv.setViewName("notice/noticeModify");
+			TipBoard tOne = tService.selectOneTipNo(tipNo);
+			mv.addObject("tip", tOne);
+			mv.setViewName("tip/tipModify");
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.addObject("url","/notice/detail.do?noticeNo="+ noticeNo);
+			mv.addObject("url","/tip/detail.do?tipNo="+ tipNo);
 			mv.setViewName("common/serviceFailed");
 		}
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="/notice/update.do", method=RequestMethod.POST)
-	public ModelAndView updateNotice(ModelAndView mv
-			, @RequestParam int noticeNo
-			, @RequestParam String noticeTitle
-			, @RequestParam String noticeContent
-			, @ModelAttribute NoticeBoard noticeBoard) {
+	@RequestMapping(value="/tip/update.do", method=RequestMethod.POST)
+	public ModelAndView updateTip(ModelAndView mv
+			, @RequestParam int tipNo
+			, @RequestParam String tipTitle
+			, @RequestParam String tipContent
+			, @ModelAttribute TipBoard tipBoard) {
 		try {			
-			noticeBoard.setNoticeNo(noticeNo);
-			noticeBoard.setNoticeTitle(noticeTitle);
-			noticeBoard.setNoticeContent(noticeContent);
-			int result = nService.updateNotice(noticeBoard);
+			tipBoard.setTipNo(tipNo);
+			tipBoard.setTipTitle(tipTitle);
+			tipBoard.setTipContent(tipContent);
+			int result = tService.updateTip(tipBoard);
 			if(result > 0) {
-				mv.setViewName("redirect:/notice/detail.do?noticeNo="+noticeNo);
+				mv.setViewName("redirect:/tip/detail.do?tipNo="+tipNo);
 			}else {
-				mv.addObject("msg", "공지글 수정 실패");
-				mv.addObject("url","/notice/detail.do?noticeNo="+ noticeNo);
+				mv.addObject("msg", "팁공유글 수정 실패");
+				mv.addObject("url","/tip/detail.do?tipNo="+ tipNo);
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.addObject("url","/notice/detail.do?noticeNo="+ noticeNo);
+			mv.addObject("url","/tip/detail.do?tipNo="+ tipNo);
 			mv.setViewName("common/serviceFailed");
 		}
 		
@@ -158,49 +158,49 @@ public class NoticeBoardController {
 	}
 	
 	/**
-	 * 공지글 상세페이지로 이동
+	 * 팁공유글 상세페이지로 이동
 	 * @param mv
 	 * @return
 	 */
-	@RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
-	public ModelAndView goNoticeDetail(ModelAndView mv
-			, @RequestParam int noticeNo) {
+	@RequestMapping(value="/tip/detail.do", method=RequestMethod.GET)
+	public ModelAndView goTipDetail(ModelAndView mv
+			, @RequestParam int tipNo) {
 		try {			
-			NoticeBoard nOne = nService.selectOneNoticeNo(noticeNo);
-			int result = nService.updateViewCount(nOne);
+			TipBoard tOne = tService.selectOneTipNo(tipNo);
+			int result = tService.updateViewCount(tOne);
 			if(result > 0) {				
-				mv.addObject("notice", nOne);
-				mv.setViewName("notice/noticeDetail");
+				mv.addObject("tip", tOne);
+				mv.setViewName("tip/tipDetail");
 			}else {
-				mv.addObject("msg", "공지 상세페이지 이동 실패");
-				mv.addObject("url","/notice/board.do");
+				mv.addObject("msg", "팁공유 상세페이지 이동 실패");
+				mv.addObject("url","/tip/board.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.addObject("url","/notice/board.do");
+			mv.addObject("url","/tip/board.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		
 		return mv;
 	}
-	@RequestMapping(value="/notice/delete.do", method=RequestMethod.GET)
-	public ModelAndView deleteNotice(ModelAndView mv
-			, @RequestParam int noticeNo) {
+	@RequestMapping(value="/tip/delete.do", method=RequestMethod.GET)
+	public ModelAndView deleteTip(ModelAndView mv
+			, @RequestParam int tipNo) {
 		try {
-			int result = nService.deleteNotice(noticeNo);
+			int result = tService.deleteTip(tipNo);
 			if(result > 0) {
-				mv.setViewName("redirect:/notice/board.do");
+				mv.setViewName("redirect:/tip/board.do");
 			}else {
-				mv.addObject("msg", "공지 게시글 삭제 실패");
-				mv.addObject("url","/notice/board.do");
+				mv.addObject("msg", "팁공유 게시글 삭제 실패");
+				mv.addObject("url","/tip/board.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
-			mv.addObject("url","/notice/board.do");
+			mv.addObject("url","/tip/board.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		
@@ -213,7 +213,7 @@ public class NoticeBoardController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/notice/image.do")
+	@RequestMapping(value="/tip/image.do")
 	public ModelAndView image(MultipartHttpServletRequest request) throws Exception{
 		// ckeditor는 이미지 업로드 후 이미지 표시하기 위해 uploaded 와 url을 json 형식으로 받아야 함
 		// modelandview를 사용하여 json 형식으로 보내기위해 모델앤뷰 생성자 매개변수로 jsonView 라고 써줌
@@ -226,27 +226,27 @@ public class NoticeBoardController {
 			MultipartFile uploadFile = request.getFile("upload");
 			
 			// 파일의 오리지널 네임
-			String noticeFileName = uploadFile.getOriginalFilename();
+			String tipFileName = uploadFile.getOriginalFilename();
 			
 			// 파일의 확장자
-			String ext = noticeFileName.substring(noticeFileName.indexOf("."));
+			String ext = tipFileName.substring(tipFileName.indexOf("."));
 			
 			// 서버에 저장될 때 중복된 파일 이름인 경우를 방지하기 위해 UUID에 확장자를 붙여 새로운 파일 이름을 생성
-			String noticeFileRename = UUID.randomUUID() + ext;
+			String tipFileRename = UUID.randomUUID() + ext;
 			
 			// 이미지를 현재 경로와 연관된 파일에 저장하기 위해 현재 경로를 알아냄
 			String realPath = request.getSession().getServletContext().getRealPath("resources");
-			String saveFolder = realPath + "\\nUploadFiles";
+			String saveFolder = realPath + "\\tUploadFiles";
 			File folder = new File (saveFolder);
 			if(!folder.exists()) {
 				folder.mkdir();
 			}
 			//절대 경로
-			String savePath = saveFolder + "\\" + noticeFileRename;
+			String savePath = saveFolder + "\\" + tipFileRename;
 			
 			// 브라우저에서 이미지 불러올 때 절대 경로로 불러오면 보안의 위험 있어 상대경로를 쓰거나 이미지 불러오는 jsp 또는 클래스 파일을 만들어 가져오는 식으로 우회해야 함
 			// 때문에 savePath와 별개로 상대 경로인 uploadPath 만들어줌
-			String noticeFilePath = "../resources/nUploadFiles/" + noticeFileRename; 
+			String tipFilePath = "../resources/tUploadFiles/" + tipFileRename; 
 			
 			// 저장 경로로 파일 객체 생성
 			File file = new File(savePath);
@@ -256,7 +256,7 @@ public class NoticeBoardController {
 			
 			
 			mv.addObject("uploaded", true); // 업로드 완료
-			mv.addObject("url", noticeFilePath); // 업로드 파일의 경로
+			mv.addObject("url", tipFilePath); // 업로드 파일의 경로
 			
 		} catch (Exception e) {
 			e.getMessage();
