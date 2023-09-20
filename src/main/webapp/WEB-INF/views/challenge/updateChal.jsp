@@ -42,7 +42,7 @@
                     <!-- 챌린지 공개여부, 챌린지 명, 챌린지 방법 설명, 파일 첨부 -->
                     <section id="set-chal-info">
                         <div>
-                            <select name="chalPublic" id="chal-public">
+                            <select name="chalPublic" id="chal-public" disabled>
                                 <option value="Y" <c:if test="${ fn:contains(chal.chalPublic, 'Y') }">selected</c:if>>공개</option>
                                 <option value="N" <c:if test="${ fn:contains(chal.chalPublic, 'N') }">selected</c:if>>비공개</option>
                             </select>
