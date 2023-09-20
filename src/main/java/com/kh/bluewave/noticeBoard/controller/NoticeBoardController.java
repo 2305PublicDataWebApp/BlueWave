@@ -159,7 +159,12 @@ public class NoticeBoardController {
 		return mv;
 	}
 
-	
+	/**
+	 * ckEditor 이미지
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/ajax/image.do")
 	public ModelAndView image(MultipartHttpServletRequest request) throws Exception{
 		// ckeditor는 이미지 업로드 후 이미지 표시하기 위해 uploaded 와 url을 json 형식으로 받아야 함
@@ -188,6 +193,7 @@ public class NoticeBoardController {
 			if(!folder.exists()) {
 				folder.mkdir();
 			}
+			//절대 경로
 			String savePath = saveFolder + "\\" + noticeFileRename;
 			
 			// 브라우저에서 이미지 불러올 때 절대 경로로 불러오면 보안의 위험 있어 상대경로를 쓰거나 이미지 불러오는 jsp 또는 클래스 파일을 만들어 가져오는 식으로 우회해야 함
@@ -200,13 +206,9 @@ public class NoticeBoardController {
 			// 파일 업로드
 			uploadFile.transferTo(file);
 			
-//			long noticeFileLength = uploadFile.getSize();
 			
 			mv.addObject("uploaded", true); // 업로드 완료
-			mv.addObject("url", savePath); // 업로드 파일의 경로
-//			mv.addObject("noticeFileName", noticeFileName);
-//			mv.addObject("noticeFileRename", noticeFileRename);
-//			mv.addObject("noticeFileLength", noticeFileLength);
+			mv.addObject("url", noticeFilePath); // 업로드 파일의 경로
 			
 		} catch (Exception e) {
 			e.getMessage();

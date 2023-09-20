@@ -134,4 +134,12 @@
 	<select id="selectOneByChalNo" resultMap="userResultMap">
 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId}
 	</select>
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM USER_TBL
+	</select>
+	
+	<select id="selectUserList" resultMap="userResultMap">
+		SELECT * FROM USER_TBL
+	</select>
 </mapper>
