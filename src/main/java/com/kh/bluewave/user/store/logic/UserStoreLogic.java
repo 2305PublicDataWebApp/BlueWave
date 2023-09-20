@@ -2,10 +2,13 @@ package com.kh.bluewave.user.store.logic;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.store.UserStore;
@@ -126,5 +129,20 @@ public class UserStoreLogic implements UserStore{
 	public List<Sub> selectAllFollowersListById(SqlSession session, String userId) {
 		List<Sub> sList = session.selectList("UserMapper.selectAllFollowersListById", userId);
 		return sList;
+	}
+
+	@Override
+	public List<User> selectUserList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<User> uList = session.selectList("UserMapper.selectUserList", null, rowBounds);
+		return uList;
+	}
+
+	@Override
+	public int getListCount(SqlSession session) {
+		int result = session.selectOne("UserMapper.selectListCount");
+		return result;
 	}
 }

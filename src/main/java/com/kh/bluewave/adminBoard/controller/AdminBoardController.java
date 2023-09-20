@@ -4,44 +4,70 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
 import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
+import com.kh.bluewave.user.domain.User;
+import com.kh.bluewave.user.service.UserService;
 
 @Controller
 public class AdminBoardController {
 	
 	@Autowired
 	private NoticeBoardService nService;
+	@Autowired
+	private UserService uService;
 
+	@RequestMapping(value="/admin/main.do", method=RequestMethod.GET)
+	public ModelAndView goAdminBoard(ModelAndView mv) {
+
+		mv.setViewName("adminBoard/adminMain");
+		return mv;
+	}
+	
 	@RequestMapping(value="/admin/board.do", method=RequestMethod.GET)
-	public ModelAndView goAdminBoard(ModelAndView mv
-			, @RequestParam("optVal") String optVal
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+	public ModelAndView sendDataAdminBoard(ModelAndView mv
+		, @RequestParam("selectedValue") String selectedValue
+		, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
 		try {
-			int totalCount = nService.getListCount();
-			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-			if(optVal.equals("notice")) {
+			int totalCount = 0;
+			PageInfo pInfo = null;
+
+			if(selectedValue.equals("notice")) {
 				// 공지 리스트
+				totalCount = nService.getListCount();
+				pInfo = this.getPageInfo(currentPage, totalCount);
 				List<NoticeBoard> nList = nService.selectNoticeBoard(pInfo);
 				mv.addObject("pInfo", pInfo);
 				mv.addObject("nList", nList);
-				mv.setViewName("adminBoard/adminBoard");
-			}else if(optVal.equals("user")) {
-				// 회원 리스트
-//				List<User> uList = uService.selectUserList(pInfo);
-//				mv.
+			}else if(selectedValue.equals("user")) {
+				//회원 리스트
+				totalCount = uService.getListCount();
+				pInfo = this.getPageInfo(currentPage, totalCount);
+				List<User> uList = uService.selectUserList(pInfo);
+				mv.addObject("pInfo", pInfo);
+				mv.addObject("uList", uList);
+			}else if(selectedValue.equals("user")) {
+				//챌린지 리스트 해야함
+				totalCount = uService.getListCount();
+				pInfo = this.getPageInfo(currentPage, totalCount);
+				List<User> uList = uService.selectUserList(pInfo);
+				mv.addObject("pInfo", pInfo);
+				mv.addObject("uList", uList);
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
+		mv.addObject("selectedValue", selectedValue);
 		mv.setViewName("adminBoard/adminBoard");
+		
 		return mv;
 	}
 	

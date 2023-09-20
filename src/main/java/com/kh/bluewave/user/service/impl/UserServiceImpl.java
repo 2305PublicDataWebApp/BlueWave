@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.service.UserService;
@@ -133,5 +134,17 @@ public class UserServiceImpl implements UserService{
 	public List<Sub> selectAllFollowersListById(String userId) {
 		List<Sub> sList = uStore.selectAllFollowersListById(session, userId);
 		return sList;
+	}
+
+	@Override
+	public List<User> selectUserList(PageInfo pInfo) {
+		List<User> uList = uStore.selectUserList(session, pInfo);
+		return uList;
+	}
+
+	@Override
+	public int getListCount() {
+		int result = uStore.getListCount(session);
+		return result;
 	}
 }

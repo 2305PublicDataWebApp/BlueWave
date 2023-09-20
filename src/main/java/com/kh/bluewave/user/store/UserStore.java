@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.user.domain.Sub;
 import com.kh.bluewave.user.domain.User;
 
@@ -161,4 +162,19 @@ public interface UserStore {
 	 * @return
 	 */
 	List<Sub> selectAllFollowersListById(SqlSession session, String userId);
+
+	/**
+	 * 전체 회원 리스트 조회
+	 * @param session
+	 * @param pInfo
+	 * @return
+	 */
+	List<User> selectUserList(SqlSession session, PageInfo pInfo);
+
+	/**
+	 * 전체 회원수 조회
+	 * @param session
+	 * @return
+	 */
+	int getListCount(SqlSession session);
 }
