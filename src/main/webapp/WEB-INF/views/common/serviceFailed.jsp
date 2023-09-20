@@ -9,9 +9,9 @@
 	<body>
 		<h1>${ msg }</h1>
 		<script>
-			const result = '${ msg }';
-			const url = '${ url }';
-			alert(result + "에 실패했습니다.");
+			const result = '${msg}';
+			const url = '${url}';
+			alert(result);
 			location.href = url;
 		</script>
 	</body>

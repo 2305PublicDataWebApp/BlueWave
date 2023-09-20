@@ -7,9 +7,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../resources/css/challenge/chal.css">
-        <link rel="stylesheet" href="../resources/css/font.css">
-        <link rel="stylesheet" href="../resources/css/reset.css">  
+        <link rel="stylesheet" href="/resources/css/challenge/chal.css">
+        <link rel="stylesheet" href="/resources/css/font.css">
+        <link rel="stylesheet" href="/resources/css/reset.css">  
         <title>챌린지 수정</title>
     </head>
     <body>
@@ -18,6 +18,8 @@
         <main>
             <section id="main-container">
                 <form action="/challenge/update.do" method="post" enctype="multipart/form-data">
+                	<input type="hidden" name="userId" value="${ sessionScope.userId }">
+                	<input type="hidden" name="chalUserId" value="${ chal.chalUserId }">
                 	<input type="hidden" name="chalNo" value="${ chal.chalNo }">
                 	<input type="hidden" name="chalFileName" value="${ chal.chalFileName }">
 					<input type="hidden" name="chalFileRename" value="${ chal.chalFileRename }">
@@ -40,7 +42,7 @@
                     <!-- 챌린지 공개여부, 챌린지 명, 챌린지 방법 설명, 파일 첨부 -->
                     <section id="set-chal-info">
                         <div>
-                            <select name="chalPublic" id="chal-public">
+                            <select name="chalPublic" id="chal-public" disabled>
                                 <option value="Y" <c:if test="${ fn:contains(chal.chalPublic, 'Y') }">selected</c:if>>공개</option>
                                 <option value="N" <c:if test="${ fn:contains(chal.chalPublic, 'N') }">selected</c:if>>비공개</option>
                             </select>
@@ -62,7 +64,8 @@
                 </form>
             </section>
         </main>
-        <footer></footer>
+<!--         <footer></footer> -->
+   		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
         
         <script>
 	        function goBack() {

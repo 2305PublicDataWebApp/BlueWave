@@ -6,9 +6,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../resources/css/challenge/chal.css">
-        <link rel="stylesheet" href="../resources/css/font.css">
-        <link rel="stylesheet" href="../resources/css/reset.css">  
+        <link rel="stylesheet" href="/resources/css/challenge/chal.css">
+        <link rel="stylesheet" href="/resources/css/font.css">
+        <link rel="stylesheet" href="/resources/css/reset.css">  
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>챌린지 등록</title>
     </head>
@@ -18,6 +18,7 @@
         <main>
             <section id="main-container">
                 <form action="" method="post" enctype="multipart/form-data">
+                	<input type="hidden" name="chalUserId" value="${ sessionScope.userId }">
                     <!-- 시작일, 종료일 -->
                     <section id="set-chal-date">
                         <input type="date" name="chalStartDate" id="chal-start-date" min="${ sysdate }" required> ~ 
@@ -48,7 +49,8 @@
                 </form>
             </section>
         </main>
-        <footer></footer>
+<!--         <footer></footer> -->
+   		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		
 		<!-- 종료일 최소일 지정 -->
 		<script>
@@ -92,9 +94,6 @@
 		        $("#chal-start-date").trigger("change");
 		    });
 		</script>
-
-
-
 
 		<!-- 챌린지 명 중복 체크 -->
 		<script>

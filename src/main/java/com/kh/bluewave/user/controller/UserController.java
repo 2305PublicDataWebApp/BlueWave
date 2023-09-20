@@ -101,20 +101,20 @@ public class UserController {
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
-					int postCount = uService.getPostCountByUserId(user.getUserId());
-					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
-					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
-					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
-					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
-					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
-					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-					mv.addObject("totalPoint", totalPoint);
-		            mv.addObject("postCount", postCount);
-		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
-		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
-		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
-		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
-		            mv.addObject("goodsList", goodsList);
+//					int postCount = uService.getPostCountByUserId(user.getUserId());
+//					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+//					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
+//					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
+//					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
+//					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
+//					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
+//					mv.addObject("totalPoint", totalPoint);
+//		            mv.addObject("postCount", postCount);
+//		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
+//		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
+//		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
+//		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
+//		            mv.addObject("goodsList", goodsList);
 					mv.addObject("user", uOne);
 					
 					
@@ -131,6 +131,7 @@ public class UserController {
 						 // 회원이 생성한 챌린지
 						List<Challenge> cPersonalList = cService.selectAllById(userId);
 						List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
+						List<Challenge> cOtherPersonalList = cService.selectOtherAllById(userId);// 타 회원의 공개 챌린지
 						
 						// 자신의 챌린지 별 인증 게시물 수
 						List<Challenge> cPostCntList = cService.selectPostsById(userId);
@@ -146,25 +147,22 @@ public class UserController {
 						List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
 						
 						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
-						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList)
+						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList)
 						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
 						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
 						  .setViewName("user/myPage");
 					} else {
-						mv.addObject("msg", "완료 여부 체크");
-						mv.setViewName("common/errorMessage");
+						mv.addObject("msg", "완료 여부 체크").addObject("url", "/user/myPage.do?userId=" + userId);
+						mv.setViewName("common/serviceFailed");
 					}
 				}else {
-					mv.addObject("msg", "데이터 조회에 실패했습니다.");
-					mv.addObject("error", "데이터 조회 실패");
-					mv.addObject("url", "index.jsp");
-					mv.setViewName("common/errorPage");
+					mv.addObject("msg", "회원 데이터 조회 실패").addObject("url", "/index.jsp");
+					mv.setViewName("common/serviceFailed");
 				}
 			} catch (Exception e) {
-				mv.addObject("msg", "관리자에게 문의해주세요.");
-				mv.addObject("error", e.getMessage());
-				mv.addObject("url", "index.jsp");
-				mv.setViewName("common/errorPage");
+				e.printStackTrace();
+				mv.addObject("msg", "마이페이지 조회 오류").addObject("url", "/index.jsp");
+				mv.setViewName("common/serviceFailed");
 			}
 			return mv;
 		}
@@ -447,43 +445,4 @@ public class UserController {
 			file.delete();
 		}
 	}
-	
-	
-	
-	
-	// 마이페이지 블루웨이브 챌린지 select option 전환
-	@RequestMapping(value="/user/uWaveChalInfoCheck.do", method=RequestMethod.GET)
-	public ModelAndView uWaveChalInfoCheck(@RequestParam("wavefinishOption") String wavefinishOption
-//									  , @RequestParam(value="userId", defaultValue = "testuser01") char userId
-									  , ModelAndView mv) {
-		try {			
-			List<Challenge> cList = cService.selectOptionsByFinish(wavefinishOption);
-			mv.addObject("cList", cList);
-			mv.addObject("wavefinishOption", wavefinishOption);
-			mv.setViewName("user/myPage");
-		} catch (Exception e) {
-			e.printStackTrace();
-			mv.addObject("msg", e.getMessage());
-			mv.setViewName("common/errorMessage");
-		}
-		return mv;
-	}
-//	
-//	// 마이페이지 개인 챌린지 select option 전환
-//	@RequestMapping(value="/user/uPerChalInfoCheck.do", method=RequestMethod.GET)
-//	public ModelAndView uPerChalInfoCheck(@RequestParam("perfinishOption") String perfinishOption
-////									   , @RequestParam(value="userId", defaultValue = "testuser01") char userId
-//									   , ModelAndView mv) {
-//		try {			
-//			List<Challenge> cList = cService.selectOptionsByFinish(perfinishOption);
-//			mv.addObject("cList", cList);
-//			mv.addObject("perfinishOption", perfinishOption);
-//			mv.setViewName("user/myPage");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			mv.addObject("msg", e.getMessage());
-//			mv.setViewName("common/errorMessage");
-//		}
-//		return mv;
-//	}
 }

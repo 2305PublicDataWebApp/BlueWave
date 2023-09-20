@@ -55,6 +55,12 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	}
 
 	@Override
+	public List<Challenge> selectOtherAllById(SqlSession session, String userId) {
+		List<Challenge> cList = session.selectList("ChalMapper.selectOtherAllById", userId);
+		return cList;
+	}
+
+	@Override
 	public List<Challenge> selectAllUserWave(SqlSession session, String userId) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectAllUserWave", userId);
 		return cList;
@@ -83,12 +89,6 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		List<Challenge> cList = session.selectList("ChalMapper.selectPostsById", userId);
 		return cList;
 	}
-	
-	@Override
-	public List<Challenge> selectOptionsByFinish(SqlSession session, String finishOption) {
-		List<Challenge> cList = session.selectList("ChalMapper.selectOptionsByFinish", finishOption);
-		return cList;
-	}
 
 	@Override
 	public List<Challenge> selectAllChallenges(SqlSession session) {
@@ -100,6 +100,12 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	public List<Challenge> selectChalByKeyword(SqlSession session, Map<String, String> searchMap) {
 		List<Challenge> cList = session.selectList("ChalMapper.selectChalByKeyword", searchMap);
 		return cList;
+	}
+	
+	@Override
+	public int findInsertChalNo(SqlSession session, Challenge challenge) {
+		int result = session.selectOne("ChalMapper.findInsertChalNo", challenge);
+		return result;
 	}
 
 }

@@ -62,6 +62,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	public List<Challenge> selectOtherAllById(String userId) {
+		List<Challenge> cList = cStore.selectOtherAllById(session, userId);
+		return cList;
+	}
+
+	@Override
 	public List<Challenge> selectAllUserWave(String userId) {
 		List<Challenge> cList = cStore.selectAllUserWave(session, userId);
 		return cList;
@@ -92,15 +98,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public List<Challenge> selectOptionsByFinish(String finishOption) {
-		List<Challenge> cList = cStore.selectOptionsByFinish(session, finishOption);
+	public List<Challenge> selectListByChal() {
+		List<Challenge> cList = cStore.selectAllChallenges(session);
 		return cList;
 	}
 
 	@Override
-	public List<Challenge> selectListByChal() {
-		List<Challenge> cList = cStore.selectAllChallenges(session);
-		return cList;
+	public int findInsertChalNo(Challenge challenge) {
+		int result = cStore.findInsertChalNo(session, challenge);
+		return result;
 	}
 
 	@Override
