@@ -12,6 +12,10 @@
 		<result property="productNo" column="PRODUCT_NO"/>
 		<result property="cBoardNo" column="C_BOARD_NO"/>
 	</resultMap>
+	
+	<insert id="buyGoods">
+		INSERT INTO POINT_TBL VALUES(#{userId }, #{userTotalPoint }, #{pointHistory }, 'use', DEFAULT, #{productNo }, NULL );
+	</insert>
 
 	<select id="getTotalPointByUserId" resultType="_int">
 		SELECT USER_TOTAL_POINT
@@ -22,4 +26,11 @@
 	<insert id="insertRegisterPoint">
 		INSERT INTO POINT_TBL VALUES(#{userId }, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL )
 	</insert>
+
+	<select id="selectPointByUserId">
+		SELECT * FROM(
+    		SELECT * FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC
+		)
+		WHERE ROWNUM = 1;
+	</select>
 </mapper>

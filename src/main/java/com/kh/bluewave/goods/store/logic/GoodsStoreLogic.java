@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.goods.store.GoodsStore;
+import com.kh.bluewave.point.domain.Point;
 
 @Repository
 public class GoodsStoreLogic implements GoodsStore {
@@ -33,6 +34,30 @@ public class GoodsStoreLogic implements GoodsStore {
 	@Override
 	public int insertGoods(SqlSession session, Goods goods) {
 		int result = session.insert("GoodsMapper.insertGoods", goods);
+		return result;
+	}
+
+	@Override
+	public int modifyGoods(SqlSession session, Goods goods) {
+		int result = session.update("GoodsMapper.modifyGoods", goods);
+		return result;
+	}
+
+	@Override
+	public int deleteGoods(SqlSession session, int productNo) {
+		int result = session.delete("GoodsMapper.deleteGoods", productNo);
+		return result;
+	}
+
+	@Override
+	public Point selectPointByUserId(SqlSession session, String userId) {
+		Point onePoint = session.selectOne("PointMapper.selectPointByUserId", userId);
+		return onePoint;
+	}
+
+	@Override
+	public int buyGoods(SqlSession session, Point point) {
+		int result = session.insert("PointMapper.buyGoods", point);
 		return result;
 	}
 
