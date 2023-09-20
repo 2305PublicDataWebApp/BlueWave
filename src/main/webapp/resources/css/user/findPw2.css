@@ -22,7 +22,7 @@
 
 /* 전체 페이지 스타일 */
 body {
-    background-image: url('../../images/배경.jpg');
+    background-image: url('../../images/background-img.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -57,10 +57,14 @@ body {
 }
 
 #order-1 {
-    color: #4cbafa;
+    color: #555555;
 }
 
 #order-2 {
+    color: #4cbafa;
+}
+
+#order-3 {
     color: #555555;
 }
 
@@ -105,28 +109,10 @@ input[type="password"]:focus {
     border: 2px solid #9ad7ff; /* 포커스시 새로운 테두리 스타일 지정 */
     box-shadow: 0 0 5px rgba(133, 206, 255, 0.5); /* 포커스시 그림자 효과 추가 */
 }
-#getPwBtnDiv {
-    display: block;
-    margin: 5px auto;
-    text-align: left;
-    width: 422px;
-}
-/* 비밀번호 받기 버튼 스타일 */
-#getPwBtn {
-    background-color: #cccccc;
-    color: #fff;
-    border: none;
-    padding: 10px 0;
-    border-radius: 25px;
-    font-size: 13px;
-    cursor: pointer;
-    width: 120px;
-    font-family: 'SUITE-Regular';
-}
 
-/* 다음 버튼 스타일 */
-#next-button {
-    background-color: #4cbafa;
+/* 로그인 버튼 스타일 */
+.login-button {
+    background-color: #56d3ee;
     color: #fff;
     border: none;
     padding: 15px 0;
@@ -141,7 +127,7 @@ input[type="password"]:focus {
 }
 
 /* 버튼 호버(마우스 오버) 스타일 */
-#next-button:hover {
+.login-button:hover {
     opacity: 0.8;
 }
 

@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.tip-write-table {
+	width: 100%;
+}
+.tip-write-table #tip-title{
+	width: auto;
+}
+.tip-write-table thead tr{
+	line-height: 30px;
+}
+.tip-write-table tbody tr{
+	line-height: auto;
+}	
+.ck-editor__editable_inline {
+		min-height: 400px;
+}
+.tip-board {
+	width: 70%;
+	min-height: 100vh; 
+	height: 100%;
+	margin: 0 auto;
+	background-color: #F8F8F8;
+}
+.tip-form {
+	width: 70%;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 100px;
+}
+.tip-board-table {
+	padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+.tip-write-table tr:first-child input {
+	height: 30px;
+	border: 1px solid #ccc;
+		border-radius: 5px;
+}
+.tip-write-table tr:first-child td:first-child {
+	width: 60px;
+	height: 30px;
+	text-align: center;
+}
+.updateBtn {
+	 background-color: #3881C5;
+	 color: #F3F3F3;
+	 width: 100px;
+	 height: 40px;
+	 margin-top: 10px;
+	 border: none;
+	 border-radius: 8px;
+	 font-size: 0.9em;
+	 cursor:pointer;
+	 float: right;
+	 font-weight: bolder;
+	 padding: 10px;
+}
+

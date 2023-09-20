@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.challenge.service.ChallengeService;
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
 import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
@@ -24,6 +26,8 @@ public class AdminBoardController {
 	private NoticeBoardService nService;
 	@Autowired
 	private UserService uService;
+	@Autowired
+	private ChallengeService cService;
 
 	@RequestMapping(value="/admin/main.do", method=RequestMethod.GET)
 	public ModelAndView goAdminBoard(ModelAndView mv) {
@@ -54,18 +58,18 @@ public class AdminBoardController {
 				List<User> uList = uService.selectUserList(pInfo);
 				mv.addObject("pInfo", pInfo);
 				mv.addObject("uList", uList);
-			}else if(selectedValue.equals("user")) {
-				//챌린지 리스트 해야함
-				totalCount = uService.getListCount();
+			}else if(selectedValue.equals("chall")) {
+				//챌린지명 리스트
+				totalCount = cService.getListCount();
 				pInfo = this.getPageInfo(currentPage, totalCount);
-				List<User> uList = uService.selectUserList(pInfo);
+				List<Challenge> cList = cService.selectChallList(pInfo);
 				mv.addObject("pInfo", pInfo);
-				mv.addObject("uList", uList);
+				mv.addObject("cList", cList);
 			}
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		mv.addObject("selectedValue", selectedValue);
+		mv.addObject("optVal", selectedValue);
 		mv.setViewName("adminBoard/adminBoard");
 		
 		return mv;

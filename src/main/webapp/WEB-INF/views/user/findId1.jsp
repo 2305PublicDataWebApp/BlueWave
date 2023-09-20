@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="container">
-        <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/logo-img.png" id="logo-img" alt="로고이미지">
         <div id="order">
             <span id="order-1">본인확인</span>
-            <span id="order-2">아이디 조회</span>
+            <span id="order-2"> > 아이디 조회</span>
         </div>
         <form action="/user/findId1.do" method="POST" id="email-form" name="email-form" >
         <div class="type-group">

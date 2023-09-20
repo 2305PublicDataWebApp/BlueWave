@@ -30,7 +30,7 @@
 	</insert>
 	
 	<update id="updateChal">
-		UPDATE CHAL_TBL SET CHAL_CONTENT = #{ chalContent }, CHAL_PUBLIC = #{ chalPublic }, CHAL_FILE_NAME = #{ chalFileName }, CHAL_FILE_RENAME = #{ chalFileRename }, CHAL_FILE_PATH = #{ chalFilePath }, CHAL_FILE_LENGTH = #{ chalFileLength }, CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_NO = #{ chalNo } 
+		UPDATE CHAL_TBL SET CHAL_CONTENT = #{ chalContent }, CHAL_FILE_NAME = #{ chalFileName }, CHAL_FILE_RENAME = #{ chalFileRename }, CHAL_FILE_PATH = #{ chalFilePath }, CHAL_FILE_LENGTH = #{ chalFileLength }, CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_NO = #{ chalNo } 
 	</update>
 	
 	<update id="updateFinish">
@@ -147,4 +147,12 @@
 			ORDER BY CHAL_END_DATE ASC
 		]]>
 	</select>
+	
+	<select id="getListCount" resultType="_int">
+  		SELECT COUNT(*) FROM CHAL_TBL
+  	</select>
+  	
+  	<select id="selectChallList" resultMap="chalResultMap">
+  		SELECT * FROM CHAL_TBL ORDER BY CHAL_NO DESC
+  	</select>
 </mapper>

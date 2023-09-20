@@ -20,16 +20,17 @@
 					<section class="user-info-section">
 						<div class="user-info-box">
 							<div class="user-img">
-								<img alt="유저 프로필 이미지" src="/resources/images/flower1.PNG">
+								<img alt="유저 프로필 이미지" src="/resources/PuploadFiles/${uOne.userProfileRename }">
 							</div>
 							<div class="user-nickname">
-								<h1>올빼미</h1>
+								<h1>${uOne.userNickName }</h1>
 							</div>
 						</div>
 					</section>
 					<section class="chal-content-section">
 						<form action="/challenge/write.do" method="post" enctype="multipart/form-data">
 							<div class="chal-board-title-box">
+								<input type="hidden" name="chalNo" value="${cOne.chalNo }">
 								<label for="chal-board-title" class="chal-label">
 									제목
 								</label> <br>

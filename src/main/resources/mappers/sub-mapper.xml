@@ -18,7 +18,15 @@
 		SELECT COUNT(*) FROM SUB_TBL WHERE SUB_TARGET = #{ userId }
 	</select>
 	
-<!-- 	<insert id="followUser"> -->
-<!-- 		INSERT INTO SUB_TBL VALUES () -->
-<!-- 	</insert> -->
+	<insert id="followUser">
+		INSERT INTO SUB_TBL VALUES (#{subTarget }, #{subUser }, DEFAULT)
+	</insert>
+	
+	<delete id="unfollowUser">
+		DELETE FROM SUB_TBL WHERE SUB_USER = #{subUser } AND SUB_TARGET = #{subTarget }
+	</delete>
+	
+	<select id="isFollowing" resultType="_int">
+		SELECT COUNT(*) FROM SUB_TBL WHERE SUB_USER = #{subUser } AND SUB_TARGET = #{subTarget }
+	</select>
 </mapper>

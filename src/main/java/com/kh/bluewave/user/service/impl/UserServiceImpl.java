@@ -168,9 +168,29 @@ public class UserServiceImpl implements UserService{
 		return calDateList;
 	}
 
-//	@Override
-//	public int followUser(String userId) {
-//		int result = uStore.followUser(session, userId);
-//		return result;
-//	}
+	@Override
+	public int insertPoint(User user) {
+		int result = uStore.insertPoint(session, user);
+		return result;
+	}
+
+	@Override
+	public int followUser(Sub sub) {
+		int result = uStore.followUser(session, sub);
+		return result;
+	}
+
+	@Override
+	public int unfollowUser(Sub sub) {
+		int result = uStore.unfollowUser(session, sub);
+		return result;
+	}
+
+	@Override
+	public int isFollowing(Sub sub) {
+		int result = uStore.isFollowing(session, sub);
+		return result;
+	}
+
+
 }

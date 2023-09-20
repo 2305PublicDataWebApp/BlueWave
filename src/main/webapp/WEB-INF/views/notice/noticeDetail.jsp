@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -25,20 +26,27 @@
 						<button type="button" onclick="showListPage();">목록으로</button>
 					</td>
 					<td>
-						<button type="button" onclick="showModifyPage();">수정</button>
-						<button>삭제</button>
+						<c:if test="${sessionScope.userId eq 'admin' }">
+							<button type="button" onclick="showModifyPage();">수정</button>
+							<button type="button" onclick="deleteNotice()">삭제</button>
+						</c:if>
 					</td>
 				</tr>
 			</table>
 		</div>
 		<script>
+			const noticeNo = "${notice.noticeNo}";
 			function showModifyPage() {
-				const noticeNo = "${notice.noticeNo}";
 				location.href="/notice/modify.do?noticeNo=" + noticeNo;
 			}
 			
 			function showListPage() {
 				location.href="/notice/board.do";
+			}
+			
+			function deleteNotice() {
+				
+				location.href="/notice/delete.do?noticeNo=" + noticeNo;
 			}
 		</script>
 	</body>

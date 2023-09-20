@@ -28,7 +28,7 @@
 			z-index: 1000;
 		}
 		
-		a {
+		.navbar a {
 			text-decoration: none;
 			color: white;
 		}
@@ -98,6 +98,13 @@
 			background-repeat: no-repeat; /* 배경 이미지 반복을 비활성화합니다. */
 			background-position: center center; /* 배경 이미지를 중앙에 정렬합니다. */
 		}
+		
+		#userId {
+			bottom: 22px;
+		    position: absolute;
+		    color: white;
+		    right: 531px;
+		}
 		</style>
 	</head>
 	<body>
@@ -132,11 +139,17 @@
 						</div>
 					</c:if>
 					<c:if test="${sessionScope.userId ne null}">
+						<div id="userId">${sessionScope.userId }님</div>
 						<div class="login-btn">
 							<a href="/user/logout.do">logout</a>
 						</div>
 						<div class="register-btn space">
-							<button onclick="location.href='/user/myPage.do?userId=${sessionScope.userId}'">myPage</button>
+							<c:if test="${sessionScope.userId ne 'admin' }">
+								<button onclick="location.href='/user/myPage.do?userId=${sessionScope.userId}'">myPage</button>
+							</c:if>
+							<c:if test="${sessionScope.userId eq 'admin' }">
+								<button onclick="location.href='/admin/main.do'">관리자페이지</button>
+							</c:if>
 						</div>
 					</c:if>
 				</div>

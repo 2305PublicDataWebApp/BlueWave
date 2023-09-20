@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.bluewave.challenge.domain.CLike" alias="CLike"/>
 		<typeAlias type="com.kh.bluewave.goods.domain.Goods" alias="Goods"/>
 		<typeAlias type="com.kh.bluewave.noticeBoard.domain.NoticeBoard" alias="notice"/>
+		<typeAlias type="com.kh.bluewave.tipBoard.domain.TipBoard" alias="tip"/>
 		<typeAlias type="com.kh.bluewave.point.domain.Point" alias="point"/>
 	</typeAliases>
 	<mappers>
@@ -24,6 +25,7 @@
 		<mapper resource="mappers/c-like-mapper.xml" />
 		<mapper resource="mappers/goods-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/tip-mapper.xml"/>
 		<mapper resource="mappers/point-mapper.xml"/>
 	</mappers>
 </configuration>

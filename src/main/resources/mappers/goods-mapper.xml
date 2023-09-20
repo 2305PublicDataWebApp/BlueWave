@@ -23,12 +23,21 @@
 		INSERT INTO GOODS_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName}, #{productPoint }, #{productContent }, #{productThumbnail }, #{productThumbnailRename}, #{productThumbnailPath }, #{productThumbnailLength }, #{productImage }, #{productImageRename}, #{productImagePath }, #{productImageLength }, #{productCount })
 	</insert>
 	
+	<update id="modifyGoods">
+		UPDATE GOODS_TBL SET PRODUCT_NAME = #{productName }, PRODUCT_POINT = #{productPoint }, PRODUCT_CONTENT = #{productContent }, PRODUCT_THUMBNAIL = #{productThumbnail }, PRODUCT_THUMBNAIL_RENAME = #{productThumbnailRename }, PRODUCT_THUMBNAIL_PATH = #{productThumbnailPath }, PRODUCT_THUMBNAIL_LENGTH = #{productThumbnailLength }, 
+		PRODUCT_IMAGE = #{productImage }, PRODUCT_IMAGE_RENAME = #{productImageRename }, PRODUCT_IMAGE_PATH = #{productImagePath }, PRODUCT_IMAGE_LENGTH = #{productImageLength }, PRODUCT_COUNT = #{productCount } WHERE PRODUCT_NO = #{productNo }
+	</update>
+	
+	<delete id="deleteGoods">
+		DELETE FROM GOODS_TBL WHERE PRODUCT_NO = #{productNo }
+	</delete>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM GOODS_TBL
 	</select>
 	
 	<select id="selectGoodsList" resultMap="goodsResultMap">
-		SELECT * FROM GOODS_TBL
+		SELECT * FROM GOODS_TBL WHERE PRODUCT_COUNT > 0
 	</select>
 	
 	<select id="selectGoodsByNo" resultMap="goodsResultMap">

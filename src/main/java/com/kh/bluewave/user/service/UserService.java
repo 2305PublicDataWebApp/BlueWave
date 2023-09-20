@@ -181,10 +181,33 @@ public interface UserService {
 	 */
 	List<CBoard> getCalDateList(String userId);
 
-//	/**
-//	 * 팔로우 Service
-//	 * @param userId
-//	 * @return
-//	 */
-//	int followUser(String userId);
+	/**
+	 * 회원가입시 포인트 적립 Service
+	 * @param user
+	 * @return
+	 */
+	int insertPoint(User user);
+
+	/**
+	 * 팔로우 Service
+	 * @param sub
+	 * @return
+	 */
+	int followUser(Sub sub);
+
+	/**
+	 * 팔로우 해제 Service
+	 * @param sub
+	 * @return
+	 */
+	int unfollowUser(Sub sub);
+
+	/**
+	 * 팔로우 체크 Service
+	 * @param subTarget
+	 * @param subUser
+	 * @return
+	 */
+	int isFollowing(Sub sub);
+
 }

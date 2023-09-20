@@ -20,9 +20,10 @@
     font-style: normal;
 }
 
+
 /* 전체 페이지 스타일 */
 body {
-    background-image: url('../../images/배경.jpg');
+    background-image: url('../../images/background-img.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -57,11 +58,11 @@ body {
 }
 
 #order-1 {
-    color: #4cbafa;
+    color: #555555;
 }
 
 #order-2 {
-    color: #555555;
+    color: #4cbafa;
 }
 
 
@@ -89,9 +90,13 @@ input[type="text"]:focus{
     color: #b2b2b2;
 }
 
+a {
+  text-decoration-line: none;
+}
+
 /* 로그인 버튼 스타일 */
 .login-button {
-    background-color: #4cbafa;
+    background-color: #56d3ee;
     color: #fff;
     border: none;
     padding: 15px 0;

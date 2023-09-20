@@ -7,6 +7,17 @@ public class Sub {
 	private String subUser;
 	private Date subDate;
 	
+	
+	public Sub() {
+		super();
+	}
+	
+	public Sub(String subTarget, String subUser) {
+		super();
+		this.subTarget = subTarget;
+		this.subUser = subUser;
+	}
+
 	public String getSubTarget() {
 		return subTarget;
 	}

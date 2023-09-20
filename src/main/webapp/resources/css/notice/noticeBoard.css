@@ -12,9 +12,11 @@
     width: 70%;
     margin: 0 auto;
 }
-.notice-table{
+.notice-table
+, .notice-paging {
     width: 70%;
     margin: 0 auto;
+    padding: 5px;
 }
     .notice-table td:last-child 
     , .notice-table td:nth-last-child(2)
@@ -48,4 +50,17 @@
  .notice-paging a
  , .notice-table a{
  	color: black;
+ }
+ .notice-paging input {
+ 	background-color: #3881C5;
+	color: #F3F3F3;
+	width: 100px;
+	height: 40px;
+	border: none;
+	border-radius: 8px;
+	font-size: 0.9em;
+	cursor:pointer;
+	float: right;
+	font-weight: bolder;
+	float: right;
  }

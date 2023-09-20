@@ -204,11 +204,35 @@ public interface UserStore {
 	 */
 	List<CBoard> getCalDateList(SqlSession session, String userId);
 
-//	/**
-//	 * 팔로우 Store
-//	 * @param session
-//	 * @param userId
-//	 * @return
-//	 */
-//	int followUser(SqlSession session, String userId);
+	/**
+	 * 회원가입시 포인트 적립 Store
+	 * @param session
+	 * @param user
+	 * @return
+	 */
+	int insertPoint(SqlSession session, User user);
+
+	/**
+	 * 팔로우 Store
+	 * @param session
+	 * @param sub
+	 * @return
+	 */
+	int followUser(SqlSession session, Sub sub);
+
+	/**
+	 * 팔로우 해제 Store
+	 * @param session
+	 * @param sub
+	 * @return
+	 */
+	int unfollowUser(SqlSession session, Sub sub);
+
+	/**
+	 * 팔로우 체크 Store
+	 * @param session
+	 * @param sub
+	 * @return
+	 */
+	int isFollowing(SqlSession session, Sub sub);
 }

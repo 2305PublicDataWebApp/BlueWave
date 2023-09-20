@@ -22,7 +22,7 @@
 
 /* 전체 페이지 스타일 */
 body {
-    background-image: url('../../images/user/배경.jpg');
+    background-image: url('../../images/background-img.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -52,7 +52,7 @@ body {
 /* 로고 스타일 */
 h1 {
     text-align: center;
-    color: #43a0de;
+    color: #21a0d3;
     font-size: 40px;
     font-family: 'SUITE-Regular';
     font-weight: bold;
@@ -98,7 +98,7 @@ a {
 
 /* 로그인 버튼 스타일 */
 .login-button {
-    background-color: #4cbafa;
+    background-color: #56d3ee;
     color: #fff;
     border: none;
     padding: 15px 0;

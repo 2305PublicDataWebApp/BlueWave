@@ -10,9 +10,9 @@
 </head>
 <body>
     <div class="container">
-        <img src="../resources/images/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/logo-img.png" id="logo-img" alt="로고이미지">
         <div id="order">
-            <span id="order-1">본인확인</span> > 
+            <span id="order-1">본인확인 > </span> 
             <span id="order-2">아이디 조회</span>
         </div>
         <input type="text" id="user-id" name="userId" value="${foundUserId }" readonly>

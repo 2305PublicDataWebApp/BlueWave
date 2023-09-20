@@ -106,6 +106,28 @@ public class ChallengeController {
 		return mv;
 	}
 	
+	// 챌린지 가져가기 페이지
+	@RequestMapping(value="/challenge/pullChal.do", method=RequestMethod.GET)
+	public ModelAndView showPullChalForm(int chalNo
+										 , String userId
+										 , ModelAndView mv) {
+		try {
+			Challenge cOne = cService.selectOneByNo(chalNo);
+			if(cOne != null) {
+				mv.addObject("chal", cOne);
+				mv.setViewName("/challenge/pullChal");
+			} else {
+				mv.addObject("msg", "가져갈 챌린지 데이터 불러오기 실패").addObject("url", "/challenge/page.do");
+				mv.setViewName("common/serviceFailed");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "가져갈 챌린지 데이터 로딩 오류").addObject("url", "/challenge/page.do");
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	// 챌린지 중복 체크
 	@RequestMapping(value = "/challenge/checkDuplicate.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -146,8 +168,9 @@ public class ChallengeController {
 								   , ModelAndView mv) {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
+			String chalUserId = challenge.getChalUserId();
 			if(!userId.equals("")) {
-				if(challenge.getChalUserId().equals(userId)) {
+				if(chalUserId.equals(userId) || userId.equals("admin")) {
 					if(!uploadFile.getOriginalFilename().equals("")) {
 						String fileRename = challenge.getChalFileRename();
 						if(fileRename != null) {
@@ -200,7 +223,7 @@ public class ChallengeController {
 		try {
 			// 로그인 여부 및 본인 일치 여부 확인
 			if(!userId.equals("")) {
-				if(chalUserId.equals(userId)) {
+				if(chalUserId.equals(userId) || chalUserId.equals("admin")) {
 					Challenge challenge = cService.selectOneByNo(chalNo);
 					int result = cService.deleteChal(chalNo);
 					if(result > 0) {
@@ -268,22 +291,21 @@ public class ChallengeController {
 	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
 	public ModelAndView showChallengePage(
 			ModelAndView mv
+//			, String userId
 			, HttpSession session
 			) {
 		try {
 			// 로그인 유효성 체크
-//			String userId = (String)session.getAttribute("userId");
-			String userId = "testuser01";
+			String userId = (String)session.getAttribute("userId");
+			System.out.println(userId);
 			if(userId != null) {
 				// 성공
-				System.out.println("성공");
-				
 				// 챌린지 테이블에서 select
 				List<Challenge> cList = cService.selectListByChal();
 				if(cList.size() > 0 || !cList.isEmpty()) {
 					// 성공
 					mv.addObject("cList", cList);
-					mv.setViewName("challenge/challengPage");
+					mv.setViewName("challenge/challengePage");
 				} else {
 					// 실패
 					mv.addObject("msg", "리스트를 조회하는데 실패하였습니다.");
@@ -291,20 +313,17 @@ public class ChallengeController {
 					mv.setViewName("common/serviceFailed");
 				}
 				
-			} 
-//			else {
-//				// 실패
-//				System.out.println("실패");
-//				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
-//				mv.addObject("url", "redirect:/user/login.do");
-//				mv.setViewName("common/serviceFailed");
-//			}
+			} else {
+				// 실패
+				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
+				mv.addObject("url", "/user/login.do");
+				mv.setViewName("common/serviceFailed");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("common/serviceFailed");
 		}
-		mv.setViewName("challenge/challengePage");
 		return mv;
 	}
 }

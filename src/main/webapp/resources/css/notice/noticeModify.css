@@ -45,16 +45,16 @@
 }
 .updateBtn {
 	 background-color: #3881C5;
-	     color: #F3F3F3;
-	     width: 100px;
-	     height: 40px;
-	     margin-top: 10px;
-	     border: none;
-	     border-radius: 8px;
-	     font-size: 0.9em;
-	     cursor:pointer;
-	     float: right;
-	     font-weight: bolder;
-	     padding: 10px;
+	 color: #F3F3F3;
+	 width: 100px;
+	 height: 40px;
+	 margin-top: 10px;
+	 border: none;
+	 border-radius: 8px;
+	 font-size: 0.9em;
+	 cursor:pointer;
+	 float: right;
+	 font-weight: bolder;
+	 padding: 10px;
 }
 

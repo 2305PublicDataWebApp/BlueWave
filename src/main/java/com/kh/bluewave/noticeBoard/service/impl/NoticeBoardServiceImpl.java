@@ -55,4 +55,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 		return result;
 	}
 
+	@Override
+	public int deleteNotice(int noticeNo) {
+		int result = nStore.deleteNotice(session, noticeNo);
+		return result;
+	}
+
 }

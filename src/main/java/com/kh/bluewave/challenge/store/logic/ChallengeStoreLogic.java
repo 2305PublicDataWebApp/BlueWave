@@ -3,11 +3,13 @@ package com.kh.bluewave.challenge.store.logic;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.store.ChallengeStore;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 @Repository
 public class ChallengeStoreLogic implements ChallengeStore{
@@ -106,6 +108,21 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	public int findInsertChalNo(SqlSession session, Challenge challenge) {
 		int result = session.selectOne("ChalMapper.findInsertChalNo", challenge);
 		return result;
+	}
+
+	@Override
+	public int getListCount(SqlSession session) {
+		int result = session.selectOne("ChalMapper.getListCount");
+		return result;
+	}
+
+	@Override
+	public List<Challenge> selectChallList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Challenge> cList = session.selectList("ChalMapper.selectChallList", null, rowBounds);
+		return cList;
 	}
 
 }

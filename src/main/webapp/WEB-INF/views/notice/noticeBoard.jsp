@@ -57,7 +57,15 @@
                 <c:if test="${pInfo.endNavi != pInfo.naviTotalCount}">
                 	<a href="${pageUrl }">[다음]</a>
                 </c:if>	
+                <c:if test="${userId eq 'admin' }">
+	        		<input type="button" onclick="goNoticeWrite()" value="글 등록">
+	        	</c:if>
 	        </div>
         </div>
+        <script>
+        	function goNoticeWrite() {
+        		location.href = "/notice/write.do";
+        	}
+        </script>
     </body>
 </html>
