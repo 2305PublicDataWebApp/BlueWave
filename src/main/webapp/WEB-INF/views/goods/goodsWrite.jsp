@@ -10,7 +10,7 @@
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="goods-board">
-			<form class="goods-form" action="/goods/insert.do" method="POST" enctype="multipart/form-data">
+			<form class="goods-form" action="/goods/insert.do" method="post" enctype="multipart/form-data">
 				<div class="goods-board-table">
 					<table class="goods-write-table">
 						<thead>
@@ -35,18 +35,18 @@
 								</td>
 								<td colspan="2">
 									<label>썸네일</label>
-									<input type="file" name="productThumbnail">
+									<input type="file" name="pThumbnail">
 								</td>
 								<td colspan="2">
 									<label>이미지</label>
-									<input type="file" name="productImage">
+									<input type="file" name="pImage">
 								</td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
 								<td colspan="2">
-									<button class="writeBtn" >굿즈 올리기</button>
+									<button type="submit" class="writeBtn" >굿즈 올리기</button>
 								</td>
 							</tr>
 						</tfoot>
