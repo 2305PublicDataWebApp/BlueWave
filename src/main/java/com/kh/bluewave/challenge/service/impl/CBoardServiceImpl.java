@@ -40,4 +40,11 @@ public class CBoardServiceImpl implements CBoardService{
 		return cList;
 	}
 
+	// 좋아요 게시물 정보
+	@Override
+	public CBoard selectLikePostInfoByCBoardNo(int cBoardNo) {
+		CBoard cOne = cStore.selectLikePostInfoByCBoardNo(session, cBoardNo);
+		return cOne;
+	}
+
 }

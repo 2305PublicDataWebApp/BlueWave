@@ -28,4 +28,11 @@ public interface CBoardService {
 	 */
 	List<CBoard> selectAllLikePostsById(String userId);
 
+	/**
+	 * 좋아요 게시물 번호로 내용 조회 Service
+	 * @param cBoardNo
+	 * @return
+	 */
+	CBoard selectLikePostInfoByCBoardNo(int cBoardNo);
+
 }

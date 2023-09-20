@@ -148,12 +148,7 @@
 											</c:url>
 											<div onclick="showUserPage('${userPageUrl}');">
 												<div class="sub-div">
-													<c:if test="${ following.userProfileName ne null}">
-														<img src="${ following.userProfilePath}" alt="팔로잉 프로필 이미지" class="sub-profile-img">
-													</c:if>
-													<c:if test="${ following.userProfileName eq null}">
-														<img src="../../resources/images/user/프로필이미지.png" alt="기본 프로필 이미지" class="sub-profile-img">
-													</c:if>
+													<img src="${ following.userProfilePath}" alt="팔로잉 프로필 이미지" class="sub-profile-img">
 												</div>
 												<div>
 													${ following.userNickName }
@@ -179,12 +174,7 @@
 											</c:url>
 											<div onclick="showUserPage('${userPageUrl}');">
 												<div class="sub-div">
-													<c:if test="${ followers.userProfileName ne null}">
-														<img src="${ followers.userProfilePath}" alt="팔로워 프로필 이미지" class="sub-profile-img">
-													</c:if>
-													<c:if test="${ followers.userProfileName eq null}">
-														<img src="../../resources/images/user/프로필이미지.png" alt="기본 프로필 이미지" class="sub-profile-img">
-													</c:if>
+													<img src="${ followers.userProfilePath}" alt="팔로워 프로필 이미지" class="sub-profile-img">
 												</div>
 												<div>
 													${ followers.userNickName }
@@ -216,107 +206,108 @@
 		                </div>                         
 		            </div>
 		            <c:if test="${sessionScope.userId ne user.userId }"> 
-		            <img id="dot" src="../../resources/images/dot.png" onclick="toggleReportDiv()" alt="">
-		            <div id="report-div" style="display: none;">
-		                <div id="report-img-div"><img id="report-img" src="../resources/images/user/경고아이콘.png" alt=""></div>
-		                <div id="report-text">신고하기</div>
-		            </div> 
+			            <img id="dot" src="../../resources/images/dot.png" onclick="toggleReportDiv()" alt="">
+			            <div id="report-div" style="display: none;">
+			                <div id="report-img-div"><img id="report-img" src="../resources/images/user/경고아이콘.png" alt=""></div>
+			                <div id="report-text">신고하기</div>
+			            </div> 
 		            </c:if>
 		            <c:if test="${sessionScope.userId eq user.userId }"> 
-		            <div id="chal">
-		                <div id="blue-wave">
-		                    <div class="calendar">
-		                        <div id="calendar"></div>
-		                    </div>
-		                </div>
-		                
-		                <div id="todo-chal">
-		                    <span id="todo-title"> <오늘의 챌린지> </span>
-			                    <c:forEach var="todayCList" items="${todayCList }" >
-					                <c:set var="startDate" value="${ todayCList.chalStartDate }" />
-								    <c:set var="endDate" value="${ todayCList.chalEndDate }" />
-								    <c:set var="now" value="<%= new java.util.Date() %>" />
-								    
-								    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
-								    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
-								
-								    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
-								    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
-								
-									<!-- 오늘 - 시작일 -->												
-									<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
-									<!-- 종료일 - 시작일 --> 
-									<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
-									<!-- 밀리초를 일 단위로 변환 -->
-									<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
-									<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
-									
-							        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
-		                    <hr>
-		                    <table>
-		                    <colgroup>
-		                    	<col style="width:60%">
-		                    	<col style="width:10%">
-		                    	<col style="width:30%">
-		                    </colgroup>
-		                        <tr>
-		                        	<th>
-									    <c:set var="inputString" value="${todayCList.chalTitle}" /> <!-- todayCList.chalTitle 값을 inputString 변수에 저장 -->
-									
-									    <c:choose>
-									        <c:when test="${fn:length(inputString) > 12}"> <!-- 만약 문자열 길이가 5를 초과한다면 -->
-									            <c:set var="truncatedString" value="${fn:substring(inputString, 0, 5)}..." /> <!-- 문자열을 자르고 "..."을 추가하여 truncatedString 변수에 저장 -->
-									            <c:out value="${truncatedString}" /> <!-- truncatedString을 출력 -->
-									        </c:when>
-									        <c:otherwise>
-									            <c:out value="${inputString}" /> <!-- 그렇지 않으면 원래 문자열을 출력 -->
-									        </c:otherwise>
-									    </c:choose>
-									</th>
-									<td>
-									    <c:choose>
-									        <c:when test="${ endDate eq null }">
-									        	<td style="letter-spacing: 6px;">
-									            	<span id="0percent-text">기한없음</span>
-									            <td>
-									        </c:when>
-									        <c:otherwise>
-									            <span id="percent-text"><fmt:formatNumber value="${progress}" pattern="#" />%</span>
-									        	<td>
-												    <progress id="progress" value="<fmt:formatNumber value="${progress}" pattern="#" />" min="0" max="100"></progress>
-												</td>
-									        </c:otherwise>
-									    </c:choose>
-									</td>
-		                        </tr>
-		                    </table>
-		                    </c:forEach>
-		                    <hr>
-		                </div>
-		            </div>
-		            <c:if test="${ empty todayCList }">
-                   		<div class="list-none">굿즈 교환 내역이 없습니다</div>
-                   	</c:if>
-                   	<c:if test="${ !empty todayCList }">
-			            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
-			            <div id="goods-img-div">
-			                <div class="slider-container">
-			                    <div class="slider1">
-			                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
-			                        <c:forEach var="goods" items="${goodsList }" >
-				                        <div class="slide">
-				                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
-				                            <div class="goods-name-overlay">
-				                                <div class="goods-name">${goods.productName }</div>
-				                            </div>
-				                        </div>
-			                        </c:forEach>
+			            <div id="chal">
+			                <div id="blue-wave">
+			                    <div class="calendar">
+			                        <div id="calendar"></div>
 			                    </div>
-			                </div>                
+			                </div>
+			                
+			                <div id="todo-chal">
+			                    <span id="todo-title"> <오늘의 챌린지> </span>
+				                    <c:forEach var="todayCList" items="${todayCList }" >
+						                <c:set var="startDate" value="${ todayCList.chalStartDate }" />
+									    <c:set var="endDate" value="${ todayCList.chalEndDate }" />
+									    <c:set var="now" value="<%= new java.util.Date() %>" />
+									    
+									    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
+									    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
+									
+									    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
+									    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
+									
+										<!-- 오늘 - 시작일 -->												
+										<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
+										<!-- 종료일 - 시작일 --> 
+										<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
+										<!-- 밀리초를 일 단위로 변환 -->
+										<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
+										<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
+										
+								        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
+			                    <hr>
+			                    <table>
+			                    <colgroup>
+			                    	<col style="width:60%">
+			                    	<col style="width:10%">
+			                    	<col style="width:30%">
+			                    </colgroup>
+			                        <tr>
+			                        	<th>
+										    <c:set var="inputString" value="${todayCList.chalTitle}" /> <!-- todayCList.chalTitle 값을 inputString 변수에 저장 -->
+										
+										    <c:choose>
+										        <c:when test="${fn:length(inputString) > 12}"> <!-- 만약 문자열 길이가 5를 초과한다면 -->
+										            <c:set var="truncatedString" value="${fn:substring(inputString, 0, 5)}..." /> <!-- 문자열을 자르고 "..."을 추가하여 truncatedString 변수에 저장 -->
+										            <c:out value="${truncatedString}" /> <!-- truncatedString을 출력 -->
+										        </c:when>
+										        <c:otherwise>
+										            <c:out value="${inputString}" /> <!-- 그렇지 않으면 원래 문자열을 출력 -->
+										        </c:otherwise>
+										    </c:choose>
+										</th>
+										<td>
+										    <c:choose>
+										        <c:when test="${ endDate eq null }">
+										        	<td style="letter-spacing: 6px;">
+										            	<span id="0percent-text">기한없음</span>
+										            <td>
+										        </c:when>
+										        <c:otherwise>
+										            <span id="percent-text"><fmt:formatNumber value="${progress}" pattern="#" />%</span>
+										        	<td>
+													    <progress id="progress" value="<fmt:formatNumber value="${progress}" pattern="#" />" min="0" max="100"></progress>
+													</td>
+										        </c:otherwise>
+										    </c:choose>
+										</td>
+			                        </tr>
+			                    </table>
+			                    </c:forEach>
+			                    <hr>
+			                </div>
 			            </div>
-			        </c:if>
-			        </div>    
-            		</c:if>
+			            <c:if test="${ empty todayCList }">
+	                   		<div class="list-none">굿즈 교환 내역이 없습니다</div>
+	                   	</c:if>
+	                   	<c:if test="${ !empty todayCList }">
+				            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
+				            <div id="goods-img-div">
+				                <div class="slider-container">
+				                    <div class="slider1">
+				                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
+				                        <c:forEach var="goods" items="${goodsList }" >
+					                        <div class="slide">
+					                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
+					                            <div class="goods-name-overlay">
+					                                <div class="goods-name">${goods.productName }</div>
+					                            </div>
+					                        </div>
+				                        </c:forEach>
+				                    </div>
+				                </div>                
+				            </div>
+				        </c:if>
+           			</c:if>
+		        </div>    
+            		
                 <section id="my-nav">
                     <div id="bluewave-tab" data-tab="bluewave-chal" style="background-color: rgb(45, 55, 71); color: white;" onclick="showTab('bluewave-tab');">블루웨이브 챌린지</div>
                     <div id="personal-tab" data-tab="personal-chal" onclick="showTab('personal-tab');">나의 챌린지</div>
@@ -536,6 +527,7 @@
 		                                    <div>
 		                                        <!-- 총 좋아요 수 -->
 		                                        <div>
+		                                        	<c:if test="${fn:contains(chal.chalPublic, 'Y')}">
 		                                            <img src="../resources/images/challenge/heart.png" alt="" width="20">
 		                                            <span>&nbsp;
 			                                            <c:forEach var="like" items="${ cPLikeList }" varStatus="likeStatus">
@@ -544,6 +536,7 @@
 		                                            		</c:if>
 		                                            	</c:forEach>
 		                                            </span>
+		                                            </c:if>
 		                                        </div>
 		                                    </div>
 		                                    <div>
@@ -638,24 +631,21 @@
 	                        	<c:if test="${status.index % 9 == 0}">
 						            <div class="like-group">
 						        </c:if>
-				                    <div class="like-image-container">
-				                    <!-- 좋아요 모달창 추가하기 -->
-				                        <a href="#">
-				                            <img src="../resources/cuploadFiles/${ likePost.cBoardFileRename }" alt="좋아요 게시물" class="like-img" width="140px" height="160px">
-				                            <div class="image-text">
-				                                <span class="material-symbols-outlined" style="font-size: 1.1em;">
-				                                    favorite
-				                                </span>
-				                                &nbsp;
-				                                <c:forEach var="like" items="${ cBLikeCntList }" varStatus="likeStatus">
-	                                           		<c:if test="${ likePost.cBoardNo eq like.cBoardNo }">
-	                                           			${ like.likeCnt }
-	                                           		</c:if>
-	                                           	</c:forEach>
-				                            </div>
-				                        </a>
+				                    <div class="like-image-container" data-bs-toggle="modal" data-bs-target="#likePostModal${status.count }">
+			                            <img src="../resources/cuploadFiles/${ likePost.cBoardFileRename }" alt="좋아요 게시물" class="like-img" width="140px" height="160px">
+			                            <div class="image-text" >
+			                                <span class="material-symbols-outlined" style="font-size: 1.1em;">
+			                                    favorite
+			                                </span>
+			                                &nbsp;
+			                                <c:forEach var="like" items="${ cBLikeCntList }" varStatus="likeStatus">
+                                           		<c:if test="${ likePost.cBoardNo eq like.cBoardNo }">
+                                           			${ like.likeCnt }
+                                           		</c:if>
+                                           	</c:forEach>
+			                            </div>
 				                    </div>
-			                    <c:if test="${status.index % 9 == 8 or status.count == 30 }">
+			                    <c:if test="${status.index % 9 == 8 or status.count == fn:length('${ cBLikePostList }') }">
 						            </div>
 						        </c:if> 
 		                	</c:forEach>
@@ -665,6 +655,106 @@
                     	<div class="list-none">좋아요 이력이 없습니다</div>
                     </c:if>
             	</section>
+            	
+            	<!-- 좋아요 게시물 모달 -->
+            	<c:forEach var="likePost" items="${ cBLikePostList }" varStatus="status">
+	            	<div class="modal fade" id="likePostModal${status.count }" tabindex="-1" aria-labelledby="likePostModalLabel" aria-hidden="true">
+	   					<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="likePostModalLabel">
+<%-- 										<c:if test="${cOne.chalUserId eq 'admin' }">블루웨이브 챌린지</c:if> --%>
+<%-- 										<c:if test="${cOne.chalUserId ne 'admin' }">개인 챌린지</c:if> --%>
+										${ likePost.cBoardTitle }
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+<!-- 									<div id="container-modal"> -->
+<!-- 										<div class="main-modal"> -->
+<!-- 											<section id="top-section"> -->
+<!-- 												<div id="user-info"> -->
+<%-- 													<c:if test="${cOne.chalUserId ne 'admin' }"> --%>
+<!-- 														<div class="user-info-box"> -->
+<!-- 															<div class="user-img-box"> -->
+<%-- 																<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%>
+<!-- 															</div> -->
+<!-- 															<div class="user-nickname-box"> -->
+<%-- 																<h1>${uOne.userNickName}</h1> --%>
+<!-- 															</div> -->
+<!-- 															<div class="user-subscribe-box"> -->
+<!-- 																<button>구독하기</button> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
+<!-- 													<div class="report-board-box"> -->
+<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> -->
+<!-- 														<a href="#">신고하기</a> -->
+<!-- 													</div> -->
+<%-- 													</c:if> --%>
+<%-- 													<c:if test="${cOne.chalUserId eq 'admin' }"> --%>
+<!-- 														<div class="user-info-box"> -->
+<!-- 	<!-- 														<div class="user-img-box"> --> -->
+<%-- 	<%-- 															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%> --%>
+<!-- 	<!-- 														</div> --> -->
+<!-- 															<div class="user-nickname-box"> -->
+<!-- 																<h1>관리자</h1> -->
+<!-- 															</div> -->
+<!-- 	<!-- 														<div class="user-subscribe-box"> --> -->
+<!-- 	<!-- 															<button>구독하기</button> --> -->
+<!-- 	<!-- 														</div> --> -->
+<!-- 														</div> -->
+<!-- 														<div class="report-board-box"> -->
+<!-- 	<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> --> -->
+<!-- 	<!-- 														<a href="#">신고하기</a> --> -->
+<!-- 														</div> -->
+<%-- 													</c:if> --%>
+<!-- 												</div> -->
+<!-- 											</section> -->
+<!-- 											<div id="chal-info"> -->
+<!-- 												<p> </p> -->
+<!-- 											</div> -->
+<!-- 											<section id="mid-section"> -->
+<!-- 												<div class="top-box"> -->
+<!-- 													<div class="chal-board-title-box"> -->
+<%-- 														<h2>${cBoard.cBoardTitle }</h2> --%>
+<!-- 													</div> -->
+<!-- 													<div class="chal-board-tag-box"> -->
+<!-- 														<a href="#">수정하기</a> <a href="#">삭제하기</a> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 												<div class="mid-box"> -->
+<%-- 													<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${cBoard.cBoardFileRename }"> --%>
+<%-- 													<p>${cBoard.cBoardContent}</p> --%>
+<!-- 												</div> -->
+<!-- 												<div class="bottom-box"> -->
+<!-- 													<div class="calendar-box"> -->
+<!-- 														<img alt="캘린더 아이콘" -->
+<!-- 															src="/resources/images/Unioncalendar.png"> -->
+<!-- 														<p>7회 째 실천 중</p> -->
+<!-- 													</div> -->
+<!-- 													<div> -->
+<!-- 														<p style="margin-bottom: 0px;">1시간 전</p> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</section> -->
+<!-- 											<hr> -->
+<!-- 											<section id="bottom-section"> -->
+<!-- 												<div class="like-btn-box"> -->
+<!-- 													<img alt="하트 아이콘" src="/resources/images/heart.png"> -->
+<!-- 													<h4>좋아요 5개</h4> -->
+<!-- 												</div> -->
+<!-- 											</section> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+            	</c:forEach>
             </section>
         </main>
 <!--         <footer></footer> -->

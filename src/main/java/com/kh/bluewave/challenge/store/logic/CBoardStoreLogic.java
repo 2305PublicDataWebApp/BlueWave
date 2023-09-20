@@ -33,5 +33,12 @@ public class CBoardStoreLogic implements CBoardStore{
 		return cList;
 	}
 
+	// 좋아요 게시물 정보
+	@Override
+	public CBoard selectLikePostInfoByCBoardNo(SqlSession session, int cBoardNo) {
+		CBoard cOne = session.selectOne("CBoardMapper.selectLikePostInfoByCBoardNo", cBoardNo);
+		return cOne;
+	}
+
 	
 }

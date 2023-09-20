@@ -30,7 +30,7 @@
 	</insert>
 	
 	<update id="updateChal">
-		UPDATE CHAL_TBL SET CHAL_CONTENT = #{ chalContent }, CHAL_PUBLIC = #{ chalPublic }, CHAL_FILE_NAME = #{ chalFileName }, CHAL_FILE_RENAME = #{ chalFileRename }, CHAL_FILE_PATH = #{ chalFilePath }, CHAL_FILE_LENGTH = #{ chalFileLength }, CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_NO = #{ chalNo } 
+		UPDATE CHAL_TBL SET CHAL_CONTENT = #{ chalContent }, CHAL_FILE_NAME = #{ chalFileName }, CHAL_FILE_RENAME = #{ chalFileRename }, CHAL_FILE_PATH = #{ chalFilePath }, CHAL_FILE_LENGTH = #{ chalFileLength }, CHAL_UPDATE_DATE = DEFAULT WHERE CHAL_NO = #{ chalNo } 
 	</update>
 	
 	<update id="updateFinish">

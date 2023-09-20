@@ -32,4 +32,12 @@ public interface CBoardStore {
 	 */
 	List<CBoard> selectAllLikePostsById(SqlSession session, String userId);
 
+	/**
+	 * 좋아요 게시물 번호로 내용 조회 Store
+	 * @param session
+	 * @param cBoardNo
+	 * @return
+	 */
+	CBoard selectLikePostInfoByCBoardNo(SqlSession session, int cBoardNo);
+
 }

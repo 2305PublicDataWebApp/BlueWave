@@ -106,6 +106,28 @@ public class ChallengeController {
 		return mv;
 	}
 	
+	// 챌린지 가져가기 페이지
+	@RequestMapping(value="/challenge/pullChal.do", method=RequestMethod.GET)
+	public ModelAndView showPullChalForm(int chalNo
+										 , String userId
+										 , ModelAndView mv) {
+		try {
+			Challenge cOne = cService.selectOneByNo(chalNo);
+			if(cOne != null) {
+				mv.addObject("chal", cOne);
+				mv.setViewName("/challenge/pullChal");
+			} else {
+				mv.addObject("msg", "가져갈 챌린지 데이터 불러오기 실패").addObject("url", "/challenge/page.do");
+				mv.setViewName("common/serviceFailed");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "가져갈 챌린지 데이터 로딩 오류").addObject("url", "/challenge/page.do");
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	// 챌린지 중복 체크
 	@RequestMapping(value = "/challenge/checkDuplicate.do", method = RequestMethod.POST)
 	@ResponseBody
