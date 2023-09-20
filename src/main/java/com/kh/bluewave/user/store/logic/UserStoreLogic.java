@@ -165,9 +165,27 @@ public class UserStoreLogic implements UserStore{
 		return calDateList;
 	}
 
-//	@Override
-//	public int followUser(SqlSession session, String userId) {
-//		int result = session.insert("SubMapper.followUser", userId);
-//		return result;
-//	}
+	@Override
+	public int insertPoint(SqlSession session, User user) {
+		int result = session.insert("PointMapper.insertRegisterPoint", user);
+		return result;
+	}
+
+	@Override
+	public int followUser(SqlSession session, Sub sub) {
+		int result = session.insert("SubMapper.followUser", sub);
+		return result;
+	}
+
+	@Override
+	public int unfollowUser(SqlSession session, Sub sub) {
+		int result = session.delete("SubMapper.unfollowUser", sub);
+		return result;
+	}
+
+	@Override
+	public int isFollowing(SqlSession session, Sub sub) {
+		int result = session.selectOne("SubMapper.isFollowing", sub);
+		return result;
+	}
 }

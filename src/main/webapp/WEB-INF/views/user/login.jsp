@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/logo-img.png" id="logo-img" alt="로고이미지">
         <h1>로그인</h1>
         <form action="/user/login.do" method="POST">
             <div class="form-group">

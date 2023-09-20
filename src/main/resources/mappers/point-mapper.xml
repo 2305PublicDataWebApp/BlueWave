@@ -18,4 +18,8 @@
 		FROM POINT_TBL 
 		WHERE USER_ID = #{userId }
 	</select>
+	
+	<insert id="insertRegisterPoint">
+		INSERT INTO POINT_TBL VALUES(#{userId }, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL )
+	</insert>
 </mapper>

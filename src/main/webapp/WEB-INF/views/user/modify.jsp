@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/logo-img.png" id="logo-img" alt="로고이미지">
         <h1>BLUE WAVE</h1>
         <form action="/user/modify.do" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="userProfileName" value="${user.userProfileName }">
@@ -22,58 +22,56 @@
             <div id="img-div">
                 <label for="profile-image"></label>
                 <div class="profile-image-container">
-                    <img src="${user.userProfilePath }" id="profile-image-preview" alt="프로필 이미지">
+                    <img src="../../resources/images/user/profile.png" id="profile-image-preview" alt="프로필 이미지">
                     <input type="file" id="profile-image" name="uploadFile" >
-                    <label for="profile-image" class="upload-icon"><img src="../resources/images/user/카메라아이콘.png" id="camera" class="upload-icon" alt=""></label>
+                    <label for="profile-image" class="upload-icon"><img src="../resources/images/user/camera.png" id="camera" class="upload-icon" alt=""></label>
                 </div>
             </div>
             <div id="form-top-group">
                 <div class="form-top-group">
-                    <input type="text" id="user-id" name="userId" placeholder="아이디" value="${user.userId }" readonly>
+                    <input type="text" id="user-id" name="userId" placeholder="아이디" required>
+                    <div class="result-message" id="id-error"></div>
                 </div>
                 <div class="form-top-group">
                     <input type="password" id="user-pw" name="userPw" placeholder="비밀번호" required>
-                	<div class="error-message" id="pw-error"></div>
+                	<div class="result-message" id="pw-error"></div>
                 </div>
                 <div class="form-top-group">
                     <input type="password" id="confirm-pw" name="confirm-pw" placeholder="비밀번호 확인" required>
-                	<div class="error-message" id="pw-match-error"></div>
+                	<div class="result-message" id="pw-match-error"></div>
                 </div>
             </div>
             <div id="form-group">
-                <input type="text" id="user-nickname" name="userNickName" placeholder="닉네임" value="${user.userNickName }" required>
-                <input type="button" class="check-btn" id="nickname-check-btn" value="중복체크">
+                <input type="text" id="user-nickname" name="userNickName" placeholder="닉네임" required>
+                <div class="result-message" id="nickName-error"></div>
             </div>
             <div id="form-bottom-group">
                 <div class="form-bottom-group">
-                    <input type="text" id="user-name" name="userName" placeholder="이름" value="${user.userName }" readonly>
-                	<div class="error-message" id="name-error"></div>
+                    <input type="text" id="user-name" name="userName" placeholder="이름" required>
+                	<div class="result-message" id="name-error"></div>
                 </div>
                 <div class="form-bottom-group">
-                    <input type="text" id="user-phone" name="userPhone" placeholder="전화번호" value="${user.userPhone }" required>
-                	<div class="error-message" id="phone-error"></div>
+                    <input type="text" id="user-phone" name="userPhone" placeholder="전화번호" required>
+                	<div class="result-message" id="phone-error"></div>
                 </div>
                 <div class="form-bottom-group" id="post-div">
-			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" value="${user.userAddr }" required>
+			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" required>
 			        <input type="button" id="post-btn" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">
 			    </div>
 			    <div class="form-bottom-group" id="email-div">
-			        <input type="text" id="user-email" name="userEmail" placeholder="이메일" value="${user.userEmail }" required>
-			        <input type="button" class="check-btn" id="get-num-btn" value="인증번호">
-			        <input type="text" id="email-check" placeholder="인증번호 6자리">
-			        <input type="button" class="check-btn" id="email-check-btn" value="확인">
+			        <input type="text" id="user-email" name="userEmail" placeholder="이메일" required>
+			        <div class="result-message" id="email-error"></div>
+<!-- 			        <input type="text" id="email-check" placeholder="인증번호 6자리"> -->
 			    </div>
             </div>
             <div id="ad">
-            
-            	<input type="checkbox" id="user-ad" name="userAd" <c:if test="${user.userAd eq 'Y' }">checked</c:if>>
+				<input type="checkbox" id="user-ad" name="userAd" value="Y">
 				<label for="userAd" style="color: rgb(92, 92, 92);">광고 메일 수신 여부</label>
             </div>
             <div class="button-group">
-                <button type="submit" id="signup-button"  onclick="setUserAdValue()">수정하기</button>
+                <button type="submit" id="signup-button"  onclick="setUserAdValue()">회원가입</button>
                 <button type="button" id="cancel-button">취소</button>
             </div>
-            
         </form>
     </div>
     <script>
@@ -109,182 +107,218 @@
     }).open();
 }
         
-        const idInput = document.getElementById("user-id");
-        const pwInput = document.getElementById("user-pw");
-        const pwCheckInput = document.getElementById("confirm-pw");
-        const nickNameInput = document.getElementById("user-nickName");
-        const nameInput = document.getElementById("user-name");
-        const phoneInput = document.getElementById("user-phone");
-        const addrInput = document.getElementById("user-addr");
-        const emailInput = document.getElementById("user-email");
-        
-        let isIdChecked = false; // 아이디 중복 체크 상태를 나타내는 변수
-        let isNickNameChecked = false; // 닉네임 중복 체크 상태를 나타내는 변수
-        
-     
+		document.addEventListener("DOMContentLoaded", function () {
+		    const idInput = document.getElementById("user-id");
+		    const passwordInput = document.getElementById("user-pw");
+		    const confirmPwInput = document.getElementById("confirm-pw");
+		    const nicknameInput = document.getElementById("user-nickname");
+		    const nameInput = document.getElementById("user-name");
+		    const phoneInput = document.getElementById("user-phone");
+		    const addrInput = document.getElementById("user-addr");
+		    const emailInput = document.getElementById("user-email");
+		    const idCheckBtn = document.getElementById("id-check-btn");
+		    const nicknameCheckBtn = document.getElementById("nickname-check-btn");
+		    const emailCheckBtn = document.getElementById("email-check-btn");
+		    const signupButton = document.getElementById("signup-button");
 
-        // 아이디 입력 시 오류 메시지 초기화
-        idInput.addEventListener("input", function() {
-            document.getElementById("id-error").textContent = "";
-            isIdChecked = false; // 아이디가 변경되면 중복 체크 상태 초기화
-        });
-        // 비밀번호 입력 시 오류 메시지 초기화
-        pwInput.addEventListener("input", function() {
-            document.getElementById("pw-error").textContent = "";
-        });
+		    // 아이디 중복 체크 결과 표시 요소
+		    const idError = document.getElementById("id-error");
+		    // 닉네임 중복 체크 결과 표시 요소
+		    const nickNameError = document.getElementById("nickName-error");
+		    // 이메일 중복 체크 결과 표시 요소
+		    const emailError = document.getElementById("email-error");
+		    // 비밀번호 일치 여부 표시 요소
+		    const pwMatchError = document.getElementById("pw-match-error");
 
-        // 비밀번호 확인 입력 시 오류 메시지 초기화
-        pwCheckInput.addEventListener("input", function() {
-            document.getElementById("pw-match-error").textContent = "";
-        });
-        // 닉네임 입력 시 오류 메시지 초기화
-        nickNameInput.addEventListener("input", function() {
-            document.getElementById("nickName-error").textContent = "";
-            isNickNameChecked = false; // 닉네임이 변경되면 중복 체크 상태 초기화
-        });
+		    // 비밀번호 유효성 검사 함수
+		    function isPasswordValid(password) {
+		        // 비밀번호는 8~20자여야 하며, 대소문자를 모두 포함해야 합니다.
+		        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+		        return passwordRegex.test(password);
+		    }
 
-        // 이름 입력 시 오류 메시지 초기화
-        nameInput.addEventListener("input", function() {
-            document.getElementById("name-error").textContent = "";
-        });
+		    // 비밀번호와 비밀번호 확인 일치 여부 확인 함수
+		    function doPasswordsMatch(password, confirmPassword) {
+		        return password === confirmPassword;
+		    }
 
-        // 연락처 입력 시 오류 메시지 초기화
-        phoneInput.addEventListener("input", function() {
-            document.getElementById("phone-error").textContent = "";
-        });
-        
-        // 주소 입력 시 오류 메시지 초기화
-        addrInput.addEventListener("input", function() {
-            document.getElementById("phone-error").textContent = "";
-        });
-        
-     // 이메일 입력 시 오류 메시지 초기화
-        emailInput.addEventListener("input", function() {
-            document.getElementById("email-error").textContent = "";
-        });
-     
-     
-      //중복 체크 버튼 클릭 시 아이디 중복 체크
-        document.getElementById("id-check-btn").addEventListener("click", function() {
-            const id = idInput.value;
+		    // 입력란에서 입력이 발생할 때 유효성 검사 및 비밀번호 일치 여부 확인
+		    passwordInput.addEventListener("input", function () {
+		        const password = passwordInput.value;
+		        const confirmPassword = confirmPwInput.value;
+		        const passwordError = document.getElementById("password-error");
 
-            if (id === "") {
-                alert("아이디를 입력하세요.");
-                return;
-            }
+		        if (!isPasswordValid(password)) {
+		            passwordError.textContent = "비밀번호는 8~20자의 대소문자를 포함해야 합니다.";
+		        } else {
+		            passwordError.textContent = "";
+		        }
 
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/user/idCheck.do?user-id=" + encodeURIComponent(id), true);
+		        // 비밀번호 확인과 비교하여 일치 여부 확인
+		        if (!doPasswordsMatch(password, confirmPassword)) {
+		            pwMatchError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+		        } else {
+		            pwMatchError.textContent = "";
+		        }
+		    });
 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const response = xhr.responseText;
-                        if (response === "available") {
-                            alert("사용 가능한 아이디입니다.");
-                            isIdChecked = true; // 이메일 중복 체크 완료 상태로 설정
-                        } else {
-                            alert("이미 사용 중인 아이디입니다.");
-                        }
-                    } else {
-                        alert("아이디 체크 중 오류가 발생했습니다.");
-                    }
-                }
-            };
-            
-            xhr.send();
-        });
-      
-      //중복 체크 버튼 클릭 시 닉네임 중복 체크
-        document.getElementById("nickname-check-btn").addEventListener("click", function() {
-            const nickName = nickNameInput.value;
+		    confirmPwInput.addEventListener("input", function () {
+		        const password = passwordInput.value;
+		        const confirmPassword = confirmPwInput.value;
+		        const pwMatchError = document.getElementById("pw-match-error");
 
-            if (nickName === "") {
-                alert("닉네임을 입력하세요.");
-                return;
-            }
+		        // 비밀번호 확인과 비교하여 일치 여부 확인
+		        if (!doPasswordsMatch(password, confirmPassword)) {
+		            pwMatchError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+		        } else {
+		            pwMatchError.textContent = "";
+		        }
+		    });
 
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "/user/nickNameCheck.do?user-nickName=" + encodeURIComponent(id), true);
+		    // 아이디 중복 체크 여부 변수
+		    let isIdChecked = false;
+		    // 닉네임 중복 체크 여부 변수
+		    let isNickNameChecked = false;
+		    // 이메일 중복 체크 여부 변수
+		    let isEmailChecked = false;
 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const response = xhr.responseText;
-                        if (response === "available") {
-                            alert("사용 가능한 닉네임입니다.");
-                            isNickNameChecked = true; // 닉네임 중복 체크 완료 상태로 설정
-                        } else {
-                            alert("이미 사용 중인 닉네임입니다.");
-                        }
-                    } else {
-                        alert("닉네임 체크 중 오류가 발생했습니다.");
-                    }
-                }
-            };
-            
-            xhr.send();
-        });
-      
-     // 다른 필드들의 유효성 검사
-        function validateOtherFields() {
-            const password = pwInput.value;
-            const passwordCheck = pwCheckInput.value;
-            const pwError = document.getElementById("pw-error");
-            const pwMatchError = document.getElementById("pw-match-error");
-            if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/.test(password)) {
-                pwError.textContent = "비밀번호는 영문(대소문자)과 숫자, 특수 문자를 포함하여 8~20자여야 합니다.";
-                return;
-            } else if (password !== passwordCheck) {
-                pwMatchError.textContent = "비밀번호가 일치하지 않습니다.";
-                return;
-            } else {
-                pwError.textContent = "";
-                pwMatchError.textContent = "";
-            }
-            
-            const name = nameInput.value;
-            const nameError = document.getElementById("name-error");
-            if (!/^[가-힣]*$/.test(name)) {
-                nameError.textContent = "한글만 입력 가능합니다.";
-                return;
-            } else {
-                nameError.textContent = "";
-            }
+		    // 입력란에서 입력이 발생할 때 아이디 중복 체크
+		    idInput.addEventListener("input", function () {
+		        const id = idInput.value;
+		        const idError = document.getElementById("id-error");
+		        idError.textContent = ""; // 에러 메시지 초기화
 
-            const phone = phoneInput.value;
-            const phoneError = document.getElementById("phone-error");
-            if (!/^[0-9]{10,11}$/.test(phone)) {
-                phoneError.textContent = "유효한 연락처를 입력하세요.";
-                return;
-            } else {
-                phoneError.textContent = "";
-            }
-        }
-		
-     // 회원가입 버튼 클릭 시 실행되는 함수
-        function setUserAdValue() {
-            // userAd 체크박스 엘리먼트 가져오기
-            const userAdCheckbox = document.getElementById("user-ad");
+		        if (id === "") {
+		            return; // 아이디가 입력되지 않았을 때 체크 중단
+		        }
 
-            // userAd 체크박스 상태에 따라 값을 설정
-            const userAdValue = userAdCheckbox.checked ? "Y" : "N";
+		        const xhr = new XMLHttpRequest();
+		        xhr.open("GET", "/user/idCheck.do?userId=" + encodeURIComponent(id), true);
 
-            // 값을 입력 필드에 설정하거나, 필요한 곳에 전달하십시오.
-            // 예를 들어, 아래와 같이 폼의 숨겨진 필드에 설정할 수 있습니다.
-            const hiddenUserAdField = document.getElementById("hidden-user-ad");
-            hiddenUserAdField.value = userAdValue;
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === XMLHttpRequest.DONE) {
+		                if (xhr.status === 200) {
+		                    const response = xhr.responseText;
+		                    if (response === "alreadyTaken") {
+		                        idError.textContent = "이미 사용 중인 아이디입니다.";
+		                    } else if (response === "available") {
+		                        idError.textContent = "사용 가능한 아이디입니다.";
+		                        isIdChecked = true; // 아이디 중복 체크 완료
+		                    } else {
+		                        idError.textContent = "아이디 체크 중 오류가 발생했습니다.";
+		                    }
+		                } else {
+		                    idError.textContent = "아이디 체크 중 오류가 발생했습니다.";
+		                }
+		            }
+		        };
 
+		        xhr.send();
+		    });
 
-            
-         // 폼을 서버로 제출
-            const form = document.querySelector("form");
-            form.submit();
+		    // 입력란에서 입력이 발생할 때 닉네임 중복 체크
+		    nicknameInput.addEventListener("input", function () {
+		        const nickName = nicknameInput.value;
+		        const nickNameError = document.getElementById("nickName-error");
+		        nickNameError.textContent = ""; // 에러 메시지 초기화
 
-        }
+		        if (nickName === "") {
+		            return; // 닉네임이 입력되지 않았을 때 체크 중단
+		        }
 
+		        const xhr = new XMLHttpRequest();
+		        xhr.open("GET", "/user/nickNameCheck.do?userNickName=" + encodeURIComponent(nickName), true);
 
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === XMLHttpRequest.DONE) {
+		                if (xhr.status === 200) {
+		                    const response = xhr.responseText;
+		                    if (response === "alreadyTaken") {
+		                        nickNameError.textContent = "이미 사용 중인 닉네임입니다.";
+		                    } else if (response === "available") {
+		                        nickNameError.textContent = "사용 가능한 닉네임입니다.";
+		                        isNickNameChecked = true; // 닉네임 중복 체크 완료
+		                    } else {
+		                        nickNameError.textContent = "닉네임 체크 중 오류가 발생했습니다.";
+		                    }
+		                } else {
+		                    nickNameError.textContent = "닉네임 체크 중 오류가 발생했습니다.";
+		                }
+		            }
+		        };
 
+		        xhr.send();
+		    });
+
+		    // 입력란에서 입력이 발생할 때 이메일 중복 체크
+		    emailInput.addEventListener("input", function () {
+		        const email = emailInput.value;
+		        const emailError = document.getElementById("email-error");
+		        emailError.textContent = ""; // 에러 메시지 초기화
+
+		        if (email === "") {
+		            return; // 이메일이 입력되지 않았을 때 체크 중단
+		        }
+
+		        if (!/\S+@\S+\.\S+/.test(email)) {
+		            emailError.textContent = "유효한 이메일 주소를 입력하세요.";
+		            return;
+		        }
+
+		        const xhr = new XMLHttpRequest();
+		        xhr.open("GET", "/user/emailCheck.do?userEmail=" + encodeURIComponent(email), true);
+
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === XMLHttpRequest.DONE) {
+		                if (xhr.status === 200) {
+		                    const response = xhr.responseText;
+		                    if (response === "alreadyTaken") {
+		                        emailError.textContent = "이미 사용 중인 이메일입니다.";
+		                    } else if (response === "available") {
+		                        emailError.textContent = "사용 가능한 이메일입니다.";
+		                        isEmailChecked = true; // 이메일 중복 체크 완료
+		                    } else {
+		                        emailError.textContent = "이메일 체크 중 오류가 발생했습니다.";
+		                    }
+		                } else {
+		                    emailError.textContent = "이메일 체크 중 오류가 발생했습니다.";
+		                }
+		            }
+		        };
+
+		        xhr.send();
+		    });
+
+		    // 회원가입 버튼 클릭 시 유효성 검사 및 중복 체크 여부 확인
+		    signupButton.addEventListener("click", function (event) {
+		        // 기본 동작 중지 (폼 전송 방지)
+		        event.preventDefault();
+
+		        // 아이디 중복 체크 여부 확인
+		        if (!isIdChecked) {
+		            idError.textContent = "아이디 중복 체크를 먼저 진행해주세요.";
+		            return;
+		        }
+
+		        // 닉네임 중복 체크 여부 확인
+		        if (!isNickNameChecked) {
+		            nickNameError.textContent = "닉네임 중복 체크를 먼저 진행해주세요.";
+		            return;
+		        }
+
+		        // 이메일 중복 체크 여부 확인
+		        if (!isEmailChecked) {
+		            emailError.textContent = "이메일 중복 체크를 먼저 진행해주세요.";
+		            return;
+		        }
+
+		        // TODO: 여기에 나머지 유효성 검사를 추가하세요.
+		        // 비밀번호, 이름, 전화번호, 주소, 이메일 등의 검사를 수행하여 유효한 데이터인지 확인하세요.
+
+		        // 모든 유효성 검사를 통과하면 폼을 서버로 제출합니다.
+		        event.target.form.submit();
+		    });
+		});
     </script>
 </body>
 </html>

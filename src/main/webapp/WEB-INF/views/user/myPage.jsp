@@ -105,12 +105,12 @@
 		            <div id="mypage-header">
 		                <div id="profile-div">
 		                    <img src="${ user.userProfilePath}" alt="">
+				                <c:if test="${sessionScope.userId eq user.userId }">
+					                <a href="/user/modify.do?userId=${sessionScope.userId }">
+									    <img src="../resources/images/user/setting-icon.png" alt="설정 아이콘">
+									</a>
+				                </c:if>
 		                </div>
-		                <c:if test="${sessionScope.userId eq user.userId }">
-		                <a href="/user/modify.do?userId=${sessionScope.userId }">
-						    <img src="../resources/images/user/설정아이콘.png" alt="설정 아이콘">
-						</a>
-		                </c:if>
 		                <div id="userInfo-div">
 		                    <div>
 		                        <div id="nickname">${user.userNickName }</div>
@@ -124,10 +124,27 @@
 		                        </div>   
 	                        	<c:if test="${sessionScope.userId ne user.userId }">
 		                        	<div>
-		                        		<a href="/user/follow.do?userId=${user.userId}">
-										  <button>버튼 텍스트</button>
-										</a>
-		                        	</div>                        
+									    <c:url var="followUrl" value="/user/follow.do">
+									        <c:param name="sTarget" value="${ user.userId }"></c:param>
+									        <c:param name="sUser" value="${ sessionScope.userId }"></c:param>
+									    </c:url>
+									    <c:url var="isFollowing" value="/user/myPage.do">
+									        <c:param name="following" value="${ user.userId }"></c:param>
+									        <c:param name="follower" value="${ sessionScope.userId }"></c:param>
+									    </c:url>
+									    <c:url var="unfollowUrl" value="/user/unfollow.do">
+									        <c:param name="unSubTarget" value="${ user.userId }"></c:param>
+									        <c:param name="unSubUser" value="${ sessionScope.userId }"></c:param>
+									    </c:url>
+									   <c:choose>
+									         <c:when test="${isFollowing}">
+									            <button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로잉</button>
+									        </c:when>
+									        <c:otherwise>
+									            <button id="follow-btn" onclick="followUser('${followUrl}');">팔로우</button>
+									        </c:otherwise>
+									    </c:choose>
+									</div>                      
 	                        	</c:if>
 		                    </div>
 		                </div>
@@ -198,29 +215,25 @@
 		                
 		                <div id="uiInfo-div">
 		                    <div class="ui-item">
-		                        <img class="ui-icon" src="../resources/images/user/공식(달성,진행)아이콘.png" alt="">
+		                        <img class="ui-icon" src="../resources/images/user/b-chal-icon.png" alt="블루웨이브 챌린지">
 		                        <span class="ui-text">${finishTotalBlueChalCount} / ${totalBlueChalCount }</span>
 		                    </div>
 		                    <div class="ui-item">
-		                        <img class="ui-icon" src="../resources/images/user/개인(달성,진행)아이콘.png" alt="">
+		                        <img class="ui-icon" src="../resources/images/user/p-chal-icon.png" alt="">
 		                        <span class="ui-text">${finishTotalPersonalChalCount} / ${totalPersonalChalCount }</span>
 		                    </div>
 		                    <div class="ui-item">
-		                        <img class="ui-icon" id="post-count-icon" src="../resources/images/user/게시물아이콘.png" alt="">
+		                        <img class="ui-icon" id="post-count-icon" src="../resources/images/user/board-icon.png" alt="">
 		                        <span class="ui-text">${postCount }개</span>
 		                    </div>
 		                    <div class="ui-item">
-		                        <img class="ui-icon" src="../resources/images/user/포인트아이콘.png" alt="">
+		                        <img class="ui-icon" src="../resources/images/user/point-icon.png" alt="">
 		                        <span class="ui-text">${totalPoint }p</span>
 		                    </div>
 		                </div>                         
 		            </div>
 		            <c:if test="${sessionScope.userId ne user.userId }"> 
 		            <img id="dot" src="../../resources/images/dot.png" onclick="toggleReportDiv()" alt="">
-		            <div id="report-div" style="display: none;">
-		                <div id="report-img-div"><img id="report-img" src="../resources/images/user/경고아이콘.png" alt=""></div>
-		                <div id="report-text">신고하기</div>
-		            </div> 
 		            </c:if>
 		            <c:if test="${sessionScope.userId eq user.userId }"> 
 		            <div id="chal">
@@ -754,6 +767,13 @@
 	    <script>
 	    	function showUserPage(userPageUrl){
 				location.href = userPageUrl;
+	    	}
+	    	
+	    	function followUser(followUrl){
+				location.href = followUrl;
+	    	}
+	    	function unfollowUser(unfollowUrl){
+				location.href = unfollowUrl;
 	    	}
 	    </script>
         <script>

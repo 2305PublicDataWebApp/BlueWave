@@ -69,6 +69,12 @@ public class UserController {
 		mv.setViewName("user/findPw2");
 		return mv;
 	}
+	
+	@RequestMapping(value="/user/findPw3.do", method=RequestMethod.GET)
+	public ModelAndView showFindPw3Form(ModelAndView mv) {
+		mv.setViewName("user/findPw3");
+		return mv;
+	}
 
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
 	public ModelAndView showLoginForm(ModelAndView mv) {
@@ -92,18 +98,58 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/follow.do", method=RequestMethod.GET)
-	public ModelAndView followUser(ModelAndView mv
-			, @RequestParam("userId") String userId) {
-//		int result = uService.followUser(userId);
+	public ModelAndView followUser(@RequestParam("sTarget") String subTarget, @RequestParam("sUser") String subUser, ModelAndView mv) {
+		try {
+			Sub sub = new Sub(subTarget, subUser);
+			int follow = uService.followUser(sub);
+			if(follow > 0 ) {
+				mv.setViewName("user/myPage");
+			}else {
+				mv.addObject("msg", "구독이 완료되지 않았습니다.");
+				mv.addObject("error", "구독 실패");
+				mv.addObject("url", "user/myPage");
+				mv.setViewName("common/serviceFailed");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", "관리자에게 문의해주세요.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "user/myPage");
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/unfollow.do", method=RequestMethod.GET)
+	public ModelAndView unfollowUser(@RequestParam("unSubTarget") String subTarget, @RequestParam("unSubUser") String subUser, ModelAndView mv) {
+		try {
+			Sub sub = new Sub(subTarget, subUser);
+			int unfollow = uService.unfollowUser(sub);
+			if(unfollow > 0 ) {
+				mv.setViewName("user/myPage");
+			}else {
+				mv.addObject("msg", "구독취소가 완료되지 않았습니다.");
+				mv.addObject("error", "구독취소 실패");
+				mv.addObject("url", "user/myPage");
+				mv.setViewName("common/serviceFailed");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", "관리자에게 문의해주세요.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "user/myPage");
+			mv.setViewName("common/serviceFailed");
+		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
 		public ModelAndView showMyPage(
 				@ModelAttribute User user,
+				@RequestParam(value="following", required=false) String subTarget,
+                @RequestParam(value="follower", required=false) String subUser,
 				ModelAndView mv
 				) {
 			try {
+				Sub sub = new Sub(subTarget, subUser);
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
@@ -116,7 +162,16 @@ public class UserController {
 					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
 					List<Challenge> todayCList = uService.getTodayCList(user.getUserId());
 					List<CBoard> calDateList = uService.getCalDateList(user.getUserId());
-					
+					int isFollowing = uService.isFollowing(sub);
+					if (isFollowing == 1) {
+					    // 팔로잉 상태
+					    mv.addObject("isFollowing", true);
+					} else {
+					    // 팔로우 상태
+					    mv.addObject("isFollowing", false);
+					}
+
+			        mv.addObject("isFollowing", isFollowing);
 					mv.addObject("todayCList", todayCList);
 					mv.addObject("totalPoint", totalPoint);
 		            mv.addObject("postCount", postCount);
@@ -196,12 +251,17 @@ public class UserController {
 	                foundUserId = uOne.getUserId(); // 사용자 아이디를 가져옴
 	    			mv.addObject("foundUserId", foundUserId);
 	    			mv.setViewName("user/findId2");
+	            	}else {
+	            		mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
+						mv.addObject("error", "아이디 조회 실패");
+						mv.addObject("url", "user/findId1");
+						mv.setViewName("common/serviceFailed");
 	            	}
 	            }else {
 	            	mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
 					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "/index.jsp");
-					mv.setViewName("common/errorPage");
+					mv.addObject("url", "user/findId1");
+					mv.setViewName("common/serviceFailed");
 	            }
 			} else if ("phoneType".equals(confirmType)) {
 				// 전화번호 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
@@ -215,8 +275,8 @@ public class UserController {
 	            }else {
 	            	mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
 					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "/index.jsp");
-					mv.setViewName("common/errorPage");
+					mv.addObject("url", "user/findId1");
+					mv.setViewName("common/serviceFailed");
 	            }
 			}
 
@@ -225,7 +285,7 @@ public class UserController {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
 			mv.addObject("url", "/index.jsp");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/serviceFailed");
 		}
 	    return mv;
 	}
@@ -235,20 +295,78 @@ public class UserController {
 		try {
 			User uOne = uService.selectOneById(user);
 			if(uOne != null) {
+				mv.addObject("userId", uOne.getUserId());
 				mv.setViewName("user/findPw2");
 			}else {
-				mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
-				mv.addObject("error", "아이디 조회 실패");
-				mv.addObject("url", "/index.jsp");
-				mv.setViewName("common/errorPage");
+				mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
+				mv.addObject("error", "비밀번호 조회 실패");
+				mv.addObject("url", "user/findPw1");
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/index.jsp");
-			mv.setViewName("common/errorPage");
+			mv.addObject("url", "user/findPw1");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
+	}
+	
+	@RequestMapping(value="/user/findPw2.do", method=RequestMethod.POST)
+	public ModelAndView userFindPw(ModelAndView mv
+			, @RequestParam(value="confirmType") String confirmType
+			, @RequestParam(value="userId") String userId
+			, @ModelAttribute User user) {
+		try {
+			String name = user.getUserName();
+			String foundUserPw = null;
+			
+			if ("emailType".equals(confirmType)) {
+				// 이메일 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
+	            String email = user.getUserEmail();
+	            User uOne = uService.findUserByEmail(email);
+	            if (uOne != null) {
+	            	if(name.equals(uOne.getUserName()) && userId.equals(uOne.getUserId())) {
+	                // 사용자가 존재하고, 입력한 이름과 일치하는 경우
+	            	foundUserPw = uOne.getUserPw(); // 사용자 비밀번호를 가져옴
+	    			mv.addObject("foundUserPw", foundUserPw);
+	    			mv.setViewName("user/findPw3");
+	            	}else {
+	            		mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
+						mv.addObject("error", "아이디 조회 실패");
+						mv.addObject("url", "user/findPw2");
+						mv.setViewName("common/serviceFailed");
+	            	}
+	            }else {
+	            	mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
+					mv.addObject("error", "아이디 조회 실패");
+					mv.addObject("url", "user/findPw2");
+					mv.setViewName("common/serviceFailed");
+	            }
+			} else if ("phoneType".equals(confirmType)) {
+				// 전화번호 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
+				String phone = user.getUserPhone();
+				User uOne = uService.findUserByPhone(phone);
+				if (uOne != null && name.equals(uOne.getUserName()) && userId.equals(uOne.getUserId())) {
+	                // 사용자가 존재하고, 입력한 이름과 일치하는 경우
+					foundUserPw = uOne.getUserPw(); // 사용자 아이디를 가져옴
+	    			mv.addObject("foundUserPw", foundUserPw);
+	    			mv.setViewName("user/findPw3");
+	            }else {
+	            	mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
+					mv.addObject("error", "비밀번호 조회 실패");
+					mv.addObject("url", "user/findPw2");
+					mv.setViewName("common/serviceFailed");
+	            }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "관리자에게 문의해주세요.");
+			mv.addObject("error", e.getMessage());
+			mv.addObject("url", "/index.jsp");
+			mv.setViewName("common/serviceFailed");
+		}
+	    return mv;
 	}
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
@@ -262,13 +380,13 @@ public class UserController {
 				mv.addObject("msg", "로그인이 완료되지 않았습니다.");
 				mv.addObject("error", "로그인 실패");
 				mv.addObject("url", "/index.jsp");
-				mv.setViewName("common/errorPage");
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
 			mv.addObject("url", "/index.jsp");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
@@ -299,13 +417,13 @@ public class UserController {
 				mv.addObject("msg", "회원탈퇴가 완료되지 않았습니다.");
 				mv.addObject("error", "회원탈퇴 실패");
 				mv.addObject("url", "index.jsp");
-				mv.setViewName("common/errorPage");
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
 			mv.addObject("url", "index.jsp");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
@@ -358,51 +476,62 @@ public class UserController {
 				mv.addObject("msg", "회원정보 수정이 완료되지 않았습니다.");
 				mv.addObject("error", "회원정보 수정 실패");
 				mv.addObject("url", "index.jsp");
-				mv.setViewName("common/errorPage");
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
 			mv.addObject("url", "index.jsp");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/user/register.do", method=RequestMethod.POST)
-	public ModelAndView registerUser(@ModelAttribute User user, ModelAndView mv
-			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
-			, @RequestParam(value="userAd", required=false) String userAd
-			, HttpServletRequest request ) { // 파일경로 부르기 위해 사용 
-			
-		try {
-			userAd  = userAd != null ? "Y" : "N";
-			user.setUserAd(userAd);
-			 if (uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
-					// 파일 정보(이름, 리네임, 경로, 크기) 및 파일 저장
-					 Map<String, Object> UMap = this.saveFile(request, uploadFile);
-					 user.setUserProfileName((String) UMap.get("userProfileName"));
-					 user.setUserProfileRename((String) UMap.get("userProfileRename"));
-					 user.setUserProfilePath((String) UMap.get("userProfilePath"));
-					 user.setUserProfileLength((long) UMap.get("userProfileLength"));
-			}
-			int result = uService.insertUser(user);
-			if(result > 0) {
-				mv.setViewName("user/login");
-			}else {
-				mv.addObject("msg", "회원가입이 완료되지 않았습니다.");
-				mv.addObject("error", "회원가입 실패");
-				mv.addObject("url", "/user/register.do");
-				mv.setViewName("common/errorPage");
-			}
-		} catch (Exception e) {
-			mv.addObject("msg", "관리자에게 문의해주세요.");
-			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/user/login.do");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
+	public ModelAndView registerUser(@ModelAttribute User user, ModelAndView mv,
+	        @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile,
+	        @RequestParam(value="userAd", required=false) String userAd,
+	        HttpServletRequest request) {
+
+	    try {
+	        userAd = userAd != null ? "Y" : "N";
+	        user.setUserAd(userAd);
+
+	        if (uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+	            // 파일 정보(이름, 리네임, 경로, 크기) 및 파일 저장
+	            Map<String, Object> UMap = this.saveFile(request, uploadFile);
+	            user.setUserProfileName((String) UMap.get("userProfileName"));
+	            user.setUserProfileRename((String) UMap.get("userProfileRename"));
+	            user.setUserProfilePath((String) UMap.get("userProfilePath"));
+	            user.setUserProfileLength((long) UMap.get("userProfileLength"));
+	        } else {
+	            // 이미지가 선택되지 않았을 때 기본 이미지 정보 설정
+	            user.setUserProfileName("profile.png");
+	            user.setUserProfileRename("profile.png");
+	            user.setUserProfilePath("../resources/PuploadFiles/profile.png");
+	            user.setUserProfileLength(0L); // 이미지 크기를 0으로 설정하거나 필요에 따라 적절한 값으로 설정
+	        }
+
+	        int result = uService.insertUser(user);
+	        int pointResult = uService.insertPoint(user);
+
+	        if (result > 0 && pointResult > 0) {
+	            mv.setViewName("user/login");
+	        } else {
+	            mv.addObject("msg", "회원가입이 완료되지 않았습니다.");
+	            mv.addObject("error", "회원가입 실패");
+	            mv.addObject("url", "/user/register.do");
+	            mv.setViewName("common/serviceFailed");
+	        }
+	    } catch (Exception e) {
+	        mv.addObject("msg", "관리자에게 문의해주세요.");
+	        mv.addObject("error", e.getMessage());
+	        mv.addObject("url", "/user/login.do");
+	        mv.setViewName("common/serviceFailed");
+	    }
+	    return mv;
 	}
+
 	
 	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -469,12 +598,14 @@ public class UserController {
 	}
 	
 	private void deleteFile(String fileName, HttpServletRequest request) {
-		// D:\\springworksapce\\BaeSpringMVC\\src\\main\\webapp\\resources 대체
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String delFilePath = root+"\\PuploadFiles\\"+fileName;
-		File file = new File(delFilePath);
-		if(file.exists()) {
-			file.delete();
-		}
+	    // D:\\springworksapce\\BaeSpringMVC\\src\\main\\webapp\\resources 대체
+	    String root = request.getSession().getServletContext().getRealPath("resources");
+	    String delFilePath = root + "\\PuploadFiles\\" + fileName;
+	    File file = new File(delFilePath);
+	    
+	    // 파일 이름과 파일 리네임이 모두 "profile.png"이 아닌 경우에만 파일 삭제
+	    if (file.exists() && (!fileName.equals("profile.png"))) {
+	        file.delete();
+	    }
 	}
 }

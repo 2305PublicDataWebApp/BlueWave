@@ -11,15 +11,15 @@
 </head>
 <body>
     <div class="container">
-        <img src="../resources/images/user/로고.png" id="logo-img" alt="로고이미지">
+        <img src="../resources/images/logo-img.png" id="logo-img" alt="로고이미지">
         <h1>BLUE WAVE</h1>
         <form action="/user/register.do" method="POST" enctype="multipart/form-data">
             <div id="img-div">
                 <label for="profile-image"></label>
                 <div class="profile-image-container">
-                    <img src="../../resources/images/user/프로필이미지.png" id="profile-image-preview" alt="프로필 이미지">
+                    <img src="../../resources/images/user/profile.png" id="profile-image-preview" alt="프로필 이미지">
                     <input type="file" id="profile-image" name="uploadFile" >
-                    <label for="profile-image" class="upload-icon"><img src="../resources/images/user/카메라아이콘.png" id="camera" class="upload-icon" alt=""></label>
+                    <label for="profile-image" class="upload-icon"><img src="../resources/images/user/camera.png" id="camera" class="upload-icon" alt=""></label>
                 </div>
             </div>
             <div id="form-top-group">
