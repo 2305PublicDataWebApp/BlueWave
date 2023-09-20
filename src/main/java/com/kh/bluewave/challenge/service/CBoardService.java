@@ -49,4 +49,11 @@ public interface CBoardService {
 	 */
 	CBoard selectOneByCBoardNo(int cBoardNo);
 
+	/**
+	 * 좋아요 게시물 번호로 내용 조회 Service
+	 * @param cBoardNo
+	 * @return
+	 */
+	CBoard selectLikePostInfoByCBoardNo(int cBoardNo);
+
 }

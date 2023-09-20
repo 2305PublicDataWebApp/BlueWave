@@ -21,7 +21,7 @@
 				<h1>굿즈 상세 페이지</h1>
 			</div>
 			<div class="goods-d-main">
-				<form action="/goods/buy.do" method="post"></form>
+				<form action="/goods/buy.do" method="post">
 					<div class="goods-d-main-left">
 					<input type="hidden" name="productNo" value="${goods.productNo }">
 						<div class="goods-name">

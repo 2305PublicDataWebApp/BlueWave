@@ -95,4 +95,7 @@
 	    WHERE C_BOARD_WRITER = #{userId }
 	</select>
 	
+	<select id="selectLikePostInfoByCBoardNo" resultMap="cBoardResultMap">
+		SELECT * FROM CHAL_BOARD_TBL WHERE C_BOARD_NO = #{ cBoardNo }
+	</select>
 </mapper>
