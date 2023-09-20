@@ -10,15 +10,59 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/resources/css/user/myPage.css">
         <link rel="stylesheet" href="/resources/css/user/myPage_Bae.css">
-        <link rel="stylesheet" href="/resources/css/user/calendar.css">
-        <link rel="stylesheet" href="/resources/css/font.css">
-        <link rel="stylesheet" href="/resources/css/reset.css">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- FullCalendar JavaScript -->
+  		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
+  		<!-- FullCalendar CSS -->
+  		<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css" rel="stylesheet" />
+	    <style>
+		    /* 선택한 날짜의 스타일 */
+		    .selected-day {
+		      background-color: #3788d8; /* 선택한 날짜의 배경색을 파란색으로 설정 */
+		      color: white; /* 선택한 날짜의 텍스트 색상 설정 (예: 흰색) */
+		    }
+			.fc-daygrid-dot-event{
+				flex-direction: column
+			}
+			.fc-event-time, .fc-event-title{
+				display: none;
+			}
+			.fc-daygrid-day-top {
+				height: 15px;
+			}
+			.fc-daygrid-event-dot {
+				border : none;
+				width: 25px;
+    			height: 20px;
+    			background-color: #3788d8;
+			}
+			.fc-toolbar-chunk button {
+				display: none;
+			}
+			.fc-daygrid-day-number {
+				font-size : 13px;
+				color : rgb(188,188,188);
+			}
+			.fc-col-header-cell-cushion {
+				color : rgb(224,230,234);
+			} 
+			fc-toolbar-chunk button:first-child{
+				display: none;
+			}
+			
+			.fc .fc-toolbar.fc-header-toolbar {
+			    margin-bottom: 1em;
+			}
+		    
+		    .fc-header-toolbar > .fc-toolbar-chunk:last-child > button {
+		    	display: none;
+		    }
+		  </style>
 	    <script>
 		    $(document).ready(function() {
 				var bluewaveSlider = $("#bluewave-slider").bxSlider({
@@ -77,7 +121,14 @@
 			                            <a class="sub" data-bs-toggle="modal" data-bs-target="#followingModal">팔로잉 ${ followingCnt }</a>&nbsp;&nbsp;|&nbsp;
 			                            <a class="sub" data-bs-toggle="modal" data-bs-target="#followersModal">팔로워 ${ followersCnt }</a>
 		                            </span>
-		                        </div>                                
+		                        </div>   
+	                        	<c:if test="${sessionScope.userId ne user.userId }">
+		                        	<div>
+		                        		<a href="/user/follow.do?userId=${user.userId}">
+										  <button>버튼 텍스트</button>
+										</a>
+		                        	</div>                        
+	                        	</c:if>
 		                    </div>
 		                </div>
 		                
@@ -148,14 +199,14 @@
 		                <div id="uiInfo-div">
 		                    <div class="ui-item">
 		                        <img class="ui-icon" src="../resources/images/user/공식(달성,진행)아이콘.png" alt="">
-		                        <span class="ui-text">15/${totalBlueChalCount }</span>
+		                        <span class="ui-text">${finishTotalBlueChalCount} / ${totalBlueChalCount }</span>
 		                    </div>
 		                    <div class="ui-item">
 		                        <img class="ui-icon" src="../resources/images/user/개인(달성,진행)아이콘.png" alt="">
-		                        <span class="ui-text">3/${totalPersonalChalCount }</span>
+		                        <span class="ui-text">${finishTotalPersonalChalCount} / ${totalPersonalChalCount }</span>
 		                    </div>
 		                    <div class="ui-item">
-		                        <img class="ui-icon" src="../resources/images/user/게시물아이콘.png" alt="">
+		                        <img class="ui-icon" id="post-count-icon" src="../resources/images/user/게시물아이콘.png" alt="">
 		                        <span class="ui-text">${postCount }개</span>
 		                    </div>
 		                    <div class="ui-item">
@@ -164,103 +215,108 @@
 		                    </div>
 		                </div>                         
 		            </div>
-		            <c:if test="${sessionScope.userId eq user.userId }">
+		            <c:if test="${sessionScope.userId ne user.userId }"> 
 		            <img id="dot" src="../../resources/images/dot.png" onclick="toggleReportDiv()" alt="">
 		            <div id="report-div" style="display: none;">
 		                <div id="report-img-div"><img id="report-img" src="../resources/images/user/경고아이콘.png" alt=""></div>
 		                <div id="report-text">신고하기</div>
 		            </div> 
+		            </c:if>
+		            <c:if test="${sessionScope.userId eq user.userId }"> 
 		            <div id="chal">
 		                <div id="blue-wave">
 		                    <div class="calendar">
-		                        <div class="calendar-header">
-		                            <button class="nav-button" id="prevMonth">&lt; 이전 달</button>
-		                            <span class="current-month" id="currentMonth"></span>
-		                            <button class="nav-button" id="nextMonth">다음 달 &gt;</button>
-		                        </div>
-		                        <table class="calendar-table" id="calendarTable">
-		                            <!-- 캘린더 표가 여기에 생성됩니다. -->
-		                        </table>
+		                        <div id="calendar"></div>
 		                    </div>
 		                </div>
+		                
 		                <div id="todo-chal">
-		                    <span id="todo-title"><오늘의 챌린지></span>
+		                    <span id="todo-title"> <오늘의 챌린지> </span>
+			                    <c:forEach var="todayCList" items="${todayCList }" >
+					                <c:set var="startDate" value="${ todayCList.chalStartDate }" />
+								    <c:set var="endDate" value="${ todayCList.chalEndDate }" />
+								    <c:set var="now" value="<%= new java.util.Date() %>" />
+								    
+								    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
+								    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
+								
+								    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
+								    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
+								
+									<!-- 오늘 - 시작일 -->												
+									<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
+									<!-- 종료일 - 시작일 --> 
+									<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
+									<!-- 밀리초를 일 단위로 변환 -->
+									<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
+									<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
+									
+							        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
 		                    <hr>
 		                    <table>
+		                    <colgroup>
+		                    	<col style="width:60%">
+		                    	<col style="width:10%">
+		                    	<col style="width:30%">
+		                    </colgroup>
 		                        <tr>
-		                            <td>식물 기르기</td>
-		                            <td>
-		                                <span id="percent-text">50%</span><progress id="progress" value="50" min="0" max="100"></progress>
-		                            </td>
+		                        	<th>
+									    <c:set var="inputString" value="${todayCList.chalTitle}" /> <!-- todayCList.chalTitle 값을 inputString 변수에 저장 -->
+									
+									    <c:choose>
+									        <c:when test="${fn:length(inputString) > 12}"> <!-- 만약 문자열 길이가 5를 초과한다면 -->
+									            <c:set var="truncatedString" value="${fn:substring(inputString, 0, 5)}..." /> <!-- 문자열을 자르고 "..."을 추가하여 truncatedString 변수에 저장 -->
+									            <c:out value="${truncatedString}" /> <!-- truncatedString을 출력 -->
+									        </c:when>
+									        <c:otherwise>
+									            <c:out value="${inputString}" /> <!-- 그렇지 않으면 원래 문자열을 출력 -->
+									        </c:otherwise>
+									    </c:choose>
+									</th>
+									<td>
+									    <c:choose>
+									        <c:when test="${ endDate eq null }">
+									        	<td style="letter-spacing: 6px;">
+									            	<span id="0percent-text">기한없음</span>
+									            <td>
+									        </c:when>
+									        <c:otherwise>
+									            <span id="percent-text"><fmt:formatNumber value="${progress}" pattern="#" />%</span>
+									        	<td>
+												    <progress id="progress" value="<fmt:formatNumber value="${progress}" pattern="#" />" min="0" max="100"></progress>
+												</td>
+									        </c:otherwise>
+									    </c:choose>
+									</td>
 		                        </tr>
 		                    </table>
+		                    </c:forEach>
 		                    <hr>
 		                </div>
 		            </div>
-		            <div id="list-count">굿즈 목록 | 5개</div>
-		            <div id="goods-img-div">
-		                <div class="slider-container">
-		                    <div class="slider1">
-		                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
-		                        <c:forEach var="goods" items="${goodsList }" >
-			                        <div class="slide">
-			                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
-			                            <div class="goods-name-overlay">
-			                                <div class="goods-name">${goods.productName }</div>
-			                            </div>
-			                        </div>
-		                        </c:forEach>
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름2</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름3</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름4</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         추가 이미지 -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름5</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름6</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름7</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		<!--                         <div class="slide"> -->
-		<!--                             <img src="../../resources/images/배경.jpg" alt=""> -->
-		<!--                             <div class="goods-name-overlay"> -->
-		<!--                                 <div class="goods-name">굿즈 이름8</div> -->
-		<!--                             </div> -->
-		<!--                         </div> -->
-		                        <!-- 추가 이미지 끝 -->
-		                    </div>
-		                </div>                
-		            </div>
-		            </c:if>
-		        </div>
-            
-            
+		            <c:if test="${ empty todayCList }">
+                   		<div class="list-none">굿즈 교환 내역이 없습니다</div>
+                   	</c:if>
+                   	<c:if test="${ !empty todayCList }">
+			            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
+			            <div id="goods-img-div">
+			                <div class="slider-container">
+			                    <div class="slider1">
+			                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
+			                        <c:forEach var="goods" items="${goodsList }" >
+				                        <div class="slide">
+				                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
+				                            <div class="goods-name-overlay">
+				                                <div class="goods-name">${goods.productName }</div>
+				                            </div>
+				                        </div>
+			                        </c:forEach>
+			                    </div>
+			                </div>                
+			            </div>
+			        </c:if>
+			        </div>    
+            		</c:if>
                 <section id="my-nav">
                     <div id="bluewave-tab" data-tab="bluewave-chal" style="background-color: rgb(45, 55, 71); color: white;" onclick="showTab('bluewave-tab');">블루웨이브 챌린지</div>
                     <div id="personal-tab" data-tab="personal-chal" onclick="showTab('personal-tab');">나의 챌린지</div>
@@ -641,86 +697,60 @@
 	        slideMargin: 20
 	        });
 	    });
-	
-	
-	    const calendarTable = document.getElementById("calendarTable");
-	        const currentMonthHeader = document.getElementById("currentMonth");
-	        const prevMonthButton = document.getElementById("prevMonth");
-	        const nextMonthButton = document.getElementById("nextMonth");
-	        let currentDate = new Date();
-	
-	        function updateCalendar() {
-	            const year = currentDate.getFullYear();
-	            const month = currentDate.getMonth();
-	            const daysInMonth = new Date(year, month + 1, 0).getDate();
-	            const firstDay = new Date(year, month, 1).getDay();
-	
-	            // 현재 월 표시
-	            currentMonthHeader.textContent = `${year}년 ${month + 1}월`;
-	
-	            // 캘린더 표 초기화
-	            calendarTable.innerHTML = "";
-	
-	            // 날짜 표시
-	            let date = 1;
-	            for (let i = 0; i < 6; i++) {
-	                const row = document.createElement("tr");
-	                for (let j = 0; j < 7; j++) {
-	                    const td = document.createElement("td");
-	                    if (i === 0 && j < firstDay) {
-	                        // 빈 셀
-	                    } else if (date <= daysInMonth) {
-	                        td.textContent = date;
-	                        date++;
-	                    }
-	                    row.appendChild(td);
-	                }
-	                calendarTable.appendChild(row);
-	                if (date > daysInMonth) {
-	                    break;
-	                }
-	            }
-	        }
-	
-	        prevMonthButton.addEventListener("click", () => {
-	            currentDate.setMonth(currentDate.getMonth() - 1);
-	            updateCalendar();
-	        });
-	
-	        nextMonthButton.addEventListener("click", () => {
-	            currentDate.setMonth(currentDate.getMonth() + 1);
-	            updateCalendar();
-	        });
-	
-	        // 특정 날짜를 파란색으로 표시
-	        function highlightDate(dateToHighlight) {
-	            const year = currentDate.getFullYear();
-	            const month = currentDate.getMonth();
-	            const tableRows = calendarTable.querySelectorAll("tr");
-	
-	            for (let i = 1; i < tableRows.length; i++) {
-	                const row = tableRows[i];
-	                const cells = row.querySelectorAll("td");
-	
-	                for (let j = 0; j < cells.length; j++) {
-	                    const cell = cells[j];
-	                    const cellDate = parseInt(cell.textContent);
-	
-	                    if (!isNaN(cellDate) && cellDate === dateToHighlight) {
-	                        cell.style.backgroundColor = "#3d9ff6"; // 파란색으로 설정
-	                    }
-	                }
-	            }
-	        }
-	
-	        // 초기 캘린더 업데이트
-	        updateCalendar();
-	
-	        // 9월 29일을 파란색으로 표시
-	        highlightDate(29);  
-	        highlightDate(2);  
-	        highlightDate(3);  
+	       
 	    </script>
+<!-- // 	        캘린더 ************************ -->
+	
+
+		<script>
+		  document.addEventListener("DOMContentLoaded", function () {
+		    var calendarEl = document.getElementById("calendar");
+		
+		    // FullCalendar 이벤트 배열 생성
+		    var events = [];
+		
+		    // calDateList를 순회하면서 이벤트 객체 생성 및 배열에 추가
+		    <c:forEach var="dateData" items="${calDateList}">
+		      var year = ${dateData.YEAR};
+		      var month = ${dateData.MONTH};
+		      var day = ${dateData.DAY};
+		
+		      // 이벤트 객체 생성
+		      var event = {
+		        title: "chal", // 이벤트 제목 설정
+		        start: new Date(year, month - 1, day), // 이벤트 시작 날짜 설정
+		        backgroundColor: "blue", // 이벤트 배경색 설정
+		      };
+		
+		      // 이벤트 배열에 추가
+		      events.push(event);
+		    </c:forEach>
+		
+		    // FullCalendar 초기화 및 이벤트 표시
+		    var calendar = new FullCalendar.Calendar(calendarEl, {
+		      initialView: "dayGridMonth", // 월별 뷰
+		      events: events, // 생성한 이벤트 배열을 events 옵션에 전달
+		    });
+		
+		    calendar.render();
+		  });
+		</script>
+		<script>
+		    document.addEventListener("DOMContentLoaded", function () {
+		        var progress = ${progress};
+		
+		        var colElements = document.querySelectorAll("table col");
+		        if (progress === null) {
+		            colElements[0].style.width = "60%";
+		            colElements[1].style.width = "40%";
+		        } else {
+		            colElements[0].style.width = "60%";
+		            colElements[1].style.width = "10%";
+		            colElements[2].style.width = "30%";
+		        }
+		    });
+		</script>
+		
 	    <script>
 	    	function showUserPage(userPageUrl){
 				location.href = userPageUrl;

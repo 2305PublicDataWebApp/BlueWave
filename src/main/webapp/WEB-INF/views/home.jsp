@@ -40,7 +40,7 @@
 		<main>
 			<div class="main-container">
 				<div class="main-img">
-					<img src="resources/images/main2.png" alt="메인이미지" />
+					<img src="resources/images/admin-img.png" alt="메인이미지" />
 				</div>
 
 				<!-- 챌린지 페이지 -->

@@ -22,7 +22,7 @@
 		}
 		.footer {
 			width: 100%;
-			height: 250px;
+			height: 180px;
 			background-color: #afd3e2;
 		}
 		.footer-wrap {
@@ -34,10 +34,11 @@
 			width: 20%;
 			height: 100%;
 			padding:20px;
-			;
+			display: flex;
+		    justify-content: center;
+		    align-items: center;
 		}
 		.div1>img {
-			width: 100%;
 			height: 100%;
 		}
 		.div2{

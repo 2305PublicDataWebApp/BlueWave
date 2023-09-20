@@ -88,10 +88,15 @@ input[type="password"]{
     border-top-right-radius: 10px;
 }
 
+#user-name {
+	margin-top: 30px;
+}
+
 #user-nickname {
-    margin: 30px;
+    margin-top: 30px;
     border-radius: 10px;
 }
+
 
 #confirm-pw
 , #email-check {
@@ -119,49 +124,6 @@ input[type="checkbox"] {
     font-family: 'SUITE-Regular';
     margin-bottom: 50px;
     margin-top: 10px;
-}
-
-/* 아이디, 닉네임 중복체크 버튼 스타일 */
-.check-btn {
-    background-color: #efefef;
-    color: #696969;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer; /* 커서 모양 변경 (포인터) */
-    width: 100px;
-    height: 30px;
-    font-family: 'SUITE-Regular';
-    width: 70px;
-    font-size: 12px;
-    padding: 5px;
-}
-
-.check-btn:hover {
-    background-color: #e3e3e3;
-}
-
-.check-btn:active {
-    background-color: #c7c7c7;
-}
-
-#form-top-group {
-    position: relative;
-}
-
-#id-check-btn {
-    position: absolute;
-    bottom: 110px;
-    right: 170px;
-}
-
-#form-group {
-    position: relative;
-}
-
-#nickname-check-btn {
-    position: absolute;
-    right: 170px;
-    bottom: 40px;
 }
 
 /* 우편번호 찾기 버튼 스타일 */
@@ -192,20 +154,6 @@ input[type="checkbox"] {
     background-color: #658ca9;
 }
 
-/* 이메일 전송 버튼 스타일 */
-#get-num-btn {
-    position: absolute;
-    bottom: 24%;
-    right: 23%;
-}
-
-/* 이메일 확인 버튼 스타일 */
-#email-check-btn{
-    position: absolute;
-    bottom:5%;
-    right: 23%;
-}
-
 /* 버튼 그룹 스타일 */
 .button-group {
     display: flex;
@@ -213,6 +161,11 @@ input[type="checkbox"] {
     align-items: center;
     margin-top: 10px;
     margin-bottom: 40px;
+}
+
+/* 중복 체크 결과 메시지 스타일 */
+.result-message {
+    color: red;
 }
 
 /* 회원가입 버튼 스타일 */

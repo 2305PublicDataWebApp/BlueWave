@@ -91,31 +91,42 @@ public class UserController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/user/follow.do", method=RequestMethod.GET)
+	public ModelAndView followUser(ModelAndView mv
+			, @RequestParam("userId") String userId) {
+//		int result = uService.followUser(userId);
+		return mv;
+	}
+	
 	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
 		public ModelAndView showMyPage(
 				@ModelAttribute User user,
 				ModelAndView mv
 				) {
 			try {
-				
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
-//					int postCount = uService.getPostCountByUserId(user.getUserId());
-//					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
-//					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
-//					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
-//					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
-//					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
-//					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-//					mv.addObject("totalPoint", totalPoint);
-//		            mv.addObject("postCount", postCount);
-//		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
-//		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
-//		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
-//		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
-//		            mv.addObject("goodsList", goodsList);
+					int postCount = uService.getPostCountByUserId(user.getUserId());
+					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
+					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
+					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
+					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
+					int finishTotalPersonalChalCount = uService.getFinishTotalPersonalChalCount(user.getUserId());
+					List<Challenge> todayCList = uService.getTodayCList(user.getUserId());
+					List<CBoard> calDateList = uService.getCalDateList(user.getUserId());
+					
+					mv.addObject("todayCList", todayCList);
+					mv.addObject("totalPoint", totalPoint);
+		            mv.addObject("postCount", postCount);
+		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
+		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
+		            mv.addObject("totalPersonalChalCount", totalPersonalChalCount);
+		            mv.addObject("finishTotalPersonalChalCount", finishTotalPersonalChalCount);
+		            mv.addObject("goodsList", goodsList);
 					mv.addObject("user", uOne);
+					mv.addObject("calDateList", calDateList);
 					
 					
 					// 하단
@@ -303,21 +314,42 @@ public class UserController {
 	public ModelAndView updateUser(
 			@ModelAttribute User user
 			, ModelAndView mv
+			, @RequestParam(value="userAd", required=false) String userAd
 			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 			, HttpServletRequest request
 			, HttpSession session) {
 		try {
-			// 수정이라는 과정은 대체하는 것, 대체하는 방법은 삭제 후 등록
-			if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
-				String fileRename = user.getUserProfileRename();
-				this.deleteFile(fileRename, request);
+			userAd  = userAd != null ? "Y" : "N";
+			user.setUserAd(userAd);
+			if(uploadFile != null && !uploadFile.isEmpty()) {
+				// 수정
+				// 1. 대체, 2. 삭제 후 등록
+				// 기존 업로드 된 파일 존재 여부 체크 후
+				String fileName = user.getUserProfileRename();
+				if(fileName != null) {
+					// 있으면 기존 파일 삭제
+					this.deleteFile(fileName, request);
+				}
+				// 없으면 새로 업로드 하려는 파일 저장
+				Map<String, Object> infoMap = this.saveFile(request, uploadFile);
+				// 변수 차이
+				user.setUserProfileName((String) infoMap.get("userProfileName"));
+				user.setUserProfileRename((String) infoMap.get("userProfileRename"));
+				user.setUserProfilePath((String) infoMap.get("userProfilePath"));
+				user.setUserProfileLength((long) infoMap.get("userProfileLength"));
 			}
-			// 없으면 새로 업로드 하려는 파일 저장
-			Map<String, Object> infoMap = this.saveFile(request, uploadFile);
-			user.setUserProfileName((String) infoMap.get("userProfileName"));
-			user.setUserProfileRename((String) infoMap.get("userProfileRename"));
-			user.setUserProfilePath((String) infoMap.get("userProfilePath"));
-			user.setUserProfileLength((long) infoMap.get("userProfileLength"));
+			
+//			// 수정이라는 과정은 대체하는 것, 대체하는 방법은 삭제 후 등록
+//			if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+//				String fileRename = user.getUserProfileRename();
+//				this.deleteFile(fileRename, request);
+//			}
+//			// 없으면 새로 업로드 하려는 파일 저장
+//			Map<String, Object> infoMap = this.saveFile(request, uploadFile);
+//			user.setUserProfileName((String) infoMap.get("userProfileName"));
+//			user.setUserProfileRename((String) infoMap.get("userProfileRename"));
+//			user.setUserProfilePath((String) infoMap.get("userProfilePath"));
+//			user.setUserProfileLength((long) infoMap.get("userProfileLength"));
 			
 			int result = uService.updateMember(user);
 			if(result > 0) {

@@ -34,4 +34,12 @@
 	<select id="selectGoodsByNo" resultMap="goodsResultMap">
 		SELECT * FROM GOODS_TBL WHERE PRODUCT_NO = ${productNo }
 	</select>
+	
+	<select id="getGoodsListByUserId" resultType="Goods">
+	    SELECT *
+	    FROM USER_TBL U
+	    JOIN POINT_TBL P ON U.USER_ID = P.USER_ID
+	    JOIN GOODS_TBL G ON P.PRODUCT_NO = G.PRODUCT_NO
+	    WHERE U.USER_ID = #{userId }
+	</select>
 </mapper>

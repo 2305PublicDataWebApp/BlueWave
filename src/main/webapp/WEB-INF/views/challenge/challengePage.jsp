@@ -164,7 +164,7 @@
         });
         
         function showCBoardWrite() {
-        	const url = "/challenge/write.do";
+        	const url = "/challenge/create.do";
         	location.href = url;
         	
         }

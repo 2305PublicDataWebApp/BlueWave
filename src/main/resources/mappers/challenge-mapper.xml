@@ -136,4 +136,15 @@
 	<select id="findInsertChalNo" resultType="_int">
 		SELECT CHAL_NO FROM CHAL_TBL WHERE CHAL_USER_ID = #{ chalUserId } AND CHAL_TITLE = #{ chalTitle }
 	</select>
+	
+	<select id="getTodayCList" resultMap="chalResultMap">
+		<![CDATA[
+			SELECT * FROM CHAL_TBL
+			WHERE CHAL_USER_ID = #{userId }
+			AND (CHAL_END_DATE > SYSDATE OR CHAL_END_DATE IS NULL)
+			AND ROWNUM <= 5
+			AND CHAL_START_DATE < SYSDATE
+			ORDER BY CHAL_END_DATE ASC
+		]]>
+	</select>
 </mapper>

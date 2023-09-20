@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 	<head>
 		<meta charset="UTF-8">
@@ -105,29 +106,39 @@
 				<!-- 헤더 왼쪽 -->
 				<div class="navbar-left">
 					<div class="nav-logo-img space">
-						<img src="../resources/images/logo-img.png" alt="로고이미지" />
+						<a href="/home.do"><img src="../resources/images/logo-img.png" alt="로고이미지" /></a>
 					</div>
 					<div class="go-to-challenge space">
-						<a href="#">챌린지</a>
+						<a href="/challenge/page.do">챌린지</a>
 					</div>
 					<div class="go-to-notice space">
-						<a href="#">공지사항</a>
+						<a href="/notice/board.do">공지사항</a>
 					</div>
 					<div class="go-to-tip space">
-						<a href="#">팁 게시판</a>
+						<a href="/tip/board.do">팁 게시판</a>
 					</div>
 					<div class="go-to-goods space">
-						<a href="#">굿즈 페이지</a>
+						<a href="/goods/list.do">굿즈 페이지</a>
 					</div>
 				</div>
 				<!-- 헤더 오른쪽 -->
 				<div class="navbar-right">
-					<div class="login-btn">
-						<a href="/user/login.do">login</a>
-					</div>
-					<div class="register-btn space">
-						<button onclick="location.href='/user/register.do'">sign up</button>
-					</div>
+					<c:if test="${sessionScope.userId eq null}">
+						<div class="login-btn">
+							<a href="/user/login.do">login</a>
+						</div>
+						<div class="register-btn space">
+							<button onclick="location.href='/user/register.do'">sign up</button>
+						</div>
+					</c:if>
+					<c:if test="${sessionScope.userId ne null}">
+						<div class="login-btn">
+							<a href="/user/logout.do">logout</a>
+						</div>
+						<div class="register-btn space">
+							<button onclick="location.href='/user/myPage.do?userId=${sessionScope.userId}'">myPage</button>
+						</div>
+					</c:if>
 				</div>
 			</nav>
 		</div>

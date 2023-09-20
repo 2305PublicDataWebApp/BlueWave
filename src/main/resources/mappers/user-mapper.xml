@@ -29,7 +29,7 @@
 	</delete>
 	
 	<update id="updateUser">
-		UPDATE USER_TBL SET USER_PW = #{userPw }, USER_NICKNAME = #{userNickName }, USER_PHONE = #{userPhone }, USER_ADDR = #{userAddr }, USER_EMAIL = #{userEmail }, USER_PROFILE_NAME = #{userProfileName }, USER_PROFILE_RENAME = #{userProfileRename }, USER_PROFILE_PATH = #{userProfilePath }, USER_PROFILE_LENGTH = #{userProfileLength }, USER_AD = #{userAd } 
+		UPDATE USER_TBL SET USER_PW = #{userPw }, USER_NICKNAME = #{userNickName }, USER_PHONE = #{userPhone }, USER_ADDR = #{userAddr }, USER_EMAIL = #{userEmail }, USER_PROFILE_NAME = #{userProfileName }, USER_PROFILE_RENAME = #{userProfileRename }, USER_PROFILE_PATH = #{userProfilePath }, USER_PROFILE_LENGTH = #{userProfileLength }, USER_AD = #{userAd } WHERE USER_ID = #{userId } 
 	</update>
 	
 	<select id="checkUserLogin" resultMap="userResultMap">
@@ -48,27 +48,6 @@
 		SELECT * FROM USER_TBL WHERE USER_PHONE = #{userPhone }
 	</select>
 	
-<!-- 	<select id="getPostCountByUserId" resultType="_int" > -->
-<!-- 		SELECT COUNT(*) -->
-<!-- 		FROM CHAL_BOARD_TBL CB -->
-<!-- 		LEFT JOIN USER_TBL U ON CB.C_BOARD_WRITER = U.USER_ID -->
-<!-- 		WHERE U.USER_ID = #{userId } -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="getTotalPointByUserId" resultType="_int"> -->
-<!-- 		SELECT USER_TOTAL_POINT -->
-<!-- 		FROM POINT_TBL  -->
-<!-- 		WHERE USER_ID = #{userId } -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="getTotalBlueChalCount" resultType="_int"> -->
-<!-- 		SELECT DISTINCT COUNT(*) -->
-<!-- 		FROM CHAL_BOARD_TBL CB -->
-<!-- 		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO -->
-<!-- 		WHERE C.CHAL_USER_ID = 'admin' -->
-<!-- 		AND C.CHAL_BOARD_WRITER = #{userId } -->
-<!-- 	</select> -->
-	
 	<select id="selectAllFollowingListById" resultMap="userResultMap">
 		SELECT *
 		  FROM USER_TBL
@@ -84,32 +63,6 @@
 		                     FROM SUB_TBL
 		                    WHERE SUB_TARGET = #{ userId })
 	</select>
-
-<!-- 	<select id="getTotalPersonalChalCount" resultType="_int"> -->
-<!-- 		SELECT DISTINCT COUNT(*) -->
-<!--         FROM CHAL_BOARD_TBL CB -->
-<!--         INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO -->
-<!--         WHERE C.CHAL_USER_ID != 'admin' -->
-<!--         AND C.CHAL_BOARD_WRITER = #{userId } -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="getFinishTotalBlueChalCount" resultType="_int" > -->
-<!-- 		SELECT DISTINCT COUNT(*) -->
-<!-- 		FROM CHAL_BOARD_TBL CB -->
-<!-- 		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO -->
-<!-- 		WHERE C.CHAL_USER_ID = 'admin' -->
-<!--         AND C.CHAL_FINISH = 'Y' -->
-<!--         AND C.CHAL_BOARD_WRITER = #{userId } -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="getFinishTotalPersonalChalCount" resultType="_int" > -->
-<!-- 		SELECT DISTINCT COUNT(*) -->
-<!--         FROM CHAL_BOARD_TBL CB -->
-<!--         INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO -->
-<!--         WHERE C.CHAL_USER_ID != 'admin' -->
-<!--         AND C.CHAL_FINISH = 'Y' -->
-<!--         AND C.CHAL_BOARD_WRITER = #{userId } -->
-<!-- 	</select> -->
 	
 	<select id="getGoodsListByUserId" resultType="Goods">
 	    SELECT *

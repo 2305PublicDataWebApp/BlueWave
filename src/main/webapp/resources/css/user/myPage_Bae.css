@@ -205,7 +205,7 @@ body {
 
 /* 파란 물결, 오늘의 챌린지 스타일 */
 #chal {
-    height: 300px;
+    height: 400px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -216,13 +216,13 @@ body {
 
 #blue-wave {
     width: 45%;
-    height: 250px;
+    height: 100%;
     padding: 25px;
 }
 
 #todo-chal {
-    width: 45%;
-    height: 250px;
+    width: 55%;
+    height: 100%;
     padding: 25px;
 }
 
@@ -232,17 +232,16 @@ body {
     letter-spacing: 4px;
     font-size: 18px;
     font-weight: 600;
-    color: #4e4e4e;
+    color: #212529;
 }
 
 hr {
     color: #4e4e4e;
 }
 #todo-chal tr, td {
-    color: #4e4e4e;
+    color: #212529;
 }
 #todo-chal td {
-    width: 50%;
     text-align: left;
 }
 
@@ -265,9 +264,15 @@ hr {
 #percent-text {
     font-size: 12px;
     color: #6fbfee;
-    font-weight: bold;
     text-align: center;
     margin: 5px;
+}
+#0percent-text {
+	font-size: 15px;
+	font-weight:600px;
+    text-align: center;
+    letter-spacing: 8px;
+    color: gainsboro;
 }
 /* 굿즈 목록 스타일 */
 #list-count {
@@ -322,4 +327,11 @@ hr {
 .bx-wrapper {
     box-shadow: none !important;
 }
+
+/* 포스트 갯수 아이콘 */
+#post-count-icon{
+	margin-bottom: 9px;
+}
+
+
 
