@@ -42,11 +42,32 @@
 
 				<div id="btn-report-box">
 					<div id="btn-box" class="btn-design">
-						<button>참여하기</button>
+						<c:if test="${sessionScope.userId eq cOne.chalUserId }">
+	                        <a href="/cboard/write.do?chalNo=${cOne.chalNo }">
+	                        	<button>작성하기</button>
+	                        </a>
+						</c:if>
+						<c:if test="${sessionScope.userId ne cOne.chalUserId }">
+							<button>가져가기</button>											
+						</c:if>
 					</div>
 					<div id="report-box" class="btn-design">
 						<img src="/resources/images/report-icon.png" alt="신고 아이콘"> <a
 							href="#">신고하기</a>
+					</div>
+					<div class="update-delete-box">
+						<c:if test="${sessionScope.userId eq uOne.userId }">
+							<c:url var="updateUrl" value="/challenge/update.do">
+							   <c:param name="chalNo" value="${ cOne.chalNo }"></c:param>
+							   <c:param name="userId" value="${ sessionScope.userId }"></c:param>
+							</c:url>
+							<c:url var="deleteUrl" value="/challenge/delete.do">
+							   <c:param name="chalNo" value="${ cOne.chalNo }"></c:param>
+							   <c:param name="chalUserId" value="${ cOne.chalUserId }"></c:param>
+							   <c:param name="userId" value="${ sessionScope.userId }"></c:param>
+							</c:url>
+							<a href="${ updateUrl }" class="edit-personal-chal">수정하기</a> / <a href="javascript:void(0)" class="edit-personal-chal" onclick="deleteMyChal('${ deleteUrl }');">삭제하기</a>
+						</c:if>
 					</div>
 				</div>
 
@@ -57,7 +78,7 @@
 				<c:forEach var="cBoard" items="${cList }" varStatus="i">
 					<c:set var="post" value="${cBoard.cBoardFileRename }"></c:set>
 						<div class="like-image-container" data-bs-toggle="modal" data-bs-target="#chalBoardModal${i.count }">
-							<img src="/resources/images/${cBoard.cBoardFileName}" alt="챌린지 게시물 사진" class="like-img"
+							<img src="/resources/cuploadFiles/${cBoard.cBoardFileRename}" alt="챌린지 게시물 사진" class="like-img"
 								width="180px" height="200px">
 							<div class="image-text">
 								<span class="material-symbols-outlined" style="font-size: 1.1em;">
@@ -65,7 +86,7 @@
 							</div>
 						</div>
 						
-						<!-- Modal -->
+				<!-- Modal -->
 				<div class="modal fade" id="chalBoardModal${i.count }" tabindex="-1"
 					aria-labelledby="chalBoardModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -93,12 +114,15 @@
 															<h1>${uOne.userNickName}</h1>
 														</div>
 														<div class="user-subscribe-box">
-															<button>구독하기</button>
+															<c:if test="${sessionScope.userId ne uOne.userId }">
+																<button>구독하기</button>
+															</c:if>
 														</div>
 													</div>
 												<div class="report-board-box">
 													<img src="/resources/images/report-icon.png" alt="신고 아이콘">
 													<a href="#">신고하기</a>
+
 												</div>
 												</c:if>
 												<c:if test="${cOne.chalUserId eq 'admin' }">
@@ -129,7 +153,12 @@
 													<h2>${cBoard.cBoardTitle }</h2>
 												</div>
 												<div class="chal-board-tag-box">
-													<a href="#">수정하기</a> <a href="#">삭제하기</a>
+													<c:if test="${sessionScope.userId eq cBoard.cBoardWriter }">
+														<c:url var="delCBUrl" value="/challenge/cbDelete.do">
+														   <c:param name="cBoardNo" value="${cBoard.cBoardNo }"></c:param>
+														</c:url>
+														<a href="/challenge/cbUpdate.do?cBoardNo=${cBoard.cBoardNo }">수정하기</a> / <a href="/challenge/cbDelete.do?cBoardNo=${cBoard.cBoardNo }">삭제하기</a>
+													</c:if>
 												</div>
 											</div>
 											<div class="mid-box">
@@ -172,5 +201,19 @@
 			</section>
 		</div>
 	</main>
+	
+	<script>
+	    function deleteMyChal(deleteUrl) {
+	        if(confirm("삭제한 챌린지 정보는 복구되지 않습니다(인증 게시물 포함). 정말 삭제하시겠습니까?")){
+	        	location.href = deleteUrl;
+	        }
+	    }
+	    
+	    function deleteCBoard(delCBUrl) {
+	    	if(confirm("삭제한 챌린지 게시물은 복구되지 않습니다. 정말 삭제하시겠습니까?")) {
+	    		location.href = delCBUrl;
+	    	}
+	    }
+	</script>
 </body>
 </html>

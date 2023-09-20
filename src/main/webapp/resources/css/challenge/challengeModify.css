@@ -1,0 +1,91 @@
+@charset "UTF-8";
+#container {
+    width: 70%;
+    height: 100vh;
+    margin: 0 auto;
+    margin-top: 60px;
+    padding-top: 5px;
+    background-color: white;
+    padding: 50px;
+}
+.main {
+	width: 70%;
+	height: 100%;
+	margin: 0 auto;
+	padding-top: 200px;
+}
+a {
+	/* a 태그 디자인 */
+	color: black;
+	text-decoration: none;
+}
+body{
+    background-image: url(/resources/images/background-img.jpg);
+    width: 100%;
+    height: 100%;
+}
+.user-info-box {
+	display: flex;
+	align-items: center;
+/* 	background-color: aqua; */
+}
+.user-img img{
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+	margin-right: 20px;
+}
+.chal-label{
+	font-size: 24px;
+	
+}
+.chal-board-title-box, .chal-board-content-box, .chal-board-file-box {
+	margin-top: 15px;
+}
+#chal-board-title {
+	width: 100%;
+    height: 35px;
+}
+#chal-board-content {
+	width: 100%;
+	height: 150px;
+}
+.input-tag {
+	margin-top: 5px;
+}
+.chal-board-file-box {
+	display: flex;
+	justify-content: space-between;
+}
+.btn-box {
+	display: flex;
+	justify-content: flex-end;
+}
+.btn {
+	background-color: #3881C5;
+    color: #F3F3F3;
+    width: 85px;
+    height: 30px;
+/*     margin: 10px; */
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor:pointer;
+    text-align: center;
+    font-weight: bolder;
+    line-height: 1.4;
+}
+#reset-btn {
+	background-color: #ccc;
+    color: black;
+    width: 85px;
+    height: 30px;
+	margin-right: 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor:pointer;
+    text-align: center;
+    font-weight: bolder;
+    line-height: 1.4;
+}

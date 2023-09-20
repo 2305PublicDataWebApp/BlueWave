@@ -39,37 +39,6 @@ public class CBoardController {
 	@Autowired
 	private UserService uService;
 	
-//	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
-//	public ModelAndView showChallengePage(
-//			ModelAndView mv
-//			, HttpSession session
-//			) {
-//		try {
-//			// 로그인 유효성 체크
-//			String userId = (String)session.getAttribute("userId");
-////			String userId = "testuser01";
-////			User uOne = uService.selectOneById(userId);
-//			if(userId != null) {
-//				// 성공
-//				System.out.println("성공");
-//				// 챌린지 테이블에서 select
-////				List<Challenge> chalList = chalService.selectListByChal();
-//				
-//			} else {
-//				// 실패
-//				System.out.println("실패");
-//				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
-//				mv.addObject("url", "redirect:/user/login.do");
-//				mv.setViewName("common/serviceFailed");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			mv.addObject("msg", e.getMessage());
-//			mv.setViewName("common/errorMessage");
-//		}
-//		mv.setViewName("challenge/challengePage");
-//		return mv;
-//	}
 	
 	@RequestMapping(value="/challenge/info.do", method=RequestMethod.GET)
 	public ModelAndView showChallengeInfo(
@@ -97,19 +66,10 @@ public class CBoardController {
 			// chalNo에 해당하는 게시물의 갯수 select
 //			int chalLikeCount = cService.
 			
-			if(cList.size() > 0 || !cList.isEmpty()) {
-				// 성공
-				mv.addObject("cList", cList);
-				mv.addObject("cOne", cOne);
-				mv.addObject("uOne", uOne);
-				mv.setViewName("challenge/challengeInfo");
-			} else {
-				// 실패
-				System.out.println("실패");
-				mv.addObject("msg", "조회 실패");
-				mv.addObject("url", "common/errorMessage");
-				mv.setViewName("common/serviceFailed");
-			}
+			mv.addObject("cList", cList);
+			mv.addObject("cOne", cOne);
+			mv.addObject("uOne", uOne);
+			mv.setViewName("challenge/challengeInfo");
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage());
@@ -158,50 +118,159 @@ public class CBoardController {
 	}
 	
 	@RequestMapping(value="/challenge/write.do", method=RequestMethod.GET)
-	public ModelAndView showChallengeWrite(ModelAndView mv) {
-		mv.setViewName("challenge/challengeWrite");
+	public ModelAndView showChallengeWrite(
+			ModelAndView mv
+			, @RequestParam("chalNo") Integer chalNo
+			, HttpSession session
+			) {
+		try {
+			String cBoradWriter = (String)session.getAttribute("userId");
+			User uOne = uService.selectOneByChalNo(cBoradWriter);
+			Challenge cOne = chalService.selectOneByNo(chalNo);
+			if(uOne != null) {
+				mv.addObject("uOne", uOne);
+				mv.addObject("cOne", cOne);
+				mv.setViewName("challenge/challengeWrite");			
+			} else {
+				mv.addObject("msg", "로그인 되어있지 않거나 유효하지 않은 회원 정보 입니다.");
+				mv.addObject("url", "/home.do");
+				mv.setViewName("common/serviceFailed");
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "페이지 조회 실패 (관리자 문의 요망)");
+			mv.addObject("url", "/home.do");
+			mv.setViewName("common/serviceFailed");
+		}
 		return mv;
 	}
 	
+	@RequestMapping(value="/challenge/cbUpdate.do", method=RequestMethod.GET)
+	public ModelAndView showCBoardModify(
+			ModelAndView mv
+			, @RequestParam("cBoardNo") Integer cBoardNo
+			, HttpSession session
+			) {
+			try {
+				String cBoradWriter = (String)session.getAttribute("userId");
+				User uOne = uService.selectOneByChalNo(cBoradWriter);
+				CBoard cBOne = cService.selectOneByCBoardNo(cBoardNo);
+				if(uOne != null) {
+					mv.addObject("uOne", uOne);
+					mv.addObject("cBOne", cBOne);
+					mv.setViewName("challenge/challengeModify");			
+				} else {
+					mv.addObject("msg", "로그인 되어있지 않거나 유효하지 않은 회원 정보 입니다.");
+					mv.addObject("url", "/home.do");
+					mv.setViewName("common/serviceFailed");
+				}	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return mv;
+	}
 	
 	// 챌린지 게시물 작성
-	@RequestMapping(value="/challenge/write.do", method=RequestMethod.POST)
-	public ModelAndView writeCBoard(
+		@RequestMapping(value="/challenge/write.do", method=RequestMethod.POST)
+		public ModelAndView writeCBoard(
+				ModelAndView mv
+				, @ModelAttribute CBoard cBoard
+				, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
+				, HttpSession session
+				, HttpServletRequest request
+				) {
+			try {
+				String cBoradWriter = (String)session.getAttribute("userId");
+				if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+					Map<String, Object> cBMap = this.saveFile(request, uploadFile);
+					cBoard.setcBoardWriter(cBoradWriter);
+					cBoard.setcBoardFileName((String)cBMap.get("fileName"));
+					cBoard.setcBoardFileRename((String)cBMap.get("fileRename"));
+					cBoard.setcBoardFilePath((String)cBMap.get("filePath"));
+					cBoard.setcBoardFileLength((long)cBMap.get("fileLength"));
+				}
+	//			cBoard.setChalNo(chalNo);
+				int result = cService.writeCBoard(cBoard);
+				if(result > 0) {
+					// 성공
+					mv.setViewName("redirect:/challenge/info.do?chalNo="+cBoard.getChalNo());
+				} else {
+					// 실패
+					mv.addObject("msg", "게시물 작성에 실패하였습니다.");
+					mv.addObject("url", "/challenge/page.do");
+					mv.setViewName("common/errorPage");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				mv.addObject("msg", "관리자에게 문의 바랍니다.");
+				mv.addObject("url", "/challenge/page.do");
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+
+	@RequestMapping(value="/challenge/cbUpdate.do", method=RequestMethod.POST)
+	public ModelAndView ModifyCBoard(
 			ModelAndView mv
 			, @ModelAttribute CBoard cBoard
 			, @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 			, HttpSession session
 			, HttpServletRequest request
 			) {
-//		String cBoradWriter = (String)session.getAttribute("userId");
-		String cBoradWriter = "testuser01";
 		try {
 			if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
+				String fileRename = cBoard.getcBoardFileRename();
+				if(fileRename != null) {
+					this.cBoardDeleteFile(fileRename, request);
+				}
+				// 파일정보(이름, 리네임, 경로, 크기) 및 파일저장
 				Map<String, Object> cBMap = this.saveFile(request, uploadFile);
-				cBoard.setcBoardWriter(cBoradWriter);
 				cBoard.setcBoardFileName((String)cBMap.get("fileName"));
 				cBoard.setcBoardFileRename((String)cBMap.get("fileRename"));
 				cBoard.setcBoardFilePath((String)cBMap.get("filePath"));
 				cBoard.setcBoardFileLength((long)cBMap.get("fileLength"));
 			}
-			int result = cService.writeCBoard(cBoard);
+			int result = cService.modifyCBoard(cBoard);
+			CBoard cOne = cService.selectOneByCBoardNo(cBoard.getcBoardNo());
 			if(result > 0) {
-				// 성공
-				mv.setViewName("redirect:/challenge/info.do");
+				mv.setViewName("redirect:/challenge/info.do?chalNo=" + cOne.getChalNo());
 			} else {
-				// 실패
-				mv.addObject("msg", "게시물 작성에 실패하였습니다.");
-				mv.addObject("url", "/challenge/page.do");
-				mv.setViewName("common/errorPage");
+				mv.addObject("msg", "챌린지 게시물 수정 실패");
+				mv.addObject("url", "/challenge/info.do?chalNo=" + cOne.getChalNo());
+				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", "관리자에게 문의 바랍니다.");
+			mv.addObject("msg", "챌린지 게시물 수정 오류 (관리자 문의 요망)");
 			mv.addObject("url", "/challenge/page.do");
-			mv.setViewName("common/errorPage");
+			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value="/challenge/cbDelete.do", method=RequestMethod.GET)
+	public ModelAndView removeCBoard(
+			ModelAndView mv
+			, @RequestParam("cBoardNo") Integer cBoardNo
+			) {
+		try {
+			int result = cService.removeCBoard(cBoardNo);
+			if(result > 0) {
+				mv.setViewName("redirect:/challenge/page.do");
+			} else {
+				mv.addObject("msg", "챌린지 게시물 삭제 실패");
+				mv.addObject("url", "/challenge/page.do");
+				mv.setViewName("common/serviceFailed");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "챌린지 게시물 삭제 오류 (관리자 문의 요망)");
+			mv.addObject("url", "/challenge/page.do");
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	
 	// 파일 업로드 관련 컨트롤러
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws IllegalStateException, IOException{
@@ -239,5 +308,15 @@ public class CBoardController {
 		fileMap.put("fileLength", fileLength);
 		return fileMap;
 		
+	}
+	
+	// 게시물 수정 시 파일 삭제 관련 컨트롤러
+	private void cBoardDeleteFile(String fileRename, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String delPath = root + "\\gtuploadFiles\\" + fileRename;
+		File delFile = new File(delPath);
+		if(delFile.exists()) {
+			delFile.delete();
+		}
 	}
 }
