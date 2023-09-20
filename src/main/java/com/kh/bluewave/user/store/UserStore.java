@@ -235,4 +235,11 @@ public interface UserStore {
 	 * @return
 	 */
 	int isFollowing(SqlSession session, Sub sub);
+
+	/**
+	 * 모든 회원 리스트 조회 Store
+	 * @param session
+	 * @return
+	 */
+	List<User> selectUserList(SqlSession session);
 }

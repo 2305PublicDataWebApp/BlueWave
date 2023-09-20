@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/resources/css/challenge/challengeBoard.css">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -218,7 +219,7 @@
 		                    </div>
 		                    <div class="ui-item">
 		                        <img class="ui-icon" src="../resources/images/user/point-icon.png" alt="">
-		                        <span class="ui-text">${totalPoint }p</span>
+<%-- 		                        <span class="ui-text">${totalPoint }p</span> --%>
 		                    </div>
 		                </div>                         
 		            </div>
@@ -357,7 +358,11 @@
 	                                    	</c:if>
 	                                    </div>
 	                                    <!-- 챌린지 세부 정보 이동 버튼 -->
-	                                    <button class="chal-details-btn" onclick="showChalInfo('${ chal.chalNo }');">
+	                                    <c:url var="userChalInfoUrl" value="/challenge/userChalInfo.do">
+	                                   		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+	                                   		<c:param name="userId" value="${ user.userId }"></c:param>
+	                                   	</c:url>
+	                                    <button class="chal-details-btn" onclick="showChalInfo('${ userChalInfoUrl }');">
 	                                        <span class="material-symbols-outlined">arrow_forward_ios</span>
 	                                    </button>
 	                                </div>
@@ -529,7 +534,11 @@
 		                                    	</c:if>
 		                                    </div>
 		                                    <!-- 챌린지 세부 정보 이동 버튼 -->
-		                                    <button class="chal-details-btn" onclick="showChalInfo('${ chal.chalNo }');">
+		                                    <c:url var="userChalInfoUrl" value="/challenge/userChalInfo.do">
+		                                   		<c:param name="chalNo" value="${ chal.chalNo }"></c:param>
+		                                   		<c:param name="userId" value="${ user.userId }"></c:param>
+		                                   	</c:url>
+		                                    <button class="chal-details-btn" onclick="showChalInfo('${ userChalInfoUrl }');">
 		                                        <span class="material-symbols-outlined">arrow_forward_ios</span>
 		                                    </button>
 		                                </div>
@@ -601,24 +610,26 @@
 													</div>
 												</c:if>
 												
-		                                        <!-- 나의 인증 횟수 -->
-		                                        <div>
-		                                        	<c:set var="loop_flag" value="true" />
-		                                            <c:forEach var="post" items="${ cPostCntList }" varStatus="postStatus">
-	                                            		<c:if test="${ loop_flag }">
-		                                            		<c:choose>
-		                                            			<c:when test="${ chal.chalNo eq post.chalNo }">
-		                                            				${ post.postCount }회
-		                                            				<c:set var="loop_flag" value="false" />
-		                                            			</c:when>
-		                                            			<c:otherwise>
-		                                            				0회
-		                                            				<c:set var="loop_flag" value="false" />
-		                                            			</c:otherwise>
-		                                            		</c:choose>
-	                                            		</c:if>
-	                                            	</c:forEach>
-		                                        </div>
+												<!-- 나의 인증 횟수 -->
+												<div>
+												    <c:set var="found" value="false" />
+												    <c:forEach var="post" items="${cPostCntList}" varStatus="postStatus">
+												        <c:if test="${not found}">
+												            <c:choose>
+												                <c:when test="${chal.chalNo eq post.chalNo}">
+												                    ${post.postCount }회
+												                    <c:set var="found" value="true" />
+												                </c:when>
+												                <c:otherwise>
+												                    <c:set var="found" value="false" />
+												                </c:otherwise>
+												            </c:choose>
+												        </c:if>
+												    </c:forEach>
+												    <c:if test="${not found}">
+												        0회
+												    </c:if>
+												</div>
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -669,95 +680,91 @@
             	<!-- 좋아요 게시물 모달 -->
             	<c:forEach var="likePost" items="${ cBLikePostList }" varStatus="status">
 	            	<div class="modal fade" id="likePostModal${status.count }" tabindex="-1" aria-labelledby="likePostModalLabel" aria-hidden="true">
-	   					<div class="modal-dialog modal-lg">
+						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="likePostModalLabel">
-<%-- 										<c:if test="${cOne.chalUserId eq 'admin' }">블루웨이브 챌린지</c:if> --%>
-<%-- 										<c:if test="${cOne.chalUserId ne 'admin' }">개인 챌린지</c:if> --%>
-										${ likePost.cBoardTitle }
+										<c:forEach var="chal" items="${ allChalList }">
+											<c:if test="${ chal.chalNo eq likePost.chalNo }">
+												<c:if test="${chal.chalUserId eq 'admin' }">블루웨이브 챌린지</c:if>
+												<c:if test="${chal.chalUserId ne 'admin' }">개인 챌린지</c:if>
+											</c:if>
+										</c:forEach>
 									</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
-<!-- 									<div id="container-modal"> -->
-<!-- 										<div class="main-modal"> -->
-<!-- 											<section id="top-section"> -->
-<!-- 												<div id="user-info"> -->
-<%-- 													<c:if test="${cOne.chalUserId ne 'admin' }"> --%>
-<!-- 														<div class="user-info-box"> -->
-<!-- 															<div class="user-img-box"> -->
-<%-- 																<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%>
-<!-- 															</div> -->
-<!-- 															<div class="user-nickname-box"> -->
-<%-- 																<h1>${uOne.userNickName}</h1> --%>
-<!-- 															</div> -->
-<!-- 															<div class="user-subscribe-box"> -->
-<!-- 																<button>구독하기</button> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													<div class="report-board-box"> -->
-<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> -->
-<!-- 														<a href="#">신고하기</a> -->
-<!-- 													</div> -->
-<%-- 													</c:if> --%>
-<%-- 													<c:if test="${cOne.chalUserId eq 'admin' }"> --%>
-<!-- 														<div class="user-info-box"> -->
-<!-- 	<!-- 														<div class="user-img-box"> --> -->
-<%-- 	<%-- 															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%> --%>
-<!-- 	<!-- 														</div> --> -->
-<!-- 															<div class="user-nickname-box"> -->
-<!-- 																<h1>관리자</h1> -->
-<!-- 															</div> -->
-<!-- 	<!-- 														<div class="user-subscribe-box"> --> -->
-<!-- 	<!-- 															<button>구독하기</button> --> -->
-<!-- 	<!-- 														</div> --> -->
-<!-- 														</div> -->
-<!-- 														<div class="report-board-box"> -->
-<!-- 	<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> --> -->
-<!-- 	<!-- 														<a href="#">신고하기</a> --> -->
-<!-- 														</div> -->
-<%-- 													</c:if> --%>
-<!-- 												</div> -->
-<!-- 											</section> -->
-<!-- 											<div id="chal-info"> -->
-<!-- 												<p> </p> -->
-<!-- 											</div> -->
-<!-- 											<section id="mid-section"> -->
-<!-- 												<div class="top-box"> -->
-<!-- 													<div class="chal-board-title-box"> -->
-<%-- 														<h2>${cBoard.cBoardTitle }</h2> --%>
-<!-- 													</div> -->
-<!-- 													<div class="chal-board-tag-box"> -->
-<!-- 														<a href="#">수정하기</a> <a href="#">삭제하기</a> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 												<div class="mid-box"> -->
-<%-- 													<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${cBoard.cBoardFileRename }"> --%>
-<%-- 													<p>${cBoard.cBoardContent}</p> --%>
-<!-- 												</div> -->
-<!-- 												<div class="bottom-box"> -->
-<!-- 													<div class="calendar-box"> -->
-<!-- 														<img alt="캘린더 아이콘" -->
-<!-- 															src="/resources/images/Unioncalendar.png"> -->
-<!-- 														<p>7회 째 실천 중</p> -->
-<!-- 													</div> -->
-<!-- 													<div> -->
-<!-- 														<p style="margin-bottom: 0px;">1시간 전</p> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 											</section> -->
-<!-- 											<hr> -->
-<!-- 											<section id="bottom-section"> -->
-<!-- 												<div class="like-btn-box"> -->
-<!-- 													<img alt="하트 아이콘" src="/resources/images/heart.png"> -->
-<!-- 													<h4>좋아요 5개</h4> -->
-<!-- 												</div> -->
-<!-- 											</section> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
+									<div id="container-modal">
+										<div class="main-modal">
+											<section id="top-section">
+												<div id="user-info">
+													<c:forEach var="chal" items="${ allChalList }">
+														<c:if test="${ chal.chalNo eq likePost.chalNo }">
+															<c:if test="${chal.chalUserId ne 'admin' }">
+																<div class="user-info-box">
+																	<c:forEach var="user" items="${ allUserList }">
+																		<c:if test="${ user.userId eq likePost.cBoardWriter }">
+																			<div class="user-img-box">
+																				<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
+																			</div>
+																			<div class="user-nickname-box">
+																				<h1>${user.userNickName}</h1>
+																			</div>
+																			<div class="user-subscribe-box">
+																				<c:if test="${sessionScope.userId ne user.userId }">
+																					<button>구독하기</button>
+																				</c:if>
+																			</div>
+																		</c:if>
+																	</c:forEach>
+																</div>
+															</c:if>
+															<c:if test="${chal.chalUserId eq 'admin' }">
+																<div class="user-info-box">
+																	<div class="user-nickname-box">
+																		<h1>관리자</h1>
+																	</div>
+																</div>
+															</c:if>
+														</c:if>
+													</c:forEach>
+												</div>
+											</section>
+											<div id="chal-info">
+												<p> </p>
+											</div>
+											<section id="mid-section">
+												<div class="top-box">
+													<div class="chal-board-title-box">
+														<h2>${likePost.cBoardTitle }</h2>
+													</div>
+												</div>
+												<div class="mid-box">
+													<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${likePost.cBoardFileRename }">
+													<p>${likePost.cBoardContent}</p>
+												</div>
+												<div class="bottom-box">
+													<div class="calendar-box">
+														<img alt="캘린더 아이콘"
+															src="/resources/images/Unioncalendar.png">
+														<p>7회 째 실천 중</p>
+													</div>
+													<div>
+														<p style="margin-bottom: 0px;">1시간 전</p>
+													</div>
+												</div>
+											</section>
+											<hr>
+											<section id="bottom-section">
+												<div class="like-btn-box">
+													<img alt="하트 아이콘" src="/resources/images/heart.png">
+													<h4>좋아요 5개</h4>
+												</div>
+											</section>
+										</div>
+									</div>
 								</div>
+								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 								</div>
@@ -893,8 +900,8 @@
             showTab('bluewave-tab');
         </script>
         <script>
-        	function showChalInfo(chalNo) {
-				location.href = "/challenge/info.do?chalNo=" + chalNo;
+        	function showChalInfo(userChalInfoUrl) {
+				location.href = userChalInfoUrl;
 			}
         </script>
         <script>

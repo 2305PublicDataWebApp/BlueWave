@@ -188,4 +188,10 @@ public class UserStoreLogic implements UserStore{
 		int result = session.selectOne("SubMapper.isFollowing", sub);
 		return result;
 	}
+
+	@Override
+	public List<User> selectUserList(SqlSession session) {
+		List<User> uList = session.selectList("UserMapper.selectUserList");
+		return uList;
+	}
 }

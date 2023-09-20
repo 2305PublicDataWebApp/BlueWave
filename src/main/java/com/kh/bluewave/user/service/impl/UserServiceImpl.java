@@ -192,5 +192,11 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 
+	@Override
+	public List<User> selectUserList() {
+		List<User> uList = uStore.selectUserList(session);
+		return uList;
+	}
+
 
 }

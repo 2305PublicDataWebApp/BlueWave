@@ -47,6 +47,13 @@ public class CBoardServiceImpl implements CBoardService{
 		return cList;
 	}
 	
+	// 회원 챌린지 게시물 list
+	@Override
+	public List<CBoard> findCBoardByWriterAndNo(CBoard cBoard) {
+		List<CBoard> cList = cStore.selectCBoardByWriterAndNo(session, cBoard);
+		return cList;
+	}
+
 	// 좋아요 한 게시물 list
 	@Override
 	public List<CBoard> selectAllLikePostsById(String userId) {

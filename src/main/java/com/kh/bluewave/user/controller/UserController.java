@@ -155,7 +155,7 @@ public class UserController {
 					// 상단
 					int postCount = uService.getPostCountByUserId(user.getUserId());
 					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+//					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
 					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
 					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
 					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
@@ -173,7 +173,7 @@ public class UserController {
 
 			        mv.addObject("isFollowing", isFollowing);
 					mv.addObject("todayCList", todayCList);
-					mv.addObject("totalPoint", totalPoint);
+//					mv.addObject("totalPoint", totalPoint);
 		            mv.addObject("postCount", postCount);
 		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
 		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
@@ -212,10 +212,15 @@ public class UserController {
 						List<Sub> followingList = uService.selectAllFollowingListById(userId); // 팔로잉 목록 
 						List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
 						
+						// 모든 리스트
+						List<Challenge> allChalList = cService.selectListByChal();
+						List<User> allUserList = uService.selectUserList();
+						
 						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
 						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList)
 						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
 						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
+						  .addObject("allChalList", allChalList).addObject("allUserList", allUserList)
 						  .setViewName("user/myPage");
 					} else {
 						mv.addObject("msg", "완료 여부 체크").addObject("url", "/user/myPage.do?userId=" + userId);

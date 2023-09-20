@@ -15,6 +15,14 @@ public class CBoard {
 	private String cBoardWriter;
 	private int chalNo;
 	
+	public CBoard() {}
+	
+	public CBoard(String cBoardWriter, int chalNo) {
+		super();
+		this.cBoardWriter = cBoardWriter;
+		this.chalNo = chalNo;
+	}
+
 	public int getcBoardNo() {
 		return cBoardNo;
 	}

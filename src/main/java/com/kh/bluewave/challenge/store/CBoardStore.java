@@ -41,6 +41,14 @@ public interface CBoardStore {
 	List<CBoard> selectCBoardByNo(SqlSession session, int chalNo);
 
 	/**
+	 * 회원 챌린지 게시물 list로 가져오는 Store
+	 * @param session
+	 * @param cBoard
+	 * @return
+	 */
+	List<CBoard> selectCBoardByWriterAndNo(SqlSession session, CBoard cBoard);
+
+	/**
 	 * 회원이 좋아요를 한 게시물 리스트 조회 Store
 	 * @param session
 	 * @param userId

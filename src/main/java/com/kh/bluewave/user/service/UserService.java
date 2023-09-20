@@ -88,13 +88,6 @@ public interface UserService {
 	 */
 	int getTotalPersonalChalCount(String userId);
 	
-	
-	/**
-	 * 회원 교환굿즈 목록 조회 Service
-	 * @param userId
-	 * @return
-	 */
-
 	/**
 	 * 회원의 팔로잉 목록 조회 Service
 	 * @param userId
@@ -109,7 +102,11 @@ public interface UserService {
 	 */
 	List<Sub> selectAllFollowersListById(String userId);
 
-	
+	/**
+	 * 회원 교환굿즈 목록 조회 Service
+	 * @param userId
+	 * @return
+	 */
 	List<Goods> getGoodsListByUserId(String userId);
 
 	/**
@@ -209,5 +206,11 @@ public interface UserService {
 	 * @return
 	 */
 	int isFollowing(Sub sub);
+
+	/**
+	 * 모든 회원 리스트 조회 Service
+	 * @return
+	 */
+	List<User> selectUserList();
 
 }

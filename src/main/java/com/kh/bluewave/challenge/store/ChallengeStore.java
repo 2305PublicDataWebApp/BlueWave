@@ -52,10 +52,10 @@ public interface ChallengeStore {
 	/**
 	 * 챌린지 명으로 챌린지 조회 Store
 	 * @param session
-	 * @param chalTitle
+	 * @param challenge
 	 * @return
 	 */
-	Challenge selectOneByTitle(SqlSession session, String chalTitle);
+	Challenge selectOneByTitle(SqlSession session, Challenge challenge);
 
 	/**
 	 * 회원 아이디로 챌린지 리스트 조회 Store

@@ -51,8 +51,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public Challenge selectOneByTitle(String chalTitle) {
-		Challenge cOne = cStore.selectOneByTitle(session, chalTitle);
+	public Challenge selectOneByTitle(Challenge challenge) {
+		Challenge cOne = cStore.selectOneByTitle(session, challenge);
 		return cOne;
 	}
 
