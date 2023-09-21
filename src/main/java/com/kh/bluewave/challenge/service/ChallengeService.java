@@ -3,6 +3,7 @@ package com.kh.bluewave.challenge.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.bluewave.challenge.domain.CLike;
 import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
@@ -130,4 +131,10 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectChallList(PageInfo pInfo);
+	
+	/**
+	 * 챌린지 명 전체 리스트 좋아요까지 조회
+	 * @return
+	 */
+	List<Challenge> selectAllLikeCnt();
 }

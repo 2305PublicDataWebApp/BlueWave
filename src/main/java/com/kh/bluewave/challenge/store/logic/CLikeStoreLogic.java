@@ -17,4 +17,27 @@ public class CLikeStoreLogic implements CLikeStore{
 		return cLList;
 	}
 
+	@Override
+	public List<CLike> selectListByUserIdCBoardNo(SqlSession session, CLike cLOne) {
+		List<CLike> checkCLike = session.selectList("CLikeMapper.selectListByUserIdCBoardNo", cLOne);
+		return checkCLike;
+	}
+
+	@Override
+	public int insertCLike(SqlSession session, CLike cLOne) {
+		int result = session.insert("CLikeMapper.insertCLike", cLOne);
+		return result;
+	}
+
+	@Override
+	public int deleteCLike(SqlSession session, CLike cLOne) {
+		int result = session.delete("CLikeMapper.deleteCLike", cLOne);
+		return result;
+	}
+
+	@Override
+	public List<CLike> checkIsLiked(SqlSession session, String userId) {
+		List<CLike> isLiked = session.selectList("CLikeMapper.checkIsLiked", userId);
+		return isLiked;
+	}
 }

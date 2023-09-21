@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.bluewave.challenge.domain.CBoard;
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.point.domain.Point;
 
 public interface CBoardService {
 	
@@ -62,5 +63,38 @@ public interface CBoardService {
 	 * @return
 	 */
 	CBoard selectLikePostInfoByCBoardNo(int cBoardNo);
+	
+	/**
+	 * 해당 챌린지 명 안에 게시물 갯수 조회 Service
+	 * @return
+	 */
+	List<CBoard> selectBoardCountList();
+	
+	/**
+	 * 해당 챌린지 게시물에 찍힌 좋아요 수 조회 Service
+	 * @return
+	 */
+	List<CBoard> selectBoardLikeCountList();
+	
+	/**
+	 * 해당 유저 아이디가 작성한 최신 챌린지 게시물 조회 Service
+	 * @param userId
+	 * @return CBoard
+	 */
+	CBoard selectOneByCDate(String userId);
+	
+	/**
+	 * 해당 유저 아이디의 최신 포인트 내역 조회 Service
+	 * @param userId
+	 * @return Point
+	 */
+	Point selectOneByLastHistory(String userId);
+	
+	/**
+	 * 챌린지 게시물 작성 시 포인트 적립
+	 * @param point
+	 * @return int
+	 */
+	int rewardPointByCBoard(Point point);
 
 }

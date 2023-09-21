@@ -10,7 +10,24 @@
 		<result property="likeCnt"   column="LIKE_CNT"/>
 	</resultMap>
 	
+	<insert id="insertCLike">
+		INSERT INTO CHAL_LIKE_TBL VALUES(#{userId}, #{cBoardNo})
+	</insert>
+	
+	<delete id="deleteCLike">
+		DELETE FROM CHAL_LIKE_TBL WHERE USER_ID = #{userId} AND C_BOARD_NO = #{cBoardNo}
+	</delete>
+	
 	<select id="selectAllLikeCnt" resultMap="cLikeResultMap">
 		SELECT C_BOARD_NO, COUNT(*) AS LIKE_CNT FROM CHAL_LIKE_TBL GROUP BY C_BOARD_NO
 	</select>
+	
+	<select id="selectListByUserIdCBoardNo" resultMap="cLikeResultMap">
+		SELECT * FROM CHAL_LIKE_TBL WHERE USER_ID = #{userId} AND C_BOARD_NO = #{cBoardNo}
+	</select>
+	
+	<select id="checkIsLiked" resultMap="cLikeResultMap">
+		SELECT * FROM CHAL_LIKE_TBL WHERE USER_ID = #{userId}
+	</select>
+	
 </mapper>

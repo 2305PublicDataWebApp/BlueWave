@@ -125,4 +125,10 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectAllLikeCnt(SqlSession session) {
+		List<Challenge> cLikeList = session.selectList("ChalMapper.selectAllLikeCnt");
+		return cLikeList;
+	}
+
 }

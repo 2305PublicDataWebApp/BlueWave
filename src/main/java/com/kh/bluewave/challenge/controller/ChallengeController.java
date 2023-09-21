@@ -24,7 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.bluewave.challenge.domain.CBoard;
+import com.kh.bluewave.challenge.domain.CLike;
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.challenge.service.CBoardService;
+import com.kh.bluewave.challenge.service.CLikeService;
 import com.kh.bluewave.challenge.service.ChallengeService;
 
 @Controller
@@ -32,6 +36,12 @@ public class ChallengeController {
 	
 	@Autowired
 	private ChallengeService cService;
+	
+	@Autowired
+	private CBoardService cbService;
+	
+	@Autowired
+	private CLikeService cLikeService;
 	
 	// 챌린지 생성 페이지
 	@RequestMapping(value="/challenge/create.do", method=RequestMethod.GET)
@@ -297,20 +307,29 @@ public class ChallengeController {
 	@RequestMapping(value="/challenge/page.do", method=RequestMethod.GET)
 	public ModelAndView showChallengePage(
 			ModelAndView mv
-//			, String userId
 			, HttpSession session
 			) {
 		try {
 			// 로그인 유효성 체크
 			String userId = (String)session.getAttribute("userId");
-			System.out.println(userId);
 			if(userId != null) {
 				// 성공
 				// 챌린지 테이블에서 select
 				List<Challenge> cList = cService.selectListByChal();
+				
+				// 해당 챌린지 명에 대한 총 좋아요 수
+				List<Challenge> cLikeList = cService.selectAllLikeCnt();
+				
+				// 해당 챌린지 명에 대한 총 게시물 갯수
+				List<CBoard> cBoardCNT = cbService.selectBoardCountList();
+				
+
+				
 				if(cList.size() > 0 || !cList.isEmpty()) {
 					// 성공
 					mv.addObject("cList", cList);
+					mv.addObject("cLikeList", cLikeList);
+					mv.addObject("cBoardCNT", cBoardCNT);
 					mv.setViewName("challenge/challengePage");
 				} else {
 					// 실패
@@ -318,7 +337,6 @@ public class ChallengeController {
 					mv.addObject("url", "redirect:/index.jsp");
 					mv.setViewName("common/serviceFailed");
 				}
-				
 			} else {
 				// 실패
 				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");

@@ -5,6 +5,12 @@ public class CLike {
 	private int cBoardNo;
 	private int likeCnt; // 게시물 별 총 좋아요 수
 	
+	public CLike(String userId, int cBoardNo) {
+		super();
+		this.userId = userId;
+		this.cBoardNo = cBoardNo;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}

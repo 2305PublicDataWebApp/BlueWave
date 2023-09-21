@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.challenge.domain.CBoard;
 import com.kh.bluewave.challenge.store.CBoardStore;
+import com.kh.bluewave.point.domain.Point;
 
 @Repository
 public class CBoardStoreLogic implements CBoardStore{
@@ -67,6 +68,42 @@ public class CBoardStoreLogic implements CBoardStore{
 		CBoard cOne = session.selectOne("CBoardMapper.selectLikePostInfoByCBoardNo", cBoardNo);
 		return cOne;
 	}
+	
+	// 해당 챌린지 번호 안에 챌린지 게시물 갯수 조회
+	@Override
+	public List<CBoard> selectBoardCountList(SqlSession session) {
+		List<CBoard> cBoardCNT = session.selectList("CBoardMapper.selectBoardCountList");
+		return cBoardCNT;
+	}
+	
+	// 챌린지 게시물 안에 찍힌 총 좋아요 수 조회
+	@Override
+	public List<CBoard> selectBoardLikeCountList(SqlSession session) {
+		List<CBoard> cBoardLikeCNT = session.selectList("CBoardMapper.selectBoardLikeCountList");
+		return cBoardLikeCNT;
+	}
+	
+	// 해당 유저 아이디가 작성한 최신 챌린지 게시물 조회
+	@Override
+	public CBoard selectOneByCDate(SqlSession session, String userId) {
+		CBoard newCBoardOne = session.selectOne("CBoardMapper.selectOneByCDate", userId);
+		return newCBoardOne;
+	}
+
+	// 해당 유저 아이디의 최신 포인트 내역 조회
+	@Override
+	public Point selectOneByLastHistory(SqlSession session, String userId) {
+		Point pOne = session.selectOne("PointMapper.selectPointByUserId", userId);
+		return pOne;
+	}
+	
+	// 챌린지 게시물 작성 시 포인트 적립
+	@Override
+	public int rewardPointByCBoard(SqlSession session, Point point) {
+		int result = session.insert("PointMapper.rewardPointByCBoard", point);
+		return result;
+	}
+
 
 	
 }

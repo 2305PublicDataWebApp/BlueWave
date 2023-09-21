@@ -16,6 +16,14 @@
 		<result property="cBoardUpdateDate" 	column="C_BOARD_UPDATE_DATE"/>
 		<result property="cBoardWriter" 		column="C_BOARD_WRITER"/>
 		<result property="chalNo" 				column="CHAL_NO"/>
+		<result property="boardCount"			column="BOARD_COUNT" />
+		<result property="cBoardLikeCount"		column="C_BOARD_LIKE_COUNT" />
+	</resultMap>
+	
+	<resultMap type="CLike" id="cLikeResultMap">
+		<result property="userId"	 column="USER_ID"/>
+		<result property="cBoardNo"  column="C_BOARD_NO"/>
+		<result property="likeCnt"   column="LIKE_CNT"/>
 	</resultMap>
 	
 	<insert id="insertCBoard">
@@ -101,5 +109,26 @@
 	
 	<select id="selectLikePostInfoByCBoardNo" resultMap="cBoardResultMap">
 		SELECT * FROM CHAL_BOARD_TBL WHERE C_BOARD_NO = #{ cBoardNo }
+	</select>
+	
+	<select id="selectBoardCountList" resultMap="cBoardResultMap">
+		SELECT CHAL_NO, COUNT(*) AS BOARD_COUNT FROM CHAL_BOARD_TBL GROUP BY CHAL_NO
+		UNION
+		SELECT CHAL_NO, NVL(C_BOARD_NO,0) FROM CHAL_TBL LEFT JOIN CHAL_BOARD_TBL USING(CHAL_NO) WHERE C_BOARD_NO IS NULL ORDER BY 1
+	</select>
+	
+	<select id="selectBoardLikeCountList" resultMap="cBoardResultMap">
+		SELECT C_BOARD_NO, NVL(SUM(LIKE_COUNT), 0) AS C_BOARD_LIKE_COUNT FROM (
+		    SELECT C_BOARD_NO, NULL AS LIKE_COUNT FROM CHAL_BOARD_TBL
+		    UNION ALL
+		    SELECT C_BOARD_NO, COUNT(*) AS LIKE_COUNT FROM CHAL_LIKE_TBL GROUP BY C_BOARD_NO
+		) CombinedData GROUP BY C_BOARD_NO
+	</select>
+	
+	<select id="selectOneByCDate" resultMap="cBoardResultMap">
+		SELECT * FROM (SELECT * FROM CHAL_BOARD_TBL 
+		WHERE C_BOARD_WRITER = #{userId} 
+		ORDER BY C_BOARD_DATE DESC ) 
+		WHERE ROWNUM = 1
 	</select>
 </mapper>

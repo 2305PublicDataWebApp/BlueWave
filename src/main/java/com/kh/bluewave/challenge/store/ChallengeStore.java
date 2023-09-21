@@ -144,4 +144,11 @@ public interface ChallengeStore {
 	 * @return
 	 */
 	List<Challenge> selectChallList(SqlSession session, PageInfo pInfo);
+	
+	/**
+	 * 챌린지 명 전체 리스트 좋아요 수 조회
+	 * @param session
+	 * @return
+	 */
+	List<Challenge> selectAllLikeCnt(SqlSession session);
 }

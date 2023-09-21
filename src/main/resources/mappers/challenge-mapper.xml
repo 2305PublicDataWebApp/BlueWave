@@ -79,6 +79,16 @@
 		WHERE CHAL_USER_ID = #{ userId }
 	</select>
 	
+	<select id="selectAllLikeCnt" resultMap="chalResultMap">
+		SELECT A.*
+			 , (SELECT COUNT(*) 
+			 	  FROM CHAL_LIKE_TBL 
+			 	 WHERE C_BOARD_NO IN (SELECT B.C_BOARD_NO 
+			 	 						FROM CHAL_BOARD_TBL B 
+			 	 					   WHERE B.CHAL_NO = A.CHAL_NO)) AS LIKE_CNT
+		 FROM CHAL_TBL A
+	</select>
+	
 	<select id="selectLikeByAllUserWave" resultMap="chalResultMap">
 		SELECT DISTINCT A.*
 			 , SUM(CASE WHEN C.C_BOARD_NO IS NOT NULL THEN 1 ELSE 0 END) OVER(PARTITION BY A.CHAL_NO) AS LIKE_CNT
