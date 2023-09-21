@@ -103,7 +103,7 @@ public class UserController {
 			Sub sub = new Sub(subTarget, subUser);
 			int follow = uService.followUser(sub);
 			if(follow > 0 ) {
-				mv.setViewName("user/myPage");
+				mv.setViewName("redirect:/user/myPage.do?userId=" + subTarget);
 			}else {
 				mv.addObject("msg", "구독이 완료되지 않았습니다.");
 				mv.addObject("error", "구독 실패");
@@ -125,7 +125,7 @@ public class UserController {
 			Sub sub = new Sub(subTarget, subUser);
 			int unfollow = uService.unfollowUser(sub);
 			if(unfollow > 0 ) {
-				mv.setViewName("user/myPage");
+				mv.setViewName("redirect:/user/myPage.do?userId=" + subTarget);
 			}else {
 				mv.addObject("msg", "구독취소가 완료되지 않았습니다.");
 				mv.addObject("error", "구독취소 실패");
@@ -144,18 +144,21 @@ public class UserController {
 	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
 		public ModelAndView showMyPage(
 				@ModelAttribute User user,
-				@RequestParam(value="following", required=false) String subTarget,
-                @RequestParam(value="follower", required=false) String subUser,
+//				@RequestParam(value="following", required=false) String subTarget,
+//                @RequestParam(value="follower", required=false) String subUser,
+                HttpSession session,
 				ModelAndView mv
 				) {
 			try {
-				Sub sub = new Sub(subTarget, subUser);
+				String sessionId = (String)session.getAttribute("userId");
+				
+				Sub sub = new Sub(user.getUserId(), sessionId);
 				User uOne = uService.selectOneById(user);
 				if(uOne != null) {
 					// 상단
 					int postCount = uService.getPostCountByUserId(user.getUserId());
 					List<Goods> goodsList = uService.getGoodsListByUserId(user.getUserId());
-//					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
+					int totalPoint = uService.getTotalPointByUserId(user.getUserId());
 					int totalBlueChalCount = uService.getTotalBlueChalCount(user.getUserId());
 					int finishTotalBlueChalCount = uService.getFinishTotalBlueChalCount(user.getUserId());
 					int totalPersonalChalCount = uService.getTotalPersonalChalCount(user.getUserId());
@@ -163,17 +166,11 @@ public class UserController {
 					List<Challenge> todayCList = uService.getTodayCList(user.getUserId());
 					List<CBoard> calDateList = uService.getCalDateList(user.getUserId());
 					int isFollowing = uService.isFollowing(sub);
-					if (isFollowing == 1) {
-					    // 팔로잉 상태
-					    mv.addObject("isFollowing", true);
-					} else {
-					    // 팔로우 상태
-					    mv.addObject("isFollowing", false);
-					}
+					System.out.println(isFollowing);
 
 			        mv.addObject("isFollowing", isFollowing);
 					mv.addObject("todayCList", todayCList);
-//					mv.addObject("totalPoint", totalPoint);
+					mv.addObject("totalPoint", totalPoint);
 		            mv.addObject("postCount", postCount);
 		            mv.addObject("totalBlueChalCount", totalBlueChalCount);
 		            mv.addObject("finishTotalBlueChalCount", finishTotalBlueChalCount);
@@ -339,13 +336,13 @@ public class UserController {
 	            	}else {
 	            		mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 						mv.addObject("error", "아이디 조회 실패");
-						mv.addObject("url", "user/findPw2");
+						mv.addObject("url", "/home.do");
 						mv.setViewName("common/serviceFailed");
 	            	}
 	            }else {
 	            	mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "user/findPw2");
+					mv.addObject("url", "/home.do");
 					mv.setViewName("common/serviceFailed");
 	            }
 			} else if ("phoneType".equals(confirmType)) {
@@ -410,6 +407,7 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)
 	public ModelAndView deleteUser(
 			@RequestParam("userId") String userId
 			, ModelAndView mv

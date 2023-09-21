@@ -16,6 +16,7 @@
             <span id="order-2">본인확인</span>
             <span id="order-3"> > 비밀번호 조회</span>
         </div>
+        <input type="hidden" value=${userId } name="userId">
         <form action="/user/findPw2.do" method="POST" id="email-form" name="email-form" >
         <input type="hidden" name="userId" value="${userId }">
         <div class="type-group">

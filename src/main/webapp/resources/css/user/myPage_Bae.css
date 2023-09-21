@@ -1,45 +1,5 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'SUITE-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'yg-jalnan';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'CWDangamAsac-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/CWDangamAsac-Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Cafe24Ssurround';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Dovemayo_gothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'KOTRAHOPE';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRAHOPE.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 
 /* 전체 페이지 스타일 */
 body {
@@ -47,7 +7,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: 'SUITE-Regular';
     margin: 0;
     padding: 0;
 }
@@ -63,7 +22,6 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     height: 800px;
-    position: relative;
 }
 
 .mini-container {
@@ -77,6 +35,7 @@ body {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    position: relative;
 }
 
 /* 프로필 이미지 스타일 */
@@ -87,7 +46,6 @@ body {
     border-radius: 50%; /* 원 모양으로 만들기 */
     overflow: hidden; /* 넘치는 부분 숨김 */
     margin-top: 28px;
-    position: relative;
 }
 
 #profile-div img {
@@ -95,17 +53,19 @@ body {
     height: 100%;
     object-fit: cover; /* 이미지를 원에 맞게 조정 */
 }
-
-/* 회원정보 조회/수정버튼 스타일 */
-#modify-icon {
-    position: absolute;
-    margin-top: 100px;
-    margin-left: 70px;
-    width: 30px;
-    height: 30px;
+#modify-btn-div {
+	position: absolute;
+    bottom: 8px;
+    left: 80px;
 }
 
-#modify-icon:hover {
+/* 회원정보 조회/수정버튼 스타일 */
+#modify-btn {
+    width: 40px;
+    height: 40px;
+}
+
+#modify-btn:hover {
     transform: rotate( 360deg );
     transition: 1.5s;
 }
@@ -120,7 +80,6 @@ body {
     font-size: 16px;
     cursor: pointer;
     width: 129px;
-    font-family: 'SUITE-Regular';
     margin-top: 10px;
 }
 
@@ -128,7 +87,6 @@ body {
 #nickname {
     font-size: 25px;
     text-align: left;
-    font-family: 'SUITE-Regular';
     font-weight: 700;
     margin-bottom: 7px;
 }
@@ -140,9 +98,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     border-radius: 10px;
-    font-family: 'SUITE-Regular';
+    padding-top: 55px;
 }
 
 #uiInfo-div {
@@ -181,25 +138,25 @@ body {
  /* 신고 아이콘 스타일 */
  #dot {
     position: absolute;
-    top: 10px;
-    right: 5px;
+    top: -42px;
+    right: -192px;
     cursor: pointer;
 }
 
 /* 신고 양식 스타일 */
 #report-div {
     position: absolute;
-    top: 40px;
-    right: 20px;
+    top: -3px;
+    right: -170px;
     display: none;
-    width: 80px;
-    height: 70px;
-    background-color: #ffffff;
-    border: 1px solid #d6d6d6;
+    width: 90px;
+    height: 50px;
+    background-color: #719bb7;
+    border: 1px solid #719bb7;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13);
     padding: 10px;
-    transition: all 3s ease; /* 부드러운 트랜지션 효과 추가 */
+    cursor: pointer;
 }
 
 #report-img-div {
@@ -212,7 +169,7 @@ body {
 
 #report-text {
     text-align: center;
-    color: #000000;
+    color: #ffffff;
     font-weight: bold;
     padding: 5px 0;
 }
@@ -242,7 +199,6 @@ body {
 
 /* 오늘의 챌린지 스타일 */
 #todo-title {
-    font-family: 'SUITE-Regular';
     letter-spacing: 4px;
     font-size: 18px;
     font-weight: 600;
@@ -257,6 +213,15 @@ hr {
 }
 #todo-chal td {
     text-align: left;
+}
+
+#c-list-none {
+	height: 283px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #AFD3E2;
+    font-size: 1.5em;
 }
 
 /* 프로그레스바 스타일 */
@@ -292,7 +257,6 @@ hr {
 #list-count {
     text-align: left;
     margin-top: 40px;
-    font-family: 'SUITE-Regular';
 }
 
 /* 슬라이드 스타일 */
@@ -327,10 +291,10 @@ hr {
     padding: 10px 15px;
     font-size: 20px;
     border-radius: 0 0 5px 5px;
-     /* 초기에 숨김 상태로 설정 */
-     opacity: 0;
-     pointer-events: none; /* 호버 효과 시에만 이벤트 활성화 */
-     transition: opacity 0.3s;
+    /* 초기에 숨김 상태로 설정 */
+    opacity: 0;
+    pointer-events: none; /* 호버 효과 시에만 이벤트 활성화 */
+    transition: opacity 0.3s;
 }
 
 /* 호버 시 굿즈 이름 표시 */
@@ -340,11 +304,6 @@ hr {
 
 .bx-wrapper {
     box-shadow: none !important;
-}
-
-/* 포스트 갯수 아이콘 */
-#post-count-icon{
-	margin-bottom: 9px;
 }
 
 

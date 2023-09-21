@@ -25,7 +25,7 @@
 	</insert>
 	
 	<delete id="deleteUser">
-		DELETE FROM USER_TBL WHERE USER_ID = #{userId }
+		DELETE FROM USER_TBL WHERE USER_ID = #{userId } 
 	</delete>
 	
 	<update id="updateUser">

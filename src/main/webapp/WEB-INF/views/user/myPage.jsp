@@ -106,12 +106,14 @@
 		            <div id="mypage-header">
 		                <div id="profile-div">
 		                    <img src="${ user.userProfilePath}" alt="">
-				                <c:if test="${sessionScope.userId eq user.userId }">
-					                <a href="/user/modify.do?userId=${sessionScope.userId }">
-									    <img src="../resources/images/user/setting-icon.png" alt="설정 아이콘">
-									</a>
-				                </c:if>
 		                </div>
+		                <c:if test="${sessionScope.userId eq user.userId }">
+		                	<div id="modify-btn-div">
+<%-- 				                <a href="/user/modify.do?userId=${sessionScope.userId }"> --%>
+								    <img id="modify-btn" src="../resources/images/user/setting-icon.png" alt="설정 아이콘">
+<!-- 								</a> -->
+		                	</div>
+		                </c:if>
 		                <div id="userInfo-div">
 		                    <div>
 		                        <div id="nickname">${user.userNickName }</div>
@@ -129,22 +131,28 @@
 									        <c:param name="sTarget" value="${ user.userId }"></c:param>
 									        <c:param name="sUser" value="${ sessionScope.userId }"></c:param>
 									    </c:url>
-									    <c:url var="isFollowing" value="/user/myPage.do">
-									        <c:param name="following" value="${ user.userId }"></c:param>
-									        <c:param name="follower" value="${ sessionScope.userId }"></c:param>
-									    </c:url>
+<%-- 									    <c:url var="isFollowing" value="/user/myPage.do"> --%>
+<%-- 									        <c:param name="following" value="${ user.userId }"></c:param> --%>
+<%-- 									        <c:param name="follower" value="${ sessionScope.userId }"></c:param> --%>
+<%-- 									    </c:url> --%>
 									    <c:url var="unfollowUrl" value="/user/unfollow.do">
 									        <c:param name="unSubTarget" value="${ user.userId }"></c:param>
 									        <c:param name="unSubUser" value="${ sessionScope.userId }"></c:param>
 									    </c:url>
-									   <c:choose>
-									         <c:when test="${isFollowing}">
-									            <button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로잉</button>
-									        </c:when>
-									        <c:otherwise>
-									            <button id="follow-btn" onclick="followUser('${followUrl}');">팔로우</button>
-									        </c:otherwise>
-									    </c:choose>
+									    <c:if test="${isFollowing eq 1 }">
+									    	<button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로잉</button>
+									    </c:if>
+									    <c:if test="${isFollowing eq 0}">
+									    	<button id="follow-btn" onclick="followUser('${followUrl}');">팔로우</button>
+									    </c:if>
+<%-- 									   <c:choose> --%>
+<%-- 									         <c:when test="${isFollowing}"> --%>
+<%-- 									            <button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로잉</button> --%>
+<%-- 									        </c:when> --%>
+<%-- 									        <c:otherwise> --%>
+<%-- 									            <button id="follow-btn" onclick="followUser('${followUrl}');">팔로우</button> --%>
+<%-- 									        </c:otherwise> --%>
+<%-- 									    </c:choose> --%>
 									</div>                      
 	                        	</c:if>
 		                    </div>
@@ -219,9 +227,15 @@
 		                    </div>
 		                    <div class="ui-item">
 		                        <img class="ui-icon" src="../resources/images/user/point-icon.png" alt="">
-<%-- 		                        <span class="ui-text">${totalPoint }p</span> --%>
+		                        <span class="ui-text">${totalPoint }p</span>
 		                    </div>
-		                </div>                         
+		                </div>   
+		                <c:if test="${sessionScope.userId eq user.userId }"> 
+				            <img id="dot" src="../../resources/images/user/dot.png" onclick="toggleReportDiv()" alt="">
+				            <div id="report-div" style="display: none;">
+				                <div id="report-text" onclick="deleteUser()">탈퇴하기</div>
+				            </div> 
+				           </c:if>                      
 		            </div>
 		            <c:if test="${sessionScope.userId eq user.userId }"> 
 			            <div id="chal">
@@ -233,6 +247,11 @@
 			                
 			                <div id="todo-chal">
 			                    <span id="todo-title"> <오늘의 챌린지> </span>
+			                    <hr>
+			                    	<c:if test="${ empty todayCList }">
+				                   		<div id="c-list-none">챌린지 참여 이력이 없습니다</div>
+				                   	</c:if>
+				                   	<c:if test="${ !empty todayCList }">
 				                    <c:forEach var="todayCList" items="${todayCList }" >
 						                <c:set var="startDate" value="${ todayCList.chalStartDate }" />
 									    <c:set var="endDate" value="${ todayCList.chalEndDate }" />
@@ -253,7 +272,6 @@
 										<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
 										
 								        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
-			                    <hr>
 			                    <table>
 			                    <colgroup>
 			                    	<col style="width:60%">
@@ -292,7 +310,7 @@
 			                        </tr>
 			                    </table>
 			                    </c:forEach>
-			                    <hr>
+			                   	</c:if>
 			                </div>
 			            </div>
 			            <c:if test="${ empty todayCList }">
@@ -915,6 +933,20 @@
                 	location.href = deleteUrl;
                 }
             }
+            function deleteUser() {
+                if(confirm("탈퇴한 유저 정보는 복구되지 않습니다. 정말 탈퇴하시겠습니까?")){
+                	location.href = "/user/delete.do?userId=${user.userId}";
+                }
+            }
+            function toggleReportDiv() {
+                var reportDiv = document.getElementById("report-div");
+                if (reportDiv.style.display === "none" || reportDiv.style.display === "") {
+                    reportDiv.style.display = "block";
+                } else {
+                    reportDiv.style.display = "none";
+                }
+            }
         </script>
+       
     </body>
 </html>
