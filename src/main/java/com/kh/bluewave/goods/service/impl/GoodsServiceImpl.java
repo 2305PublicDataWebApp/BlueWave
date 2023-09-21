@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.goods.service.GoodsService;
 import com.kh.bluewave.goods.store.GoodsStore;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.point.domain.Point;
 
 @Service
@@ -65,6 +66,12 @@ public class GoodsServiceImpl implements GoodsService {
 	public int buyGoods(Point point) {
 		int result = gStore.buyGoods(session, point);
 		return result;
+	}
+
+	@Override
+	public List<Goods> selectGoodsList(PageInfo pInfo) {
+		List<Goods> gList = gStore.selectGoodsList(session, pInfo);
+		return gList;
 	}
 
 }

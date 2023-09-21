@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.bluewave.goods.domain.Goods;
 import com.kh.bluewave.goods.store.GoodsStore;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.point.domain.Point;
 
 @Repository
@@ -59,6 +60,15 @@ public class GoodsStoreLogic implements GoodsStore {
 	public int buyGoods(SqlSession session, Point point) {
 		int result = session.insert("PointMapper.buyGoods", point);
 		return result;
+	}
+
+	@Override
+	public List<Goods> selectGoodsList(SqlSession session, PageInfo pInfo) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Goods> gList = session.selectList("GoodsMapper.selectGoodsList", null, rowBounds);
+		return gList;
 	}
 
 }

@@ -6,7 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.tipBoard.domain.TipBoard;
 import com.kh.bluewave.tipBoard.store.TipBoardStore;
 

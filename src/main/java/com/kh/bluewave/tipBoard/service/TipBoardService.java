@@ -3,7 +3,7 @@ package com.kh.bluewave.tipBoard.service;
 import java.util.List;
 
 import com.kh.bluewave.tipBoard.domain.TipBoard;
-import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 
 public interface TipBoardService {
 

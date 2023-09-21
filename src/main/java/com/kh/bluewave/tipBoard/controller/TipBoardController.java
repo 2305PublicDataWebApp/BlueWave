@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.tipBoard.domain.TipBoard;
 import com.kh.bluewave.tipBoard.service.TipBoardService;
 

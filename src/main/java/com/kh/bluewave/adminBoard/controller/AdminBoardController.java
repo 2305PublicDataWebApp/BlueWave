@@ -13,9 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.service.ChallengeService;
+import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.goods.service.GoodsService;
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
 import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.noticeBoard.service.NoticeBoardService;
+import com.kh.bluewave.tipBoard.domain.TipBoard;
+import com.kh.bluewave.tipBoard.service.TipBoardService;
 import com.kh.bluewave.user.domain.User;
 import com.kh.bluewave.user.service.UserService;
 
@@ -28,6 +32,10 @@ public class AdminBoardController {
 	private UserService uService;
 	@Autowired
 	private ChallengeService cService;
+	@Autowired
+	private TipBoardService tService;
+	@Autowired
+	private GoodsService gService;
 
 	@RequestMapping(value="/admin/main.do", method=RequestMethod.GET)
 	public ModelAndView goAdminBoard(ModelAndView mv) {
@@ -65,6 +73,20 @@ public class AdminBoardController {
 				List<Challenge> cList = cService.selectChallList(pInfo);
 				mv.addObject("pInfo", pInfo);
 				mv.addObject("cList", cList);
+			}else if(selectedValue.equals("tip")) {
+				//팁공유 리스트
+				totalCount = tService.getListCount();
+				pInfo = this.getPageInfo(currentPage, totalCount);
+				List<TipBoard> tList = tService.selectTipBoard(pInfo);
+				mv.addObject("pInfo", pInfo);
+				mv.addObject("tList", tList);
+			}else if(selectedValue.equals("goods")) {
+				//굿즈 리스트
+				totalCount = gService.getListCount();
+				pInfo = this.getPageInfo(currentPage, totalCount);
+				List<Goods> gList = gService.selectGoodsList(pInfo);
+				mv.addObject("pInfo", pInfo);
+				mv.addObject("gList", gList);
 			}
 		} catch (Exception e) {
 			e.getMessage();

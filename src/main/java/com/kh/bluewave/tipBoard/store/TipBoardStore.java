@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.tipBoard.domain.TipBoard;
 
 public interface TipBoardStore {

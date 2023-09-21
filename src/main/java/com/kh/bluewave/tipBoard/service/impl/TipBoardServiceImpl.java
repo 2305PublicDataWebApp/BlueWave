@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.bluewave.tipBoard.domain.PageInfo;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.tipBoard.domain.TipBoard;
 import com.kh.bluewave.tipBoard.service.TipBoardService;
 import com.kh.bluewave.tipBoard.store.TipBoardStore;

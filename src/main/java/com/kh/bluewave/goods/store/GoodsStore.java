@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.point.domain.Point;
 
 public interface GoodsStore {
@@ -65,5 +66,13 @@ public interface GoodsStore {
 	Point selectPointByUserId(SqlSession session, String userId);
 
 	int buyGoods(SqlSession session, Point point);
+
+	/**
+	 * 굿즈 관리자페이지에서 전체조회
+	 * @param session
+	 * @param pInfo
+	 * @return
+	 */
+	List<Goods> selectGoodsList(SqlSession session, PageInfo pInfo);
 
 }

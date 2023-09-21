@@ -51,4 +51,8 @@
 	    JOIN GOODS_TBL G ON P.PRODUCT_NO = G.PRODUCT_NO
 	    WHERE U.USER_ID = #{userId }
 	</select>
+	
+<!-- 	<select id="selectGoodsList" resultMap="goodsResultMap">
+		SELECT * FROM GOODS_TBL
+	</select> -->
 </mapper>

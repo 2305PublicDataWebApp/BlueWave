@@ -3,6 +3,7 @@ package com.kh.bluewave.goods.service;
 import java.util.List;
 
 import com.kh.bluewave.goods.domain.Goods;
+import com.kh.bluewave.noticeBoard.domain.PageInfo;
 import com.kh.bluewave.point.domain.Point;
 
 public interface GoodsService {
@@ -62,5 +63,11 @@ public interface GoodsService {
 	 */
 	int buyGoods(Point point);
 
+	/**
+	 * 굿즈 관리자페이지에서 전체조회
+	 * @param pInfo
+	 * @return
+	 */
+	List<Goods> selectGoodsList(PageInfo pInfo);
 
 }
