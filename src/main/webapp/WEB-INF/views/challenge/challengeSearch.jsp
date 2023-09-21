@@ -96,13 +96,27 @@
 																<div class="chal-user-icon">
 																	<img src="/resources/images/challenge/board-icon3.png" alt="게시물 아이콘">
 																</div>
-																<span>&nbsp;158</span>
+																<c:set var="found" value="false" />
+		                                                        <c:forEach var="cBoardCount" items="${cBoardCNT }">
+		                                                        	<c:if test="${chalList.chalNo eq cBoardCount.chalNo }">
+		                                                        		<span>&nbsp;${cBoardCount.boardCount }</span>
+		                                                        	</c:if>
+		                                                        </c:forEach>
 															</div>
 															<div class="like-icon-box">
 																<div class="chal-like-icon">
 																	<img src="/resources/images/challenge/heart.png" alt="좋아요 아이콘">
 																</div>
-																<span>&nbsp;158</span>
+																<c:forEach var="cLikeCount" items="${cLikeList }">
+		                                                        	<c:if test="${chalList.chalNo eq cLikeCount.chalNo }">
+			                                                        	<c:if test="${cLikeCount.likeCount eq 0 }">
+			                                                        		<span>&nbsp;0</span>
+			                                                        	</c:if>
+			                                                        	<c:if test="${cLikeCount.likeCount ne 0 }">
+			                                                        		<span>&nbsp;${cLikeCount.likeCount }</span>
+			                                                        	</c:if>
+		                                                        	</c:if>
+		                                                        </c:forEach>
 															</div>
 														</div>
 														<div class="btn">
@@ -158,13 +172,26 @@
 															<div class="chal-user-icon">
 																<img src="/resources/images/challenge/board-icon3.png" alt="게시물 아이콘">
 															</div>
-															<span>&nbsp;158</span>
+															<c:forEach var="cBoardCount" items="${cBoardCNT }">
+		                                                        	<c:if test="${chalList.chalNo eq cBoardCount.chalNo }">
+		                                                        		<span>&nbsp;${cBoardCount.boardCount }</span>
+		                                                        	</c:if>
+	                                                        </c:forEach>
 														</div>
 														<div class="like-icon-box">
 															<div class="chal-like-icon">
 																<img src="/resources/images/challenge/heart.png" alt="좋아요 아이콘">
 															</div>
-															<span>&nbsp;158</span>
+															<c:forEach var="cLikeCount" items="${cLikeList }">
+		                                                        	<c:if test="${chalList.chalNo eq cLikeCount.chalNo }">
+			                                                        	<c:if test="${cLikeCount.likeCount eq 0 }">
+			                                                        		<span>&nbsp;0</span>
+			                                                        	</c:if>
+			                                                        	<c:if test="${cLikeCount.likeCount ne 0 }">
+			                                                        		<span>&nbsp;${cLikeCount.likeCount }</span>
+			                                                        	</c:if>
+		                                                        	</c:if>
+	                                                        </c:forEach>
 														</div>
 													</div>
 													<div class="btn">

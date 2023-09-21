@@ -162,7 +162,7 @@
 		                                                <div>
 		                                                    <div  class="user-icon-box">
 		                                                        <div class="chal-user-icon">
-		                                                        	<img src="/resources/images/challenge/board-icon3.png" alt="좋아요 하트">
+		                                                        	<img src="/resources/images/challenge/board-icon3.png" alt="게시물 아이콘">
 		                                                        </div>
 		                                                        <c:forEach var="cBoardCount" items="${cBoardCNT }">
 		                                                        	<c:if test="${chalList.chalNo eq cBoardCount.chalNo }">

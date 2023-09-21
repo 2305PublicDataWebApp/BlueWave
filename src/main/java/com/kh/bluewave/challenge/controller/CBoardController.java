@@ -119,10 +119,18 @@ public class CBoardController {
 			searchMap.put("searchKeyword", searchKeyword);
 			
 			List<Challenge> searchChalList = chalService.searchChalByKeyword(searchMap);
+			
+			// 해당 챌린지 명에 대한 총 좋아요 수
+			List<Challenge> cLikeList = chalService.selectAllLikeCnt();
+			
+			// 해당 챌린지 명에 대한 총 게시물 갯수
+			List<CBoard> cBoardCNT = cService.selectBoardCountList();
 			if(!searchChalList.isEmpty()) {
 				mv.addObject("searchCondition", searchCondition);
 				mv.addObject("searchKeyword", searchKeyword);
 				mv.addObject("sList", searchChalList);
+				mv.addObject("cLikeList", cLikeList);
+				mv.addObject("cBoardCNT", cBoardCNT);
 				mv.setViewName("challenge/challengeSearch");
 			} else {
 				mv.addObject("searchCondition", searchCondition);
