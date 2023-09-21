@@ -169,8 +169,8 @@ public class GoodsController {
 	@RequestMapping(value="/goods/buy.do", method=RequestMethod.POST)
 	public ModelAndView buyGoods(ModelAndView mv
 			, @ModelAttribute Goods goods
-			, @RequestParam("count") int count
-			, @RequestParam("sum") int sum
+			, @RequestParam(value="count", required = false) int count
+			, @RequestParam(value="sum", required = false) int sum
 			, HttpSession session) {
 		try {
 			String userId = (String)session.getAttribute("memberId");
@@ -183,7 +183,7 @@ public class GoodsController {
 			point.setProductNo(goods.getProductNo());
 			int result = gService.buyGoods(point);
 			if(result > 0) {
-				mv.setViewName("redirect:/goods/list.do");
+				mv.setViewName("goods/list.do");
 			}else {
 				
 			}
