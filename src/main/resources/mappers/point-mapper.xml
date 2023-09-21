@@ -14,7 +14,7 @@
 	</resultMap>
 	
 	<insert id="buyGoods">
-		INSERT INTO POINT_TBL VALUES(#{userId }, #{userTotalPoint }, #{pointHistory }, 'use', DEFAULT, #{productNo }, NULL );
+		INSERT INTO POINT_TBL VALUES(#{userId }, #{userTotalPoint }, #{pointHistory }, 'use', DEFAULT, #{productNo }, NULL )
 	</insert>
 
 	<select id="getTotalPointByUserId" resultType="_int">
@@ -31,6 +31,6 @@
 		SELECT * FROM(
     		SELECT * FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC
 		)
-		WHERE ROWNUM = 1;
+		WHERE ROWNUM = 1
 	</select>
 </mapper>
