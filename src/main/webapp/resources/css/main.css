@@ -3,102 +3,104 @@ body {
     margin: 0;
     padding: 0;
 }
-.main-img img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-}
 
-/* 챌린지 css */
-
-/* 굿즈 css */
-.bx-viewport {
-    height: 100%;
-}
-.bx-wrapper {
-    height: 90%;
-    box-shadow: none !important;
-    margin: 0 !important;
-    border: 5px solid #F8F8F8 !important;
-    background-color: #F8F8F8 !important;
-}
-.bxslider {
-    height: 100%;
-}
-.bx-pager.bx-default-pager {
-	position: static !important;
-	padding: 0 !important;
-}
-.bx-default-pager {
-	margin-top: 30px;
-    margin-bottom: 30px;
-    pading: 0 !important;
-}
 .container {
-/* 	display: flex; */
+    /* 화면 전체 크기 설정 */
+    width: 100%;
     height: 100%;
-    width: 70%;
-    margin: 0 auto;
-	margin-top: 60px;
-}
-.goods-main-title {
-	background-color: #F8F8F8;
-}
-.goods-main-container {
-    height: 800px;
-    display: flex;
+    /* border:2px solid #ccc; */
     background-color: #F8F8F8;
-    justify-content: center;
-    flex-direction: column;
-}
-.goods-name h2, h3, .goods-price h2, h3 {
-    margin: 0;
-}
-.goods-list-container {
     margin: 0 auto;
-    height: 100%;
-/*     width: 80%; */
-    display: flex;
-    justify-content: space-evenly;
-    align-content: space-around;
-    flex-wrap: wrap;
 }
-.goods-item-container {
-    height: 100%;
-    width: 23%;
-    display: flex;
-    justify-content: center;
-    transition: transform 0.5s ease;
-    flex-wrap: wrap;
+​
+/* 챌린지 css */
+/*
+.chal-section {
+    width: 80%;
+    margin: 0 auto;
 }
-.goods-item {
+*/
+.chal-category-title {
+    /* 해당 챌린지 명 */
+    width: 100%;
+    height: 100%;
+    line-height: 1.8;
+    margin: 0;
+    /* background-color: antiquewhite; */
     display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 48%;
-    margin: 0 10px 10px 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.chal-category-title button {
+    height: 40px;
+}
+.chal-content ul {
+	display: flex;
     justify-content: space-between;
 }
-.goods-thumbnail {
-    text-align: center;
+
+.chal-content ul li {
+    /* 챌린지 명 내 리스트 크기 */
+    width: 300px;
+    height: 350px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: white;
+    margin-right: 10px;
+}
+
+.chal-content {
+    /* 내용의 전체 너비 설정*/
     width: 100%;
-    height: 50%;
 }
-.goods-thumbnail img {
-	width: 100%;
-	height: 100%
+.chal-content a {
+	color: black;
+ 	text-decoration: none;
 }
-.goods-price {
-    margin-top: 20px;
+.chal-img {
+    /* 이미지 설정 */
+    width: 260px;
+    height: 165px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-image: url(./images/river2.PNG);
+    background-size: 100% 100%;
 }
-.goods-name {
-    margin-top: 10px;
+
+.chal-text-box {
+    /* 챌린지 명 세부정보 요약 */
+    width: 260px;
+    height: 100px;
+    white-space: normal;
 }
-.goods-buy-btn {
-    margin-top: 20px;
-    text-align: center;
+.chal-list-bottom {
+    margin-top: 5px;
 }
-button.buy-btn {
+.chal-list-bottom,
+.chal-list-bottom div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chal-list-bottom div div span {
+    line-height: 1.2;
+}
+.like-icon-box {
+    margin-left: 5px;
+}
+.chal-user-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url(./images/person.png);
+    background-size: 100% 100%;
+}
+.chal-like-icon {
+    width: 20px;
+    height: 20px;
+    background-image: url(./images/heart.png);
+    background-size: 100% 100%;
+}
+.btn button{
     background-color: #3881C5;
     color: #F3F3F3;
     width: 120px;
@@ -111,15 +113,134 @@ button.buy-btn {
     text-align: center;
     font-weight: bolder;
 }
-input#minus {
-	border-style: hidden;
-    padding: 5px 5px 5px 5px;
-    border-radius: 5px;
-    color: #45A1D6;
-    font-size: 20px;
-    background-color: #F8F8F8;
-    box-sizing: border-box;
-    transition: all 0.2s;
-    border-bottom: 2px solid darkgray;
-    border-right: 2px solid darkgray;
+#new-chal-btn{
+	padding-right: 30px;
+    padding-bottom: 5px;
+}
+
+/* 공지 css*/
+.notice-subject 
+, .chall-container {
+	padding-top: 30px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.notice-container {
+	width: 80%;
+    margin: 0 auto;
+}
+.notice-table
+, .notice-paging {
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 10px;
+}
+    .notice-table td:last-child 
+    , .notice-table td:nth-last-child(2)
+    , .notice-table td:nth-last-child(3)
+    , .notice-table td:first-child {
+        width: 90px;
+        height: 30px;
+        text-align: center;
+        
+    }
+    .notice-table th:last-child 
+    , .notice-table th:nth-last-child(2)
+    , .notice-table th:nth-last-child(3)
+    , .notice-table th:first-child
+    , .notice-paging {
+    	text-align: center;
+    }
+    .notice-table th {
+    	height: 40px;
+    	border-radius: 3px;
+    	border-top: 1px solid #ccc;
+    	border-bottom: 2px solid #3881C5;
+    	background-color: white;
+    }
+	 .notice-table td {
+	 	height: 40px;
+	 	border-bottom: 1px solid #ccc;
+	 	background-color: white;
+	 	border-radius: 3px;
+	 }
+ .notice-paging a
+ , .notice-table a{
+ 	color: black;
+ 	text-decoration: none;
+ }
+/* 코드팬 테스트 */
+.bx-viewport {
+	height: 100% !important;
+}
+
+#scroll-animate {
+	overflow: hidden;
+}
+
+#scroll-animate-main {
+	width: 100%;
+	left: 0;
+	position: fixed;
+}
+
+#heightPage, #heightScroll {
+	width: 10px;
+	top: 0;
+	position: absolute;
+	z-index: 99;
+}
+
+#heightPage {
+	left: 0;
+}
+
+#heightScroll {
+	right: 0;
+}
+
+.main-img {
+	width: 100%;
+	height: 100%;
+	background:
+		no-repeat 50% 50%;
+	top: 0;
+	position: fixed;
+	z-index: -1;
+}
+
+.footer {
+	width: 100%;
+	height: 300px;
+	background: gray;
+	bottom: -300px;
+	position: fixed;
+	z-index: -1;
+}
+
+.main-content {
+	min-height: 1000px;
+	background: #ededed;
+	position: relative;
+	z-index: 1;
+}
+
+.wrapper-parallax {
+	margin-top: 100%;
+	margin-bottom: 300px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.main-img, .footer, #scroll-animate-main {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.4s;
+	-moz-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	-moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	transition-timing-function: cubic-bezier(0, 0, 0, 1);
 }

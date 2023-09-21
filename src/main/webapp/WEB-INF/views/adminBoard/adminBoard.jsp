@@ -63,18 +63,11 @@
 			<option value="tip">팁공유 리스트</option>
 			<option value="goods">굿즈 리스트</option>
 		</select>
+		<button></button>
 		<div id="admin-hidden-table">
 			<table id="admin-table" class="admin-table">
-				<c:if test="${selectedValue ne 'user' }">
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>관리자 권한</th>
-					</tr>
-				</c:if>
-				<c:if test="${selectedValue eq 'user' }">
+			<c:choose>
+				<c:when test="${optVal eq 'user' }">
 					<tr>
 						<th>번호</th>
 						<th>아이디</th>
@@ -85,7 +78,26 @@
 						<th>이메일</th>
 						<th>관리자 권한</th>
 					</tr>
-				</c:if>
+				</c:when>
+				<c:when test="${optVal eq 'goods' }">
+					<tr>
+						<th>번호</th>
+						<th>이름</th>
+						<th>가격</th>
+						<th>갯수</th>
+						<th>관리자 권한</th>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>관리자 권한</th>
+					</tr>
+				</c:otherwise>
+			</c:choose>
 				<!-- 공지 리스트 -->
 				<c:forEach var="request" items="${nList }">
 					<tr>
@@ -98,7 +110,7 @@
 						<td>${request.noticeCreateDate }</td>
 						<td>
 							<a href="/notice/modify.do?noticeNo=${request.noticeNo }">수정</a>
-							<a onclick="noticeDelete()">삭제</a>
+							<a href="/notice/delete.do">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -117,7 +129,7 @@
 						<td>${request.userEmail }</td>
 						<td>
 							<a href="/user/modify.do?userId=${request.userId }">수정</a>
-							<a onclick="userDelete()">삭제</a>
+							<a href="/user/delete.do">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -155,23 +167,23 @@
 						<td>${request.tipCreateDate }</td>
 						<td>
 							<a href="/tip/modify.do?tipNo=${request.tipNo }">수정</a>
-							<a onclick="noticeDelete()">삭제</a>
+							<a href="/tip/delete.do">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
 				<!-- 굿즈 리스트 -->
 				<c:forEach var="request" items="${gList }">
 					<tr>
-						<td>${request.tipNo }</td>
-						<c:url var="detailUrl" value="/tip/detail.do">
+						<td>${request.productNo }</td>
+						<c:url var="detailUrl" value="/goods/detail.do">
 							<c:param name="productNo" value="${request.productNo }" />
 						</c:url>
 						<td><a href="${detailUrl}">${request.productName }</a></td>
-						<td>${request.tipWriter }</td>
-						<td>${request.tipCreateDate }</td>
+						<td>${request.productPoint }</td>
+						<td>${request.productCount }</td>
 						<td>
-							<a href="/tip/modify.do?tipNo=${request.tipNo }">수정</a>
-							<a onclick="noticeDelete()">삭제</a>
+							<a href="/goods/modify.do?productNo=${request.productNo }">수정</a>
+							<a href="/goods/delete.do">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>

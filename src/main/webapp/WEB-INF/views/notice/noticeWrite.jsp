@@ -11,13 +11,13 @@
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="notice-board">
-			<form class="notice-form" action="/notice/insert.do" method="POST" enctype="multipart/form-data">
+			<form class="notice-form" id="notice-form" action="/notice/insert.do" method="POST" enctype="multipart/form-data">
 				<div class="notice-board-table">
 					<table class="notice-write-table">
 						<thead>
 							<tr>							
 								<td>제목</td>
-								<td><input type="text" id="notice-title" name="noticeTitle" size="80"></td>
+								<td><input type="text" id="notice-title" name="noticeTitle" size="80" required></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,7 +32,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="2">
-									<button class="writeBtn" >공지 올리기</button>
+									<button type="submit" class="writeBtn" >공지 올리기</button>
 								</td>
 							</tr>
 						</tfoot>
@@ -55,6 +55,18 @@
 				console.error(error);
 			});
 			
+			$(document).ready(function() {
+	            $("#notice-form").submit(function(e) {
+	                let pmContent = $("#editor");
+	                let regContent = pmContent.val().replace(/<[^>]*>/g, '');
+	                if (regContent === null || regContent.trim().length === 0) {
+	                    e.preventDefault();
+	                    alert("내용을 입력해주세요");
+	                } else {
+	                    submit(); // submit 함수 호출 (변경된 코드에는 없지만 필요한 경우 추가하세요)
+	                }
+	            });
+	        }); 
 		</script>
 	</body>
 </html>

@@ -46,6 +46,7 @@
 			height: 100%;
 			padding: 20px;
 			color: white;
+			margin-top: 10px;
 		}
 		.div3 {
 			width: 30%;

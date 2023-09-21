@@ -11,13 +11,13 @@
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="tip-board">
-			<form class="tip-form" action="/tip/insert.do" method="POST" enctype="multipart/form-data">
+			<form class="tip-form" id="tip-form" action="/tip/insert.do" method="POST" enctype="multipart/form-data">
 				<div class="tip-board-table">
 					<table class="tip-write-table">
 						<thead>
 							<tr>							
 								<td>제목</td>
-								<td><input type="text" id="tip-title" name="tipTitle" size="80"></td>
+								<td><input type="text" id="tip-title" name="tipTitle" size="80" required></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -56,6 +56,18 @@
 				console.error(error);
 			});
 			
+			$(document).ready(function() {
+	            $("#tip-form").submit(function(e) {
+	                let pmContent = $("#editor");
+	                let regContent = pmContent.val().replace(/<[^>]*>/g, '');
+	                if (regContent === null || regContent.trim().length === 0) {
+	                    e.preventDefault();
+	                    alert("내용을 입력해주세요");
+	                } else {
+	                    submit(); // submit 함수 호출 (변경된 코드에는 없지만 필요한 경우 추가하세요)
+	                }
+	            });
+	        }); 
 		</script>
 	</body>
 </html>

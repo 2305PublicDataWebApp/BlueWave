@@ -144,4 +144,11 @@ public interface ChallengeStore {
 	 * @return
 	 */
 	List<Challenge> selectChallList(SqlSession session, PageInfo pInfo);
+
+	/**
+	 * 챌린지명 관리자만 리스트 조회
+	 * @param session
+	 * @return
+	 */
+	List<Challenge> selectAllListByAdmin(SqlSession session);
 }

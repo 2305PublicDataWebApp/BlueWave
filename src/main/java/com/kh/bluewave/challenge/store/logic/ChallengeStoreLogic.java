@@ -125,4 +125,10 @@ public class ChallengeStoreLogic implements ChallengeStore{
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectAllListByAdmin(SqlSession session) {
+		List<Challenge> acList = session.selectList("ChalMapper.selectAllListByAdmin");
+		return acList;
+	}
+
 }
