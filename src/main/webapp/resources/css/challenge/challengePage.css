@@ -9,7 +9,7 @@ body{
     width: 70%;
     height:100%; 
     /* border:2px solid #ccc; */
-    background-color: white;
+    background-color: #f8f8f8;
     margin:0 auto;
     margin-top: 60px;
 }
@@ -20,18 +20,21 @@ body{
 }
 #up-section {
              /* 블루웨이브 챌린지 섹션 */
-width: 100%;
+width: 93%;
 height: 50%;
+margin: 0 auto;
 margin-top: 20px;
+padding-top: 40px;
 /* border: 2px solid #ccc; */
 /* background-color: #91C8E4; */
 }
 #down-section {
     /* 개인 챌린지 섹션 */
-width: 100%;
+width: 92%;
 height: 50%;
+margin: 0 auto;
 margin-top: 20px;
-margin-bottom : 20px;
+padding-bottom : 50px;
 }
 .chal-title-search-box, .chal-title-write-box {
 	display: flex;
@@ -39,6 +42,7 @@ margin-bottom : 20px;
     align-items: center;
     padding-top: 15px;
     margin-bottom: 15px;
+    padding-left: 10px;
 }
 .chal-category-title{
     /* 해당 챌린지 명 */
@@ -50,10 +54,23 @@ margin-bottom : 20px;
 }
 .chal-category-title>h2, .chal-title-write-box>h2{
 	margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 .chal-search-box{
-	padding-right: 30px;
+	padding-right: 45px;
 }
+
+.search-form {
+    margin: 0;
+    padding: 5px;
+    font-family: inherit;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    font-size: 0.9em;
+    line-height: inherit;	
+}
+
 #searchBtn{
 	float:right;
 }
@@ -75,13 +92,15 @@ margin-bottom : 20px;
 
 .chal-content ul li{
     /* 챌린지 명 내 리스트 크기 */
-    width: 300px;
-    height: 350px;
+    width: 280px;
+    height: 370px;
     display:inline-block; 
     padding: 10px 20px; 
-    background: #ffffff; 
+    padding-top: 18px;
+    background: transparent; 
     margin-right:10px;
-    border-radius: 5px;
+    border-radius: 25px;
+    border: 2px solid #e9e9e9;
 }
 
 .scroll-container {
@@ -92,13 +111,13 @@ overflow-x: scroll;
 white-space: nowrap; 
 /* 중앙으로 오도록 설정 */
     margin: 0 auto;
-    background-color: #d8f4ff;
+/*     background-color: #d8f4ff; */
 }
 
 .chal-content {
     /* 내용의 전체 너비 설정*/
     width: 100%; 
-    padding: 10px;
+    padding: 10px 0;
 }
 
 /* 스크롤바 디자인 */
@@ -109,47 +128,56 @@ white-space: nowrap;
 
 .scroll-container::-webkit-scrollbar-track {
     /* 스크롤바 배경 색 설정 */
-    background-color: #afe6ff;
+    background-color: #eee;
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
     /* 스크롤바 색 설정 */
 /* background-color: #81bcff;  */
-    background-color: #3881c5; 
+    background-color: lightgray; 
     border-radius: 5px;
 }
 
 .scroll-container::-webkit-scrollbar-thumb:hover {
     /* 스크롤바에 호버 효과, 색 설정 */
-    background-color: #0077ff; 
+    background-color: #bbb; 
 }
 
 .chal-list{
-	padding-bottom: 20px;
+	padding-bottom: 35px;
+}
+
+.chal-content li {
+	text-align: center;
+}
+
+.chal-title-div {
+    font-weight: bold;
+    padding: 5px 0;
+    font-size: 1.1em;
 }
 
 .chal-img{
     /* 이미지 설정 */
-    width: 260px;
-    height: 165px;
-    margin-top: 5px;
+    width: 90%;
+    height: 80%;
+    margin-top: 12px;
     margin-bottom: 5px;
     background-size: 100% 100%;
+    border-radius: 15px;
 }
 
 .chal-text-box{
     /* 챌린지 명 세부정보 요약 */
-    width: 260px;
     height: 80px;
     white-space: normal;
 }
-.chal-list-bottom{
-    margin-top: 5px;
-}
+
 .chal-list-bottom {
+    margin-top: 5px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: center;;
 }
 .chal-list-bottom div{
     display: flex;
@@ -160,7 +188,7 @@ white-space: nowrap;
     line-height: 1.2;
 }
 .like-icon-box{
-    margin-left: 5px;
+    margin-left: 10px;
 }
 .chal-user-icon{
     width: 20px;
@@ -174,20 +202,23 @@ white-space: nowrap;
     background-image: url(./images/heart.png);
     background-size: 100% 100%;
 }
+
+.btn {
+	padding: 0 !important;	
+}
+
 .btn button{
-    background-color: #3881C5;
+    background-color: #4aa8d5;
     color: #F3F3F3;
-    width: 120px;
-    height: 40px;
-    /* margin: 10px; */
+    width: 100px;
+    height: 35px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-size: 0.9em;
-    cursor:pointer;
+    cursor: pointer;
     text-align: center;
-    font-weight: bolder;
 }
 #new-chal-btn{
-	padding-right: 30px;
+	padding-right: 35px;
     padding-bottom: 5px;
 }

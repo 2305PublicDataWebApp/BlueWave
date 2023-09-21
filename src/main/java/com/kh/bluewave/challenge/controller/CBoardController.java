@@ -255,13 +255,13 @@ public class CBoardController {
 					// 실패
 					mv.addObject("msg", "게시물 작성에 실패하였습니다.");
 					mv.addObject("url", "/challenge/page.do");
-					mv.setViewName("common/errorPage");
+					mv.setViewName("common/serviceFailed");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				mv.addObject("msg", "관리자에게 문의 바랍니다.");
 				mv.addObject("url", "/challenge/page.do");
-				mv.setViewName("common/errorPage");
+				mv.setViewName("common/serviceFailed");
 			}
 			return mv;
 		}

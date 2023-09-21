@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,18 @@
 <link rel="stylesheet" href="/resources/css/reset/reset.css">
 
 <!-- 페이지 css -->
-<link rel="stylesheet"
-	href="/resources/css/challenge/challengeSearch.css">
+<link rel="stylesheet" href="/resources/css/challenge/challengeSearch.css">
+<link rel="stylesheet" href="/resources/css/challenge/challengePage.css">
+
+<style>
+	.search-form {
+	    margin: 0px 3px;
+	}
+	
+	#up-section {
+		padding-top: 25px;
+	}
+</style>
 </head>
 <body>
 	<header> </header>
@@ -34,16 +45,16 @@
 						</div>
 
 						<div class="chal-search-box">
-							<form action="/challenge/search.do" method="get">
-								<select name="searchCondition">
+							<form action="/challenge/search.do" method="get" style="display:flex; align-items: center;">
+								<select name="searchCondition" class="search-form">
 									<option value="all" 		<c:if test="${searchCondition == 'all'}">selected</c:if>>전체</option>
 									<option value="writer" 		<c:if test="${searchCondition == 'writer'}">selected</c:if>>작성자</option>
 									<option value="title" 		<c:if test="${searchCondition == 'title'}">selected</c:if>>제목</option>
 									<option value="content" 	<c:if test="${searchCondition == 'content'}">selected</c:if>>내용</option>
 								</select> 
-								<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요." value="${searchKeyword}">
-								<div id="searchBtn">
-									<button>검색</button>
+								<input type="text" name="searchKeyword" class="search-form" style="padding-left: 15px;" placeholder="검색어를 입력해주세요." value="${searchKeyword}">
+								<div class="btn">
+									<button style="width: 70px; height: 28px;">검색</button>
 		                    	</div>
 							</form>
 						</div>
@@ -58,7 +69,19 @@
 											<li>
 												<div>
 													<a href="/challenge/info.do?chalNo=${chalList.chalNo }">
-														${chalList.chalTitle }
+														<div class="chal-title-div">
+		                                                	<c:set var="chalTitle" value="${chalList.chalTitle }" />
+												
+														    <c:choose>
+														        <c:when test="${fn:length(chalTitle) > 15}">
+														            <c:set var="chalTitleTruncatedString" value="${fn:substring(chalTitle, 0, 15)}..." />
+														            <c:out value="${chalTitleTruncatedString}" />
+														        </c:when>
+														        <c:otherwise>
+														            <c:out value="${chalTitle}" />
+														        </c:otherwise>
+														    </c:choose>
+		                                                </div>
 														<div style="height: 175px;">
 															<img
 																src="../resources/chaluploadFiles/${chalList.chalFileRename}"
@@ -109,7 +132,19 @@
 										<li>
 											<div>
 												<a href="/challenge/info.do?chalNo=${chalList.chalNo }">
-													${chalList.chalTitle }
+													<div class="chal-title-div">
+	                                                	<c:set var="chalTitle" value="${chalList.chalTitle }" />
+											
+													    <c:choose>
+													        <c:when test="${fn:length(chalTitle) > 15}">
+													            <c:set var="chalTitleTruncatedString" value="${fn:substring(chalTitle, 0, 15)}..." />
+													            <c:out value="${chalTitleTruncatedString}" />
+													        </c:when>
+													        <c:otherwise>
+													            <c:out value="${chalTitle}" />
+													        </c:otherwise>
+													    </c:choose>
+	                                                </div>
 													<div style="height: 175px;">
 														<img
 															src="/resources/chaluploadFiles/${chalList.chalFileRename}"
@@ -147,7 +182,9 @@
 			</section>
 		</div>
 	</main>
-	<footer> </footer>
+	<footer>
+    	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+    </footer>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>

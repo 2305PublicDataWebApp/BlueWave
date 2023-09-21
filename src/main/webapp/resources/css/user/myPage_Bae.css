@@ -27,6 +27,7 @@ body {
 .mini-container {
     width: 70%;
     margin: 0 auto;
+    margin-bottom: 70px;
 }
 
 /* 마이페이지 헤더부분 스타일 */
@@ -236,8 +237,8 @@ hr {
 #progress::-webkit-progress-value {
     border-radius:10px;
     background: #58bdf7;
-    background: -webkit-linear-gradient(to right, #93d9f9, #17aaff);
-    background: linear-gradient(to right, #93d9f9, #17aaff);
+    background: -webkit-linear-gradient(to right, #bbedfd, #00cafb);
+    background: linear-gradient(to right, #bbedfd, #00cafb);
 }
 
 #percent-text {
@@ -246,7 +247,7 @@ hr {
     text-align: center;
     margin: 5px;
 }
-#0percent-text {
+#zero-percent-text {
 	font-size: 15px;
 	font-weight:600px;
     text-align: center;
