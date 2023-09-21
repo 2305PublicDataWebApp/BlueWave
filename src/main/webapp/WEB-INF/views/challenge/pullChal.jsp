@@ -18,7 +18,7 @@
 <!--         <header></header> -->
         <main>
             <section id="main-container">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="/challenge/create.do" method="post" enctype="multipart/form-data">
                 	<input type="hidden" name="chalUserId" value="${ sessionScope.userId }">
                     <!-- 시작일, 종료일 -->
                     <section id="set-chal-date">
@@ -29,15 +29,15 @@
                     <section id="set-chal-info">
                         <div>
                             <select name="chalPublic" id="chal-public">
-                                <option value="Y" <c:if test="${ fn:contains(cOne.chalPublic, 'Y') }">selected</c:if>>공개</option>
-                                <option value="N" <c:if test="${ fn:contains(cOne.chalPublic, 'N') }">selected</c:if>>비공개</option>
+                                <option value="Y" <c:if test="${ fn:contains(chal.chalPublic, 'Y') }">selected</c:if>>공개</option>
+                                <option value="N" <c:if test="${ fn:contains(chal.chalPublic, 'N') }">selected</c:if>>비공개</option>
                             </select>
                             <div>
-                                <input type="text" name="chalTitle" id="chal-title" placeholder="챌린지 이름을 적어주세요." onchange="duplicatedChalName();" value="${ cOne.chalTitle }" required>
+                                <input type="text" name="chalTitle" id="chal-title" placeholder="챌린지 이름을 적어주세요." onchange="duplicatedChalName();" value="${ chal.chalTitle }" required>
                                 <div style="display: none;" id="warning-text">* 이미 참여중인 챌린지입니다. 다른 챌린지를 시작해주세요.</div>
                             </div>
                         </div>
-                        <textarea name="chalContent" id="chal-content" cols="50" rows="5" placeholder="챌린지 방법을 간략하게 설명해주세요. (150자 이내)" required>${ cOne.chalContent }</textarea>
+                        <textarea name="chalContent" id="chal-content" cols="50" rows="5" placeholder="챌린지 방법을 간략하게 설명해주세요. (150자 이내)" required>${ chal.chalContent }</textarea>
                     </section>
                     <!-- 등록 버튼 -->
                     <section id="set-btn">
@@ -124,5 +124,10 @@
 		    }
 		});
 		</script>
+        <script>
+	        function goBack() {
+	            window.history.back();
+	        }
+        </script>
     </body>
 </html>

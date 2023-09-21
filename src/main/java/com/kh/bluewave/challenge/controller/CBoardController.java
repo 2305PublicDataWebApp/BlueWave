@@ -273,6 +273,30 @@ public class CBoardController {
 		return mv;
 	}
 	
+	// (마이페이지 연동) 회원이 작성한 게시물만 표시하기
+	@RequestMapping(value="/challenge/userChalInfo.do", method=RequestMethod.GET)
+	public ModelAndView showUserChallengeInfo(ModelAndView mv
+											, HttpSession session
+											, @RequestParam("chalNo") Integer chalNo
+											, @RequestParam("userId") String userId) {
+		try {			
+			Challenge cOne = chalService.selectOneByNo(chalNo);
+			User uOne = uService.selectOneByChalNo(userId);
+			CBoard cBoard = new CBoard(userId, chalNo);
+			List<CBoard> cList = cService.findCBoardByWriterAndNo(cBoard);
+			
+			mv.addObject("cOne", cOne);
+			mv.addObject("uOne", uOne);
+			mv.addObject("cList", cList);
+			mv.setViewName("challenge/challengeInfo");
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "챌린지 명 페이지 이동 오류").addObject("url", "/user/myPage.do?userId=" + userId);
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	
 	// 파일 업로드 관련 컨트롤러
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws IllegalStateException, IOException{

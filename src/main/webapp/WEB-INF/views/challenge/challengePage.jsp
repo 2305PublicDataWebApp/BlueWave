@@ -141,7 +141,7 @@
 		                                                		</a>
 		                                                	</c:if>
 		                                                    <c:if test="${sessionScope.userId ne chalList.chalUserId}">
-		                                                		<button>가져가기</button>
+		                                                		<button onclick="location.href='/challenge/pullChal.do?chalNo=${chalList.chalNo }'">가져가기</button>
 		                                                	</c:if>
 		                                                </div>
 		                                            </div>

@@ -61,7 +61,7 @@
 		<div class="footer">
 			<div class="footer-wrap">
 				<div class="div1 float-test">
-					<img src="../resources/images/water.png" />
+					<img src="../resources/images/logo-img.png" />
 				</div>
 				<div class="div2 float-test">
 					<h3>ABOUT</h3>

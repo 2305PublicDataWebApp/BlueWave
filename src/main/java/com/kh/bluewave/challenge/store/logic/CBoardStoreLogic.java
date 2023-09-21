@@ -40,6 +40,13 @@ public class CBoardStoreLogic implements CBoardStore{
 		return cList;
 	}
 	
+	// 회원 챌린지 게시물 list
+	@Override
+	public List<CBoard> selectCBoardByWriterAndNo(SqlSession session, CBoard cBoard) {
+		List<CBoard> cList = session.selectList("CBoardMapper.selectCBoardByWriterAndNo", cBoard);
+		return cList;
+	}
+
 	// 좋아요 한 게시물 list
 	@Override
 	public List<CBoard> selectAllLikePostsById(SqlSession session, String userId) {

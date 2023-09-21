@@ -53,6 +53,7 @@ public class ChallengeController {
 								   , @RequestParam(value="endDate", required=false) String endDate
 								   , @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 								   , HttpServletRequest request
+								   , HttpSession session
 								   , ModelAndView mv) {
 		try {
 			java.sql.Date chalStartDate = new java.sql.Date(challenge.getChalStartDate().getTime());
@@ -61,10 +62,12 @@ public class ChallengeController {
 				chalEndDate = new java.sql.Date(Date.valueOf(endDate).getTime());
 			}
 			
+			String userId = (String) session.getAttribute("userId");
 			// 로그인 여부 확인
-			if(!challenge.getChalUserId().equals("")) {
+			if(!userId.equals("")) {
 				// 챌린지 명 중복 여부 확인
-				Challenge cOne = cService.selectOneByTitle(challenge.getChalTitle());
+				challenge.setChalUserId(userId);
+				Challenge cOne = cService.selectOneByTitle(challenge);
 				if(cOne == null) {
 					// 파일 첨부
 					if(!uploadFile.getOriginalFilename().equals("")) {
@@ -131,8 +134,11 @@ public class ChallengeController {
 	// 챌린지 중복 체크
 	@RequestMapping(value = "/challenge/checkDuplicate.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String checkDuplicateChalName(@RequestParam("chalTitle") String chalTitle) {
-	    Challenge cOne = cService.selectOneByTitle(chalTitle);
+	public String checkDuplicateChalName(@ModelAttribute Challenge challenge
+										, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		challenge.setChalUserId(userId);
+	    Challenge cOne = cService.selectOneByTitle(challenge);
 	    return (cOne != null) ? "true" : "false";
 	}	
 	

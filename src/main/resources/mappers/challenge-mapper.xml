@@ -48,7 +48,7 @@
 	</select>
 	
 	<select id="selectOneByTitle" resultMap="chalResultMap">
-		SELECT * FROM CHAL_TBL WHERE CHAL_TITLE = #{ chalTitle }
+		SELECT * FROM CHAL_TBL WHERE CHAL_TITLE = #{ chalTitle } AND CHAL_USER_ID = #{ chalUserId }
 	</select>
 	
 	<select id="selectAllById" resultMap="chalResultMap">

@@ -45,8 +45,8 @@ public class ChallengeStoreLogic implements ChallengeStore{
 	}
 
 	@Override
-	public Challenge selectOneByTitle(SqlSession session, String chalTitle) {
-		Challenge cOne = session.selectOne("ChalMapper.selectOneByTitle", chalTitle);
+	public Challenge selectOneByTitle(SqlSession session, Challenge challenge) {
+		Challenge cOne = session.selectOne("ChalMapper.selectOneByTitle", challenge);
 		return cOne;
 	}
 

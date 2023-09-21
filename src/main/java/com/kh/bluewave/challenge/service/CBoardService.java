@@ -36,6 +36,13 @@ public interface CBoardService {
 	List<CBoard> findCBoardByNo(int chalNo);
 
 	/**
+	 * 회원 챌린지 게시물 list로 가져오는 Service
+	 * @param cBoard
+	 * @return
+	 */
+	List<CBoard> findCBoardByWriterAndNo(CBoard cBoard);
+
+	/**
 	 * 회원이 좋아요를 한 게시물 리스트 조회 Service
 	 * @param userId
 	 * @return List<CBoard>

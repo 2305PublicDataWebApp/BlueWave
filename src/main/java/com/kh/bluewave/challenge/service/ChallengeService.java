@@ -44,10 +44,10 @@ public interface ChallengeService {
 
 	/**
 	 * 챌린지 명으로 챌린지 조회 Service
-	 * @param chalTitle
+	 * @param challenge
 	 * @return
 	 */
-	Challenge selectOneByTitle(String chalTitle);
+	Challenge selectOneByTitle(Challenge challenge);
 
 	/**
 	 * 회원 아이디로 챌린지 리스트 조회 Service
