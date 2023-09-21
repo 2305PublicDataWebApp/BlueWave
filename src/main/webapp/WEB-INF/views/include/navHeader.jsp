@@ -23,7 +23,7 @@
 			height: 60px;
 			display: flex;
 			justify-content: space-around;
-			background-color: #45A1D6;
+			background-color: #4aa8d5;
 			align-items: center;
 			z-index: 1000;
 		}
@@ -69,8 +69,8 @@
 		}
 		
 		.nav-logo-img img {
-			width: 50px;
-			height: 50px;
+			width: 35px;
+   			height: 35px;
 			object-fit: cover;
 		}
 		

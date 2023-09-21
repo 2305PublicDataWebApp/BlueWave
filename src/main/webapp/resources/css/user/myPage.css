@@ -237,8 +237,8 @@ main {
                 }
                 
                 .chal-progress-ing {
-                	background-color: #afd3e2;
-                	border: 2px solid #afd3e2;
+                	background-color: #bae0ee;
+                	border: 2px solid #bae0ee;
                 }
                 
                 .chal-progress-none {
@@ -253,8 +253,8 @@ main {
                     padding: 5px 20px;
                     color: #fff;
                     font-size: 0.8em;
-                    background-color: #0AA1DD;
-                    border: 2px solid #0AA1DD;
+                    background-color: #56D3EE;
+                    border: 2px solid #56D3EE;
                     border-radius: 8px;
                 }
 

@@ -81,7 +81,13 @@ public class ChallengeController {
 						challenge.setChalFileRename(fileRename);
 						challenge.setChalFilePath(savePath);
 						challenge.setChalFileLength(fileLength);
-					} 
+					} else {
+						// 이미지가 선택되지 않았을 때 기본 이미지 정보 설정
+						challenge.setChalFileName("admin-img.png");
+						challenge.setChalFileRename("admin-img.png");
+						challenge.setChalFilePath("../resources/chaluploadFiles/admin-img.png");
+						challenge.setChalFileLength(0L);
+					}
 					challenge.setChalStartDate(chalStartDate);
 					challenge.setChalEndDate(chalEndDate);
 					
@@ -287,9 +293,10 @@ public class ChallengeController {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String delFilepath = root + "\\chaluploadFiles\\" + fileName;
 		File file = new File(delFilepath);
-		if(file.exists()) {
-			file.delete();
-		}
+
+		if (file.exists() && (!fileName.equals("admin-img.png"))) {
+	        file.delete();
+	    }
 	}
 	
 	

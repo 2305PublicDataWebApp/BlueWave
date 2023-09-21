@@ -21,49 +21,7 @@
   		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js"></script>
   		<!-- FullCalendar CSS -->
   		<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css" rel="stylesheet" />
-	    <style>
-		    /* 선택한 날짜의 스타일 */
-		    .selected-day {
-		      background-color: #3788d8; /* 선택한 날짜의 배경색을 파란색으로 설정 */
-		      color: white; /* 선택한 날짜의 텍스트 색상 설정 (예: 흰색) */
-		    }
-			.fc-daygrid-dot-event{
-				flex-direction: column
-			}
-			.fc-event-time, .fc-event-title{
-				display: none;
-			}
-			.fc-daygrid-day-top {
-				height: 15px;
-			}
-			.fc-daygrid-event-dot {
-				border : none;
-				width: 25px;
-    			height: 20px;
-    			background-color: #3788d8;
-			}
-			.fc-toolbar-chunk button {
-				display: none;
-			}
-			.fc-daygrid-day-number {
-				font-size : 13px;
-				color : rgb(188,188,188);
-			}
-			.fc-col-header-cell-cushion {
-				color : rgb(224,230,234);
-			} 
-			fc-toolbar-chunk button:first-child{
-				display: none;
-			}
-			
-			.fc .fc-toolbar.fc-header-toolbar {
-			    margin-bottom: 1em;
-			}
-		    
-		    .fc-header-toolbar > .fc-toolbar-chunk:last-child > button {
-		    	display: none;
-		    }
-		  </style>
+        <link rel="stylesheet" href="/resources/css/user/calender.css">
 	    <script>
 		    $(document).ready(function() {
 				var bluewaveSlider = $("#bluewave-slider").bxSlider({
@@ -266,7 +224,7 @@
 										
 										    <c:choose>
 										        <c:when test="${fn:length(inputString) > 12}"> <!-- 만약 문자열 길이가 5를 초과한다면 -->
-										            <c:set var="truncatedString" value="${fn:substring(inputString, 0, 5)}..." /> <!-- 문자열을 자르고 "..."을 추가하여 truncatedString 변수에 저장 -->
+										            <c:set var="truncatedString" value="${fn:substring(inputString, 0, 12)}..." /> <!-- 문자열을 자르고 "..."을 추가하여 truncatedString 변수에 저장 -->
 										            <c:out value="${truncatedString}" /> <!-- truncatedString을 출력 -->
 										        </c:when>
 										        <c:otherwise>
@@ -278,7 +236,7 @@
 										    <c:choose>
 										        <c:when test="${ endDate eq null }">
 										        	<td style="letter-spacing: 6px;">
-										            	<span id="0percent-text">기한없음</span>
+										            	<span id="zero-percent-text">기한없음</span>
 										            <td>
 										        </c:when>
 										        <c:otherwise>
@@ -295,11 +253,11 @@
 			                    <hr>
 			                </div>
 			            </div>
-			            <c:if test="${ empty todayCList }">
-	                   		<div class="list-none">굿즈 교환 내역이 없습니다</div>
+			            <div id="list-count"><b>굿즈 목록</b> | ${goodsList.size() }개</div>
+			            <c:if test="${ empty goodsList }">
+	                   		<div class="list-none" style="height:180px">굿즈 교환 내역이 없습니다</div>
 	                   	</c:if>
-	                   	<c:if test="${ !empty todayCList }">
-				            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
+	                   	<c:if test="${ !empty goodsList }">
 				            <div id="goods-img-div">
 				                <div class="slider-container">
 				                    <div class="slider1">
@@ -348,13 +306,49 @@
 	                                    </c:if>
 	                                    <div>
 	                                        <!-- 챌린지 명 -->
-	                                        <div class="chal-title">${ chal.chalTitle }</div>
+	                                        <div class="chal-title">
+		                                        <c:set var="chalTitle" value="${ chal.chalTitle }" />
+											
+											    <c:choose>
+											        <c:when test="${fn:length(chalTitle) > 15}">
+											            <c:set var="chalTitleTruncatedString" value="${fn:substring(chalTitle, 0, 15)}..." />
+											            <c:out value="${chalTitleTruncatedString}" />
+											        </c:when>
+											        <c:otherwise>
+											            <c:out value="${chalTitle}" />
+											        </c:otherwise>
+											    </c:choose>
+	                                        </div>
 	                                        <!-- 챌린지 방법 설명 -->
 	                                        <c:if test="${ chal.chalFileRename ne null }">
-		                                        <div style="width: 170px">${ chal.chalContent }</div>                                    	
+		                                        <div style="width: 170px">
+			                                        <c:set var="chalContent" value="${ chal.chalContent }" />
+												
+												    <c:choose>
+												        <c:when test="${fn:length(chalContent) > 50}">
+												            <c:set var="chalContentTruncatedString" value="${fn:substring(chalContent, 0, 50)}..." />
+												            <c:out value="${chalContentTruncatedString}" />
+												        </c:when>
+												        <c:otherwise>
+												            <c:out value="${chalContent}" />
+												        </c:otherwise>
+												    </c:choose>
+		                                        </div>                                    	
 	                                    	</c:if>
 	                                        <c:if test="${ chal.chalFileRename eq null }">
-		                                        <div>${ chal.chalContent }</div>                                    	
+		                                        <div>
+		                                        	<c:set var="chalContent" value="${ chal.chalContent }" />
+												
+												    <c:choose>
+												        <c:when test="${fn:length(chalContent) > 50}">
+												            <c:set var="chalContentTruncatedString" value="${fn:substring(chalContent, 0, 50)}..." />
+												            <c:out value="${chalContentTruncatedString}" />
+												        </c:when>
+												        <c:otherwise>
+												            <c:out value="${chalContent}" />
+												        </c:otherwise>
+												    </c:choose>
+		                                        </div>                                    	
 	                                    	</c:if>
 	                                    </div>
 	                                    <!-- 챌린지 세부 정보 이동 버튼 -->
@@ -522,15 +516,50 @@
 												    <c:if test="${fn:contains(chal.chalPublic, 'N')}">
 												        <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
 												    </c:if>
-												    ${chal.chalTitle}
+												    <c:set var="chalTitle" value="${ chal.chalTitle }" />
+											
+												    <c:choose>
+												        <c:when test="${fn:length(chalTitle) > 15}">
+												            <c:set var="chalTitleTruncatedString" value="${fn:substring(chalTitle, 0, 15)}..." />
+												            <c:out value="${chalTitleTruncatedString}" />
+												        </c:when>
+												        <c:otherwise>
+												            <c:out value="${chalTitle}" />
+												        </c:otherwise>
+												    </c:choose>
 												</div>
 		
-		                                        <!-- 챌린지 방법 설명 -->
+		                                        <!-- 챌린지 
+ -->
 		                                        <c:if test="${ chal.chalFileRename ne null }">
-			                                        <div style="width: 170px">${ chal.chalContent }</div>                                    	
+			                                        <div style="width: 170px">
+				                                        <c:set var="chalContent" value="${ chal.chalContent }" />
+												
+													    <c:choose>
+													        <c:when test="${fn:length(chalContent) > 50}">
+													            <c:set var="chalContentTruncatedString" value="${fn:substring(chalContent, 0, 50)}..." />
+													            <c:out value="${chalContentTruncatedString}" />
+													        </c:when>
+													        <c:otherwise>
+													            <c:out value="${chalContent}" />
+													        </c:otherwise>
+													    </c:choose>
+			                                        </div>                                    	
 		                                    	</c:if>
 		                                        <c:if test="${ chal.chalFileRename eq null }">
-			                                        <div>${ chal.chalContent }</div>                                    	
+			                                        <div>
+				                                        <c:set var="chalContent" value="${ chal.chalContent }" />
+												
+													    <c:choose>
+													        <c:when test="${fn:length(chalContent) > 50}">
+													            <c:set var="chalContentTruncatedString" value="${fn:substring(chalContent, 0, 50)}..." />
+													            <c:out value="${chalContentTruncatedString}" />
+													        </c:when>
+													        <c:otherwise>
+													            <c:out value="${chalContent}" />
+													        </c:otherwise>
+													    </c:choose>
+			                                        </div>                                    	
 		                                    	</c:if>
 		                                    </div>
 		                                    <!-- 챌린지 세부 정보 이동 버튼 -->
@@ -836,7 +865,7 @@
 		    // FullCalendar 초기화 및 이벤트 표시
 		    var calendar = new FullCalendar.Calendar(calendarEl, {
 		      initialView: "dayGridMonth", // 월별 뷰
-		      events: events, // 생성한 이벤트 배열을 events 옵션에 전달
+		      events: events // 생성한 이벤트 배열을 events 옵션에 전달
 		    });
 		
 		    calendar.render();

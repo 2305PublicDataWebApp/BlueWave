@@ -39,8 +39,9 @@ body{
 
 /* ------------------챌린지 페이지 css--------------------- */
 .title-section {
-	padding-top: 20px;
+    text-align: center;
     padding-left: 30px;
+    padding-top: 50px;
 }
 #up-section {
              /* 블루웨이브 챌린지 섹션 */
@@ -76,8 +77,9 @@ margin-bottom : 20px;
 	margin: 0;
 }
 .chal-search-box{
-	padding-right: 30px;
+	padding-right: 45px;
 }
+
 #searchBtn{
 	float:right;
 }
@@ -115,7 +117,7 @@ overflow-x: scroll;
 white-space: nowrap; 
 /* 중앙으로 오도록 설정 */
     margin: 0 auto;
-    background-color: #d8f4ff;
+/*     background-color: #d8f4ff; */
 }
 
 .chal-content {
@@ -153,7 +155,7 @@ white-space: nowrap;
 
 .chal-img{
     /* 이미지 설정 */
-    width: 260px;
+/*     width: 260px; */
     height: 165px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -162,7 +164,7 @@ white-space: nowrap;
 
 .chal-text-box{
     /* 챌린지 명 세부정보 요약 */
-    width: 260px;
+/*     width: 260px; */
     height: 80px;
     white-space: normal;
 }
