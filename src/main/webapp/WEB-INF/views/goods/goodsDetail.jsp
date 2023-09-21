@@ -24,33 +24,36 @@
 				<form action="/goods/buy.do" method="post">
 					<div class="goods-d-main-left">
 					<input type="hidden" name="productNo" value="${goods.productNo }">
-						<div class="goods-name">
-							<h2>상품 이름 : ${goods.productName }</h2>
-						</div>
-						<div class="goods-content">
-							<h3>상품 설명 : ${goods.productContent }</h3>
+					<input type="hidden" name="productPoint" value="${goods.productPoint }">
+						<div id="goods-main-info-div">
+							<div class="goods-name">
+								<h2>${goods.productName }</h2>
+							</div>
+							<div class="goods-content">
+								<div>${goods.productContent }</div>
+							</div>
 						</div>
 						<div class="goods-buy-container">
 							<div class="goods-buy-name">
 								<h4>상품이름 : ${goods.productName }</h4>
 							</div>
 							<div class="goods-buy-point">
-								<h4>상품가격 : ${goods.productPoint }</h4>
+								<h4>상품가격 : ${goods.productPoint } 포인트</h4>
 							</div>
 							<div class="goods-buy-howmany-container">
 								<div class="goods-buy-howmany">
 									<div>구매갯수</div>
 								</div>
 								<div class="goods-buy-howmany">
-									<input type="button" onClick="miunsGoods();" value=" - " name="minus">
+									<input type="button" onClick="miunsGoods();" value=" - " name="minus" class="minus">
 									<input type="text" id="count" name="count" value=0> 
-									<input type="button" onClick="addGoods();" value=" + " name="add">
+									<input type="button" onClick="addGoods();" value=" + " name="add" class="add">
 								</div>
 							</div>
 							<div class="goods-result-container">
 								<div class="goods-total-point">
 									<div>
-										합계 : <input type="text" id="sum" name="sum">
+										합계&nbsp;&nbsp;<input type="text" id="sum" name="sum">&nbsp;&nbsp;포인트
 									</div>
 								</div>
 								<div class="goods-buy-button">
@@ -70,7 +73,9 @@
 			</div>
 		</div>
 	</main>
-	<footer> </footer>
+	<footer>
+		<jsp:include page="../include/footer.jsp"></jsp:include>
+	</footer>
 	<script>
 		function addGoods() {
 			document.getElementById('count').value++;

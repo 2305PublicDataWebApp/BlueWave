@@ -4,47 +4,115 @@
     width: 70%;
     margin: 0 auto;
     margin-top: 60px;
-    background-color: white;
+    background-color: #f8f8f8;
 }
 .goods-d-title {
 	height: 10%;
+	padding-top: 50px;
+	text-align: center;
 }
 .goods-d-main {
 	display: flex;
     height: 90%;
+    width: 70%;
+    margin: 0 auto;
+}
+form {
+	width: 50%;
 }
 .goods-d-main-left {
 	display: flex;
-    width: 50%;
-    height: 100%;
+    width: 90%;
+    height: 80%;
     flex-direction: column;
     justify-content: space-around;
 }
+
+#goods-main-info-div {
+	padding: 30px;	
+}
+
+.goods-name {
+	font-size: 1.2em;
+	margin-bottom: 30px;
+}
+.goods-content {
+	font-size: 1.2em;
+    color: #878787;
+}
 .goods-buy-container {
-	height: 50%;
-	display: flex;
+/* 	margin: 0 auto; */
+    height: 45%;
+    display: flex;
+/*     width: 80%; */
     flex-direction: column;
     justify-content: space-around;
-    margin: 0 10px 0 10px;
-    background-color: #ccc
+/*     background-color: #45A1D6; */
+	border: 2px solid #bae0ee;
+	border-radius: 30px;
+	padding: 30px;
+	font-size: 0.85em;
+}
+h4 {
+	font-size: 1.5em;
 }
 .goods-buy-howmany-container {
 	display: flex;
     justify-content: space-between;
+	font-size: 1.5em;
 }
 .goods-result-container {
 	display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+}
+button.goods-buy-btn {
+	border-style: hidden;
+    padding: 10px 30px 10px 30px;
+    border-radius: 100px;
+    color: white;
+    font-size: 15px;
+    background-color: #4AA8D5;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    border: none;
+}
+.goods-total-point div {
+	display: flex;
+    align-items: center;
+}
+.minus, .add {
+	border-style: hidden;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+    color: #45A1D6;
+    font-size: 15px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    border: 2px solid #f3f3f3;
+}
+input[type=text] {
+	width: 60px;
+	height: 32px;
+	font-size: 15px;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: transparent;
 }
 .goods-d-main-right {
 	display: flex;
 	width: 50%;
-	height: 100%;
+	height: 80%;
 }
 .goods-image-container {
 	width: 100%;
     display: flex;
     align-items: center;
+    padding-left: 30px;
 }
 .goods-image {
 	width: 100%;

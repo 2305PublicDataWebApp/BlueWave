@@ -27,10 +27,7 @@
 		INSERT INTO POINT_TBL VALUES(#{userId }, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL, NULL )
 	</insert>
 
-	<select id="selectPointByUserId">
-		SELECT * FROM(
-    		SELECT * FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC
-		)
-		WHERE ROWNUM = 1
+	<select id="selectPointByUserId" resultMap="pointResultMap">
+		SELECT * FROM ( SELECT * FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC ) WHERE ROWNUM = 1
 	</select>
 </mapper>
