@@ -18,9 +18,10 @@
 	</insert>
 
 	<select id="getTotalPointByUserId" resultType="_int">
-		SELECT USER_TOTAL_POINT
-		FROM POINT_TBL 
-		WHERE USER_ID = #{userId }
+		SELECT * FROM (
+			SELECT USER_TOTAL_POINT FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC
+		)
+		WHERE ROWNUM = 1
 	</select>
 	
 	<insert id="insertRegisterPoint">
