@@ -43,7 +43,7 @@
 				<div id="btn-report-box">
 					<div id="btn-box" class="btn-design">
 						<c:if test="${sessionScope.userId eq cOne.chalUserId }">
-	                        <a href="/cboard/write.do?chalNo=${cOne.chalNo }">
+	                        <a href="/challenge/write.do?chalNo=${cOne.chalNo }">
 	                        	<button>작성하기</button>
 	                        </a>
 						</c:if>
@@ -52,11 +52,9 @@
 						</c:if>
 					</div>
 					<div id="report-box" class="btn-design">
-						<img src="/resources/images/report-icon.png" alt="신고 아이콘"> <a
-							href="#">신고하기</a>
 					</div>
 					<div class="update-delete-box">
-						<c:if test="${sessionScope.userId eq uOne.userId }">
+						<c:if test="${sessionScope.userId eq cOne.chalUserId }">
 							<c:url var="updateUrl" value="/challenge/update.do">
 							   <c:param name="chalNo" value="${ cOne.chalNo }"></c:param>
 							   <c:param name="userId" value="${ sessionScope.userId }"></c:param>
@@ -81,8 +79,12 @@
 							<img src="/resources/cuploadFiles/${cBoard.cBoardFileRename}" alt="챌린지 게시물 사진" class="like-img"
 								width="180px" height="200px">
 							<div class="image-text">
-								<span class="material-symbols-outlined" style="font-size: 1.1em;">
-									favorite </span> &nbsp;128
+								<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT }">
+									<c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo }">
+										<span class="material-symbols-outlined" style="font-size: 1.1em;">
+											favorite </span> &nbsp;${cBoardLikeCNT.cBoardLikeCount }
+									</c:if>
+								</c:forEach>
 							</div>
 						</div>
 						
@@ -120,26 +122,16 @@
 														</div>
 													</div>
 												<div class="report-board-box">
-													<img src="/resources/images/report-icon.png" alt="신고 아이콘">
-													<a href="#">신고하기</a>
 
 												</div>
 												</c:if>
 												<c:if test="${cOne.chalUserId eq 'admin' }">
 													<div class="user-info-box">
-<!-- 														<div class="user-img-box"> -->
-<%-- 															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }"> --%>
-<!-- 														</div> -->
 														<div class="user-nickname-box">
 															<h1>관리자</h1>
 														</div>
-<!-- 														<div class="user-subscribe-box"> -->
-<!-- 															<button>구독하기</button> -->
-<!-- 														</div> -->
 													</div>
 													<div class="report-board-box">
-<!-- 														<img src="/resources/images/report-icon.png" alt="신고 아이콘"> -->
-<!-- 														<a href="#">신고하기</a> -->
 													</div>
 												</c:if>
 											</div>
@@ -165,22 +157,45 @@
 												<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${cBoard.cBoardFileRename }">
 												<p>${cBoard.cBoardContent}</p>
 											</div>
-											<div class="bottom-box">
-												<div class="calendar-box">
-													<img alt="캘린더 아이콘"
-														src="/resources/images/Unioncalendar.png">
-													<p>7회 째 실천 중</p>
-												</div>
-												<div>
-													<p style="margin-bottom: 0px;">1시간 전</p>
-												</div>
-											</div>
 										</section>
-										<hr>
 										<section id="bottom-section">
 											<div class="like-btn-box">
-												<img alt="하트 아이콘" src="/resources/images/heart.png">
-												<h4>좋아요 5개</h4>
+											<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT}">
+											    <c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo}">
+											        <a href="/challenge/like.do?chalNo=${cBoard.chalNo}&userId=${sessionScope.userId}&cBoardNo=${cBoard.cBoardNo}">
+											            <c:set var="liked" value="false" />
+											            <c:forEach var="isLiked" items="${isLiked}">
+											                <c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo}">
+											                    <c:set var="liked" value="true" />
+											                </c:if>
+											            </c:forEach>
+											            <c:choose>
+											                <c:when test="${liked}">
+											                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
+											                </c:when>
+											                <c:otherwise>
+											                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+											                </c:otherwise>
+											            </c:choose>
+											            <h4>좋아요 ${cBoardLikeCNT.cBoardLikeCount}개</h4>
+											        </a>
+											    </c:if>
+											</c:forEach>
+<%-- 												<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT }"> --%>
+<%-- 													<c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo }"> --%>
+<%-- 														<a href="/challenge/like.do?chalNo=${cBoard.chalNo }&userId=${sessionScope.userId }&cBoardNo=${cBoard.cBoardNo}"> --%>
+<%-- 															<c:forEach var="isLiked" items="${isLiked }"> --%>
+<%-- 																<c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo }"> --%>
+<!-- 																	<img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png"> -->
+<%-- 																</c:if> --%>
+<%-- 																<c:if test="${isLiked.cBoardNo ne cBoard.cBoardNo }"> --%>
+<!-- 																	<img alt="빈 하트 아이콘" src="/resources/images/heart.png"> -->
+<%-- 																</c:if> --%>
+<%-- 															</c:forEach> --%>
+<%-- 															<h4>좋아요 ${cBoardLikeCNT.cBoardLikeCount }개</h4> --%>
+<!-- 														</a> -->
+<%-- 													</c:if> --%>
+<%-- 												</c:forEach> --%>
 											</div>
 										</section>
 									</div>

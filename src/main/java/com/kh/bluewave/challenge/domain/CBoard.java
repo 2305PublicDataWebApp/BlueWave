@@ -14,6 +14,8 @@ public class CBoard {
 	private Timestamp cBoardUpdateDate;
 	private String cBoardWriter;
 	private int chalNo;
+	private int boardCount;
+	private int cBoardLikeCount;
 	
 	public CBoard() {}
 	
@@ -89,6 +91,19 @@ public class CBoard {
 	public void setChalNo(int chalNo) {
 		this.chalNo = chalNo;
 	}
+	public int getBoardCount() {
+		return boardCount;
+	}
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+	}
+	public int getcBoardLikeCount() {
+		return cBoardLikeCount;
+	}
+	public void setcBoardLikeCount(int cBoardLikeCount) {
+		this.cBoardLikeCount = cBoardLikeCount;
+	}
+
 	@Override
 	public String toString() {
 		return "챌린지 게시물 [게시물 번호=" + cBoardNo + ", 글 제목=" + cBoardTitle + ", 글 내용=" + cBoardContent

@@ -136,4 +136,10 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectAllListByAdmin();
+
+	/**
+	 * 챌린지 명 전체 리스트 좋아요까지 조회
+	 * @return
+	 */
+	List<Challenge> selectAllLikeCnt();
 }

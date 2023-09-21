@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bluewave.challenge.domain.CLike;
 import com.kh.bluewave.challenge.domain.Challenge;
 import com.kh.bluewave.challenge.service.ChallengeService;
 import com.kh.bluewave.challenge.store.ChallengeStore;
@@ -132,6 +133,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<Challenge> selectAllListByAdmin() {
 		List<Challenge> acList = cStore.selectAllListByAdmin(session);
 		return acList;
+	}
+
+	@Override
+	public List<Challenge> selectAllLikeCnt() {
+		List<Challenge> cLikeList = cStore.selectAllLikeCnt(session);
+		return cLikeList;
 	}
 
 }
