@@ -3,75 +3,22 @@ body {
     margin: 0;
     padding: 0;
 }
-.header {
-    position: fixed;
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-around;
-    background-color: #ccc;
-    align-items: center;
-}
-.space {
-    padding-left: 20px;
-}
-.header-left {
-    display: flex;
-    align-items: center;
-}
-.header-right {
-    display: flex;
-    align-items: center;
-}
-.header-right button {
-    padding: 10px 30px 10px 30px;
-}
-.login-btn button {
-    border: none;
-    border-color: #ccc;
-    background-color: #ccc;
-}
-.logo-img img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-}
-.main-img img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-}
-
-/* 챌린지 css */
-a {
-    /* a 태그 디자인 */
-    color: black;
-    text-decoration: none;
-}
-#container {
+.container {
     /* 화면 전체 크기 설정 */
-    width: 70%;
+    width: 100%;
     height: 100%;
     /* border:2px solid #ccc; */
-    background-color: white;
+    background-color: #F8F8F8;
     margin: 0 auto;
 }
-#up-section {
-    /* 블루웨이브 챌린지 섹션 */
-    width: 100%;
-    height: 50%;
-/*     margin-top: 20px; */
-    /* border: 2px solid #ccc; */
-/*     background-color: white; */
+​
+/* 챌린지 css */
+/*
+.chal-section {
+    width: 80%;
+    margin: 0 auto;
 }
-#down-section {
-    /* 개인 챌린지 섹션 */
-    width: 100%;
-    height: 50%;
-    margin-top: 20px;
-/*     margin-bottom: 20px; */
-    /* background-color: chocolate; */
-}
+*/
 .chal-category-title {
     /* 해당 챌린지 명 */
     width: 100%;
@@ -86,6 +33,10 @@ a {
 .chal-category-title button {
     height: 40px;
 }
+.chal-content ul {
+	display: flex;
+    justify-content: space-between;
+}
 
 .chal-content ul li {
     /* 챌린지 명 내 리스트 크기 */
@@ -93,50 +44,18 @@ a {
     height: 350px;
     display: inline-block;
     padding: 10px 20px;
-    background: #9aa0a3;
+    background: white;
     margin-right: 10px;
-}
-
-.scroll-container {
-    width: 95%;
-    /* 가로 스크롤바 표시*/
-    overflow-x: scroll;
-    /* 텍스트가 줄 바꿈되지 않도록 설정 */
-    white-space: nowrap;
-    /* 중앙으로 오도록 설정 */
-    margin: 0 auto;
-    background-color: #d8f4ff;
 }
 
 .chal-content {
     /* 내용의 전체 너비 설정*/
     width: 100%;
-    padding: 10px;
 }
-
-/* 스크롤바 디자인 */
-.scroll-container::-webkit-scrollbar {
-    /* 스크롤바 너비 */
-    width: 10px;
+.chal-content a {
+	color: black;
+ 	text-decoration: none;
 }
-
-.scroll-container::-webkit-scrollbar-track {
-    /* 스크롤바 배경 색 설정 */
-    background-color: #afe6ff;
-}
-
-.scroll-container::-webkit-scrollbar-thumb {
-    /* 스크롤바 색 설정 */
-    /* background-color: #81bcff;  */
-    background-color: #3881c5;
-    border-radius: 5px;
-}
-
-.scroll-container::-webkit-scrollbar-thumb:hover {
-    /* 스크롤바에 호버 효과, 색 설정 */
-    background-color: #0077ff;
-}
-
 .chal-img {
     /* 이미지 설정 */
     width: 260px;
@@ -180,93 +99,146 @@ a {
     background-image: url(./images/heart.png);
     background-size: 100% 100%;
 }
+.btn button{
+    background-color: #3881C5;
+    color: #F3F3F3;
+    width: 120px;
+    height: 40px;
+    /* margin: 10px; */
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    cursor:pointer;
+    text-align: center;
+    font-weight: bolder;
+}
+#new-chal-btn{
+	padding-right: 30px;
+    padding-bottom: 5px;
+}
 
-/* 굿즈 css */
-.bx-viewport {
-    height: 100%;
-}
-.bx-wrapper {
-    height: 90%;
-    box-shadow: none !important;
-    margin: 0 !important;
-}
-.bxslider {
-    height: 100%;
-}
-.bx-pager.bx-default-pager {
-	position: static !important;
-	padding: 0 !important;
-}
-.bx-default-pager {
-	margin-top: 30px;
-    margin-bottom: 30px;
-    pading: 0 !important;
-}
-.goods-div-container {
-    height: 100%;
+/* 공지 css*/
+.notice-subject 
+, .chall-container {
+	padding-top: 30px;
     width: 70%;
     margin: 0 auto;
-    background-color: white;
 }
-.main-title {
-	padding-top: 20px;
-}
-.goods-container {
-    height: 800px;
-    display: flex;
-    background-color: white;
-    justify-content: center;
-}
-.goods-name h2,
-h3,
-.goods-price h2,
-h3 {
-    margin: 0;
-}
-.carousel-container {
-    display: flex;
-    justify-content: space-between;
-}
-.goods-list-container {
+.notice-container {
+	width: 80%;
     margin: 0 auto;
-    height: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-content: space-around;
-    flex-wrap: wrap;
 }
-.goods-item-container {
-    height: 100%;
-    width: 23%;
-    display: flex;
-    justify-content: center;
-    transition: transform 0.5s ease;
-    flex-wrap: wrap;
-}
-.goods-item {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 48%;
-    margin: 0 10px 10px 10px;
-    justify-content: space-between;
-}
-.goods-thumbnail {
-    text-align: center;
-    width: 100%;
-    height: 50%;
-}
-.goods-thumbnail img {
-	width: 100%;
-	height: 100%
-}
-.goods-price {
-    margin-top: 20px;
-}
-.goods-name {
+.notice-table
+, .notice-paging {
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
     margin-top: 10px;
 }
-.goods-buy-btn {
-    margin-top: 20px;
-    text-align: center;
+    .notice-table td:last-child 
+    , .notice-table td:nth-last-child(2)
+    , .notice-table td:nth-last-child(3)
+    , .notice-table td:first-child {
+        width: 90px;
+        height: 30px;
+        text-align: center;
+        
+    }
+    .notice-table th:last-child 
+    , .notice-table th:nth-last-child(2)
+    , .notice-table th:nth-last-child(3)
+    , .notice-table th:first-child
+    , .notice-paging {
+    	text-align: center;
+    }
+    .notice-table th {
+    	height: 40px;
+    	border-radius: 3px;
+    	border-top: 1px solid #ccc;
+    	border-bottom: 2px solid #3881C5;
+    	background-color: white;
+    }
+	 .notice-table td {
+	 	height: 40px;
+	 	border-bottom: 1px solid #ccc;
+	 	background-color: white;
+	 	border-radius: 3px;
+	 }
+ .notice-paging a
+ , .notice-table a{
+ 	color: black;
+ 	text-decoration: none;
+ }
+/* 코드팬 테스트 */
+.bx-viewport {
+	height: 100% !important;
+}
+
+#scroll-animate {
+	overflow: hidden;
+}
+
+#scroll-animate-main {
+	width: 100%;
+	left: 0;
+	position: fixed;
+}
+
+#heightPage, #heightScroll {
+	width: 10px;
+	top: 0;
+	position: absolute;
+	z-index: 99;
+}
+
+#heightPage {
+	left: 0;
+}
+
+#heightScroll {
+	right: 0;
+}
+
+.main-img {
+	width: 100%;
+	height: 100%;
+	background:
+		no-repeat 50% 50%;
+	top: 0;
+	position: fixed;
+	z-index: -1;
+}
+
+.footer {
+	width: 100%;
+	height: 300px;
+	background: gray;
+	bottom: -300px;
+	position: fixed;
+	z-index: -1;
+}
+
+.main-content {
+	min-height: 1000px;
+	background: #ededed;
+	position: relative;
+	z-index: 1;
+}
+
+.wrapper-parallax {
+	margin-top: 100%;
+	margin-bottom: 300px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.main-img, .footer, #scroll-animate-main {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.4s;
+	-moz-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+	-webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	-moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
+	transition-timing-function: cubic-bezier(0, 0, 0, 1);
 }

@@ -8,358 +8,259 @@
 <meta charset="UTF-8">
 <title>메인페이지</title>
 <link rel="stylesheet" href="resources/css/main.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-	$(document).ready(function() {
-		var slider = $(".bxslider").bxSlider({
-			infiniteLoop : false,
-			hideControlOnEnd : true,
-			touchEnabled : (navigator.maxTouchPoints > 0)
-		// 			slideWidth : 0
-		});
-		var currentPage = slider.getCurrentSlide();
-	});
+	/* 코드팬 테스트 */
+	function scrollFooter(scrollY, heightFooter) {
+		console.log(scrollY);
+		console.log(heightFooter);
+
+		if (scrollY >= heightFooter) {
+			$('.footer').css({
+				'bottom' : '0px'
+			});
+		} else {
+			$('.footer').css({
+				'bottom' : '-' + heightFooter + 'px'
+			});
+		}
+	}
+
+	$(window).load(
+			function() {
+				var windowHeight = $(window).height(), footerHeight = $(
+						'.footer').height(), heightDocument = (windowHeight)
+						+ ($('.main-content').height())
+						+ ($('.footer').height()) - 10;
+
+				// Definindo o tamanho do elemento pra animar
+				$('#scroll-animate, #scroll-animate-main').css({
+					'height' : heightDocument + 'px'
+				});
+
+				// Definindo o tamanho dos elementos header e conteúdo
+				$('.main-img').css({
+					'height' : windowHeight + 'px',
+					'line-height' : windowHeight + 'px'
+				});
+
+				$('.wrapper-parallax').css({
+					'margin-top' : windowHeight + 'px'
+				});
+
+				scrollFooter(window.scrollY, footerHeight);
+
+				// ao dar rolagem
+				window.onscroll = function() {
+					var scroll = window.scrollY;
+
+					$('#scroll-animate-main').css({
+						'top' : '-' + scroll + 'px'
+					});
+
+					$('.main-img').css(
+							{
+								'background-position-y' : 50
+										- (scroll * 100 / heightDocument) + '%'
+							});
+
+					scrollFooter(scroll, footerHeight);
+				}
+			});
 </script>
-<style type="text/css">
-.bx-viewport {
-	height: 100% !important;
-}
-</style>
 </head>
 <body>
-	<div class="container">
-		<header>
-			<jsp:include page="include/navHeader.jsp"></jsp:include>
-		</header>
-
-		<main>
-			<div class="main-container">
+	<header>
+		<jsp:include page="include/navHeader.jsp"></jsp:include>
+	</header>
+	<div id="scroll-animate">
+		<div id="scroll-animate-main">
+			<div class="wrapper-parallax">
 				<div class="main-img">
 					<img src="resources/images/admin-img.png" alt="메인이미지" />
 				</div>
+				<div class="container ">
+					<main class="main-content">
+						<div class="main-container">
 
-				<!-- 챌린지 페이지 -->
-				<div class="challenge-list-container">
-					<div id="container">
-						<section id="up-section">
-							<div class="chal-category-title">
-								<h2>블루웨이브 챌린지</h2>
-							</div>
-
-							<div class="chal-list">
-								<div class="scroll-container">
-									<div class="chal-content">
-										<ul>
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div>
-															<button>참여하기</button>
-														</div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div>
-															<button>참여하기</button>
-														</div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div>
-															<button>참여하기</button>
-														</div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div>
-															<button>참여하기</button>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div>
-															<button>참여하기</button>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</section>
-
-						<section id="down-section">
-							<div class="chal-category-title">
-								<h2>개인 챌린지</h2>
-								<button id="new-chal-btn">챌린지 생성</button>
-							</div>
-
-							<div class="chal-list">
-								<div class="scroll-container">
-									<div class="chal-content">
-										<ul>
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div></div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div></div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div></div>
-													</div>
-												</div>
-											</li>
-
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div></div>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div>
-													<a href="#"> 챌린지1
-														<div class="chal-img"></div>
-													</a>
-													<div class="chal-text-box">안녕하세요 여기는 챌린지에 대한 정보가 요약되어
-														있는 창 입니다.</div>
-													<div class="chal-list-bottom">
-														<div>
-															<div class="user-icon-box">
-																<div class="chal-user-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-															<div class="like-icon-box">
-																<div class="chal-like-icon"></div>
-																<span>&nbsp;158</span>
-															</div>
-														</div>
-														<div></div>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-
-				<!-- 굿즈 페이지 -->
-				<div class="goods-div-container">
-					<div class="main-title">
-						<h1>굿즈 페이지</h1>
-					</div>
-					<div class="goods-container">
-						<div class="bxslider">
-							<c:forEach var="goods" items="${gList }" varStatus="status">
-								<c:if test="${ status.index % 8 == 0}">
-									<div class="goods-item-container">
-								</c:if>
-										<div class="goods-item">
-											<div class="goods-thumbnail">
-												<img src="${goods.productThumbnailPath }" alt="여기는 이미지" />
-											</div>
-											<div class="goods-price">
-												<h3>${goods.productPoint }</h3>
-											</div>
-											<div class="goods-name">
-												<h2>${goods.productName }</h2>
-											</div>
-											<div class="goods-buy-btn">
-<%-- 												<button class="buy-btn" onclick="location.href='/goods/detail.do?productNo=${goods.productNo }'">구매하기</button> --%>
+							<!-- 챌린지 페이지 -->
+							<div class="challenge-list-container">
+								<div class="chall-container">
+									<div style="width:80%;margin:0 auto;margin-bottom:15px;">
+										<div class="chal-title-write-box">
+											<div class="chal-category-title">
+												<h2 style="margin-bottom:15px;">블루웨이브 챌린지</h2>
 											</div>
 										</div>
-								<c:if test="${ status.index % 8 == 7 or status.count == gList.size() }">
-									</div>
-								</c:if>	
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<footer>
-			<div class="footer">여기에 풋터</div>
-		</footer>
-	</div>
 
-	<script>
-		$(document).ready(function() {
-			$(".scroll-container").on("wheel", function(event) {
-				// 마우스 휠 이벤트 발생 시 가로 스크롤 조작
-				const delta = event.originalEvent.deltaY;
-				this.scrollLeft += delta;
-				event.preventDefault();
-			});
-		});
-	</script>
+										<div class="chal-list">
+											<div class="scroll-container">
+												<div class="chal-content">
+													<ul>
+														<c:forEach var="chalList" items="${acList}" begin="0"
+															end="2">
+															<c:if test="${chalList.chalUserId eq 'admin'}">
+																<li>
+																	<div>
+																		<a
+																			href="/challenge/info.do?chalNo=${chalList.chalNo }">
+																			${chalList.chalTitle }
+																			<div style="height: 175px;">
+																				<img
+																					src="../resources/chaluploadFiles/${chalList.chalFileRename}"
+																					alt="챌린지 게시물 사진" class="chal-img">
+																			</div>
+																		</a>
+																		<div class="chal-text-box">${chalList.chalContent }
+																		</div>
+																		<div class="chal-list-bottom">
+																			<div>
+																				<div class="user-icon-box">
+																					<div class="chal-user-icon">
+																						<img
+																							src="/resources/images/challenge/board-icon3.png"
+																							alt="게시물 아이콘">
+																					</div>
+																					<span>&nbsp;158</span>
+																				</div>
+																				<div class="like-icon-box">
+																					<div class="chal-like-icon">
+																						<img src="/resources/images/challenge/heart.png"
+																							alt="좋아요 아이콘">
+																					</div>
+																					<span>&nbsp;158</span>
+																				</div>
+																			</div>
+																			<c:if test="${!empty sessionScope.userId}">
+																				<div class="btn">
+																					<button>참여하기</button>
+																				</div>
+																			</c:if>
+																		</div>
+																	</div>
+																</li>
+															</c:if>
+														</c:forEach>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div style="width:80%;margin:0 auto;">
+										<div class="chal-title-write-box">
+											<div class="chal-category-title">
+												<h2 style="margin-bottom:15px;">개인 챌린지</h2>
+											</div>
+										</div>
+										<div class="chal-list">
+											<div class="scroll-container">
+												<div class="chal-content">
+													<ul>
+														<c:forEach var="chalList" items="${cList}" begin="0"
+															end="2">
+															<c:if test="${chalList.chalUserId ne 'admin'}">
+																<li>
+																	<div>
+																		<a
+																			href="/challenge/info.do?chalNo=${chalList.chalNo }">
+																			${chalList.chalTitle }
+																			<div style="height: 175px;">
+																				<img
+																					src="/resources/chaluploadFiles/${chalList.chalFileRename}"
+																					alt="챌린지 게시물 사진" class="chal-img">
+																			</div>
+																		</a>
+																		<div class="chal-text-box">${chalList.chalContent }
+																		</div>
+																		<div class="chal-list-bottom">
+																			<div>
+																				<div class="user-icon-box">
+																					<div class="chal-user-icon">
+																						<img
+																							src="/resources/images/challenge/board-icon3.png"
+																							alt="좋아요 하트">
+																					</div>
+																					<span>&nbsp;158</span>
+																				</div>
+																				<div class="like-icon-box">
+																					<div class="chal-like-icon">
+																						<img src="/resources/images/challenge/heart.png"
+																							alt="좋아요 하트">
+																					</div>
+																					<span>&nbsp;158</span>
+																				</div>
+																			</div>
+																			<c:if test="${!empty sessionScope.userId}">
+																				<div class="btn">
+																					<c:if
+																						test="${sessionScope.userId eq chalList.chalUserId}">
+																						<a
+																							href="/challenge/write.do?chalNo=${chalList.chalNo }">
+																							<button>작성하기</button>
+																						</a>
+																					</c:if>
+																					<c:if
+																						test="${sessionScope.userId ne chalList.chalUserId}">
+																						<button
+																							onclick="location.href='/challenge/pullChal.do?chalNo=${chalList.chalNo }'">가져가기</button>
+																					</c:if>
+																				</div>
+																			</c:if>
+																		</div>
+																	</div>
+																</li>
+															</c:if>
+														</c:forEach>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 공지 페이지 -->
+							<div class="notice-container">
+								<div class="notice-subject">
+									<h2>공지 게시판</h2>
+								</div>
+								<table class="notice-table">
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>조회수</th>
+									</tr>
+									<c:forEach var="notice" items="${nList }" begin="0" end="9">
+										<tr>
+											<td>${notice.noticeNo }</td>
+											<c:url var="detailUrl" value="/notice/detail.do">
+												<c:param name="noticeNo" value="${notice.noticeNo }" />
+											</c:url>
+											<td><a href="${detailUrl}">${notice.noticeTitle }</a></td>
+											<td>${notice.noticeWriter }</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd"
+													value="${notice.noticeCreateDate }" /></td>
+											<td>${notice.noticeViewCount }</td>
+										</tr>
+									</c:forEach>
+								</table>
+								<div class="notice-paging"></div>
+							</div>
+						</div>
+					</main>
+				</div>
+				<footer>
+					<div>
+						<jsp:include page="./include/footer.jsp"></jsp:include>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

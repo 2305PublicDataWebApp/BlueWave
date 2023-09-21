@@ -67,7 +67,7 @@ public class GoodsStoreLogic implements GoodsStore {
 		int limit = pInfo.getRecordCountPerPage();
 		int offset = (pInfo.getCurrentPage()-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Goods> gList = session.selectList("GoodsMapper.selectGoodsList", null, rowBounds);
+		List<Goods> gList = session.selectList("GoodsMapper.adminGoodsList", null, rowBounds);
 		return gList;
 	}
 

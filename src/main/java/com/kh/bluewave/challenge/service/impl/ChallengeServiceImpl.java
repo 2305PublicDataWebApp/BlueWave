@@ -128,4 +128,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return cList;
 	}
 
+	@Override
+	public List<Challenge> selectAllListByAdmin() {
+		List<Challenge> acList = cStore.selectAllListByAdmin(session);
+		return acList;
+	}
+
 }

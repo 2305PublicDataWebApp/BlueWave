@@ -410,6 +410,7 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)
 	public ModelAndView deleteUser(
 			@RequestParam("userId") String userId
 			, ModelAndView mv

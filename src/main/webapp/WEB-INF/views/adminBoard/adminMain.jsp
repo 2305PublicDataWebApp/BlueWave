@@ -62,7 +62,6 @@
 		        <option value="chall">챌린지 리스트</option>
 		        <option value="tip">팁공유 리스트</option>
 		        <option value="goods">굿즈 리스트</option>
-		        <option value="report">신고글 리스트</option>
 		    </select>
 		    <img id="admin-img" alt="관리자이미지" src="../resources/images/admin-img.png">
         </div>

@@ -130,4 +130,10 @@ public interface ChallengeService {
 	 * @return
 	 */
 	List<Challenge> selectChallList(PageInfo pInfo);
+	
+	/**
+	 * 챌린지명 관리자만 리스트 조회
+	 * @return
+	 */
+	List<Challenge> selectAllListByAdmin();
 }
