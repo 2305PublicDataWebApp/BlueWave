@@ -103,7 +103,7 @@
 			bottom: 22px;
 		    position: absolute;
 		    color: white;
-		    right: 531px;
+		    right: 550px;
 		}
 		</style>
 	</head>

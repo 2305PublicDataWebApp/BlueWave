@@ -101,19 +101,20 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
-
+							<div class="modal-body" style="padding:45px; padding-top: 20px;">
 								<div id="container-modal">
 									<div class="main-modal">
 										<section id="top-section">
 											<div id="user-info">
 												<c:if test="${cOne.chalUserId ne 'admin' }">
 													<div class="user-info-box">
-														<div class="user-img-box">
-															<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }">
-														</div>
-														<div class="user-nickname-box">
-															<h1>${uOne.userNickName}</h1>
+														<div class="user-info" onclick="location.href='/user/myPage.do?userId=${ cOne.chalUserId }'">
+															<div class="user-img-box">
+																<img alt="프로필 사진" src="/resources/PuploadFiles/${uOne.userProfileRename }">
+															</div>
+															<div class="user-nickname-box">
+																<h1>${uOne.userNickName}</h1>
+															</div>
 														</div>
 														<div class="user-subscribe-box">
 															<c:if test="${sessionScope.userId ne uOne.userId }">
@@ -121,17 +122,12 @@
 															</c:if>
 														</div>
 													</div>
-												<div class="report-board-box">
-
-												</div>
 												</c:if>
 												<c:if test="${cOne.chalUserId eq 'admin' }">
 													<div class="user-info-box">
 														<div class="user-nickname-box">
 															<h1>관리자</h1>
 														</div>
-													</div>
-													<div class="report-board-box">
 													</div>
 												</c:if>
 											</div>
@@ -158,6 +154,7 @@
 												<p>${cBoard.cBoardContent}</p>
 											</div>
 										</section>
+										<hr>
 										<section id="bottom-section">
 											<div class="like-btn-box">
 											<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT}">
@@ -177,7 +174,7 @@
 											                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
 											                </c:otherwise>
 											            </c:choose>
-											            <h4>좋아요 ${cBoardLikeCNT.cBoardLikeCount}개</h4>
+											            <h5>${cBoardLikeCNT.cBoardLikeCount}</h5>
 											        </a>
 											    </c:if>
 											</c:forEach>
@@ -202,9 +199,9 @@
 								</div>
 							</div>
 							
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-							</div>
+<!-- 							<div class="modal-footer"> -->
+<!-- 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
+<!-- 							</div> -->
 						</div>
 					</div>
 				</div>
@@ -216,6 +213,7 @@
 			</section>
 		</div>
 	</main>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	
 	<script>
 	    function deleteMyChal(deleteUrl) {

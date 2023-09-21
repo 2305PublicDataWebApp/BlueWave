@@ -58,3 +58,8 @@
 	background-color: #b9e0ef;
 	border-color: #b9e0ef;
 }
+
+.fc .fc-button-primary:hover {
+	background-color: #7bd8ef;
+	border-color: #7bd8ef;
+}

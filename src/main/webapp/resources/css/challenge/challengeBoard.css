@@ -13,6 +13,7 @@
 	height: 100%;
 	margin: 0 auto;
 }
+
 a {
 	/* a 태그 디자인 */
 	color: black;
@@ -35,15 +36,31 @@ body{
 /* 	width: 100%; */
 }
 .user-info-box {
-	width: 50%;
 	display: flex;
 	align-items: center;
     justify-content: space-between;
 }
 .user-nickname-box {
-	width: 40%;
     text-align: center;
+    margin: 0 15px;
 }
+
+.user-nickname-box > h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	cursor: pointer;
+}
+
+.user-info:hover {
+	color: #4AA8D5;
+}
+
 .user-img-box img {
 	width: 80px;
 	height: 80px;
@@ -52,6 +69,11 @@ body{
 .report-board-box img {
 	width: 25px;
 	height: 25px;
+}
+
+.chal-board-title-box > h2 {
+	font-size: 1.4em;
+    font-weight: bold;
 }
 
 /* .user-img-box { */
@@ -103,7 +125,7 @@ body{
 	display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 20px;
+    padding-bottom: 25px;
 }
 .chal-board-tag-box a{
 	color: black;
@@ -111,12 +133,10 @@ body{
 .mid-box img{
 	width: 100%;
 	height: 80%;
-	padding-left: 20px;
     margin-top: 10px;
 }
 .mid-box p {
-	padding-left: 20px;
-    margin-top: 10px;
+    margin: 30px 0;
 }
 .bottom-box {
 	display: flex;
@@ -150,13 +170,12 @@ body{
     align-items: center;
     color: black;
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .like-btn-box img {
 	width: 40px;
 	height: 40px;
     margin-right: 5px;
-    margin-left: 15px;
 }
 .calendar-box>p, .calendar-box div p{
 	margin: 0;

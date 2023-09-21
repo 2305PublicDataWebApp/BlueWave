@@ -34,6 +34,7 @@
 				</tr>
 			</table>
 		</div>
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<script>
 			const tipNo = "${tip.tipNo}";
 			function showModifyPage() {

@@ -379,6 +379,31 @@ public class CBoardController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/challenge/myLike.do", method=RequestMethod.GET)
+	public ModelAndView userMyLikeController(ModelAndView mv
+											, String userId
+											, int cBoardNo
+											, int chalNo
+											, HttpSession session) {
+		String sessionId = (String)session.getAttribute("userId");
+		try {
+			CLike cLOne = new CLike(sessionId, cBoardNo);
+			List<CLike> checkCLike = clService.selectListByUserIdCBoardNo(cLOne);
+			if(checkCLike.isEmpty()) {
+				int insertResult = clService.insertCLike(cLOne);
+			} else {
+				int deleteResult = clService.deleteCLike(cLOne);
+			}
+			mv.setViewName("redirect:/user/myPage.do?userId=" + userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "좋아요 오류 발생 (관리자에게 문의 요망)");
+			mv.addObject("url", "redirect:/user/myPage.do?userId=" + userId);
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	// 파일 업로드 관련 컨트롤러
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws IllegalStateException, IOException{
 		Map<String, Object> fileMap = new HashMap<String, Object>();

@@ -51,6 +51,17 @@
 			    });
 			});
 	    </script>
+	    <style>
+	    				
+			.chal-board-title-box {
+				cursor: pointer;
+			}
+			
+			.chal-board-title-box:hover {
+				color: #4AA8D5;
+			}
+            
+	    </style>
 	    <!-- 챌린지 슬라이더 css -->
         <link rel="stylesheet" href="/resources/css/user/myPageChalSlider.css"> 
         <title>마이페이지</title>
@@ -83,7 +94,7 @@
 			                            <a class="sub" data-bs-toggle="modal" data-bs-target="#followersModal">팔로워 ${ followersCnt }</a>
 		                            </span>
 		                        </div>   
-	                        	<c:if test="${sessionScope.userId ne user.userId }">
+	                        	<c:if test="${sessionScope.userId ne user.userId  && sessionScope.userId ne null }">
 		                        	<div>
 									    <c:url var="followUrl" value="/user/follow.do">
 									        <c:param name="sTarget" value="${ user.userId }"></c:param>
@@ -98,7 +109,7 @@
 									        <c:param name="unSubUser" value="${ sessionScope.userId }"></c:param>
 									    </c:url>
 									    <c:if test="${isFollowing eq 1 }">
-									    	<button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로잉</button>
+									    	<button id="follow-btn" onclick="unfollowUser('${unfollowUrl}');">팔로우 해제</button>
 									    </c:if>
 									    <c:if test="${isFollowing eq 0}">
 									    	<button id="follow-btn" onclick="followUser('${followUrl}');">팔로우</button>
@@ -740,7 +751,7 @@
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
-								<div class="modal-body">
+								<div class="modal-body"  style="padding:45px; padding-top: 20px;">
 									<div id="container-modal">
 										<div class="main-modal">
 											<section id="top-section">
@@ -751,15 +762,23 @@
 																<div class="user-info-box">
 																	<c:forEach var="user" items="${ allUserList }">
 																		<c:if test="${ user.userId eq likePost.cBoardWriter }">
-																			<div class="user-img-box">
-																				<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
-																			</div>
-																			<div class="user-nickname-box">
-																				<h1>${user.userNickName}</h1>
+																			<div class="user-info" onclick="location.href='/user/myPage.do?userId=${ user.userId }'">
+																				<div class="user-img-box">
+																					<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
+																				</div>
+																				<div class="user-nickname-box">
+																					<h1>${user.userNickName}</h1>
+																				</div>
 																			</div>
 																			<div class="user-subscribe-box">
-																				<c:if test="${sessionScope.userId ne user.userId }">
-																					<button>구독하기</button>
+																				<c:if test="${sessionScope.userId ne user.userId && sessionScope.userId ne null }">
+																					<c:if test="${isFollowing eq 1 }">
+																				    	<button onclick="unfollowUser('${unfollowUrl}');">팔로우 해제</button>
+																				    </c:if>
+																				    <c:if test="${isFollowing eq 0}">
+																				    	<button onclick="followUser('${followUrl}');">팔로우</button>
+																				    </c:if>
+<!-- 																					<button>구독하기</button> -->
 																				</c:if>
 																			</div>
 																		</c:if>
@@ -782,47 +801,70 @@
 											</div>
 											<section id="mid-section">
 												<div class="top-box">
-													<div class="chal-board-title-box">
+													<div class="chal-board-title-box" onclick="location.href='/challenge/info.do?chalNo=${likePost.chalNo}'">
 														<h2>${likePost.cBoardTitle }</h2>
+													</div>
+													<div class="chal-board-tag-box">
+														<c:if test="${sessionScope.userId eq likePost.cBoardWriter }">
+															<c:url var="delCBUrl" value="/challenge/cbDelete.do">
+															   <c:param name="cBoardNo" value="${likePost.cBoardNo }"></c:param>
+															</c:url>
+															<a href="/challenge/cbUpdate.do?cBoardNo=${likePost.cBoardNo }">수정하기</a> / <a href="/challenge/cbDelete.do?cBoardNo=${likePost.cBoardNo }">삭제하기</a>
+														</c:if>
 													</div>
 												</div>
 												<div class="mid-box">
 													<img alt="챌린지 게시물 업로드 사진" src="/resources/cuploadFiles/${likePost.cBoardFileRename }">
 													<p>${likePost.cBoardContent}</p>
 												</div>
-												<div class="bottom-box">
-													<div class="calendar-box">
-														<img alt="캘린더 아이콘"
-															src="/resources/images/Unioncalendar.png">
-														<p>7회 째 실천 중</p>
-													</div>
-													<div>
-														<p style="margin-bottom: 0px;">1시간 전</p>
-													</div>
-												</div>
 											</section>
 											<hr>
 											<section id="bottom-section">
 												<div class="like-btn-box">
-													<img alt="하트 아이콘" src="/resources/images/heart.png">
-													<h4>좋아요 5개</h4>
+													<c:forEach var="like" items="${ cBLikeCntList }" varStatus="likeStatus">
+													    <c:if test="${likePost.cBoardNo eq like.cBoardNo}">
+													    	<c:url var="myLikeUrl" value="/challenge/myLike.do">
+													    		<c:param name="chalNo" value="${likePost.chalNo}"></c:param>
+													    		<c:param name="userId" value="${user.userId}"></c:param>
+													    		<c:param name="cBoardNo" value="${likePost.cBoardNo}"></c:param>
+													    	</c:url>
+													        <a href="${ myLikeUrl }">
+													            <c:set var="liked" value="false" />
+													            <c:forEach var="isLiked" items="${isLiked}">
+													                <c:if test="${isLiked.cBoardNo eq likePost.cBoardNo}">
+													                    <c:set var="liked" value="true" />
+													                </c:if>
+													            </c:forEach>
+													            <c:choose>
+													                <c:when test="${liked}">
+													                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
+													                </c:when>
+													                <c:otherwise>
+													                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+													                </c:otherwise>
+													            </c:choose>
+				                                           		<c:if test="${ likePost.cBoardNo eq like.cBoardNo }">
+				                                           			<h5>${ like.likeCnt }</h5>
+				                                           		</c:if>
+													        </a>
+													    </c:if>
+													</c:forEach>
 												</div>
 											</section>
 										</div>
 									</div>
 								</div>
-								
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-								</div>
+<!-- 								<div class="modal-footer"> -->
+<!-- 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
+<!-- 								</div> -->
 							</div>
 						</div>
 					</div>
             	</c:forEach>
             </section>
         </main>
-<!--         <footer></footer> -->
 		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+<!--         <footer></footer> -->
 
 	    <script>
 	        // // 프로그레스 바 엘리먼트 선택
