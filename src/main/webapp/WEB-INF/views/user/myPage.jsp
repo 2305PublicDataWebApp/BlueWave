@@ -319,21 +319,17 @@
 	                   	<c:if test="${ !empty todayCList }">
 				            <div id="list-count">굿즈 목록 | ${goodsList.size() }개</div>
 				            <div id="goods-img-div">
-<!-- 				                <div class="slider-container"> -->
-<!-- 				                    <div class="slider1"> -->
-<!-- 				                    <div class="slide"> -->
-<!-- 			                            <img src="../../resources/images/background-img.jpg" alt=""> -->
-<!-- 			                            <div class="goods-name-overlay"> -->
-<!-- 			                                <div class="goods-name">굿즈 이름4</div> -->
-<!-- 			                            </div> -->
-<!-- 			                        </div> -->
-				                    
+				                <div class="slider-container">
+				                    <div class="slider1">
+				                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
 				                        <c:forEach var="goods" items="${goodsList }" >
 					                        <div class="slide">
-					                            <img src="${goods.productThumbnailPath }" alt=""> 
-					                            <div class="goods-name-overlay">
-					                                <div class="goods-name">${goods.productName }</div>
-					                            </div>
+					                    		<a href="/user/goods/detail.do?productNo=${goods.productNo }">
+						                            <img src="${goods.productThumbnailPath }" alt=""> 
+						                            <div class="goods-name-overlay">
+						                                <div class="goods-name">${goods.productName }</div>
+						                            </div>
+					                    		</a>
 					                        </div>
 				                        </c:forEach>
 				                    </div>
