@@ -11,6 +11,14 @@ body {
     padding: 0;
 }
 
+tr {
+	height: 55px;
+}
+
+th {
+	height: 55px;
+}
+
 /* 컨테이너 스타일 */
 .container {
     width: 70%;

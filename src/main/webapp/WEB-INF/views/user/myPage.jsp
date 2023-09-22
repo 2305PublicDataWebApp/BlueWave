@@ -109,9 +109,9 @@
 		                </div>
 		                <c:if test="${sessionScope.userId eq user.userId }">
 		                	<div id="modify-btn-div">
-<%-- 				                <a href="/user/modify.do?userId=${sessionScope.userId }"> --%>
+				                <a href="/user/modify.do?userId=${sessionScope.userId }">
 								    <img id="modify-btn" src="../resources/images/user/setting-icon.png" alt="설정 아이콘">
-<!-- 								</a> -->
+								</a>
 		                	</div>
 		                </c:if>
 		                <div id="userInfo-div">

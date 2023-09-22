@@ -141,7 +141,7 @@ input[type="checkbox"] {
     border-radius: 15px;
     font-size: 15px;
     cursor: pointer; /* 커서 모양 변경 (포인터) */
-    width: 100px;
+    width: 105px;
     height: 30px;
 
 }
