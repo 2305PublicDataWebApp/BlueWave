@@ -202,7 +202,21 @@
 																	<div>
 																		<a
 																			href="/challenge/info.do?chalNo=${chalList.chalNo }">
-																			${chalList.chalTitle }
+																			<div class="chal-title-div">
+																				<c:set var="chalTitle"
+																					value="${chalList.chalTitle }" />
+
+																				<c:choose>
+																					<c:when test="${fn:length(chalTitle) > 15}">
+																						<c:set var="chalTitleTruncatedString"
+																							value="${fn:substring(chalTitle, 0, 15)}..." />
+																						<c:out value="${chalTitleTruncatedString}" />
+																					</c:when>
+																					<c:otherwise>
+																						<c:out value="${chalTitle}" />
+																					</c:otherwise>
+																				</c:choose>
+																			</div>
 																			<div style="height: 175px;">
 																				<img
 																					src="/resources/chaluploadFiles/${chalList.chalFileRename}"
