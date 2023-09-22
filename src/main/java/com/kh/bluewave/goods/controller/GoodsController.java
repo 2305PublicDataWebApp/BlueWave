@@ -197,7 +197,9 @@ public class GoodsController {
 					int result = gService.buyGoods(point);
 					
 					if (result > 0) {
-						mv.setViewName("redirect:/goods/list.do");
+						mv.addObject("url", "/goods/list.do");
+						mv.addObject("msg", "결제 성공!!!");
+						mv.setViewName("common/serviceFailed");
 					} else {
 						// 결제 실패
 						mv.addObject("url", "/goods/list.do");
