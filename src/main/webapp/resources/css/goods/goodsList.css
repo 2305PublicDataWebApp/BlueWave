@@ -87,3 +87,14 @@
     margin-top: 20px;
     text-align: center;
 }
+button.buy-btn {
+	border-style: hidden;
+    padding: 10px 30px 10px 30px;
+    border-radius: 100px;
+    color: white;
+    font-size: 15px;
+    background-color: #4AA8D5;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    border: none;
+}

@@ -66,7 +66,7 @@
 				<div class="goods-d-main-right">
 					<div class="goods-image-container">
 						<div class="goods-image">
-							<img src="${goods.productImagePath }" alt="여기에 이미지">
+							<img src="${goods.productImagePath }" alt="">
 						</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 	</footer>
 	<script>
 		function addGoods() {
-			if(document.getElementById('count').value <= ${goods.productCount }) {
+			if(document.getElementById('count').value < ${goods.productCount }) {
 				document.getElementById('count').value++;
 				document.getElementById('sum').value = ${goods.productPoint } * document.getElementById('count').value;
 			}
