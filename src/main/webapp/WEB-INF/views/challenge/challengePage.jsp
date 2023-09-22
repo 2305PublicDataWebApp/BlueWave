@@ -32,7 +32,6 @@
 	                    	<form action="/challenge/search.do" method="get">
 	                    		<select name="searchCondition" class="search-form">
 	                    			<option value="all">전체</option>
-	                    			<option value="writer">작성자</option>
 	                    			<option value="title">제목</option>
 	                    			<option value="content">내용</option>
 	                    		</select>
@@ -104,7 +103,9 @@
 		                                                    </div>
 		                                                </div>
 		                                                <div class="btn">
-		                                                    <button>참여하기</button>
+			                                                <a href="/challenge/write.do?chalNo=${chalList.chalNo }">
+			                                                    <button>참여하기</button>
+			                                                </a>	
 		                                                </div>
 		                                            </div>
 		                                        </div>

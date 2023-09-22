@@ -75,6 +75,8 @@ public class CBoardController {
 				// chalNo에 해당하는 게시물 전부 select
 				List<CBoard> cList = cService.findCBoardByNo(chalNo);
 				
+				List<User> user = uService.selectUserList();
+				
 				// 해당 챌린지 게시물 번호에 좋아요 수
 				List<CBoard> cBoardLikeCNT = cService.selectBoardLikeCountList();
 				
@@ -86,6 +88,7 @@ public class CBoardController {
 				mv.addObject("cList", cList);
 				mv.addObject("cOne", cOne);
 				mv.addObject("uOne", uOne);
+				mv.addObject("user", user);
 				mv.addObject("cBoardLikeCNT", cBoardLikeCNT);
 				mv.setViewName("challenge/challengeInfo");
 			} else {
@@ -370,11 +373,17 @@ public class CBoardController {
 			) {
 		try {
 			CLike cLOne = new CLike(userId, cBoardNo);
-			List<CLike> checkCLike = clService.selectListByUserIdCBoardNo(cLOne);
-			if(checkCLike.isEmpty()) {
-				int insertResult = clService.insertCLike(cLOne);
+			CBoard cBoard = cService.selectOneByCBoardNo(cBoardNo);
+			String cBoardWriter = cBoard.getcBoardWriter();
+			if(!userId.equals(cBoardWriter)) {
+				List<CLike> checkCLike = clService.selectListByUserIdCBoardNo(cLOne);
+				if(checkCLike.isEmpty()) {
+					int insertResult = clService.insertCLike(cLOne);
+				} else {
+					int deleteResult = clService.deleteCLike(cLOne);
+				}
 			} else {
-				int deleteResult = clService.deleteCLike(cLOne);
+				mv.addObject("msg", "본인 게시물엔 좋아요를 누를 수 없습니다.");
 			}
 
 			mv.setViewName("redirect:/challenge/info.do?chalNo=" + chalNo);

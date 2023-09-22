@@ -45,7 +45,7 @@
 							<div class="chal-board-file-box">
 								<input type="file" name="uploadFile" class="input-tag" required="required">
 								<div class="btn-box">
-									<input type="reset" value="취소하기" id="reset-btn">
+									<input type="button" value="취소하기" id="reset-btn" onclick="goBack();">
 									<input type="submit" value="수정하기" class="btn">							
 								</div>
 							</div>
@@ -57,7 +57,11 @@
 		<footer>
 		
 		</footer>
-		
+		<script>
+        function goBack() {
+            window.history.back();
+        }
+		</script>
 		
 	</body>
 </html>
