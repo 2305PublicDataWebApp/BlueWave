@@ -116,11 +116,6 @@
 																<h1>${uOne.userNickName}</h1>
 															</div>
 														</div>
-														<div class="user-subscribe-box">
-															<c:if test="${sessionScope.userId ne uOne.userId }">
-																<button>구독하기</button>
-															</c:if>
-														</div>
 													</div>
 												</c:if>
 												<c:if test="${cOne.chalUserId eq 'admin' }">
@@ -156,44 +151,37 @@
 										</section>
 										<hr>
 										<section id="bottom-section">
-											<div class="like-btn-box">
 											<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT}">
 											    <c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo}">
-											        <a href="/challenge/like.do?chalNo=${cBoard.chalNo}&userId=${sessionScope.userId}&cBoardNo=${cBoard.cBoardNo}">
-											            <c:set var="liked" value="false" />
-											            <c:forEach var="isLiked" items="${isLiked}">
-											                <c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo}">
-											                    <c:set var="liked" value="true" />
-											                </c:if>
-											            </c:forEach>
-											            <c:choose>
-											                <c:when test="${liked}">
-											                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
-											                </c:when>
-											                <c:otherwise>
-											                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
-											                </c:otherwise>
-											            </c:choose>
-											            <h5>${cBoardLikeCNT.cBoardLikeCount}</h5>
-											        </a>
+											    	<c:if test="${ sessionScope.userId eq cBoard.cBoardWriter }">
+														<div class="like-btn-box"  onclick="myPost();">
+												    		<img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+												    		<h5>${cBoardLikeCNT.cBoardLikeCount}</h5>
+												    	</div>
+											    	</c:if>
+											    	<c:if test="${ sessionScope.userId ne cBoard.cBoardWriter }">
+												    	<div class="like-btn-box">
+													        <a href="/challenge/like.do?chalNo=${cBoard.chalNo}&userId=${sessionScope.userId}&cBoardNo=${cBoard.cBoardNo}">
+													            <c:set var="liked" value="false" />
+													            <c:forEach var="isLiked" items="${isLiked}">
+													                <c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo}">
+													                    <c:set var="liked" value="true" />
+													                </c:if>
+													            </c:forEach>
+													            <c:choose>
+													                <c:when test="${liked}">
+													                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
+													                </c:when>
+													                <c:otherwise>
+													                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+													                </c:otherwise>
+													            </c:choose>
+													            <h5>${cBoardLikeCNT.cBoardLikeCount}</h5>
+													        </a>
+												        </div>
+											    	</c:if>
 											    </c:if>
 											</c:forEach>
-<%-- 												<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT }"> --%>
-<%-- 													<c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo }"> --%>
-<%-- 														<a href="/challenge/like.do?chalNo=${cBoard.chalNo }&userId=${sessionScope.userId }&cBoardNo=${cBoard.cBoardNo}"> --%>
-<%-- 															<c:forEach var="isLiked" items="${isLiked }"> --%>
-<%-- 																<c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo }"> --%>
-<!-- 																	<img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png"> -->
-<%-- 																</c:if> --%>
-<%-- 																<c:if test="${isLiked.cBoardNo ne cBoard.cBoardNo }"> --%>
-<!-- 																	<img alt="빈 하트 아이콘" src="/resources/images/heart.png"> -->
-<%-- 																</c:if> --%>
-<%-- 															</c:forEach> --%>
-<%-- 															<h4>좋아요 ${cBoardLikeCNT.cBoardLikeCount }개</h4> --%>
-<!-- 														</a> -->
-<%-- 													</c:if> --%>
-<%-- 												</c:forEach> --%>
-											</div>
 										</section>
 									</div>
 								</div>
@@ -214,7 +202,11 @@
 		</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
-	
+	<script>
+		function myPost() {
+			alert("자신의 게시물에는 좋아요를 누를 수 없습니다.");
+		}
+	</script>
 	<script>
 	    function deleteMyChal(deleteUrl) {
 	        if(confirm("삭제한 챌린지 정보는 복구되지 않습니다(인증 게시물 포함). 정말 삭제하시겠습니까?")){

@@ -770,17 +770,6 @@
 																					<h1>${user.userNickName}</h1>
 																				</div>
 																			</div>
-																			<div class="user-subscribe-box">
-																				<c:if test="${sessionScope.userId ne user.userId && sessionScope.userId ne null }">
-																					<c:if test="${isFollowing eq 1 }">
-																				    	<button onclick="unfollowUser('${unfollowUrl}');">팔로우 해제</button>
-																				    </c:if>
-																				    <c:if test="${isFollowing eq 0}">
-																				    	<button onclick="followUser('${followUrl}');">팔로우</button>
-																				    </c:if>
-<!-- 																					<button>구독하기</button> -->
-																				</c:if>
-																			</div>
 																		</c:if>
 																	</c:forEach>
 																</div>
@@ -820,36 +809,44 @@
 											</section>
 											<hr>
 											<section id="bottom-section">
-												<div class="like-btn-box">
 													<c:forEach var="like" items="${ cBLikeCntList }" varStatus="likeStatus">
 													    <c:if test="${likePost.cBoardNo eq like.cBoardNo}">
-													    	<c:url var="myLikeUrl" value="/challenge/myLike.do">
-													    		<c:param name="chalNo" value="${likePost.chalNo}"></c:param>
-													    		<c:param name="userId" value="${user.userId}"></c:param>
-													    		<c:param name="cBoardNo" value="${likePost.cBoardNo}"></c:param>
-													    	</c:url>
-													        <a href="${ myLikeUrl }">
-													            <c:set var="liked" value="false" />
-													            <c:forEach var="isLiked" items="${isLiked}">
-													                <c:if test="${isLiked.cBoardNo eq likePost.cBoardNo}">
-													                    <c:set var="liked" value="true" />
-													                </c:if>
-													            </c:forEach>
-													            <c:choose>
-													                <c:when test="${liked}">
-													                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
-													                </c:when>
-													                <c:otherwise>
-													                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
-													                </c:otherwise>
-													            </c:choose>
-				                                           		<c:if test="${ likePost.cBoardNo eq like.cBoardNo }">
-				                                           			<h5>${ like.likeCnt }</h5>
-				                                           		</c:if>
-													        </a>
+													    	<c:if test="${ sessionScope.userId eq liskPost.cBoardWriter }">
+														    	<div class="like-btn-box"  onclick="myPost();">
+														    		<img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+														    		<h5>${cBoardLikeCNT.cBoardLikeCount}</h5>
+													    		</div>
+													    	</c:if>
+													    	<c:if test="${ sessionScope.userId ne liskPost.cBoardWriter }">
+													    		<div class="like-btn-box">
+															    	<c:url var="myLikeUrl" value="/challenge/myLike.do">
+															    		<c:param name="chalNo" value="${likePost.chalNo}"></c:param>
+															    		<c:param name="userId" value="${user.userId}"></c:param>
+															    		<c:param name="cBoardNo" value="${likePost.cBoardNo}"></c:param>
+															    	</c:url>
+															        <a href="${ myLikeUrl }">
+															            <c:set var="liked" value="false" />
+															            <c:forEach var="isLiked" items="${isLiked}">
+															                <c:if test="${isLiked.cBoardNo eq likePost.cBoardNo}">
+															                    <c:set var="liked" value="true" />
+															                </c:if>
+															            </c:forEach>
+															            <c:choose>
+															                <c:when test="${liked}">
+															                    <img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png">
+															                </c:when>
+															                <c:otherwise>
+															                    <img alt="빈 하트 아이콘" src="/resources/images/heart.png">
+															                </c:otherwise>
+															            </c:choose>
+						                                           		<c:if test="${ likePost.cBoardNo eq like.cBoardNo }">
+						                                           			<h5>${ like.likeCnt }</h5>
+						                                           		</c:if>
+															        </a>
+															    </div>
+													        </c:if>
 													    </c:if>
 													</c:forEach>
-												</div>
 											</section>
 										</div>
 									</div>
@@ -996,6 +993,11 @@
         <script>
 			function submitChalUpdateForm() {
 			    document.chalUpdateForm.submit();
+			}
+		</script>
+		<script>
+			function myPost() {
+				alert("자신의 게시물에는 좋아요를 누를 수 없습니다.");
 			}
 		</script>
         <script>

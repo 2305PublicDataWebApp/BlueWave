@@ -339,10 +339,14 @@ public class CBoardController {
 			User uOne = uService.selectOneByChalNo(userId);
 			CBoard cBoard = new CBoard(userId, chalNo);
 			List<CBoard> cList = cService.findCBoardByWriterAndNo(cBoard);
+			List<CBoard> cBoardLikeCNT = cService.selectBoardLikeCountList();
+			List<CLike> isLiked = clService.checkIsLiked(userId);
 			
 			mv.addObject("cOne", cOne);
 			mv.addObject("uOne", uOne);
 			mv.addObject("cList", cList);
+			mv.addObject("cBoardLikeCNT", cBoardLikeCNT);
+			mv.addObject("isLiked", isLiked);
 			mv.setViewName("challenge/challengeInfo");
 		} catch (Exception e) {
 			e.printStackTrace();

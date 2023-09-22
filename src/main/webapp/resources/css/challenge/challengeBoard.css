@@ -164,6 +164,7 @@ body{
 	display: flex;
 	align-items: center;
     margin-top: 5px;
+    cursor: pointer;
 }
 .like-btn-box a {
 	display: flex;
