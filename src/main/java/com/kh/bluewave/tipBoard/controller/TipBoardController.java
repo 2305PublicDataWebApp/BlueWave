@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,18 +37,26 @@ public class TipBoardController {
 	 */
 	@RequestMapping(value="/tip/board.do", method=RequestMethod.GET)
 	public ModelAndView showTipBoard(ModelAndView mv
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
+			, HttpSession session) {
 		try {		
-			int totalCount = tService.getListCount();
-			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-			List<TipBoard> tList = tService.selectTipBoard(pInfo);
-			if(tList.size() > 0) {				
-				mv.addObject("tList", tList);
-				mv.addObject("pInfo", pInfo);
-				mv.setViewName("tip/tipBoard");
+			String userId = (String)session.getAttribute("userId");
+			if(userId != null) {				
+				int totalCount = tService.getListCount();
+				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+				List<TipBoard> tList = tService.selectTipBoard(pInfo);
+				if(tList.size() > 0 || !tList.isEmpty()) {				
+					mv.addObject("tList", tList);
+					mv.addObject("pInfo", pInfo);
+					mv.setViewName("tip/tipBoard");
+				}else {
+					mv.addObject("msg", "리스트 조회 실패");
+					mv.addObject("url","/home.do");
+					mv.setViewName("common/serviceFailed");
+				}
 			}else {
-				mv.addObject("msg", "리스트 조회 실패");
-				mv.addObject("url","/home.do");
+				mv.addObject("msg", "로그인 되어있지 않습니다. 로그인 해주세요");
+				mv.addObject("url", "/user/login.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
