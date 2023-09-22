@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.bluewave.challenge.domain.CBoard;
 import com.kh.bluewave.challenge.domain.Challenge;
+import com.kh.bluewave.challenge.service.CBoardService;
 import com.kh.bluewave.challenge.service.ChallengeService;
 import com.kh.bluewave.noticeBoard.domain.NoticeBoard;
 import com.kh.bluewave.noticeBoard.domain.PageInfo;
@@ -22,6 +24,8 @@ public class HomeController {
 	private ChallengeService cService;
 	@Autowired
 	private NoticeBoardService nService;
+	@Autowired
+	private CBoardService cbService;
 	
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv
@@ -32,10 +36,18 @@ public class HomeController {
 		PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
 		List<NoticeBoard> nList = nService.selectNoticeBoard(pInfo);
 		
+		// 해당 챌린지 명에 대한 총 좋아요 수
+		List<Challenge> cLikeList = cService.selectAllLikeCnt();
+		
+		// 해당 챌린지 명에 대한 총 게시물 갯수
+		List<CBoard> cBoardCNT = cbService.selectBoardCountList();
+		
 		mv.addObject("nList", nList);
 		mv.addObject("pInfo", pInfo);
 		mv.addObject("cList", cList);
 		mv.addObject("acList", acList);
+		mv.addObject("cLikeList", cLikeList);
+		mv.addObject("cBoardCNT", cBoardCNT);
 		return mv;
 	}
 	

@@ -42,13 +42,20 @@
 
 				<div id="btn-report-box">
 					<div id="btn-box" class="btn-design">
-						<c:if test="${sessionScope.userId eq cOne.chalUserId }">
-	                        <a href="/challenge/write.do?chalNo=${cOne.chalNo }">
-	                        	<button>작성하기</button>
-	                        </a>
+						<c:if test="${cOne.chalUserId ne 'admin' }">
+							<c:if test="${sessionScope.userId eq cOne.chalUserId }">
+		                        <a href="/challenge/write.do?chalNo=${cOne.chalNo }">
+		                        	<button>작성하기</button>
+		                        </a>
+							</c:if>
+							<c:if test="${sessionScope.userId ne cOne.chalUserId }">
+								<button onclick="location.href='/challenge/pullChal.do?chalNo=${cOne.chalNo }'">가져가기</button>											
+							</c:if>	
 						</c:if>
-						<c:if test="${sessionScope.userId ne cOne.chalUserId }">
-							<button onclick="location.href='/challenge/pullChal.do?chalNo=${cOne.chalNo }'">가져가기</button>											
+						<c:if test="${cOne.chalUserId eq 'admin' }">
+							<a href="/challenge/write.do?chalNo=${cOne.chalNo }">
+		                        	<button>작성하기</button>
+                        	</a>
 						</c:if>
 					</div>
 					<div id="report-box" class="btn-design">
@@ -127,9 +134,16 @@
 												</c:if>
 												<c:if test="${cOne.chalUserId eq 'admin' }">
 													<div class="user-info-box">
-														<div class="user-nickname-box">
-															<h1>관리자</h1>
-														</div>
+														<c:forEach var="user" items="${user }">
+															<c:if test="${cBoard.cBoardWriter eq user.userId }">
+																<div class="user-img-box">
+																	<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
+																</div>
+																<div class="user-nickname-box">
+																	<h1>${user.userNickName }</h1>
+																</div>
+															</c:if>
+														</c:forEach>
 													</div>
 													<div class="report-board-box">
 													</div>
@@ -181,21 +195,7 @@
 											        </a>
 											    </c:if>
 											</c:forEach>
-<%-- 												<c:forEach var="cBoardLikeCNT" items="${cBoardLikeCNT }"> --%>
-<%-- 													<c:if test="${cBoard.cBoardNo eq cBoardLikeCNT.cBoardNo }"> --%>
-<%-- 														<a href="/challenge/like.do?chalNo=${cBoard.chalNo }&userId=${sessionScope.userId }&cBoardNo=${cBoard.cBoardNo}"> --%>
-<%-- 															<c:forEach var="isLiked" items="${isLiked }"> --%>
-<%-- 																<c:if test="${isLiked.cBoardNo eq cBoard.cBoardNo }"> --%>
-<!-- 																	<img alt="꽉 찬 하트 아이콘" src="/resources/images/colored-heart.png"> -->
-<%-- 																</c:if> --%>
-<%-- 																<c:if test="${isLiked.cBoardNo ne cBoard.cBoardNo }"> --%>
-<!-- 																	<img alt="빈 하트 아이콘" src="/resources/images/heart.png"> -->
-<%-- 																</c:if> --%>
-<%-- 															</c:forEach> --%>
-<%-- 															<h4>좋아요 ${cBoardLikeCNT.cBoardLikeCount }개</h4> --%>
-<!-- 														</a> -->
-<%-- 													</c:if> --%>
-<%-- 												</c:forEach> --%>
+											<input type="hidden" value="${msg }" id="msg">
 											</div>
 										</section>
 									</div>
@@ -222,13 +222,13 @@
 	        if(confirm("삭제한 챌린지 정보는 복구되지 않습니다(인증 게시물 포함). 정말 삭제하시겠습니까?")){
 	        	location.href = deleteUrl;
 	        }
-	    }
+	    };
 	    
 	    function deleteCBoard(delCBUrl) {
 	    	if(confirm("삭제한 챌린지 게시물은 복구되지 않습니다. 정말 삭제하시겠습니까?")) {
 	    		location.href = delCBUrl;
 	    	}
-	    }
+	    };
 	</script>
 </body>
 </html>
