@@ -67,9 +67,9 @@
 		                </div>
 		                <c:if test="${sessionScope.userId eq user.userId }">
 		                	<div id="modify-btn-div">
-<%-- 				                <a href="/user/modify.do?userId=${sessionScope.userId }"> --%>
+				                <a href="/user/modify.do?userId=${sessionScope.userId }">
 								    <img id="modify-btn" src="../resources/images/user/setting-icon.png" alt="설정 아이콘">
-<!-- 								</a> -->
+								</a>
 		                	</div>
 		                </c:if>
 		                <div id="userInfo-div">
@@ -282,10 +282,12 @@
 				                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
 				                        <c:forEach var="goods" items="${goodsList }" >
 					                        <div class="slide">
-					                            <img src="../../resources/images/${goods.productName}.jpg" alt=""> 
-					                            <div class="goods-name-overlay">
-					                                <div class="goods-name">${goods.productName }</div>
-					                            </div>
+					                    		<a href="/user/goods/detail.do?productNo=${goods.productNo }">
+						                            <img src="${goods.productThumbnailPath }" alt=""> 
+						                            <div class="goods-name-overlay">
+						                                <div class="goods-name">${goods.productName }</div>
+						                            </div>
+					                    		</a>
 					                        </div>
 				                        </c:forEach>
 				                    </div>
