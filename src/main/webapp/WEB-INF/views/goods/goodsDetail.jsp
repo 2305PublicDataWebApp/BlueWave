@@ -78,13 +78,15 @@
 	</footer>
 	<script>
 		function addGoods() {
-			document.getElementById('count').value++;
-			document.getElementById('sum').value = ${goods.productPoint } * document.getElementById('count').value
+			if(document.getElementById('count').value <= ${goods.productCount }) {
+				document.getElementById('count').value++;
+				document.getElementById('sum').value = ${goods.productPoint } * document.getElementById('count').value;
+			}
 		}
 		function miunsGoods() {
 			if(document.getElementById('count').value > 0) {
 				document.getElementById('count').value--;
-				document.getElementById('sum').value = ${goods.productPoint } * document.getElementById('count').value				
+				document.getElementById('sum').value = ${goods.productPoint } * document.getElementById('count').value;			
 			}
 		}
 	</script>
