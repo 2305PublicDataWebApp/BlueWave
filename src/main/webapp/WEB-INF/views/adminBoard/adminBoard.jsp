@@ -54,7 +54,26 @@
 <body>
 	<jsp:include page="../include/navHeader.jsp"></jsp:include>
 	<div class="admin-table-container">
-		<h3>${selectedValue }</h3>
+		<c:choose>
+			<c:when test="${optVal eq 'notice' }">
+				<h2>공지 리스트</h2>
+			</c:when>
+			<c:when test="${optVal eq 'user' }">
+				<h2>회원 리스트</h2>
+			</c:when>
+			<c:when test="${optVal eq 'chall' }">
+				<h2>챌린지 리스트</h2>
+			</c:when>
+			<c:when test="${optVal eq 'tip' }">
+				<h2>팁공유 리스트</h2>
+			</c:when>
+			<c:when test="${optVal eq 'goods' }">
+				<h2>굿즈 리스트</h2>
+				<div style="float:right;">
+					<input type="button" value="굿즈 등록" onClick="location.href='/goods/write.do'" />
+				</div>
+			</c:when>
+		</c:choose>
 		<select id="admin-select" onchange="selectOption(this)">
 			<option value="none">=== 선택 ===</option>
 			<option value="notice">공지 리스트</option>

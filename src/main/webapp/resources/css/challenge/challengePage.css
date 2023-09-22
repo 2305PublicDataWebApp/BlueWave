@@ -177,7 +177,7 @@ white-space: nowrap;
     margin-top: 5px;
     display: flex;
     justify-content: space-around;
-    align-items: center;;
+    align-items: center;
 }
 .chal-list-bottom div{
     display: flex;
