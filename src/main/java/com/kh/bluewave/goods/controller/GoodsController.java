@@ -98,7 +98,7 @@ public class GoodsController {
 			}
 			int result = gService.insertGoods(goods);
 			if (result > 0) {
-				mv.setViewName("redirect:/admin/board.do");
+				mv.setViewName("redirect:/goods/list.do");
 			} else {
 				System.out.println("실패");
 				mv.addObject("msg", "작성 실패");
@@ -161,9 +161,9 @@ public class GoodsController {
 		try {
 			int result = gService.deleteGoods(productNo);
 			if (result > 0) {
-				mv.setViewName("redirect:/admin/board.do");
+				mv.setViewName("redirect:/goods/list.do");
 			} else {
-
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

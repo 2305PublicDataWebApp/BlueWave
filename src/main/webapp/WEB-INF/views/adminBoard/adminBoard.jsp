@@ -202,7 +202,7 @@
 						<td>${request.productCount }</td>
 						<td>
 							<a href="/goods/modify.do?productNo=${request.productNo }">수정</a>
-							<a href="/goods/delete.do">삭제</a>
+							<a href="/goods/delete.do?productNo=${request.productNo }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>

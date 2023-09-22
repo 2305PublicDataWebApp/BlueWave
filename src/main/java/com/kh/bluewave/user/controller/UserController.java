@@ -202,6 +202,7 @@ public class UserController {
 						// 회원이 좋아요를 한 게시물 리스트
 						List<CBoard> cBLikePostList = cBService.selectAllLikePostsById(userId);
 						List<CLike> cBLikeCntList = cLService.selectAllLikeCnt();// 총 좋아요 수
+						List<CLike> isLiked = cLService.checkIsLiked(sessionId);
 						
 						// 구독
 						int followingCnt = sService.selectFollowingCntById(userId); 	// 팔로잉 수
@@ -214,7 +215,7 @@ public class UserController {
 						List<User> allUserList = uService.selectUserList();
 						
 						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
-						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList)
+						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList).addObject("isLiked", isLiked)
 						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
 						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
 						  .addObject("allChalList", allChalList).addObject("allUserList", allUserList)

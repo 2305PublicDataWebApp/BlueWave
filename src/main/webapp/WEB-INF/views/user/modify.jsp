@@ -70,8 +70,8 @@
 				<label for="userAd" style="color: rgb(92, 92, 92);">광고 메일 수신 여부</label>
             </div>
             <div class="button-group">
-                <button type="submit" id="signup-button"  onclick="setUserAdValue()">회원가입</button>
-                <button type="button" id="cancel-button">취소</button>
+                <button type="submit" id="signup-button"  onclick="setUserAdValue()">회원정보 수정</button>
+                <button type="button" id="cancel-button" onclick="goBack()">취소</button>
             </div>
         </form>
     </div>
@@ -359,6 +359,10 @@
 		        });
 		    });
 		});
+		
+		 function goBack() {
+	            window.history.back();
+	        }
     </script>
 </body>
 </html>

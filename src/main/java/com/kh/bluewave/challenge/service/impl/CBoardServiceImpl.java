@@ -112,4 +112,10 @@ public class CBoardServiceImpl implements CBoardService{
 		return result;
 	}
 
+	@Override
+	public int selectCountPointIsReward(String userId) {
+		int result = cStore.selectCountPointIsReward(session, userId);
+		return result;
+	}
+
 }

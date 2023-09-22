@@ -62,6 +62,7 @@
 	        	</c:if>
 	        </div>
         </div>
+        <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
         <script>
         	function goNoticeWrite() {
         		location.href = "/notice/write.do";

@@ -273,8 +273,8 @@ hr {
 /* 슬라이드 스타일 */
 .slide {
     flex: 0 0 auto;
-    width: 170px; /* 이미지 너비 조정 */
-    height: auto;
+    width: 195px; /* 이미지 너비 조정 */
+    height: 195px;
     margin-right: 20px; /* 이미지 간격 수정 */
     position: relative;
     flex-shrink: 0; /* 슬라이드 크기 고정 */
@@ -285,6 +285,7 @@ hr {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
     /* 호버 효과 추가 */
     transition: transform 0.2s ease;
+    object-fit:cover;
 }
 
 /* 이미지 호버 시 굿즈 이름 표시 */

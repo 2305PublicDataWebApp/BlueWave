@@ -44,7 +44,7 @@
 		SELECT * FROM GOODS_TBL WHERE PRODUCT_NO = ${productNo }
 	</select>
 	
-	<select id="getGoodsListByUserId" resultType="Goods">
+	<select id="getGoodsListByUserId" resultMap="goodsResultMap">
 	    SELECT *
 	    FROM USER_TBL U
 	    JOIN POINT_TBL P ON U.USER_ID = P.USER_ID

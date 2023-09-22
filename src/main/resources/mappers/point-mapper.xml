@@ -37,4 +37,12 @@
 			SELECT * FROM POINT_TBL WHERE USER_ID = #{userId } ORDER BY POINT_HISTORY_DATE DESC 
 		) WHERE ROWNUM = 1
 	</select>
+	
+	<select id="selectCountPointIsReward" resultType="_int">
+		SELECT COUNT(*) AS COUNT_REWARD
+		FROM POINT_TBL
+		WHERE USER_ID = #{userId}
+		  AND TRUNC(POINT_HISTORY_DATE) = TRUNC(TO_DATE(SYSDATE, 'YY/MM/DD'))
+		  AND TRADE_TYPE = 'reward'
+	</select>
 </mapper>

@@ -104,6 +104,12 @@ public class CBoardStoreLogic implements CBoardStore{
 		return result;
 	}
 
+	@Override
+	public int selectCountPointIsReward(SqlSession session, String userId) {
+		int result = session.selectOne("PointMapper.selectCountPointIsReward", userId);
+		return result;
+	}
+
 
 	
 }

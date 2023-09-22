@@ -5,6 +5,8 @@
 .bx-wrapper {
     height: 90%;
     box-shadow: none !important;
+    background-color: transparent !important;
+    border: none !important;
     margin: 0 !important;
 }
 .bxslider {
@@ -26,12 +28,16 @@
 	margin-top: 60px;
 }
 .main-title {
-	background-color: white;
+/* 	background-color: white; */
+    background-color: #F8F8F8;
+    text-align: center;
+    padding: 45px;
+    
 }
 .main-container {
     height: 800px;
     display: flex;
-    background-color: white;
+    background-color: #F8F8F8;
     justify-content: center;
 }
 .goods-name h2, h3, .goods-price h2, h3 {

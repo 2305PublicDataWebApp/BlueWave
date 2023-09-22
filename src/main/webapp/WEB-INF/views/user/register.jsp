@@ -66,7 +66,7 @@
             </div>
             <div class="button-group">
                 <button type="submit" id="signup-button"  onclick="setUserAdValue()">회원가입</button>
-                <button type="button" id="cancel-button">취소</button>
+                <button type="button" id="cancel-button" onClick="goBack()">취소</button>
             </div>
             
         </form>
@@ -356,6 +356,9 @@
 		    });
 		});
 		
+        function goBack() {
+            window.history.back();
+        }
     </script>
 </body>
 </html>

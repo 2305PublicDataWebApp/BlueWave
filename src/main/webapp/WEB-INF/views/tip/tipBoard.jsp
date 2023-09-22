@@ -60,6 +60,7 @@
 	        	<input type="button" onclick="goNoticeWrite()" value="글 등록">
 	        </div>
         </div>
+        <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
         <script>
         	function goNoticeWrite() {
         		location.href = "/tip/write.do";

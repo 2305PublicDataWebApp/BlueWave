@@ -110,5 +110,13 @@ public interface CBoardStore {
 	 * @return int
 	 */
 	int rewardPointByCBoard(SqlSession session, Point point);
+	
+	/**
+	 * 챌린지 게시물 작성 시 포인트 적립 여부
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	int selectCountPointIsReward(SqlSession session, String userId);
 
 }

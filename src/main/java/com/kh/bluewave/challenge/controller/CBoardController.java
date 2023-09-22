@@ -222,7 +222,7 @@ public class CBoardController {
 					cBoard.setcBoardFilePath((String)cBMap.get("filePath"));
 					cBoard.setcBoardFileLength((long)cBMap.get("fileLength"));
 				}
-				CBoard pastCBoard = cService.selectOneByCDate(userId);
+//				CBoard pastCBoard = cService.selectOneByCDate(userId);
 				int result = cService.writeCBoard(cBoard);
 		        
 		        // SimpleDateFormat을 사용하여 원하는 형식으로 포맷팅
@@ -234,19 +234,24 @@ public class CBoardController {
 					CBoard newCBoard = cService.selectOneByCDate(userId);
 					
 					// Timestamp로 선언한 변수에 담기
-					Timestamp pastCBoardTimestamp = pastCBoard.getcBoardDate();
-					Timestamp newCBoardTimestamp = newCBoard.getcBoardDate();
+//					Timestamp pastCBoardTimestamp = null;
+//					Timestamp newCBoardTimestamp = null;
+//					pastCBoardTimestamp = pastCBoard.getcBoardDate();
+//					newCBoardTimestamp = newCBoard.getcBoardDate();
 					
-					// 담은 날짜를 Date 형식으로 변경
-					Date pastDate = new Date(pastCBoardTimestamp.getTime());
-					Date newDate = new Date(newCBoardTimestamp.getTime());
+//					 담은 날짜를 Date 형식으로 변경
+//					Date pastDate = new Date(pastCBoardTimestamp.getTime());
+//					Date newDate = new Date(newCBoardTimestamp.getTime());
 					
 					// SimpleDateFormat로 포맷팅한 형식으로 바꾼 후 String 변수에 저장
-					String formattedPastDate = sdf.format(pastDate);
-					String formattedNewDate = sdf.format(newDate);
+//					String formattedPastDate = sdf.format(pastDate);
+//					String formattedNewDate = sdf.format(newDate);
 					 
 					Point pOne = cService.selectOneByLastHistory(userId);
-					if(!pOne.getTradeType().equals("reward") && !formattedPastDate.equals(formattedNewDate)) {
+					
+					int isReward = cService.selectCountPointIsReward(userId);
+					if(isReward == 0) {
+
 						Point point = new Point();
 						point.setUserId(userId);
 						point.setUserTotalPoint(pOne.getUserTotalPoint() + 100);
@@ -350,10 +355,14 @@ public class CBoardController {
 			User uOne = uService.selectOneByChalNo(userId);
 			CBoard cBoard = new CBoard(userId, chalNo);
 			List<CBoard> cList = cService.findCBoardByWriterAndNo(cBoard);
+			List<CBoard> cBoardLikeCNT = cService.selectBoardLikeCountList();
+			List<CLike> isLiked = clService.checkIsLiked(userId);
 			
 			mv.addObject("cOne", cOne);
 			mv.addObject("uOne", uOne);
 			mv.addObject("cList", cList);
+			mv.addObject("cBoardLikeCNT", cBoardLikeCNT);
+			mv.addObject("isLiked", isLiked);
 			mv.setViewName("challenge/challengeInfo");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -396,6 +405,31 @@ public class CBoardController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/challenge/myLike.do", method=RequestMethod.GET)
+	public ModelAndView userMyLikeController(ModelAndView mv
+											, String userId
+											, int cBoardNo
+											, int chalNo
+											, HttpSession session) {
+		String sessionId = (String)session.getAttribute("userId");
+		try {
+			CLike cLOne = new CLike(sessionId, cBoardNo);
+			List<CLike> checkCLike = clService.selectListByUserIdCBoardNo(cLOne);
+			if(checkCLike.isEmpty()) {
+				int insertResult = clService.insertCLike(cLOne);
+			} else {
+				int deleteResult = clService.deleteCLike(cLOne);
+			}
+			mv.setViewName("redirect:/user/myPage.do?userId=" + userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", "좋아요 오류 발생 (관리자에게 문의 요망)");
+			mv.addObject("url", "redirect:/user/myPage.do?userId=" + userId);
+			mv.setViewName("common/serviceFailed");
+		}
+		return mv;
+	}
+	
 	// 파일 업로드 관련 컨트롤러
 	public Map<String, Object> saveFile(HttpServletRequest request, MultipartFile uploadFile) throws IllegalStateException, IOException{
 		Map<String, Object> fileMap = new HashMap<String, Object>();
@@ -428,7 +462,7 @@ public class CBoardController {
 		// 파일 정보 리턴
 		fileMap.put("fileName", fileName);
 		fileMap.put("fileRename", fileRename);
-		fileMap.put("filePath", savePath);
+		fileMap.put("filePath", "../resources/cuploadFiles/" + fileRename);
 		fileMap.put("fileLength", fileLength);
 		return fileMap;
 		

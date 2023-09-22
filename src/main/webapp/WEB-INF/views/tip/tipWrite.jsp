@@ -41,6 +41,7 @@
 				</div>
 			</form>
 		</div>
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 		<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 		<script>
