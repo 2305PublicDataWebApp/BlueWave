@@ -51,7 +51,7 @@
 										<img src="${goods.productThumbnailPath }" alt="여기는 이미지" />
 									</div>
 									<div class="goods-price">
-										<h3>${goods.productPoint }</h3>
+										<h3>${goods.productPoint }p</h3>
 									</div>
 									<div class="goods-name">
 										<h2>${goods.productName }</h2>
