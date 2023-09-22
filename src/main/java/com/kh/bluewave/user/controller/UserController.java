@@ -185,45 +185,40 @@ public class UserController {
 					// 완료 여부 체크
 					String userId = user.getUserId();
 					int result = cService.updateFinish(); 
-					if(result > 0) {
-						// 관리자 챌린지 중 회원이 참여한 챌린지
-						List<Challenge> cWaveList = cService.selectAllUserWave(userId);
-						List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
-						List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
-						
-						 // 회원이 생성한 챌린지
-						List<Challenge> cPersonalList = cService.selectAllById(userId);
-						List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
-						List<Challenge> cOtherPersonalList = cService.selectOtherAllById(userId);// 타 회원의 공개 챌린지
-						
-						// 자신의 챌린지 별 인증 게시물 수
-						List<Challenge> cPostCntList = cService.selectPostsById(userId);
-						
-						// 회원이 좋아요를 한 게시물 리스트
-						List<CBoard> cBLikePostList = cBService.selectAllLikePostsById(userId);
-						List<CLike> cBLikeCntList = cLService.selectAllLikeCnt();// 총 좋아요 수
-						List<CLike> isLiked = cLService.checkIsLiked(sessionId);
-						
-						// 구독
-						int followingCnt = sService.selectFollowingCntById(userId); 	// 팔로잉 수
-						int followersCnt = sService.selectFollowersCntById(userId); 	// 팔로워 수
-						List<Sub> followingList = uService.selectAllFollowingListById(userId); // 팔로잉 목록 
-						List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
-						
-						// 모든 리스트
-						List<Challenge> allChalList = cService.selectListByChal();
-						List<User> allUserList = uService.selectUserList();
-						
-						mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
-						  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList).addObject("isLiked", isLiked)
-						  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
-						  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
-						  .addObject("allChalList", allChalList).addObject("allUserList", allUserList)
-						  .setViewName("user/myPage");
-					} else {
-						mv.addObject("msg", "완료 여부 체크").addObject("url", "/user/myPage.do?userId=" + userId);
-						mv.setViewName("common/serviceFailed");
-					}
+					// 관리자 챌린지 중 회원이 참여한 챌린지
+					List<Challenge> cWaveList = cService.selectAllUserWave(userId);
+					List<Challenge> cWLikeList = cService.selectLikeByAllUserWave(userId); // 총 좋아요 수
+					List<Challenge> cWPplList = cService.selectPeopleByAllUserWave(userId); // 참여 인원 수
+					
+					 // 회원이 생성한 챌린지
+					List<Challenge> cPersonalList = cService.selectAllById(userId);
+					List<Challenge> cPLikeList = cService.selectLikeById(userId); // 총 좋아요 수
+					List<Challenge> cOtherPersonalList = cService.selectOtherAllById(userId);// 타 회원의 공개 챌린지
+					
+					// 자신의 챌린지 별 인증 게시물 수
+					List<Challenge> cPostCntList = cService.selectPostsById(userId);
+					
+					// 회원이 좋아요를 한 게시물 리스트
+					List<CBoard> cBLikePostList = cBService.selectAllLikePostsById(userId);
+					List<CLike> cBLikeCntList = cLService.selectAllLikeCnt();// 총 좋아요 수
+					List<CLike> isLiked = cLService.checkIsLiked(sessionId);
+					
+					// 구독
+					int followingCnt = sService.selectFollowingCntById(userId); 	// 팔로잉 수
+					int followersCnt = sService.selectFollowersCntById(userId); 	// 팔로워 수
+					List<Sub> followingList = uService.selectAllFollowingListById(userId); // 팔로잉 목록 
+					List<Sub> followersList = uService.selectAllFollowersListById(userId); // 팔로워 목록 
+					
+					// 모든 리스트
+					List<Challenge> allChalList = cService.selectListByChal();
+					List<User> allUserList = uService.selectUserList();
+					
+					mv.addObject("cWaveList", cWaveList).addObject("cWLikeList", cWLikeList).addObject("cWPplList", cWPplList)
+					  .addObject("cPersonalList", cPersonalList).addObject("cPLikeList", cPLikeList).addObject("cOtherPersonalList", cOtherPersonalList).addObject("isLiked", isLiked)
+					  .addObject("cPostCntList", cPostCntList).addObject("cBLikePostList", cBLikePostList).addObject("cBLikeCntList", cBLikeCntList)
+					  .addObject("followingCnt", followingCnt).addObject("followersCnt", followersCnt).addObject("followingList", followingList).addObject("followersList", followersList)
+					  .addObject("allChalList", allChalList).addObject("allUserList", allUserList)
+					  .setViewName("user/myPage");
 				}else {
 					mv.addObject("msg", "회원 데이터 조회 실패").addObject("url", "/index.jsp");
 					mv.setViewName("common/serviceFailed");
