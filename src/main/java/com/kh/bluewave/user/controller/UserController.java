@@ -409,12 +409,14 @@ public class UserController {
 	
 	@RequestMapping(value="/user/delete.do", method=RequestMethod.GET)
 	public ModelAndView deleteUser(
-			@RequestParam("userId") String userId
+			HttpSession session
+			, @RequestParam("userId") String userId
 			, ModelAndView mv
 			) {
 		try {
 			int result = uService.deleteUser(userId);
 			if(result > 0) {
+				session.invalidate();
 				mv.setViewName("redirect:/index.jsp"); 
 			}else {
 				mv.addObject("msg", "회원탈퇴가 완료되지 않았습니다.");
