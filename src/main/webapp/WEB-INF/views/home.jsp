@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,6 +69,12 @@
 					scrollFooter(scroll, footerHeight);
 				}
 			});
+	
+	function showChallengeWrite() {
+    	const url = "/challenge/create.do";
+    	location.href = url;
+    	
+    }
 </script>
 </head>
 <body>
@@ -105,7 +112,21 @@
 																	<div>
 																		<a
 																			href="/challenge/info.do?chalNo=${chalList.chalNo }">
-																			${chalList.chalTitle }
+																			<div class="chal-title-div">
+																				<c:set var="chalTitle"
+																					value="${chalList.chalTitle }" />
+
+																				<c:choose>
+																					<c:when test="${fn:length(chalTitle) > 15}">
+																						<c:set var="chalTitleTruncatedString"
+																							value="${fn:substring(chalTitle, 0, 15)}..." />
+																						<c:out value="${chalTitleTruncatedString}" />
+																					</c:when>
+																					<c:otherwise>
+																						<c:out value="${chalTitle}" />
+																					</c:otherwise>
+																				</c:choose>
+																			</div>
 																			<div style="height: 175px;">
 																				<img
 																					src="../resources/chaluploadFiles/${chalList.chalFileRename}"
@@ -134,7 +155,9 @@
 																			</div>
 																			<c:if test="${!empty sessionScope.userId}">
 																				<div class="btn">
-																					<button>참여하기</button>
+																					<a href="/challenge/write.do?chalNo=${chalList.chalNo }">
+																						<button>참여하기</button>
+																					</a>
 																				</div>
 																			</c:if>
 																		</div>
