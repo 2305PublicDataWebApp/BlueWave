@@ -726,7 +726,7 @@
                                            	</c:forEach>
 			                            </div>
 				                    </div>
-			                    <c:if test="${status.index % 9 == 8 or status.count == fn:length('${ cBLikePostList }') }">
+			                    <c:if test="${status.index % 9 == 8 or status.count == fn:length(cBLikePostList) }">
 						            </div>
 						        </c:if> 
 		                	</c:forEach>
