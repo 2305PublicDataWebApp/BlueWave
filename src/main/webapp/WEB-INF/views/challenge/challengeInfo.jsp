@@ -129,11 +129,13 @@
 													<div class="user-info-box">
 														<c:forEach var="user" items="${user }">
 															<c:if test="${cBoard.cBoardWriter eq user.userId }">
-																<div class="user-img-box">
-																	<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
-																</div>
-																<div class="user-nickname-box">
-																	<h1>${user.userNickName }</h1>
+																<div class="user-info" onclick="location.href='/user/myPage.do?userId=${ user.userId }'">
+																	<div class="user-img-box">
+																		<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
+																	</div>
+																	<div class="user-nickname-box">
+																		<h1>${user.userNickName }</h1>
+																	</div>
 																</div>
 															</c:if>
 														</c:forEach>

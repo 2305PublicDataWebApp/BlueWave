@@ -726,7 +726,7 @@
                                            	</c:forEach>
 			                            </div>
 				                    </div>
-			                    <c:if test="${status.index % 9 == 8 or status.count == fn:length('${ cBLikePostList }') }">
+			                    <c:if test="${status.index % 9 == 8 or status.count == fn:length(cBLikePostList) }">
 						            </div>
 						        </c:if> 
 		                	</c:forEach>
@@ -778,9 +778,18 @@
 															</c:if>
 															<c:if test="${chal.chalUserId eq 'admin' }">
 																<div class="user-info-box">
-																	<div class="user-nickname-box">
-																		<h1>관리자</h1>
-																	</div>
+																	<c:forEach var="user" items="${allUserList }">
+																		<c:if test="${ user.userId eq likePost.cBoardWriter }">
+																			<div class="user-info" onclick="location.href='/user/myPage.do?userId=${ user.userId }'">
+																				<div class="user-img-box">
+																					<img alt="프로필 사진" src="/resources/PuploadFiles/${user.userProfileRename }">
+																				</div>
+																				<div class="user-nickname-box">
+																					<h1>${user.userNickName }</h1>
+																				</div>
+																			</div>
+																		</c:if>
+																	</c:forEach>
 																</div>
 															</c:if>
 														</c:if>
