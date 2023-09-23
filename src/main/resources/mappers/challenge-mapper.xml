@@ -169,4 +169,38 @@
   	<select id="selectAllListByAdmin" resultMap="chalResultMap">
   		SELECT * FROM CHAL_TBL WHERE CHAL_USER_ID = 'admin'
   	</select>
+  	
+  	<select id="getTotalBlueChalCount" resultType="_int">
+		SELECT COUNT(DISTINCT C.CHAL_NO)
+		FROM CHAL_TBL C
+		INNER JOIN CHAL_BOARD_TBL CB ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID = 'admin'
+		AND CB.C_BOARD_WRITER = #{userId }
+	</select>
+	
+	<select id="getTotalPersonalChalCount" resultType="_int">
+		SELECT COUNT(DISTINCT C.CHAL_NO)
+		FROM CHAL_TBL C
+		INNER JOIN CHAL_BOARD_TBL CB ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID != 'admin'
+		AND CB.C_BOARD_WRITER = #{userId }
+	</select>
+	
+	<select id="getFinishTotalBlueChalCount" resultType="_int" >
+		SELECT COUNT (DISTINCT C.CHAL_NO)
+		FROM CHAL_TBL C
+		INNER JOIN CHAL_BOARD_TBL CB ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID = 'admin'
+		AND CB.C_BOARD_WRITER = #{userId }
+        AND C.CHAL_FINISH = 'Y'
+	</select>
+	
+	<select id="getFinishTotalPersonalChalCount" resultType="_int" >
+		SELECT COUNT(DISTINCT C.CHAL_NO)
+		FROM CHAL_TBL C
+		INNER JOIN CHAL_BOARD_TBL CB ON CB.CHAL_NO = C.CHAL_NO
+		WHERE C.CHAL_USER_ID != 'admin'
+		AND CB.C_BOARD_WRITER = #{userId }
+        AND C.CHAL_FINISH = 'Y'
+	</select>
 </mapper>

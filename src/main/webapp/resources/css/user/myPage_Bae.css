@@ -269,6 +269,10 @@ hr {
     text-align: left;
     margin-top: 40px;
 }
+.goods-img {
+	height: 175px;
+    width: 195px;
+}
 
 /* 슬라이드 스타일 */
 .slide {

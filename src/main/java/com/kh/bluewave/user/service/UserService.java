@@ -54,13 +54,6 @@ public interface UserService {
 	User findUserByEmail(String email);
 	
 	/**
-	 * 전화번호로 회원 조회 Service
-	 * @param email
-	 * @return
-	 */
-	User findUserByPhone(String phone);
-
-	/**
 	 * 회원 게시물 갯수 조회 Service
 	 * @param userId
 	 * @return
@@ -212,5 +205,12 @@ public interface UserService {
 	 * @return
 	 */
 	List<User> selectUserList();
+
+	/**
+	 * 임시 비밀번호 Service
+	 * @param uOne
+	 * @return
+	 */
+	int updateUserPw(User uOne);
 
 }

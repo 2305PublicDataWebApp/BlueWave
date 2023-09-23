@@ -68,37 +68,6 @@
 		WHERE U.USER_ID = #{userId }
 	</select>
 	
-	<select id="getTotalBlueChalCount" resultType="_int">
-		SELECT DISTINCT COUNT(*)
-		FROM CHAL_BOARD_TBL CB
-		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
-		WHERE C.CHAL_USER_ID = 'admin'
-		AND CB.C_BOARD_WRITER = #{userId }
-	</select>
-	
-		<select id="getTotalPersonalChalCount" resultType="_int">
-		SELECT DISTINCT COUNT(*)
-		FROM CHAL_BOARD_TBL CB
-		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
-		WHERE C.CHAL_USER_ID != 'admin'
-		AND CB.C_BOARD_WRITER = #{userId }
-	</select>
-	
-	<select id="getFinishTotalBlueChalCount" resultType="_int" >
-		SELECT DISTINCT COUNT(*)
-		FROM CHAL_BOARD_TBL CB
-		INNER JOIN CHAL_TBL C ON CB.CHAL_NO = C.CHAL_NO
-		WHERE C.CHAL_USER_ID = 'admin'
-		AND CB.C_BOARD_WRITER = #{userId }
-        AND C.CHAL_FINISH = 'Y'
-	</select>
-	
-	<select id="getFinishTotalPersonalChalCount" resultType="_int" >
-		SELECT COUNT(*) FROM CHAL_TBL 
-        WHERE CHAL_USER_ID = #{userId }
-        AND CHAL_FINISH = 'Y'
-	</select>
-	
 	<select id="getCalDateList" resultType="java.util.Map">
 	    SELECT DISTINCT EXTRACT(YEAR FROM C_BOARD_DATE) AS year,
 	           EXTRACT(MONTH FROM C_BOARD_DATE) AS month,

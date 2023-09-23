@@ -24,6 +24,10 @@
 		INSERT INTO USER_TBL VALUES( #{userId }, #{userPw }, #{userNickName }, #{userName }, #{userPhone }, #{userAddr }, #{userEmail }, #{userProfileName }, #{userProfileRename }, #{userProfilePath }, #{userProfileLength }, #{userAd }, DEFAULT)
 	</insert>
 	
+	<update id="updateUserPw">
+		UPDATE USER_TBL SET USER_PW = #{userPw } WHERE USER_ID = #{userId }
+	</update>
+	
 	<delete id="deleteUser">
 		DELETE FROM USER_TBL WHERE USER_ID = #{userId } 
 	</delete>

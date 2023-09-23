@@ -17,6 +17,16 @@ public class User {
 	private String userAd;
 	private Date userDate;
 
+	public User() {
+		super();
+	}
+	
+	public User(String userName, String userEmail) {
+		super();
+		this.userName = userName;
+		this.userEmail = userEmail;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

@@ -94,14 +94,6 @@ public interface UserStore {
 	User findUserByEmail(SqlSession session, String email);
 
 	/**
-	 * 전화번호로 회원 조회 Store
-	 * @param session
-	 * @param phone
-	 * @return
-	 */
-	User findUserByPhone(SqlSession session, String phone);
-	
-	/**
 	 * 회원 교환굿즈 목록 조회 Store
 	 * @param session
 	 * @param userId
@@ -242,4 +234,12 @@ public interface UserStore {
 	 * @return
 	 */
 	List<User> selectUserList(SqlSession session);
+
+	/**
+	 * 임시 비밀번호 Store
+	 * @param session
+	 * @param uOne
+	 * @return
+	 */
+	int updateUserPw(SqlSession session, User uOne);
 }

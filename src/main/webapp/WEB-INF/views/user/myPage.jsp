@@ -291,16 +291,16 @@
 				                <div class="slider-container">
 				                    <div class="slider1">
 				                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
-				                        <c:forEach var="goods" items="${goodsList }" >
-					                        <div class="slide">
-					                    		<a href="/user/goods/detail.do?productNo=${goods.productNo }">
-						                            <img src="${goods.productThumbnailPath }" alt=""> 
-						                            <div class="goods-name-overlay">
-						                                <div class="goods-name">${goods.productName }</div>
-						                            </div>
-					                    		</a>
-					                        </div>
-				                        </c:forEach>
+				                        <c:forEach var="goods" items="${goodsList}">
+										    <div class="slide">
+										        <a href="/goods/detail.do?productNo=${goods.productNo}">
+										            <img class="goods-img" src="${goods.productThumbnailPath}" alt="">
+										            <div class="goods-name-overlay">
+										                <div class="goods-name">${goods.productName}</div>
+										            </div>
+										        </a>
+										    </div>
+										</c:forEach>
 				                    </div>
 				                </div>                
 				            </div>
@@ -930,21 +930,21 @@
 		    calendar.render();
 		  });
 		</script>
-		<script>
-		    document.addEventListener("DOMContentLoaded", function () {
-		        var progress = ${progress};
+<!-- 		<script> -->
+<!-- // 		    document.addEventListener("DOMContentLoaded", function () { -->
+<%-- // 		        var progress = ${progress}; --%>
 		
-		        var colElements = document.querySelectorAll("table col");
-		        if (progress === null) {
-		            colElements[0].style.width = "60%";
-		            colElements[1].style.width = "40%";
-		        } else {
-		            colElements[0].style.width = "60%";
-		            colElements[1].style.width = "10%";
-		            colElements[2].style.width = "30%";
-		        }
-		    });
-		</script>
+<!-- // 		        var colElements = document.querySelectorAll("table col"); -->
+<!-- // 		        if (progress === null) { -->
+<!-- // 		            colElements[0].style.width = "60%"; -->
+<!-- // 		            colElements[1].style.width = "40%"; -->
+<!-- // 		        } else { -->
+<!-- // 		            colElements[0].style.width = "60%"; -->
+<!-- // 		            colElements[1].style.width = "10%"; -->
+<!-- // 		            colElements[2].style.width = "30%"; -->
+<!-- // 		        } -->
+<!-- // 		    }); -->
+<!-- 		</script> -->
 		
 	    <script>
 	    	function showUserPage(userPageUrl){

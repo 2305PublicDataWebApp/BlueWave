@@ -16,27 +16,15 @@
             <span id="order-2">본인확인</span>
             <span id="order-3"> > 비밀번호 조회</span>
         </div>
-        <input type="hidden" value=${userId } name="userId">
         <form action="/user/findPw2.do" method="POST" id="email-form" name="email-form" >
-        <input type="hidden" name="userId" value="${userId }">
-        <div class="type-group">
-            <label for="email-type"></label>
-            <input type="radio" name="confirmType" id="email-type" value="emailType"> 회원 정보에 저장한 이메일로 인증
-        </div>
-            <div id="email-input" class="form-group" style="display: none;">
+        	<input type="hidden" value="${userId}" name="userId">
+            <div id="email-input" class="form-group">
                 <input type="text" id="user-name-email" name="userName" placeholder="이름" required>
                 <input type="text" id="user-email" name="userEmail" placeholder="이메일" required>
             </div>
-        <div class="type-group">
-            <label for="phoneType"></label>
-            <input type="radio" name="confirmType" id="phone-type" value="phoneType"> 회원 정보에 저장한 전화번호로 인증
-        </div>
-            <div id="phone-input" class="form-group" style="display: none;">
-                <input type="text" id="user-name-phone" name="userName" placeholder="이름" required disabled>
-                <input type="text" id="user-phone" name="userPhone" placeholder="전화번호" required disabled>
-            </div>
+            <!-- type를 submit으로 변경 -->
+            <button type="submit" class="login-button" id="submit-button">확인</button>
         </form>
-        <button type="button" class="login-button" id="submit-button">확인</button>
     </div>
     <script>
     const emailType = document.getElementById('email-type');
@@ -45,34 +33,10 @@
     const phoneInputDiv = document.getElementById('phone-input');
     const submitButton = document.getElementById('submit-button');
 
-    emailType.addEventListener('change', function() {
-        if (emailType.checked) {
-            emailInputDiv.style.display = 'block';
-            phoneInputDiv.style.display = 'none'; // 전화번호 입력 div를 숨깁니다.
-            document.getElementById('user-name-email').removeAttribute('disabled');
-            document.getElementById('user-email').removeAttribute('disabled');
-            document.getElementById('user-name-phone').setAttribute('disabled', 'disabled');
-            document.getElementById('user-phone').setAttribute('disabled', 'disabled');
-        }
-    });
-
-    phoneType.addEventListener('change', function() {
-        if (phoneType.checked) {
-            emailInputDiv.style.display = 'none'; // 이메일 입력 div를 숨깁니다.
-            phoneInputDiv.style.display = 'block';
-            document.getElementById('user-name-phone').removeAttribute('disabled');
-            document.getElementById('user-phone').removeAttribute('disabled');
-            document.getElementById('user-name-email').setAttribute('disabled', 'disabled');
-            document.getElementById('user-email').setAttribute('disabled', 'disabled');
-        }
-    });
-
     submitButton.addEventListener('click', function() {
         // 선택한 폼에 대한 데이터를 서버로 전송
         if (emailType.checked) {
             document.forms["email-form"].submit();
-        } else if (phoneType.checked) {
-            document.forms["phone-form"].submit();
         }
     });
 //         submitButton.addEventListener('click', function() {

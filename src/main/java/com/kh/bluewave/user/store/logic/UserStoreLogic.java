@@ -61,25 +61,19 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int getTotalBlueChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("CBoardMapper.getTotalBlueChalCount", userId);
+		int result = session.selectOne("ChalMapper.getTotalBlueChalCount", userId);
 		return result;
 	}
 
 	@Override
 	public int getTotalPersonalChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("CBoardMapper.getTotalPersonalChalCount", userId);
+		int result = session.selectOne("ChalMapper.getTotalPersonalChalCount", userId);
 		return result;
 	}
 
 	@Override
 	public User findUserByEmail(SqlSession session, String email) {
 		User uOne = session.selectOne("UserMapper.findUserByEmail", email);
-		return uOne;
-	}
-
-	@Override
-	public User findUserByPhone(SqlSession session, String phone) {
-		User uOne = session.selectOne("UserMapper.findUserByPhone", phone);
 		return uOne;
 	}
 
@@ -91,13 +85,13 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int getFinishTotalBlueChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("CBoardMapper.getFinishTotalBlueChalCount", userId);
+		int result = session.selectOne("ChalMapper.getFinishTotalBlueChalCount", userId);
 		return result;
 	}
 
 	@Override
 	public int getFinishTotalPersonalChalCount(SqlSession session, String userId) {
-		int result = session.selectOne("CBoardMapper.getFinishTotalPersonalChalCount", userId);
+		int result = session.selectOne("ChalMapper.getFinishTotalPersonalChalCount", userId);
 		return result;
 	}
 
@@ -193,5 +187,11 @@ public class UserStoreLogic implements UserStore{
 	public List<User> selectUserList(SqlSession session) {
 		List<User> uList = session.selectList("UserMapper.selectUserList");
 		return uList;
+	}
+
+	@Override
+	public int updateUserPw(SqlSession session, User uOne) {
+		int result = session.update("UserMapper.updateUserPw", uOne);
+		return result;
 	}
 }

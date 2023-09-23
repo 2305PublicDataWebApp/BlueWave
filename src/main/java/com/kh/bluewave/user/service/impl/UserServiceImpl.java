@@ -84,11 +84,6 @@ public class UserServiceImpl implements UserService{
 		return uOne;
 	}
 
-	@Override
-	public User findUserByPhone(String phone) {
-		User uOne = uStore.findUserByPhone(session, phone);
-		return uOne;
-	}
 
 	@Override
 	public List<Goods> getGoodsListByUserId(String userId) {
@@ -196,6 +191,12 @@ public class UserServiceImpl implements UserService{
 	public List<User> selectUserList() {
 		List<User> uList = uStore.selectUserList(session);
 		return uList;
+	}
+
+	@Override
+	public int updateUserPw(User uOne) {
+		int result = uStore.updateUserPw(session, uOne);
+		return result;
 	}
 
 

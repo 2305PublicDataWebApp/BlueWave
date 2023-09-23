@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -144,8 +145,6 @@ public class UserController {
 	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
 		public ModelAndView showMyPage(
 				@ModelAttribute User user,
-//				@RequestParam(value="following", required=false) String subTarget,
-//                @RequestParam(value="follower", required=false) String subUser,
                 HttpSession session,
 				ModelAndView mv
 				) {
@@ -233,14 +232,10 @@ public class UserController {
 
 	@RequestMapping(value="/user/findId1.do", method=RequestMethod.POST)
 	public ModelAndView userFindId(ModelAndView mv
-			, @RequestParam(value="confirmType") String confirmType
 			, @ModelAttribute User user) {
 		try {
 			String name = user.getUserName();
 			String foundUserId = null;
-			
-			if ("emailType".equals(confirmType)) {
-				// 이메일 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
 	            String email = user.getUserEmail();
 	            User uOne = uService.findUserByEmail(email);
 	            if (uOne != null) {
@@ -261,23 +256,6 @@ public class UserController {
 					mv.addObject("url", "user/findId1");
 					mv.setViewName("common/serviceFailed");
 	            }
-			} else if ("phoneType".equals(confirmType)) {
-				// 전화번호 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
-				String phone = user.getUserPhone();
-				User uOne = uService.findUserByPhone(phone);
-				if (uOne != null && name.equals(uOne.getUserName())) {
-	                // 사용자가 존재하고, 입력한 이름과 일치하는 경우
-	                foundUserId = uOne.getUserId(); // 사용자 아이디를 가져옴
-	    			mv.addObject("foundUserId", foundUserId);
-	    			mv.setViewName("user/findId2");
-	            }else {
-	            	mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
-					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "user/findId1");
-					mv.setViewName("common/serviceFailed");
-	            }
-			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", "관리자에게 문의해주세요.");
@@ -312,23 +290,23 @@ public class UserController {
 	
 	@RequestMapping(value="/user/findPw2.do", method=RequestMethod.POST)
 	public ModelAndView userFindPw(ModelAndView mv
-			, @RequestParam(value="confirmType") String confirmType
 			, @RequestParam(value="userId") String userId
 			, @ModelAttribute User user) {
 		try {
 			String name = user.getUserName();
-			String foundUserPw = null;
-			
-			if ("emailType".equals(confirmType)) {
-				// 이메일 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
 	            String email = user.getUserEmail();
 	            User uOne = uService.findUserByEmail(email);
 	            if (uOne != null) {
 	            	if(name.equals(uOne.getUserName()) && userId.equals(uOne.getUserId())) {
 	                // 사용자가 존재하고, 입력한 이름과 일치하는 경우
-	            	foundUserPw = uOne.getUserPw(); // 사용자 비밀번호를 가져옴
-	    			mv.addObject("foundUserPw", foundUserPw);
-	    			mv.setViewName("user/findPw3");
+            		String newPassword = generateRandomPassword();
+                    uOne.setUserPw(newPassword); // 새로운 비밀번호 설정
+                    // 데이터베이스에 변경사항 저장
+                    int result = uService.updateUserPw(uOne);
+                    if(result > 0) {
+                    	mv.addObject("foundUserPw", newPassword);
+                    	mv.setViewName("user/findPw3");
+                    }
 	            	}else {
 	            		mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 						mv.addObject("error", "아이디 조회 실패");
@@ -340,22 +318,6 @@ public class UserController {
 					mv.addObject("error", "아이디 조회 실패");
 					mv.addObject("url", "/home.do");
 					mv.setViewName("common/serviceFailed");
-	            }
-			} else if ("phoneType".equals(confirmType)) {
-				// 전화번호 폼이 제출되었습니다. 이에 맞는 처리를 수행하십시오.
-				String phone = user.getUserPhone();
-				User uOne = uService.findUserByPhone(phone);
-				if (uOne != null && name.equals(uOne.getUserName()) && userId.equals(uOne.getUserId())) {
-	                // 사용자가 존재하고, 입력한 이름과 일치하는 경우
-					foundUserPw = uOne.getUserPw(); // 사용자 아이디를 가져옴
-	    			mv.addObject("foundUserPw", foundUserPw);
-	    			mv.setViewName("user/findPw3");
-	            }else {
-	            	mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
-					mv.addObject("error", "비밀번호 조회 실패");
-					mv.addObject("url", "user/findPw2");
-					mv.setViewName("common/serviceFailed");
-	            }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -365,6 +327,16 @@ public class UserController {
 			mv.setViewName("common/serviceFailed");
 		}
 	    return mv;
+	}
+	
+	// 랜덤한 6자리 숫자 생성 메서드
+	private String generateRandomPassword() {
+	    Random random = new Random();
+	    StringBuilder newPassword = new StringBuilder();
+	    for (int i = 0; i < 6; i++) {
+	        newPassword.append(random.nextInt(10)); // 0부터 9까지의 숫자를 랜덤하게 생성하여 추가
+	    }
+	    return newPassword.toString();
 	}
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
