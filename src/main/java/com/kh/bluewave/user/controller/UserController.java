@@ -77,7 +77,7 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
+	@RequestMapping(value="//user/login.do", method=RequestMethod.GET)
 	public ModelAndView showLoginForm(ModelAndView mv) {
 		mv.setViewName("user/login");
 		return mv;
@@ -108,13 +108,13 @@ public class UserController {
 			}else {
 				mv.addObject("msg", "구독이 완료되지 않았습니다.");
 				mv.addObject("error", "구독 실패");
-				mv.addObject("url", "user/myPage");
+				mv.addObject("url", "/home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "user/myPage");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -130,13 +130,13 @@ public class UserController {
 			}else {
 				mv.addObject("msg", "구독취소가 완료되지 않았습니다.");
 				mv.addObject("error", "구독취소 실패");
-				mv.addObject("url", "user/myPage");
+				mv.addObject("url", "/home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "user/myPage");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -219,12 +219,12 @@ public class UserController {
 					  .addObject("allChalList", allChalList).addObject("allUserList", allUserList)
 					  .setViewName("user/myPage");
 				}else {
-					mv.addObject("msg", "회원 데이터 조회 실패").addObject("url", "/index.jsp");
+					mv.addObject("msg", "회원 데이터 조회 실패").addObject("url", "//home.do");
 					mv.setViewName("common/serviceFailed");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				mv.addObject("msg", "마이페이지 조회 오류").addObject("url", "/index.jsp");
+				mv.addObject("msg", "마이페이지 조회 오류").addObject("url", "//home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 			return mv;
@@ -247,20 +247,20 @@ public class UserController {
 	            	}else {
 	            		mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
 						mv.addObject("error", "아이디 조회 실패");
-						mv.addObject("url", "user/findId1");
+						mv.addObject("url", "/user/login.do");
 						mv.setViewName("common/serviceFailed");
 	            	}
 	            }else {
 	            	mv.addObject("msg", "아이디 조회가 완료되지 않았습니다.");
 					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "user/findId1");
+					mv.addObject("url", "/user/login.do");
 					mv.setViewName("common/serviceFailed");
 	            }
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/index.jsp");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 	    return mv;
@@ -276,13 +276,13 @@ public class UserController {
 			}else {
 				mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 				mv.addObject("error", "비밀번호 조회 실패");
-				mv.addObject("url", "user/findPw1");
+				mv.addObject("url", "/user/login.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "user/findPw1");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -310,20 +310,20 @@ public class UserController {
 	            	}else {
 	            		mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 						mv.addObject("error", "아이디 조회 실패");
-						mv.addObject("url", "/home.do");
+						mv.addObject("url", "/user/login.do");
 						mv.setViewName("common/serviceFailed");
 	            	}
 	            }else {
 	            	mv.addObject("msg", "비밀번호 조회가 완료되지 않았습니다.");
 					mv.addObject("error", "아이디 조회 실패");
-					mv.addObject("url", "/home.do");
+					mv.addObject("url", "/user/login.do");
 					mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/index.jsp");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 	    return mv;
@@ -345,17 +345,17 @@ public class UserController {
 			User uOne = uService.checkUserLogin(user);
 			if(uOne != null) {
 				session.setAttribute("userId", uOne.getUserId());
-				mv.setViewName("redirect:/index.jsp");
+				mv.setViewName("redirect:/home.do");
 			}else {
 				mv.addObject("msg", "로그인이 완료되지 않았습니다.");
 				mv.addObject("error", "로그인 실패");
-				mv.addObject("url", "/index.jsp");
+				mv.addObject("url", "/home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "/index.jsp");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -367,7 +367,7 @@ public class UserController {
 			, ModelAndView mv) {
 		if(session != null) {
 			session.invalidate();
-			mv.setViewName("redirect:/index.jsp");
+			mv.setViewName("redirect:/home.do");
 		}else {
 			
 		}
@@ -385,17 +385,17 @@ public class UserController {
 			int result = uService.deleteUser(userId);
 			if(result > 0) {
 				session.invalidate();
-				mv.setViewName("redirect:/index.jsp"); 
+				mv.setViewName("redirect:/home.do"); 
 			}else {
 				mv.addObject("msg", "회원탈퇴가 완료되지 않았습니다.");
 				mv.addObject("error", "회원탈퇴 실패");
-				mv.addObject("url", "index.jsp");
+				mv.addObject("url", "/home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "index.jsp");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;
@@ -444,17 +444,17 @@ public class UserController {
 			
 			int result = uService.updateMember(user);
 			if(result > 0) {
-				mv.setViewName("redirect:/index.jsp"); 
+				mv.setViewName("redirect:/user/myPage.do?userId="+user.getUserId()); 
 			}else {
 				mv.addObject("msg", "회원정보 수정이 완료되지 않았습니다.");
 				mv.addObject("error", "회원정보 수정 실패");
-				mv.addObject("url", "index.jsp");
+				mv.addObject("url", "/home.do");
 				mv.setViewName("common/serviceFailed");
 			}
 		} catch (Exception e) {
 			mv.addObject("msg", "관리자에게 문의해주세요.");
 			mv.addObject("error", e.getMessage());
-			mv.addObject("url", "index.jsp");
+			mv.addObject("url", "/home.do");
 			mv.setViewName("common/serviceFailed");
 		}
 		return mv;

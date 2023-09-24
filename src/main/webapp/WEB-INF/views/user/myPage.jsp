@@ -35,6 +35,9 @@
 				var likeSlider = $("#like-slider").bxSlider({
 				    touchEnabled : (navigator.maxTouchPoints > 0)
 				});
+				var goodsSlider = $(".slider1").bxSlider({
+					touchEnabled : (navigator.maxTouchPoints > 0)
+				});
 				
 				$(".slider").bxSlider();
 			    
@@ -224,23 +227,8 @@
 				                    <c:forEach var="todayCList" items="${todayCList }" >
 						                <c:set var="startDate" value="${ todayCList.chalStartDate }" />
 									    <c:set var="endDate" value="${ todayCList.chalEndDate }" />
-									    <c:set var="now" value="<%= new java.util.Date() %>" />
-									    
-									    <fmt:formatDate value="${startDate}" pattern="yyyy-MM-dd" var="startDateStr" />
-									    <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" var="endDateStr" />
-									
-									    <fmt:parseDate value="${startDateStr}" pattern="yyyy-MM-dd" var="startDateDate" />
-									    <fmt:parseDate value="${endDateStr}" pattern="yyyy-MM-dd" var="endDateDate" />
-									
-										<!-- 오늘 - 시작일 -->												
-										<c:set var="progressMillis" value="${now.time - startDateDate.time}" />
-										<!-- 종료일 - 시작일 --> 
-										<c:set var="totalMillis" value="${endDateDate.time - startDateDate.time}" />
-										<!-- 밀리초를 일 단위로 변환 -->
-										<c:set var="progressDays" value="${progressMillis / (1000 * 60 * 60 * 24)}" />
-										<c:set var="totalDays" value="${totalMillis / (1000 * 60 * 60 * 24)}" />
-										
-								        <c:set var="progress" value="${(progressDays * 100) / totalDays}" />
+<%-- 									    <c:set var="now" value="<%= new java.util.Date() %>" /> --%>
+								        <c:set var="progress" value="${todayCList.progress }" />
 			                    <table>
 			                    <colgroup>
 			                    	<col style="width:60%">
@@ -269,7 +257,7 @@
 										            <td>
 										        </c:when>
 										        <c:otherwise>
-										            <span id="percent-text"><fmt:formatNumber value="${progress}" pattern="#" />%</span>
+										            <span id="percent-text"><fmt:formatNumber value="${progress}" pattern="#.#" />%</span>
 										        	<td>
 													    <progress id="progress" value="<fmt:formatNumber value="${progress}" pattern="#" />" min="0" max="100"></progress>
 													</td>
@@ -288,18 +276,18 @@
 	                   	</c:if>
 	                   	<c:if test="${ !empty goodsList }">
 				            <div id="goods-img-div">
-				                <div class="slider-container">
+				                <div class="goods-slider">
 				                    <div class="slider1">
 				                        <!-- 이곳에 추가 이미지를 슬라이드로 넣어줍니다. -->
 				                        <c:forEach var="goods" items="${goodsList}">
-										    <div class="slide">
 										        <a href="/goods/detail.do?productNo=${goods.productNo}">
+										    <div class="slide">
 										            <img class="goods-img" src="${goods.productThumbnailPath}" alt="">
 										            <div class="goods-name-overlay">
 										                <div class="goods-name">${goods.productName}</div>
 										            </div>
-										        </a>
 										    </div>
+										        </a>
 										</c:forEach>
 				                    </div>
 				                </div>                

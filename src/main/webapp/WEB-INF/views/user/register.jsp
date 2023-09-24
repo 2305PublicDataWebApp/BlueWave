@@ -50,7 +50,7 @@
                 	<div class="result-message" id="phone-error"></div>
                 </div>
                 <div class="form-bottom-group" id="post-div">
-			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" required>
+			        <input type="text" id="user-addr" name="userAddr" placeholder="주소" readonly>
 			        <div class="result-message" id="addr-error"></div>
 			        <input type="button" id="post-btn" onclick="sample4_execDaumPostcode();" value="우편번호 찾기">
 			    </div>
@@ -134,74 +134,8 @@
 		        return password === confirmPassword;
 		    }
 
-		    // 입력란에서 입력이 발생할 때 비밀번호 유효성 검사
-		    passwordInput.addEventListener("input", function () {
-		        const password = passwordInput.value;
-		        const passwordError = document.getElementById("pw-error");
-
-		        // 비밀번호 유효성 검사
-		        if (!isPasswordValid(password)) {
-		            passwordError.textContent = "비밀번호는 8~20자의 대소문자를 포함해야 합니다.";
-		        } else {
-		            passwordError.textContent = "";
-		        }
-		    });
-
-		    // 입력란에서 입력이 발생할 때 비밀번호 확인 일치 여부 확인
-		    confirmPwInput.addEventListener("input", function () {
-		        const password = passwordInput.value;
-		        const confirmPassword = confirmPwInput.value;
-		        const pwMatchError = document.getElementById("pw-match-error");
-
-		        // 비밀번호 확인과 비교하여 일치 여부 확인
-		        if (!doPasswordsMatch(password, confirmPassword)) {
-		            pwMatchError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
-		        } else {
-		            pwMatchError.textContent = "";
-		        }
-		    });
-		    
-		 // 입력란에서 입력이 발생할 때 이름 유효성 검사
-	        nameInput.addEventListener("input", function () {
-	            const name = nameInput.value;
-	            const nameError = document.getElementById("name-error");
-
-	            // 이름 유효성 검사 (예: 최소 2자 이상)
-	            if (name.length < 2) {
-	                nameError.textContent = "이름은 최소 2자 이상 입력해주세요.";
-	            } else {
-	                nameError.textContent = "";
-	            }
-	        });
-
-	        // 입력란에서 입력이 발생할 때 전화번호 유효성 검사
-	        phoneInput.addEventListener("input", function () {
-	            const phone = phoneInput.value;
-	            const phoneError = document.getElementById("phone-error");
-
-	            // 전화번호 유효성 검사 (예: 숫자로만 이루어져야 함)
-	            if (!/^\d+$/.test(phone)) {
-	                phoneError.textContent = "숫자만 입력 가능합니다.";
-	            } else {
-	                phoneError.textContent = "";
-	            }
-	        });
-
-	        // 입력란에서 입력이 발생할 때 주소 유효성 검사
-	        addrInput.addEventListener("input", function () {
-	            const address = addrInput.value;
-	            const addrError = document.getElementById("addr-error");
-
-	            // 주소 유효성 검사 (예: 최소 5자 이상)
-	            if (address.length < 5) {
-	                addrError.textContent = "주소는 최소 5자 이상 입력해주세요.";
-	            } else {
-	                addrError.textContent = "";
-	            }
-	        });
-
-		    // 아이디 중복 체크
-		    idInput.addEventListener("input", function () {
+		    // 아이디 중복 체크 함수
+		    function checkIdDuplicate() {
 		        const id = idInput.value;
 		        const idError = document.getElementById("id-error");
 		        idError.textContent = ""; // 에러 메시지 초기화
@@ -232,10 +166,11 @@
 		        };
 
 		        xhr.send();
-		    });
+		    }
 
-		 // 닉네임 중복 체크 및 유효성 검사 함수
-		    function checkNicknameValidity(nickName) {
+		    // 닉네임 중복 체크 함수
+		    function checkNicknameDuplicate() {
+		        const nickName = nicknameInput.value;
 		        const nickNameError = document.getElementById("nickName-error");
 		        nickNameError.textContent = ""; // 에러 메시지 초기화
 
@@ -263,15 +198,8 @@
 		        xhr.send();
 		    }
 
-		    // 입력란에서 입력이 발생할 때 닉네임 중복 체크 및 유효성 검사
-		    nicknameInput.addEventListener("input", function () {
-		        const nickName = nicknameInput.value;
-		        checkNicknameValidity(nickName);
-		    });
-
-
-		    // 입력란에서 입력이 발생할 때 이메일 중복 체크
-		    emailInput.addEventListener("input", function () {
+		    // 이메일 중복 체크 함수
+		    function checkEmailDuplicate() {
 		        const email = emailInput.value;
 		        const emailError = document.getElementById("email-error");
 		        emailError.textContent = ""; // 에러 메시지 초기화
@@ -298,7 +226,91 @@
 		        };
 
 		        xhr.send();
+		    }
+
+		    // 입력란에서 입력이 발생할 때 비밀번호 유효성 검사
+		    passwordInput.addEventListener("input", function () {
+		        const password = passwordInput.value;
+		        const passwordError = document.getElementById("pw-error");
+
+		        // 비밀번호 유효성 검사
+		        if (!isPasswordValid(password)) {
+		            passwordError.textContent = "비밀번호는 8~20자의 대소문자를 포함해야 합니다.";
+		        } else {
+		            passwordError.textContent = "";
+		        }
 		    });
+
+		    // 입력란에서 입력이 발생할 때 비밀번호 확인 일치 여부 확인
+		    confirmPwInput.addEventListener("input", function () {
+		        const password = passwordInput.value;
+		        const confirmPassword = confirmPwInput.value;
+		        const pwMatchError = document.getElementById("pw-match-error");
+
+		        // 비밀번호 확인과 비교하여 일치 여부 확인
+		        if (!doPasswordsMatch(password, confirmPassword)) {
+		            pwMatchError.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+		        } else {
+		            pwMatchError.textContent = "";
+		        }
+		    });
+
+		    // 입력란에서 입력이 발생할 때 이름 유효성 검사
+		    nameInput.addEventListener("input", function () {
+		        const name = nameInput.value;
+		        const nameError = document.getElementById("name-error");
+
+		        // 이름 유효성 검사 (예: 최소 2자 이상)
+		        if (name.length < 2) {
+		            nameError.textContent = "이름은 최소 2자 이상 입력해주세요.";
+		        } else {
+		            nameError.textContent = "";
+		        }
+		    });
+
+		    // 입력란에서 입력이 발생할 때 전화번호 유효성 검사
+		    phoneInput.addEventListener("input", function () {
+		        const phone = phoneInput.value;
+		        const phoneError = document.getElementById("phone-error");
+
+		        // 전화번호 유효성 검사 (예: 숫자로만 이루어져야 함)
+		        if (!/^\d+$/.test(phone)) {
+		            phoneError.textContent = "숫자만 입력 가능합니다.";
+		        } else {
+		            phoneError.textContent = "";
+		        }
+		    });
+
+		    // 입력란에서 입력이 발생할 때 주소 유효성 검사
+		    addrInput.addEventListener("input", function () {
+		        const address = addrInput.value;
+		        const addrError = document.getElementById("addr-error");
+
+		        // 주소 유효성 검사 (예: 최소 5자 이상)
+		        if (address.length < 5) {
+		            addrError.textContent = "주소는 최소 5자 이상 입력해주세요.";
+		        } else {
+		            addrError.textContent = "";
+		        }
+		    });
+
+		    // 주소 입력란에서 API로 입력한 값이 변경될 때
+		    addrInput.addEventListener("change", function () {
+		        const addrError = document.getElementById("addr-error");
+		        addrError.textContent = ""; // 에러 메시지 초기화
+		    });
+
+		    // 아이디 입력란에서 입력이 발생할 때 아이디 중복 체크
+		    idInput.addEventListener("input", checkIdDuplicate);
+
+		    // 닉네임 입력란에서 입력이 발생할 때 닉네임 중복 체크 및 유효성 검사
+		    nicknameInput.addEventListener("input", function () {
+		        const nickName = nicknameInput.value;
+		        checkNicknameDuplicate(nickName);
+		    });
+
+		    // 이메일 입력란에서 입력이 발생할 때 이메일 중복 체크
+		    emailInput.addEventListener("input", checkEmailDuplicate);
 
 		    // 회원가입 버튼 클릭 시 유효성 검사 및 중복 체크 여부 확인
 		    signupButton.addEventListener("click", function (event) {
@@ -323,38 +335,11 @@
 		            return;
 		        }
 
-		     
-
-		        // 회원가입 버튼 클릭 시 모든 필드의 유효성 검사 및 중복 체크 여부 확인
-		        signupButton.addEventListener("click", function (event) {
-		            // 기본 동작 중지 (폼 전송 방지)
-		            event.preventDefault();
-
-		            // 아이디 중복 체크 여부 확인
-		            if (!isIdChecked) {
-		                idError.textContent = "아이디 중복 체크를 먼저 진행해주세요.";
-		                return;
-		            }
-
-		            // 닉네임 중복 체크 여부 확인
-		            if (!isNickNameChecked) {
-		                nickNameError.textContent = "닉네임 중복 체크를 먼저 진행해주세요.";
-		                return;
-		            }
-
-		            // 이메일 중복 체크 여부 확인
-		            if (!isEmailChecked) {
-		                emailError.textContent = "이메일 중복 체크를 먼저 진행해주세요.";
-		                return;
-		            }
-
-		           
-
-		            // 모든 유효성 검사를 통과하면 폼을 서버로 제출합니다.
-		            event.target.form.submit();
-		        });
+		        // 모든 유효성 검사를 통과하면 폼을 서버로 제출합니다.
+		        event.target.form.submit();
 		    });
 		});
+
 		
         function goBack() {
             window.history.back();
