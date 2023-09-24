@@ -129,7 +129,7 @@
 						<td>${request.noticeCreateDate }</td>
 						<td>
 							<a href="/notice/modify.do?noticeNo=${request.noticeNo }">수정</a>
-							<a href="/notice/delete.do">삭제</a>
+							<a href="/notice/delete.do?noticeNo=${request.noticeNo }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -148,7 +148,7 @@
 						<td>${request.userEmail }</td>
 						<td>
 							<a href="/user/modify.do?userId=${request.userId }">수정</a>
-							<a href="/user/delete.do">삭제</a>
+							<a href="/user/delete.do?userId=${request.userId }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -186,7 +186,7 @@
 						<td>${request.tipCreateDate }</td>
 						<td>
 							<a href="/tip/modify.do?tipNo=${request.tipNo }">수정</a>
-							<a href="/tip/delete.do">삭제</a>
+							<a href="/tip/delete.do?tipNo=${request.tipNo }">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
