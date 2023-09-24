@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.bluewave.noticeBoard.domain.NoticeBoard" alias="notice"/>
 		<typeAlias type="com.kh.bluewave.tipBoard.domain.TipBoard" alias="tip"/>
 		<typeAlias type="com.kh.bluewave.point.domain.Point" alias="point"/>
+		<typeAlias type="com.kh.bluewave.challenge.domain.ChallengeProgress" alias="ChallengeProgress"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"/>

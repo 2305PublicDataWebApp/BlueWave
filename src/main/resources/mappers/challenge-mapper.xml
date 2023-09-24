@@ -25,6 +25,15 @@
 		<result property="postCount" 		 column="POST_CNT" />
 	</resultMap>
 	
+	<resultMap type="ChallengeProgress" id="chalProgressResultMap" >
+	    <id property="chalNo" column="CHAL_NO"/>
+	    <result property="chalTitle" column="CHAL_TITLE"/>
+	    <result property="chalStartDate" column="CHAL_START_DATE"/>
+	    <result property="chalEndDate" column="CHAL_END_DATE"/>
+	    <result property="cBoardCount" column="C_BOARD_COUNT"/>
+	    <result property="progress" column="PROGRESS"/>
+	</resultMap>
+		
 	<insert id="insertChal">
 		INSERT INTO CHAL_TBL VALUES(SEQ_CHAL_NO.NEXTVAL, #{ chalTitle }, #{ chalContent }, #{ chalFileName }, #{ chalFileRename }, #{ chalFilePath }, #{ chalFileLength }, #{ chalStartDate }, #{ chalEndDate }, #{ chalPublic }, DEFAULT, DEFAULT, DEFAULT, #{ chalUserId })
 	</insert>
@@ -147,15 +156,24 @@
 		SELECT CHAL_NO FROM CHAL_TBL WHERE CHAL_USER_ID = #{ chalUserId } AND CHAL_TITLE = #{ chalTitle }
 	</select>
 	
-	<select id="getTodayCList" resultMap="chalResultMap">
-		<![CDATA[
-			SELECT * FROM CHAL_TBL
-			WHERE CHAL_USER_ID = #{userId }
-			AND (CHAL_END_DATE > SYSDATE OR CHAL_END_DATE IS NULL)
-			AND ROWNUM <= 5
-			AND CHAL_START_DATE < SYSDATE
-			ORDER BY CHAL_END_DATE ASC
-		]]>
+	<select id="getTodayCList" resultMap="chalProgressResultMap">
+	    SELECT 
+	        C.CHAL_NO,
+	        C.CHAL_TITLE,
+	        C.CHAL_START_DATE,
+	        C.CHAL_END_DATE,
+	        COUNT(DISTINCT TO_CHAR(CB.C_BOARD_DATE, 'YYYY-MM-DD')) AS C_BOARD_COUNT,
+	        TO_CHAR(
+	            (
+	                COUNT(DISTINCT TO_CHAR(CB.C_BOARD_DATE, 'YYYY-MM-DD')) / 
+	                (TO_DATE(C.CHAL_END_DATE, 'YY/MM/DD') - TO_DATE(C.CHAL_START_DATE, 'YY/MM/DD') + 1)
+	            ) * 100, '99.9'
+	        ) AS PROGRESS
+	    FROM CHAL_TBL C
+	    LEFT JOIN CHAL_BOARD_TBL CB
+	    ON C.CHAL_NO = CB.CHAL_NO
+	    WHERE CB.C_BOARD_WRITER = #{userId }
+	    GROUP BY C.CHAL_NO, C.CHAL_TITLE, C.CHAL_START_DATE, C.CHAL_END_DATE
 	</select>
 	
 	<select id="getListCount" resultType="_int">
