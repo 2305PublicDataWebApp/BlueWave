@@ -1,5 +1,5 @@
 # BlueWave
-![로고 시안_추](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/d3d48c19-a5c2-41e0-8a39-ed69ddccf517)
+![image (2)](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/d94b7ec3-533b-43eb-bffe-e14fa88b861b)
 
 # 목차
 * [프로젝트 소개](#프로젝트-소개)
