@@ -126,9 +126,9 @@
 ![3_마이페이지_좋아요](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674257/f522a49b-f7fb-4279-b85c-615664ad07be)
 
 3_1 팔로우
-![화면 캡처 2023-10-04 181432](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/bd1c2cb3-9877-4225-9263-ab9ea41a4cd9)
-![화면 캡처 2023-10-04 181343](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/d769264e-b8d7-408a-b9b2-0da62320a6c2)
 ![화면 캡처 2023-10-04 181441](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/3e63f1ba-e4d8-4a50-8c47-286542ad68cd)
+![화면 캡처 2023-10-04 181343](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/d769264e-b8d7-408a-b9b2-0da62320a6c2)
+![화면 캡처 2023-10-04 181432](https://github.com/2305PublicDataWebApp/BlueWave/assets/134674375/bd1c2cb3-9877-4225-9263-ab9ea41a4cd9)
 
 ### 4. 챌린지 게시판
 4_1 챌린지명
