@@ -2,39 +2,39 @@
 이미지
 
 # 목차
-* [프로젝트 소개](https://github.com/2211SpringCloudWebApp/Hi-tinerary#-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%86%8C%EA%B0%9C)
-* [개발 기간](https://github.com/2211SpringCloudWebApp/Hi-tinerary#-%EA%B0%9C%EB%B0%9C-%EA%B8%B0%EA%B0%84)
-* [팀원 소개](https://github.com/2211SpringCloudWebApp/Hi-tinerary#-%ED%8C%80%EC%9B%90-%EC%86%8C%EA%B0%9C)
-* [개발 환경](https://github.com/2211SpringCloudWebApp/Hi-tinerary#-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD)
-* [기술 스택](https://github.com/2211SpringCloudWebApp/Hi-tinerary#%EF%B8%8F-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
-* [주요 기능 및 상세](https://github.com/2211SpringCloudWebApp/Hi-tinerary#-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B0%8F-%EC%83%81%EC%84%B8)
+* [프로젝트 소개](#프로젝트-소개)
+* [개발 기간](#개발-기간)
+* [팀원 소개](#팀원-소개)
+* [개발 환경](#개발-환경)
+* [기술 스택](#개술-스택)
+* [주요 기능 및 상세](#주요-기능-및-상세)
   + 회원 관리
   + 투어 상품 게시판
   + 동행 게시판
   + 자유 게시판
   + 마이 페이지
-* [실행 화면](https://github.com/2211SpringCloudWebApp/Hi-tinerary#%EF%B8%8F-%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4)
+* [실행 화면](#실행-화면)
 
-# 💬 프로젝트 소개
+# 프로젝트 소개
 국내 여행에 집중한 여행 커뮤니티이고, 여행자들이 실시간으로 정보를 주고 받으며 사용할 수 있는 플랫폼으로써 기능하는 동시에, 
 기업회원들에게는 양질의 패키지 혹은 투어 상품을 홍보 및 판매할 수 있는 게시판을 제공하여 잠재적 여행자들의 흥미도 이끌어낼 수 있는 사이트입니다.
 그리고 국내 여행지에 대한 수요가 늘어남으로써 재조명된 여려 여행지들과 여행자들을 쉽게 연결해주고 정보 습득에 용이하게 합니다.
 
-# 📆 개발 기간
+# 개발 기간
 ```
 2023-02-27 ~ 2023-03-24
 ```
 
-# 🧑‍🤝‍🧑 팀원 소개 
+# 팀원 소개 
 이미지
 
-# 💻 개발 환경 
+# 개발 환경 
 이미지
 
-# ⚙️ 기술 스택
+# 기술 스택
 이미지
 
-# 🔨 주요 기능 및 상세
+# 주요 기능 및 상세
 ### 1. 회원 관리
 |기능|내용|
 |:---:|:---:| 
@@ -92,7 +92,7 @@
 |신고 게시글 조회|투어게시판, 동행게시판, 자유게시판에서 신고를 한 목록들을 보여줍니다.|
 |신고 글 조회|투어게시판, 동행게시판, 자유게시판에서 신고를 한 댓글을 보여줍니다.|
 
-# 📽️ 실행 화면
+# 실행 화면
 ### 1. 메인화면
 이미지
 
@@ -110,10 +110,5 @@
 7_2. 기업회원 마이페이지
 이미지
 
-
 7_3 관리자 마이페이지
-
-<img src="https://user-images.githubusercontent.com/119032753/227720922-cdce156d-e88d-4062-b939-8c0b8af7e270.png" width="1000" height="600">
-<img src="https://user-images.githubusercontent.com/119032753/227720975-7f372977-fb4a-44a8-afa2-c43eec36b8ad.png" width="1000" height="600">
-<img src="https://user-images.githubusercontent.com/119032753/227721057-a052891f-882e-4810-93af-9412b80af106.png" width="1000" height="600">
-<img src="https://user-images.githubusercontent.com/119032753/227721108-22e7f67e-250d-4510-8337-f9f7895330a6.png" width="1000" height="600">
+이미지
