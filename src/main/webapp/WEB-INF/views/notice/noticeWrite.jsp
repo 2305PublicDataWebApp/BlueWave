@@ -11,7 +11,7 @@
 	<body>
 		<jsp:include page="../include/navHeader.jsp"></jsp:include>
 		<div  class="notice-board">
-			<form class="notice-form" id="notice-form" action="/notice/insert.do" method="POST" enctype="multipart/form-data">
+			<form class="notice-form" id="notice-form" action="/notice/write.do" method="POST" enctype="multipart/form-data">
 				<div class="notice-board-table">
 					<table class="notice-write-table">
 						<thead>

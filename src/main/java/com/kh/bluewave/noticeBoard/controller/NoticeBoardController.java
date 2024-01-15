@@ -30,11 +30,6 @@ public class NoticeBoardController {
 	@Autowired
     private MappingJackson2JsonView jsonView;
 
-	/**
-	 * 공지 리스트 조회
-	 * @param mv
-	 * @return
-	 */
 	@RequestMapping(value="/notice/board.do", method=RequestMethod.GET)
 	public ModelAndView showNoticeBoard(ModelAndView mv
 			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage) {
@@ -61,26 +56,14 @@ public class NoticeBoardController {
 		return mv;
 	}
 	
-	/**
-	 * 공지글 작성페이지로 이동
-	 * @param mv
-	 * @return
-	 */
 	@RequestMapping(value="/notice/write.do", method=RequestMethod.GET)
 	public ModelAndView goNoticeWrite(ModelAndView mv) {
 		
 		mv.setViewName("notice/noticeWrite");
 		return mv;
 	}
-	/**
-	 * 공지 게시글 등록
-	 * @param mv
-	 * @param noticeBoard
-	 * @param request 
-	 * @param request 
-	 * @return 
-	 */
-	@RequestMapping(value="/notice/insert.do", method=RequestMethod.POST)
+
+	@RequestMapping(value="/notice/write.do", method=RequestMethod.POST)
 	public ModelAndView registerNoticeBoard(ModelAndView mv
 			, @ModelAttribute NoticeBoard noticeBoard
 			, @RequestParam("noticeTitle") String noticeTitle
@@ -105,13 +88,7 @@ public class NoticeBoardController {
 		return mv;
 	}
 	
-	/**
-	 * 공지글 수정페이지로 이동
-	 * @param mv
-	 * @param noticeNo
-	 * @return
-	 */
-	@RequestMapping(value="/notice/modify.do", method=RequestMethod.GET)
+	@RequestMapping(value="/notice/update.do", method=RequestMethod.GET)
 	public ModelAndView showModifyNotice(ModelAndView mv
 			, @RequestParam int noticeNo) {
 		try {			
@@ -156,12 +133,7 @@ public class NoticeBoardController {
 		
 		return mv;
 	}
-	
-	/**
-	 * 공지글 상세페이지로 이동
-	 * @param mv
-	 * @return
-	 */
+
 	@RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
 	public ModelAndView goNoticeDetail(ModelAndView mv
 			, @RequestParam int noticeNo) {
@@ -185,6 +157,7 @@ public class NoticeBoardController {
 		
 		return mv;
 	}
+	
 	@RequestMapping(value="/notice/delete.do", method=RequestMethod.GET)
 	public ModelAndView deleteNotice(ModelAndView mv
 			, @RequestParam int noticeNo) {
@@ -207,12 +180,7 @@ public class NoticeBoardController {
 		return mv;
 	}
 
-	/**
-	 * ckEditor 이미지
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
+	// CkEditor 이미지
 	@RequestMapping(value="/notice/image.do")
 	public ModelAndView image(MultipartHttpServletRequest request) throws Exception{
 		// ckeditor는 이미지 업로드 후 이미지 표시하기 위해 uploaded 와 url을 json 형식으로 받아야 함
@@ -265,6 +233,7 @@ public class NoticeBoardController {
 	    return mv;
 	}
 	
+	// 페이징 처리
 	public PageInfo getPageInfo(int currentPage, int totalCount) {
 		PageInfo pi = null;
 		int recordCountPerPage = 10;
