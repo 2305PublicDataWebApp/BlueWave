@@ -38,7 +38,7 @@
 		<script>
 			const noticeNo = "${notice.noticeNo}";
 			function showModifyPage() {
-				location.href="/notice/modify.do?noticeNo=" + noticeNo;
+				location.href="/notice/update.do?noticeNo=" + noticeNo;
 			}
 			
 			function showListPage() {
